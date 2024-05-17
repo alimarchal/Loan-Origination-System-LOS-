@@ -15,9 +15,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->withPersonalTeam()->create();
 
-        User::factory()->withPersonalTeam()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+//        User::factory()->withPersonalTeam()->create([
+//            'name' => 'Test User',
+//            'email' => 'test@example.com',
+//        ]);
+
+        $this->call([
+           LoanCategorySeeder::class,
+           LoanSubCategorySeeder::class,
+           ChecklistSeeder::class,
         ]);
     }
 }
