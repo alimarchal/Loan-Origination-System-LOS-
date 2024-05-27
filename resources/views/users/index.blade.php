@@ -15,6 +15,13 @@
 
 
 
+            <a href="{{ route('administration.index') }}" class="flex items-center px-4 py-2 hover:text-white text-black bg-white border rounded-lg focus:outline-none hover:mc-bg-blue transition-colors duration-200 transform ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                </svg>
+            </a>
+
+
             <a href="javascript:;" id="toggle"
                class="flex items-center px-4 py-2 text-gray-600 bg-white border rounded-lg focus:outline-none hover:bg-gray-100 transition-colors duration-200 transform dark:text-gray-200 dark:border-gray-200  dark:hover:bg-gray-700 ml-2"
                title="Members List">
@@ -42,10 +49,10 @@
                         <x-input id="email" class="block mt-1 w-full" type="text" name="filter[email]" value="{{ request('filter.email') }}" />
                     </div>
 
-                    <div>
-                        <x-label for="designation" value="{{ __('Designation') }}" />
-                        <x-input id="designation" class="block mt-1 w-full" type="text" name="filter[designation]" value="{{ request('filter.designation') }}" />
-                    </div>
+{{--                    <div>--}}
+{{--                        <x-label for="designation" value="{{ __('Designation') }}" />--}}
+{{--                        <x-input id="designation" class="block mt-1 w-full" type="text" name="filter[designation]" value="{{ request('filter.designation') }}" />--}}
+{{--                    </div>--}}
 
                     <div>
                         <x-label for="status" value="{{ __('Status') }}" />

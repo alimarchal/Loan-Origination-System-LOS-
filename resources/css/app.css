@@ -5,3 +5,30 @@
 [x-cloak] {
     display: none;
 }
+
+.bank-green-bg {
+    background-color: #377b2b;
+}
+
+/* Define custom hover styles */
+.hover\:bg-bank:hover {
+    background-color: #faa819;
+}
+
+.bank-orange-bg {
+    background-color: #f78f20;
+}
+
+.mc-bg-blue {
+    background-color: #0f0161;
+}
+
+.mc-blue {
+    color: #0f0161;
+}
+
+/* Define custom hover styles */
+.hover\:mc-bg-blue:hover {
+    background-color: #0f0161;
+}
+
