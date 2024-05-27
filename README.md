@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://bankajk.com" target="_blank"><img src="[https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg](https://cmis.bankajk.com/storage/logo.png)" width="400" alt="BAJK Logo">
+    <a href="https://bankajk.com" target="_blank"><img src="[https://cmis.bankajk.com/storage/logo.png]" width="400" alt="BAJK Logo">
     </a>
 </p>
 
