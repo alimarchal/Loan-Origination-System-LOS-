@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
            LoanCategorySeeder::class,
            LoanSubCategorySeeder::class,
            ChecklistSeeder::class,
+           RegionSeeder::class,
+           DistrictSeeder::class,
+           BranchSeeder::class,
+           TelephoneSeeder::class,
         ]);
     }
 }

@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Checklist extends Model
+class Branch extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'loan_sub_category_id',
-        'sequence_no',
+        'region_id',
+        'district_id',
+        'code',
         'name',
-        'status',
+        'address',
     ];
 }
