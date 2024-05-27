@@ -15,4 +15,20 @@ class Branch extends Model
         'name',
         'address',
     ];
+
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function telephones()
+    {
+        return $this->hasMany(Telephone::class);
+    }
 }
