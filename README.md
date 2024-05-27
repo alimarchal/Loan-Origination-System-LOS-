@@ -1,5 +1,6 @@
 <p align="center">
-    <a href="https://bankajk.com" target="_blank"><img src="[https://cmis.bankajk.com/storage/logo.png]" width="400" alt="BAJK Logo">
+    <a href="https://bankajk.com" target="_blank">
+        <img src="https://cmis.bankajk.com/storage/logo.png" width="400" alt="BAJK Logo">
     </a>
 </p>
 
