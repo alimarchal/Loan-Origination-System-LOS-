@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
            BranchSeeder::class,
            TelephoneSeeder::class,
            PermissionsDemoSeeder::class,
+           CompanySeeder::class,
+           StatusSeeder::class,
         ]);
     }
 }

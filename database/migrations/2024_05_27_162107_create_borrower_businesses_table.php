@@ -13,41 +13,55 @@ return new class extends Migration
     {
         Schema::create('borrower_businesses', function (Blueprint $table) {
             $table->id(); // Primary key for the borrower businesses table
-            $table->foreignId('borrower_id')->constrained('borrowers')->onDelete('cascade'); // Foreign key linked to borrowers table with cascade on delete
-            $table->string('business_company_name')->nullable(); // Official name of the business
-            $table->string('business_nature')->nullable(); // Nature or type of business
-            $table->date('business_commencement_date')->nullable(); // Date the business commenced operations
-            $table->date('business_takeover_date')->nullable(); // Date the business was taken over, if applicable
-            $table->integer('business_experience')->nullable(); // Years of experience in the business
-            $table->string('business_address')->nullable(); // Physical address of the business
-            $table->integer('no_of_employees')->nullable(); // Number of employees in the business
-            $table->string('national_tax_ntn')->nullable(); // National Tax Number (NTN)
-            $table->string('landline_no')->nullable(); // Landline number of the business
-            $table->string('cell_no')->nullable(); // Mobile number associated with the business
-            $table->decimal('initial_investment', 10, 2)->nullable(); // Initial investment made in the business
-            $table->string('initial_investment_fund_source')->nullable(); // Source of funds for the initial investment
-            $table->enum('business_place_status', ['owned', 'rented', 'leased'])->nullable(); // Status of the business premises
-            $table->decimal('monthly_rent', 10, 2)->nullable(); // Monthly rent expense, if applicable
-            $table->decimal('security_advance_rent_paid', 10, 2)->nullable(); // Security or advance rent paid
-            $table->string('banks_name_and_branches')->nullable(); // Names and branches of banks where the business holds accounts
-            $table->decimal('average_balance_per_month', 10, 2)->nullable(); // Average monthly balance in the business bank account
-            $table->date('bajk_account_opening_date')->nullable(); // Date of opening the business account with BAJK
-            $table->decimal('average_balance_last_6_month', 10, 2)->nullable(); // Average balance over the last six months
-            $table->string('account_no')->nullable(); // Business bank account number
-            $table->string('bank_name')->nullable(); // Name of the bank where the business account is held
-            $table->decimal('business_total_net_worth', 10, 2)->nullable(); // Total net worth of the business
-            $table->string('proposed_business')->nullable(); // Proposed business plan or project
-            $table->enum('individual_proprietorship_status', ['proprietorship', 'partnership', 'limited_liability'])->nullable(); // Legal status of the business entity
-            $table->string('new_business_name')->nullable(); // Name of any new business venture being considered
-            $table->decimal('total_investment_required', 10, 2)->nullable(); // Total investment required for the business
-            $table->decimal('self_financing_amount', 10, 2)->nullable(); // Amount of self-financing available
+            $table->foreignId('borrower_id')->constrained('borrowers')->onDelete('cascade'); // Foreign key to borrowers table
+            $table->string('name')->nullable(); // Business name
+            $table->string('type')->nullable(); // Business type
+            $table->date('start_date')->nullable(); // Commencement date
+            $table->date('acquisition_date')->nullable(); // Takeover date
+            $table->integer('experience_years')->nullable(); // Years of experience
+            $table->string('address')->nullable(); // Business address
+            $table->string('designation')->nullable(); // if a person apply for a car loan on behalf of business
+            $table->integer('number_of_employees')->nullable(); // Number of employees
+            $table->string('tax_number')->nullable(); // National Tax Number (NTN)
+            $table->string('landline')->nullable(); // Landline number
+            $table->string('mobile')->nullable(); // Mobile number
+            $table->decimal('initial_investment', 10, 2)->nullable(); // Initial investment
+            $table->string('investment_source')->nullable(); // Investment source
+            $table->enum('premises_status', ['owned', 'rented', 'leased'])->nullable(); // Premises status
+            $table->decimal('monthly_rent', 10, 2)->nullable(); // Monthly rent
+            $table->decimal('security_deposit', 10, 2)->nullable(); // Security deposit
+            $table->string('bank_accounts')->nullable(); // Bank accounts
+            $table->decimal('average_monthly_balance', 10, 2)->nullable(); // Avg monthly balance
+            $table->date('account_opening_date')->nullable(); // Account opening date
+            $table->decimal('average_balance_six_months', 10, 2)->nullable(); // Avg balance last six months
+            $table->string('account_number')->nullable(); // Account number
+            $table->string('bank_name')->nullable(); // Bank name
+            $table->decimal('net_worth', 10, 2)->nullable(); // Business net worth
+            $table->string('business_plan')->nullable(); // Business plan
+            $table->string('business_type')->nullable(); // Entity type
+            $table->string('new_venture')->nullable(); // New business venture
+            $table->decimal('total_investment_needed', 10, 2)->nullable(); // Total investment needed
+            $table->decimal('self_financed_amount', 10, 2)->nullable(); // Self-financing amount
+            $table->decimal('monthly_revenue', 10, 2)->nullable(); // Monthly revenue
+            $table->decimal('monthly_expenses', 10, 2)->nullable(); // Monthly expenses
+            $table->decimal('net_monthly_income', 10, 2)->nullable(); // Net monthly income
+            $table->enum('status', ['active', 'inactive'])->nullable(); // Business status
+            $table->text('product_description')->nullable(); // Product description
 
-            $table->decimal('monthly_income', 10, 2)->nullable(); // Monthly income from the business
-            $table->decimal('expenses', 10, 2)->nullable(); // Monthly expenses of the business
-            $table->decimal('net_monthly_income', 10, 2)->nullable(); // Net monthly income after expenses
-            $table->enum('business_status', ['active', 'inactive'])->nullable(); // Current status of the business
-
-            $table->text('product_detail')->nullable(); // Detailed description of products offered by the business
+            // Additional columns for detailed loan and business information
+            $table->integer('credit_score')->nullable(); // Credit score
+            $table->decimal('loan_amount', 10, 2)->nullable(); // Loan amount
+            $table->decimal('loan_interest_rate', 5, 2)->nullable(); // Loan interest rate
+            $table->integer('loan_term')->nullable(); // Loan term in months or years
+            $table->date('loan_start_date')->nullable(); // Loan start date
+            $table->date('loan_end_date')->nullable(); // Loan end date
+            $table->string('collateral_description')->nullable(); // Collateral description
+            $table->decimal('collateral_value', 10, 2)->nullable(); // Collateral value
+            $table->decimal('annual_revenue', 10, 2)->nullable(); // Annual revenue
+            $table->decimal('annual_expenses', 10, 2)->nullable(); // Annual expenses
+            $table->decimal('net_annual_income', 10, 2)->nullable(); // Net annual income
+            $table->string('alternate_contact_name')->nullable(); // Alternate contact name
+            $table->string('alternate_contact_phone')->nullable(); // Alternate contact phone
 
             $table->timestamps();
         });

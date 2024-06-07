@@ -18,11 +18,16 @@ return new class extends Migration
             $table->foreignId('branch_id')->nullable()->constrained();
 
             $table->string('name');
+            $table->string('designation')->nullable();
+            $table->string('grade')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
+            $table->enum('nadra_verification_for_signature',['Yes','No'])->nullable();
+            $table->string('nadra_verification_scanned_attachment')->nullable();
+            $table->string('digital_signature_scanned_attachment')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
