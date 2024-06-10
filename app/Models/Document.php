@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'borrower_id',
+        'user_id',
+        'document_type',
+        'description',
+        'path_attachment'
+    ];
+
 }

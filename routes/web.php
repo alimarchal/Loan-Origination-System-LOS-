@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
+
+    // Borrowers
+    Route::get('/borrower', [BorrowerController::class, 'index'])->name('borrower.index');
+    Route::get('/borrower/create', [BorrowerController::class, 'create'])->name('borrower.create');
 
     Route::get('administration', [AdministrationController::class, 'index'])->name('administration.index');
 

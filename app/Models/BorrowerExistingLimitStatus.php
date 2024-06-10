@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class BorrowerExistingLimitStatus extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'borrower_id',
+        'user_id',
+        'type',
+        'amount',
+        'expiry_date',
+        'regular',
+        'amount_overdue_if_any',
+        'amount_rescheduled_restructured_if_any'
+    ];
+
 }

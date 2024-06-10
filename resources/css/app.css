@@ -10,9 +10,17 @@
     background-color: #377b2b;
 }
 
+.bg-bank-green {
+    background-color: #377b2b;
+}
+
 /* Define custom hover styles */
 .hover\:bg-bank:hover {
     background-color: #faa819;
+}
+
+.hover\:bg-bank-green:hover {
+    background-color: #377b2b;
 }
 
 .bank-orange-bg {

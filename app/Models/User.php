@@ -31,6 +31,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'designation',
+        'grade',
+        'nadra_verification_for_signature',
+        'nadra_verification_scanned_attachment',
+        'digital_signature_scanned_attachment',
+        'status',
     ];
 
     /**
