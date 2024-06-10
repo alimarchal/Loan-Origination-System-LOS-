@@ -18,8 +18,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
 
-
-
     Route::get('administration', [AdministrationController::class, 'index'])->name('administration.index');
 
 });
