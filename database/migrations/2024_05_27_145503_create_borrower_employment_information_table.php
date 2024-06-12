@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('borrower_employment_information', function (Blueprint $table) {
             $table->id(); // Primary key
-            $table->foreignId('borrower_id')->constrained()->nullable(); // Foreign key to borrowers table
-            $table->string('job_title')->nullable(); // Job title (optional)
+            $table->foreignUuid('borrower_id')->constrained();
+            $table->string('job_title_designation')->nullable(); // Job title (optional)
             $table->string('employment_status')->nullable(); // Employment status (optional)
             $table->string('employer_name')->nullable(); // Employer name (optional)
             $table->decimal('monthly_gross_salary', 10, 2)->nullable(); // Monthly gross salary (optional)

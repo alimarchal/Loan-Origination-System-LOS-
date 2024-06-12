@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreChecklistRequest;
 use App\Http\Requests\UpdateChecklistRequest;
+use App\Models\Borrower;
 use App\Models\Checklist;
 
 class ChecklistController extends Controller
@@ -35,9 +36,9 @@ class ChecklistController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Checklist $checklist)
+    public function show(Borrower  $borrower)
     {
-        //
+        return view('checklist.show', compact('borrower'));
     }
 
     /**

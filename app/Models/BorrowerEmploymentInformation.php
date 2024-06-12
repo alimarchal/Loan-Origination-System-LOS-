@@ -10,7 +10,7 @@ class BorrowerEmploymentInformation extends Model
     use HasFactory;
     protected $fillable = [
         'borrower_id',
-        'job_title',
+        'job_title_designation',
         'employment_status',
         'employer_name',
         'monthly_gross_salary',

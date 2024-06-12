@@ -11,7 +11,7 @@ class StoreBorrowerEmploymentInformationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreBorrowerEmploymentInformationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'job_title_designation' => 'required'
         ];
     }
 }

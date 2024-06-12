@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('borrower_id')->constrained('borrowers')->onDelete('cascade'); // Foreign key to the borrowers table
+            $table->foreignUuid('borrower_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->string('document_type')->nullable();
             $table->string('description')->nullable();

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBorrowerRequest;
 use App\Http\Requests\UpdateBorrowerRequest;
 use App\Models\Borrower;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -18,7 +21,10 @@ class BorrowerController extends Controller
 
         $borrowers = QueryBuilder::for(Borrower::class)
             ->allowedIncludes([
-//                'branch',
+                'branch',
+                'region',
+                'loan_category',
+                'loan_sub_category',
 //                'latestStatus',
 //                'latestStatus.status',
 //                'sessionYear.session',
@@ -69,7 +75,10 @@ class BorrowerController extends Controller
             ])
 //            ->defaultSort('firstname')
             ->with([
-//                'branch',
+                'branch',
+                'region',
+                'loan_category',
+                'loan_sub_category',
 //                'latestStatus',
 //                'latestStatus.status',
 //                'sessionYear.session',
@@ -100,7 +109,76 @@ class BorrowerController extends Controller
      */
     public function store(StoreBorrowerRequest $request)
     {
-        //
+
+        $user = Auth::user();
+        $request->merge([
+            'user_id' => $user->id,
+            'branch_id' => $user->branch_id,
+            'region_id' => $user->branch->region_id,
+            'date_registered' => now(),
+        ]);
+        // Assuming 'date_of_birth' is in the format 'Y-m-d'
+        $dateOfBirth = $request->date_of_birth;
+
+        // Create a Carbon instance from the date of birth
+        $dob = Carbon::parse($dateOfBirth);
+
+        // Calculate the age
+        $age = $dob->diffInYears(Carbon::now());
+
+        DB::beginTransaction();
+        try {
+            $borrower = Borrower::create([
+                'user_id' => $request->user_id,
+                'authorizer_id' => NULL,
+                'region_id' => $request->region_id,
+                'branch_id' => $request->branch_id,
+                'borrower_type' => $request->borrower_type,
+                'date_registered' => $request->date_registered,
+                'loan_category_id' => $request->loan_category_id,
+                'loan_sub_category_id' => $request->loan_sub_category_id,
+                'name' => $request->name,
+                'relationship_status' => $request->relationship_status,
+                'parent_spouse_name' => $request->parent_spouse_name,
+                'gender' => $request->gender,
+                'national_id_cnic' => $request->national_id_cnic,
+                'parent_spouse_national_id_cnic' => $request->parent_spouse_national_id_cnic,
+                'number_of_dependents' => $request->number_of_dependents,
+                'education_qualification' => $request->education_qualification,
+                'email' => $request->email,
+                'fax' => $request->fax,
+                'residence_phone_number' => $request->residence_phone_number,
+                'office_phone_number' => $request->office_phone_number,
+                'mobile_number' => $request->mobile_number,
+                'present_address' => $request->present_address,
+                'permanent_address' => $request->permanent_address,
+                'occupation_title' => $request->occupation_title,
+                'date_of_birth' => $request->date_of_birth,
+                'age' => $age,
+                'marital_status' => $request->marital_status,
+                'home_ownership_status' => $request->home_ownership_status,
+                'nationality' => $request->nationality,
+                'nadra_verification_for_signature' => NULL,
+                'signature_date' => NULL,
+                'nadra_verification_scanned_attachment' => NULL,
+                'digital_signature_scanned_attachment' => NULL,
+            ]);
+
+
+            if ($request->hasFile('cnic_back')) {
+                $cnicBackPic = $request->file('cnic_back')->store('cnic_back_pictures', 'public');
+                $request->merge(['cnic_back_picture' => $cnicBackPic]);
+            }
+
+            DB::commit();
+            session()->flash('success', 'Borrower created  successfully.');
+            return to_route('borrower.edit',$borrower->id);
+        } catch (\Exception $e) {
+            DB::rollback();
+            // Handle error
+            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            return back()->withInput();
+        }
     }
 
     /**
@@ -108,7 +186,7 @@ class BorrowerController extends Controller
      */
     public function show(Borrower $borrower)
     {
-        //
+
     }
 
     /**
@@ -116,7 +194,7 @@ class BorrowerController extends Controller
      */
     public function edit(Borrower $borrower)
     {
-        //
+        return view('borrowers.edit', compact('borrower'));
     }
 
     /**
@@ -124,7 +202,69 @@ class BorrowerController extends Controller
      */
     public function update(UpdateBorrowerRequest $request, Borrower $borrower)
     {
-        //
+        $user = Auth::user();
+        $request->merge([
+            'user_id' => $user->id,
+            'branch_id' => $user->branch_id,
+            'region_id' => $user->branch->region_id,
+        ]);
+        // Assuming 'date_of_birth' is in the format 'Y-m-d'
+        $dateOfBirth = $request->date_of_birth;
+
+        // Create a Carbon instance from the date of birth
+        $dob = Carbon::parse($dateOfBirth);
+
+        // Calculate the age
+        $age = $dob->diffInYears(Carbon::now());
+
+        DB::beginTransaction();
+        try {
+            $borrower->update([
+                'user_id' => $request->user_id,
+                'authorizer_id' => NULL,
+                'region_id' => $request->region_id,
+                'branch_id' => $request->branch_id,
+                'borrower_type' => $request->borrower_type,
+                'loan_category_id' => $request->loan_category_id,
+                'loan_sub_category_id' => $request->loan_sub_category_id,
+                'name' => $request->name,
+                'relationship_status' => $request->relationship_status,
+                'parent_spouse_name' => $request->parent_spouse_name,
+                'gender' => $request->gender,
+                'national_id_cnic' => $request->national_id_cnic,
+                'parent_spouse_national_id_cnic' => $request->parent_spouse_national_id_cnic,
+                'number_of_dependents' => $request->number_of_dependents,
+                'education_qualification' => $request->education_qualification,
+                'email' => $request->email,
+                'fax' => $request->fax,
+                'residence_phone_number' => $request->residence_phone_number,
+                'office_phone_number' => $request->office_phone_number,
+                'mobile_number' => $request->mobile_number,
+                'present_address' => $request->present_address,
+                'permanent_address' => $request->permanent_address,
+                'occupation_title' => $request->occupation_title,
+                'date_of_birth' => $request->date_of_birth,
+                'age' => $age,
+                'marital_status' => $request->marital_status,
+                'home_ownership_status' => $request->home_ownership_status,
+                'nationality' => $request->nationality,
+                'next_of_kin_name' => $request->next_of_kin_name,
+                'next_of_kin_mobile_number' => $request->next_of_kin_mobile_number,
+                'nadra_verification_for_signature' => NULL,
+                'signature_date' => NULL,
+                'nadra_verification_scanned_attachment' => NULL,
+                'digital_signature_scanned_attachment' => NULL,
+            ]);
+
+            DB::commit();
+            session()->flash('success', 'Borrower updated  successfully.');
+            return to_route('borrower.edit', $borrower->id);
+        } catch (\Exception $e) {
+            DB::rollback();
+            // Handle error
+            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            return back()->withInput();
+        }
     }
 
     /**
@@ -133,5 +273,57 @@ class BorrowerController extends Controller
     public function destroy(Borrower $borrower)
     {
         //
+    }
+
+
+    public function make_template()
+    {
+        $fillable = [
+            'user_id' => 'select',
+            'authorizer_id' => 'select',
+            'region_id' => 'select',
+            'branch_id' => 'select',
+            'borrower_type' => 'select',
+            'date_registered' => 'date',
+            'loan_category_id' => 'select',
+            'loan_sub_category_id' => 'select',
+            'name' => 'text',
+            'relationship_status' => 'select',
+            'parent_spouse_name' => 'text',
+            'gender' => 'select',
+            'national_id_cnic' => 'text',
+            'parent_spouse_national_id_cnic' => 'text',
+            'number_of_dependents' => 'number',
+            'education_qualification' => 'text',
+            'email' => 'email',
+            'fax' => 'text',
+            'nature_of_business' => 'text',
+            'details_of_payment_schedule_if_sought' => 'text',
+            'residence_phone_number' => 'text',
+            'office_phone_number' => 'text',
+            'mobile_number' => 'text',
+            'present_address' => 'text',
+            'permanent_address' => 'text',
+            'occupation_title' => 'text',
+            'job_title' => 'text',
+            'date_of_birth' => 'date',
+            'age' => 'number',
+            'marital_status' => 'select',
+            'home_ownership_status' => 'select',
+            'nationality' => 'text',
+            'next_of_kin_name' => 'text',
+            'next_of_kin_mobile_number' => 'text',
+            'business_name' => 'text',
+            'business_address' => 'text',
+            'business_contact_number' => 'text',
+            'business_email' => 'email',
+            'business_registration_number' => 'text',
+            'nadra_verification_for_signature' => 'select',
+            'signature_date' => 'date',
+            'nadra_verification_scanned_attachment' => 'file',
+            'digital_signature_scanned_attachment' => 'file'
+        ];
+
+        return view('borrowers.make-template', compact('fillable'));
     }
 }

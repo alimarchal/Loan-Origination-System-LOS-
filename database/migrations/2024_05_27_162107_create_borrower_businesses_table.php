@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('borrower_businesses', function (Blueprint $table) {
             $table->id(); // Primary key for the borrower businesses table
-            $table->foreignId('borrower_id')->constrained('borrowers')->onDelete('cascade'); // Foreign key to borrowers table
+            $table->foreignUuid('borrower_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('name')->nullable(); // Business name
             $table->string('type')->nullable(); // Business type
             $table->date('start_date')->nullable(); // Commencement date

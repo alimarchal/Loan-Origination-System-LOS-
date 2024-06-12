@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('securities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('borrower_id')->constrained('borrowers')->onDelete('cascade'); // Foreign key to the borrowers table
+            $table->foreignUuid('borrower_id')->constrained();
             $table->string('security_type')->nullable(); // primary or secondary
             $table->decimal('market_value',14,2)->nullable();
             $table->decimal('fsv',14,2)->nullable();

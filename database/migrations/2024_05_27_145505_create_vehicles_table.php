@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('borrower_id')->constrained();
             $table->foreignId('requested_loan_amount_id')->constrained(); // Foreign key to requested loan amounts table
             $table->enum('vehicle_type', ['New', 'Used'])->nullable(); // Vehicle type
             $table->string('model_year')->nullable(); // Model year

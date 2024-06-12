@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Borrower extends Model
 {
     use HasFactory;
+    use HasUuids;
+//    use softDeletes;
+
 
     protected $fillable = [
         'user_id',
@@ -54,4 +61,33 @@ class Borrower extends Model
         'nadra_verification_scanned_attachment',
         'digital_signature_scanned_attachment'
     ];
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class,'branch_id','id');
+    }
+
+    public function region(): BelongsTo
+    {
+        return $this->belongsTo(Region::class,'region_id','id');
+    }
+
+    public function loan_category(): BelongsTo
+    {
+        return $this->belongsTo(LoanSubCategory::class,'loan_category_id','id');
+    }
+    public function loan_sub_category(): BelongsTo
+    {
+        return $this->belongsTo(LoanSubCategory::class,'loan_sub_category_id','id');
+    }
+
+    public function employment_information(): HasOne
+    {
+        return $this->hasOne(BorrowerEmploymentInformation::class, 'borrower_id', 'id');
+    }
+
+    public function applicant_business(): HasOne
+    {
+        return $this->hasOne(BorrowerBusiness::class, 'borrower_id', 'id');
+    }
 }

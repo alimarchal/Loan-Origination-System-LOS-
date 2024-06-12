@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('finance_facilities', function (Blueprint $table) {
             $table->id(); // Primary key
-            $table->foreignId('borrower_id')->constrained('borrowers'); // Foreign key to the borrowers table
+            $table->foreignUuid('borrower_id')->constrained();
             $table->string('institution_name'); // Name of the bank or financial institution
             $table->string('repayment_status'); // Name of the bank or financial institution
             $table->enum('facility_type', ['Loan', 'Credit', 'Mortgage', 'Lease', 'Other']); // Type of finance facility

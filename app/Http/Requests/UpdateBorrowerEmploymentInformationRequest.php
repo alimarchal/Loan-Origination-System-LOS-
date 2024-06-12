@@ -11,7 +11,7 @@ class UpdateBorrowerEmploymentInformationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**

@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('requested_loan_amounts', function (Blueprint $table) {
             $table->id(); // Primary key
-            $table->foreignId('borrower_id')->nullable()->constrained(); // Foreign key to borrowers table
-            $table->foreignId('user_id')->constrained(); // Foreign key to users table
+            $table->foreignUuid('borrower_id')->constrained();            $table->foreignId('user_id')->constrained(); // Foreign key to users table
             $table->foreignId('loan_category_id')->nullable()->constrained(); // Foreign key to loan categories table
             $table->foreignId('loan_sub_category_id')->nullable()->constrained(); // Foreign key to loan sub-categories table
             $table->timestamp('request_date')->useCurrent(); // Date the loan was requested

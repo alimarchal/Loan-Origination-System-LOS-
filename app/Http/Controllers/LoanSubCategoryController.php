@@ -8,6 +8,12 @@ use App\Models\LoanSubCategory;
 
 class LoanSubCategoryController extends Controller
 {
+    public function getLoanSubCategories($categoryId)
+    {
+        $subCategories = LoanSubCategory::where('loan_category_id', $categoryId)->orderBy('name')->get();
+        return response()->json($subCategories);
+    }
+
     /**
      * Display a listing of the resource.
      */

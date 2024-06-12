@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBorrowerBusinessRequest;
 use App\Http\Requests\UpdateBorrowerBusinessRequest;
+use App\Models\Borrower;
 use App\Models\BorrowerBusiness;
 
 class BorrowerBusinessController extends Controller
@@ -43,9 +44,9 @@ class BorrowerBusinessController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(BorrowerBusiness $borrowerBusiness)
+    public function edit(Borrower $borrower)
     {
-        //
+        return view('applicant-business.edit', compact('borrower'));
     }
 
     /**

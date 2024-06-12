@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('borrower_incomes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('borrower_id')->constrained('borrowers')->onDelete('cascade'); // Foreign key to borrowers table with cascade on delete
-
+            $table->foreignUuid('borrower_id')->constrained();
             // Salary details
             $table->decimal('monthly_salary', 10, 2)->nullable(); // Monthly take-home salary
             $table->string('salary_receipt_mode')->nullable(); // Mode of salary receipt
