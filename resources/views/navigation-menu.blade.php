@@ -17,8 +17,8 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('borrower.index') }}" :active="request()->routeIs('borrower.*')">
-                        {{ __('Borrowers') }}
+                    <x-nav-link href="{{ route('applicant.index') }}" :active="request()->routeIs('borrower.*')">
+                        Applicants
                     </x-nav-link>
 
                     <x-nav-link href="{{ route('administration.index') }}" :active="request()->routeIs('administration.*')">

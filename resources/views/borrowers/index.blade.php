@@ -12,7 +12,7 @@
         <div class="flex justify-center items-center float-right">
             <div class="flex justify-center items-center float-right print:hidden">
 
-                <a href="{{ route('borrower.create') }}" class="flex items-center px-4 py-2 text-gray-600 bg-white border rounded-lg focus:outline-none hover:bg-gray-100 transition-colors duration-200 transform dark:text-gray-200 dark:border-gray-200  dark:hover:bg-gray-700 ml-2">
+                <a href="{{ route('applicant.create') }}" class="flex items-center px-4 py-2 text-gray-600 bg-white border rounded-lg focus:outline-none hover:bg-gray-100 transition-colors duration-200 transform dark:text-gray-200 dark:border-gray-200  dark:hover:bg-gray-700 ml-2">
                     <svg data-slot="icon" fill="none" class="h-5 w-5" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
                     </svg>
@@ -299,7 +299,7 @@
                                 <tbody class="text-black text-md leading-normal font-extrabold">
                                 <tr class="border-b border-gray-200 hover:bg-gray-100">
                                     <td class="py-1 px-2 text-center">
-                                        <a href="{{ route('borrower.edit', $borrower->id) }}" class="text-blue-600 hover:underline font-extrabold">
+                                        <a href="{{ route('applicant.edit', $borrower->id) }}" class="text-blue-600 hover:underline font-extrabold">
                                             {{ $borrower->branch?->code }}-{{$borrower->region?->id}}
                                         </a>
 

@@ -21,15 +21,48 @@
                         <h2 class="text-2xl text-center my-2 uppercase underline font-bold text-red-700">Employment Information</h2>
                         <x-validation-errors class="mb-4 mt-4" />
                         @if(empty($borrower->employment_information))
-                            <form method="POST" action="{{ route('borrower.employment-information.store', $borrower->id) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('applicant.employment-information.store', $borrower->id) }}" enctype="multipart/form-data">
                                 @csrf
                         @else
-                            <form method="POST" action="{{ route('borrower.employment-information.update',  [$borrower->id, $borrower->employment_information?->id]) }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('applicant.employment-information.update',  [$borrower->id, $borrower->employment_information?->id]) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                         @endif
 
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+
+                                <div>
+                                    <x-label for="legal_status" value="Employer Legal Status"/>
+                                    <select name="legal_status" id="legal_status" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                        @foreach(\App\Models\Status::where('status', 'Employer Legal Status')->get() as $item)
+                                            <option value="{{ $item->name }}" {{ old('employment_status', $borrower->employment_information?->legal_status) == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+
+                                <div>
+                                    <x-label for="employment_status" value="Employment Status"/>
+                                    <select name="employment_status" id="employment_status" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+
+                                        @if($borrower->loan_sub_category->name == "Advance Salary" &&  $borrower->occupation_title == "Government")
+                                            @foreach(\App\Models\Status::where('status', 'Employment Status')->get() as $item)
+                                                @if($item->name == "Permanent")
+                                                    <option value="{{ $item->name }}" {{ old('employment_status', $borrower->employment_information?->employment_status) == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            @foreach(\App\Models\Status::where('status', 'Employment Status')->get() as $item)
+                                                <option value="{{ $item->name }}" {{ old('employment_status', $borrower->employment_information?->employment_status) == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            @endforeach
+                                        @endif
+
+
+                                    </select>
+
+                                </div>
 
                                 <div>
                                     <x-label for="employer_name" value="Employer Name"/>
@@ -49,37 +82,30 @@
                                 </div>
 
                                 <div>
-                                    <x-label for="employment_status" value="Employment Status"/>
-                                    <select name="employment_status" id="employment_status" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
-                                        <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status', 'Employment Status')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ old('employment_status', $borrower->employment_information?->employment_status) == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                </div>
-
-
-                                <div>
-                                    <x-label for="legal_status" value="Employer Legal Status"/>
-                                    <select name="legal_status" id="legal_status" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
-                                        <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status', 'Employer Legal Status')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ old('employment_status', $borrower->employment_information?->legal_status) == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                </div>
-
-                                <div>
                                     <x-label for="personal_number" value="Personal Number (PP No)"/>
                                     <x-input id="personal_number" class="block mt-1 w-full" type="text" name="personal_number" :value="old('personal_number', $borrower->employment_information?->personal_number)"/>
                                 </div>
 
-                                <div>
-                                    <x-label for="grade" value="Grade"/>
-                                    <x-input id="grade" class="block mt-1 w-full" type="text" name="grade" :value="old('grade', $borrower->employment_information?->grade)"/>
-                                </div>
+
+
+                                @if($borrower->loan_sub_category->name == "Advance Salary")
+                                    <div>
+                                        <x-label for="grade" value="Grade"/>
+                                        <select name="grade" id="grade" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                            <option value="">Select an option</option>
+                                            @for($i = 1; $i <= 22; $i++)
+                                                <option value="{{$i}}" {{ old('grade', $borrower->employment_information?->grade) == $i ? 'selected' : '' }}>BPS-{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                @else
+                                    <div>
+                                        <x-label for="grade" value="Grade"/>
+                                        <x-input id="grade" class="block mt-1 w-full" type="text" name="grade" :value="old('grade', $borrower->employment_information?->grade)"/>
+                                    </div>
+                                @endif
+
+
 
 
                                 <div>
@@ -101,6 +127,8 @@
                                     <x-label for="service_length" value="Service Length"/>
                                     <x-input id="service_length" class="block mt-1 w-full" type="text" name="service_length" :value="old('service_length', $borrower->employment_information?->service_length)"/>
                                 </div>
+
+
 
                                 <div>
                                     <x-label for="remaining_service_years" value="Remaining Service Years"/>
@@ -147,18 +175,8 @@
                                 </div>
 
                                 <div>
-                                    <x-label for="contact_person_for_disbursement" value="Contact Person For Disbursement"/>
+                                    <x-label for="contact_person_for_disbursement" value="Name Contact Person / DDO"/>
                                     <x-input id="contact_person_for_disbursement" class="block mt-1 w-full" type="text" name="contact_person_for_disbursement" :value="old('contact_person_for_disbursement', $borrower->employment_information?->contact_person_for_disbursement)"/>
-                                </div>
-
-                                <div>
-                                    <x-label for="terminal_benefits" value="Terminal Benefits"/>
-                                    <x-input id="terminal_benefits" class="block mt-1 w-full" type="text" name="terminal_benefits" :value="old('terminal_benefits', $borrower->employment_information?->terminal_benefits)"/>
-                                </div>
-
-                                <div>
-                                    <x-label for="other_benefits" value="Other Benefits"/>
-                                    <x-input id="other_benefits" class="block mt-1 w-full" type="text" name="other_benefits" :value="old('other_benefits', $borrower->employment_information?->other_benefits)"/>
                                 </div>
 
                                 <div>

@@ -36,36 +36,9 @@
                         <x-validation-errors class="mb-4 mt-4" />
                         <x-status-message class="mb-4" />
                         <h2 class="text-2xl text-center my-2 uppercase underline font-bold text-red-700">APPLICANT INFORMATION</h2>
-                        <form method="POST" action="{{ route('borrower.store') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('applicant.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="borrower_type">
-                                        Applicant Type
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <select name="borrower_type" id="borrower_type" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
-                                        <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status','Business Type')->get() as $item)
-                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="occupation_title">
-                                        Occupation
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <select name="occupation_title" id="occupation_title" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
-                                        <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status','Occupation Title')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ old('occupation_title') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
 
 
                                 <div>
@@ -91,6 +64,38 @@
                                         <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
+
+
+
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="occupation_title">
+                                        Occupation
+                                        <span class="text-red-700">*</span>
+                                    </label>
+                                    <select name="occupation_title" id="occupation_title" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                        @foreach(\App\Models\Status::where('status','Occupation Title')->get() as $item)
+                                            <option value="{{ $item->name }}" {{ old('occupation_title') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="borrower_type">
+                                        Applicant Type
+                                        <span class="text-red-700">*</span>
+                                    </label>
+                                    <select name="borrower_type" id="borrower_type" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                        @foreach(\App\Models\Status::where('status','Business Type')->get() as $item)
+                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+
 
 
                                 <div>
@@ -294,14 +299,6 @@
                                     </select>
                                 </div>
 
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="nationality">
-                                        Nationality
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="nationality" type="text" name="nationality" value="{{ old('nationality','Pakistani') }}" required="required" va>
-                                </div>
-
 
 
                                 <div>
@@ -326,7 +323,7 @@
 
                             </div>
                             <div class="flex items-center justify-end mt-4">
-                                <x-button class="ml-4" id="submit-btn"> Save Borrower & Next </x-button>
+                                <x-button class="ml-4" id="submit-btn"> Save Applicant & Next </x-button>
                             </div>
                         </form>
                     </div>

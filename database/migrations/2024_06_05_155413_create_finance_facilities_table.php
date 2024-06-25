@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('finance_facilities', function (Blueprint $table) {
             $table->id(); // Primary key
+            // Existing Financial Facilities FROM BAJK/OTHER BANKS
             $table->foreignUuid('borrower_id')->constrained();
             $table->string('institution_name'); // Name of the bank or financial institution
             $table->string('repayment_status'); // Name of the bank or financial institution
@@ -26,7 +27,7 @@ return new class extends Migration
             $table->date('start_date')->nullable(); // Start date of the facility
             $table->date('end_date')->nullable(); // End date of the facility
             $table->string('purpose_of_loan'); // Name of the bank or financial institution
-            $table->enum('status', ['Active', 'Closed', 'Defaulted','Regular','Over Due'])->default('active'); // Status of the facility
+            $table->enum('status', ['Closed', 'Ir-Red','Regular','Over Due'])->default('Closed'); // Status of the facility
             $table->text('remarks')->nullable(); // Additional remarks or notes
             $table->timestamps();
         });

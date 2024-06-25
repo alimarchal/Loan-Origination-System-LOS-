@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('employer_name')->nullable(); // Employer name (optional)
             $table->decimal('monthly_gross_salary', 10, 2)->nullable(); // Monthly gross salary (optional)
             $table->decimal('monthly_net_salary', 10, 2)->nullable(); // Monthly net salary (optional)
-            $table->string('service_length')->nullable(); // Total length of service in years/months (optional)
+            $table->string('service_length_in_years')->nullable(); // Total length of service in years/months (optional)
+            $table->string('service_length_in_months')->nullable(); // Total length of service in years/months (optional)
             $table->decimal('remaining_service_years', 10, 2)->nullable(); // Years remaining until retirement (optional)
+            $table->decimal('remaining_service_months', 10, 2)->nullable(); // Years remaining until retirement (optional)
             $table->string('department')->nullable(); // Department (optional)
             $table->string('official_address')->nullable(); // Official address (optional)
             $table->string('legal_status')->nullable(); // Legal status (optional)
@@ -32,8 +34,6 @@ return new class extends Migration
             $table->string('mode_of_salary_receipt')->nullable(); // Mode of salary receipt (optional)
             $table->string('salary_disbursement_office_name')->nullable(); // Name of the office where the salary is disbursed (optional)
             $table->string('contact_person_for_disbursement')->nullable(); // Contact person for salary disbursement (optional)
-            $table->string('terminal_benefits')->nullable(); // Expected terminal benefits upon retirement (optional)
-            $table->string('other_benefits')->nullable(); // Any other benefits received apart from the salary (optional)
             $table->string('other_sources_of_income')->nullable(); // Any other sources of income (optional)
             $table->timestamps(); // Timestamps
         });

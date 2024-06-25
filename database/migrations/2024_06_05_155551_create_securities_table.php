@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
             $table->string('security_type')->nullable(); // primary or secondary
+            $table->decimal('value_of_gold_ornaments_value',14,2)->nullable(); // primary or secondary
+            $table->decimal('gross_weight_of_gold',14,3)->nullable();
+            $table->integer('gold_bag_seal_no')->nullable();
+
             $table->decimal('market_value',14,2)->nullable();
-            $table->decimal('fsv',14,2)->nullable();
+            $table->decimal('forced_sales_value_fsv',14,2)->nullable();
             $table->string('ownership')->nullable();
             $table->string('lien_ac_no')->nullable();
             $table->string('lien_title')->nullable();
@@ -26,12 +30,6 @@ return new class extends Migration
             $table->date('pledge_date_of_issuance')->nullable();
             $table->string('pledge_issuing_office')->nullable();
             $table->string('pledge_amount')->nullable();
-            $table->string('lease_reg_book_veh_obtained')->nullable();
-            $table->string('lease_duplicate_keys_veh_obrained')->nullable();
-            $table->date('lease_date_obtained')->nullable();
-            $table->string('lease_reg_book_veh_received');
-            $table->string('lease_duplicate_keys_veh_received')->nullable();
-            $table->date('lease_date_receipt')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
         });

@@ -172,7 +172,7 @@ class BorrowerController extends Controller
 
             DB::commit();
             session()->flash('success', 'Borrower created  successfully.');
-            return to_route('borrower.edit',$borrower->id);
+            return to_route('applicant.edit',$borrower->id);
         } catch (\Exception $e) {
             DB::rollback();
             // Handle error
@@ -207,6 +207,7 @@ class BorrowerController extends Controller
             'user_id' => $user->id,
             'branch_id' => $user->branch_id,
             'region_id' => $user->branch->region_id,
+            'nationality' => "Pakistani/AJK Resident",
         ]);
         // Assuming 'date_of_birth' is in the format 'Y-m-d'
         $dateOfBirth = $request->date_of_birth;
@@ -258,7 +259,7 @@ class BorrowerController extends Controller
 
             DB::commit();
             session()->flash('success', 'Borrower updated  successfully.');
-            return to_route('borrower.edit', $borrower->id);
+            return to_route('applicant.edit', $borrower->id);
         } catch (\Exception $e) {
             DB::rollback();
             // Handle error

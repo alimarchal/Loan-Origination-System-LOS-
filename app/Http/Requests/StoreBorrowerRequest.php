@@ -53,7 +53,7 @@ class StoreBorrowerRequest extends FormRequest
 //            'age' => 'required|integer|min:18',
             'marital_status' => 'required|string|max:255',
             'home_ownership_status' => 'nullable|string|max:255',
-            'nationality' => 'required|string|max:255',
+//            'nationality' => 'required|string|max:255',
             'next_of_kin_name' => 'nullable|string|max:255',
             'next_of_kin_mobile_number' => 'nullable|string|max:20',
 //            'business_name' => 'nullable|string|max:255',

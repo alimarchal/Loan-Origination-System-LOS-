@@ -10,8 +10,12 @@ class Vehicle extends Model
     use HasFactory;
 
     protected $fillable = [
+        'borrower_id',
         'requested_loan_amount_id',
         'vehicle_type',
+        'price_of_vehicle',
+        'down_payment_percentage',
+        'finance_amount',
         'model_year',
         'year_of_manufacturing',
         'make',
@@ -20,8 +24,10 @@ class Vehicle extends Model
         'equity_dawn_payment',
         'financial_institute_contribution',
         'name_authorized_dealer_seller',
-        'repayment',
-        'tenure'
+        'repayment_mode',
+        'tenure_in_years',
+        'tenure_in_month',
+        'markup_rate_type',
     ];
 
 }

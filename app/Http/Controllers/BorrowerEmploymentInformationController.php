@@ -46,7 +46,7 @@ class BorrowerEmploymentInformationController extends Controller
             $employment_information = BorrowerEmploymentInformation::create($request->all());
             DB::commit();
             session()->flash('success', 'Borrower employment information created successfully.');
-            return to_route('borrower.employment-information.edit',$borrower->id);
+            return to_route('applicant.employment-information.edit',$borrower->id);
         } catch (\Exception $e) {
             DB::rollback();
             // Handle error
@@ -92,7 +92,7 @@ class BorrowerEmploymentInformationController extends Controller
             $borrowerEmploymentInformation->update($request->all());
             DB::commit();
             session()->flash('success', 'Borrower employment information update successfully.');
-            return to_route('borrower.employment-information.edit',$borrower->id);
+            return to_route('applicant.employment-information.edit',$borrower->id);
         } catch (\Exception $e) {
             DB::rollback();
             // Handle error
