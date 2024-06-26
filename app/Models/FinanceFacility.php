@@ -23,7 +23,6 @@ class FinanceFacility extends Model
         'end_date',
         'purpose_of_loan',
         'status',
-        'remarks'
+        'remarks',
     ];
-
 }

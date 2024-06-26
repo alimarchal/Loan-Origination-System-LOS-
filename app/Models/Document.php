@@ -13,7 +13,7 @@ class Document extends Model
         'user_id',
         'document_type',
         'description',
-        'path_attachment'
+        'path_attachment',
     ];
 
 }

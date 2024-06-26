@@ -19,6 +19,8 @@
 
                     <div class="relative overflow-x-auto">
                         @if($applicant_vehicles->isNotEmpty())
+                            <h2 class="text-2xl mt-1 text-center my-2 uppercase underline font-bold text-red-700">Vehicles</h2>
+
                             <table class="min-w-max w-full table-auto">
                             <thead>
                             <tr class="bg-bank-green text-white uppercase text-sm">

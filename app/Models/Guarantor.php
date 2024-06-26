@@ -22,19 +22,17 @@ class Guarantor extends Model
         'permanent_address',
         'department',
         'designation',
-        'reporting_to',
+        'employer_name',
         'employee_personal_number',
         'employment_status',
         'monthly_gross_salary',
-        'monthly_deductions_salary',
-        'monthly_net_salary',
         'date_of_retirement',
         'relationship_to_borrower',
         'net_worth',
         'business_registration_number',
         'annual_revenue',
         'annual_expenses',
-        'net_annual_income'
+        'net_annual_income',
     ];
 
 }

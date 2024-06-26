@@ -12,8 +12,11 @@ class Security extends Model
     protected $fillable = [
         'borrower_id',
         'security_type',
+        'value_of_gold_ornaments_value',
+        'gross_weight_of_gold',
+        'gold_bag_seal_no',
         'market_value',
-        'fsv',
+        'forced_sales_value_fsv',
         'ownership',
         'lien_ac_no',
         'lien_title',
@@ -23,13 +26,6 @@ class Security extends Model
         'pledge_date_of_issuance',
         'pledge_issuing_office',
         'pledge_amount',
-        'lease_reg_book_veh_obtained',
-        'lease_duplicate_keys_veh_obrained',
-        'lease_date_obtained',
-        'lease_reg_book_veh_received',
-        'lease_duplicate_keys_veh_received',
-        'lease_date_receipt',
-        'remarks'
+        'remarks',
     ];
-
 }

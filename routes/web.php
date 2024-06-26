@@ -6,8 +6,13 @@ use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\BorrowerEmploymentInformationController;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\FinanceFacilityController;
+use App\Http\Controllers\GuarantorController;
 use App\Http\Controllers\LoanSubCategoryController;
+use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\RequestedLoanAmountController;
+use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
@@ -72,6 +77,65 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
 
 
 
+    // Applicant Guarantor Information
+    Route::controller(GuarantorController::class)->group(function () {
+        Route::get('/applicant/{borrower}/guarantor/index', 'index')->name('guarantor.index');
+        Route::get('/applicant/{borrower}/guarantor/create', 'create')->name('guarantor.create');
+        Route::post('/applicant/{borrower}/guarantor', 'store')->name('guarantor.store');
+        Route::get('/applicant/{borrower}/guarantor/{guarantor}/edit', 'edit')->name('guarantor.edit');
+        Route::put('/applicant/{borrower}/guarantor/{guarantor}', 'update')->name('guarantor.update');
+        Route::delete('/applicant/{borrower}/guarantor/{guarantor}/destroy', 'destroy')->name('guarantor.destroy');
+    });
+
+
+    // Finance Facility Information
+    Route::controller(FinanceFacilityController::class)->group(function () {
+        Route::get('/applicant/{borrower}/finance-facility/index', 'index')->name('finance_facility.index');
+        Route::get('/applicant/{borrower}/finance-facility/create', 'create')->name('finance_facility.create');
+        Route::post('/applicant/{borrower}/finance-facility', 'store')->name('finance_facility.store');
+        Route::get('/applicant/{borrower}/finance-facility/{financeFacility}/edit', 'edit')->name('finance_facility.edit');
+        Route::put('/applicant/{borrower}/finance-facility/{financeFacility}', 'update')->name('finance_facility.update');
+        Route::delete('/applicant/{borrower}/finance-facility/{financeFacility}/destroy', 'destroy')->name('finance_facility.destroy');
+    });
+
+
+    // Security Information
+    Route::controller(SecurityController::class)->group(function () {
+        Route::get('/applicant/{borrower}/security/index', 'index')->name('security.index');
+        Route::get('/applicant/{borrower}/security/create', 'create')->name('security.create');
+        Route::post('/applicant/{borrower}/security', 'store')->name('security.store');
+        Route::get('/applicant/{borrower}/security/{security}/edit', 'edit')->name('security.edit');
+        Route::put('/applicant/{borrower}/security/{security}', 'update')->name('security.update');
+        Route::delete('/applicant/{borrower}/security/{security}/destroy', 'destroy')->name('security.destroy');
+    });
+
+
+    // Reference Information
+    Route::controller(ReferenceController::class)->group(function () {
+        Route::get('/applicant/{borrower}/reference/index', 'index')->name('reference.index');
+        Route::get('/applicant/{borrower}/reference/create', 'create')->name('reference.create');
+        Route::post('/applicant/{borrower}/reference', 'store')->name('reference.store');
+        Route::get('/applicant/{borrower}/reference/{reference}/edit', 'edit')->name('reference.edit');
+        Route::put('/applicant/{borrower}/reference/{reference}', 'update')->name('reference.update');
+        Route::delete('/applicant/{borrower}/reference/{reference}/destroy', 'destroy')->name('reference.destroy');
+    });
+
+
+    // Document Information
+    Route::controller(DocumentController::class)->group(function () {
+        Route::get('/applicant/{borrower}/document/index', 'index')->name('document.index');
+        Route::get('/applicant/{borrower}/document/create', 'create')->name('document.create');
+        Route::post('/applicant/{borrower}/document', 'store')->name('document.store');
+        Route::get('/applicant/{borrower}/document/{document}/edit', 'edit')->name('document.edit');
+        Route::put('/applicant/{borrower}/document/{document}', 'update')->name('document.update');
+        Route::delete('/applicant/{borrower}/document/{document}/destroy', 'destroy')->name('document.destroy');
+    });
+
+
+
+
+
+
 
     // Applicant Business Information
     Route::controller(ChecklistController::class)->group(function () {
@@ -82,6 +146,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
 
 
     Route::get('/borrower/make-template', [BorrowerController::class, 'make_template'])->name('applicant.make-template');
+
     Route::get('administration', [AdministrationController::class, 'index'])->name('administration.index');
 
 });

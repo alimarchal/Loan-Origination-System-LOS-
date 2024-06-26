@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reference extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'borrower_id',
         'user_id',
@@ -23,7 +24,6 @@ class Reference extends Model
         'email',
         'fax',
         'designation',
-        'relationship_to_borrower'
+        'relationship_to_borrower',
     ];
-
 }

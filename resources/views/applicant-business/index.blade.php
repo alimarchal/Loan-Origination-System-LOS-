@@ -15,10 +15,11 @@
 
                 <x-status-message class="mb-4" />
                 <div class="pb-2 lg:pb-2 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
-                    @include('tabs')
 
+                    @include('tabs')
                     <div class="relative overflow-x-auto">
                         @if($borrowers_business->isNotEmpty())
+                            <h2 class="text-2xl mt-1 text-center my-2 uppercase underline font-bold text-red-700">Business Information</h2>
                             <table class="min-w-max w-full table-auto">
                             <thead>
                             <tr class="bg-bank-green text-white uppercase text-sm">

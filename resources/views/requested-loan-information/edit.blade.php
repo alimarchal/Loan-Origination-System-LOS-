@@ -2,10 +2,7 @@
     @push('header') @endpush
     <x-slot name="header">
         <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block">
-            {{--            {{ $student->gender === 'Male' ? 'Mr.' : ($student->gender === 'Female' ? 'Miss' : '') }}--}}
-            {{--            {{ $student->firstname . ' ' . $student->lastename }} - {{ $student->id }}--}}
-            {{--            ::--}}
-            {{--            <span class="text-red-700 font-extrabold">Contact: {{ $student->mobile_number_for_sms_alert }} / {{ $student->guardian_emergency_contact }}</span>--}}
+            REQUESTED LOAN
         </h2>
         @include('back-navigation')
     </x-slot>
