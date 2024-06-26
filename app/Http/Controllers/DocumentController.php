@@ -8,6 +8,8 @@ use App\Models\Borrower;
 use App\Models\Document;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -42,7 +44,15 @@ class DocumentController extends Controller
 
         DB::beginTransaction();
         try {
+            if ($request->hasFile('path_attachment_one')) {
+                $path = $request->document_type;
+                $path_attachment_document = $request->file('path_attachment_one')->store($path, 'public');
+                $request->merge(['path_attachment' => $path_attachment_document]);
+            }
+            $request->merge(['path_attachment' => $path_attachment_document]);
+
             $document = Document::create($request->all());
+
             DB::commit();
             session()->flash('success', 'Document created successfully.');
             return to_route('document.index', $borrower->id);
@@ -100,9 +110,14 @@ class DocumentController extends Controller
     {
         DB::beginTransaction();
         try {
+            // Delete the file from storage
+            if ($document->path_attachment && Storage::disk('public')->exists($document->path_attachment)) {
+                Storage::disk('public')->delete($document->path_attachment);
+            }
+
             $document->delete();
             DB::commit();
-            session()->flash('success', 'Document deleted successfully.');
+            session()->flash('error', 'Document deleted successfully.');
             return to_route('document.index', $borrower->id);
         } catch (\Exception $e) {
             DB::rollback();

@@ -102,7 +102,7 @@ class ReferenceController extends Controller
         try {
             $reference->delete();
             DB::commit();
-            session()->flash('success', 'Reference deleted successfully.');
+            session()->flash('error', 'Reference deleted successfully.');
             return to_route('reference.index', $borrower->id);
         } catch (\Exception $e) {
             DB::rollback();
