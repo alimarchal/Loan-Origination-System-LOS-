@@ -21,6 +21,7 @@ class Reference extends Model
         'permanent_address',
         'phone_number',
         'phone_number_two',
+        'phone_number_three',
         'email',
         'fax',
         'designation',

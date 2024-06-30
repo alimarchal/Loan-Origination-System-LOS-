@@ -71,6 +71,12 @@
                                 </div>
 
                                 <div>
+                                    <x-label for="phone_number_three" value="Phone Number Res." />
+                                    <x-input id="phone_number_three" class="block mt-1 w-full" type="text" name="phone_number_three" :value="old('phone_number_three', $reference->phone_number_three)" />
+                                </div>
+
+
+                                <div>
                                     <x-label for="email" value="Email" />
                                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $reference->email)" />
                                 </div>

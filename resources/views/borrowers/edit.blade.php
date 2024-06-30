@@ -169,11 +169,20 @@
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="national_id_cnic">
-                                        NTN / CNIC
+                                        CNIC
                                         <span class="text-red-700">*</span>
                                     </label>
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="national_id_cnic"
                                            type="text" name="national_id_cnic" value="{{ $borrower->national_id_cnic }}" required>
+                                </div>
+
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="national_id_cnic">
+                                        NTN
+                                        <span class="text-red-700">*</span>
+                                    </label>
+                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="national_id_cnic"
+                                           type="text" name="ntn" value="{{ $borrower->ntn }}" required>
                                 </div>
 
                                 <div>

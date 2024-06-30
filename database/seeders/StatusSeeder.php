@@ -75,7 +75,6 @@ class StatusSeeder extends Seeder
             ['name' => 'Agricultural', 'status' => 'Business Nature'],
             ['name' => 'Services', 'status' => 'Business Nature'],
             ['name' => 'Any Other', 'status' => 'Business Nature'],
-            ['name' => 'Salaried Person', 'status' => 'Business Nature'],
             ['name' => '12 Months', 'status' => 'Loan Tenure'],
             ['name' => '24 Months', 'status' => 'Loan Tenure'],
             ['name' => '36 Months', 'status' => 'Loan Tenure'],

@@ -233,6 +233,7 @@ class BorrowerController extends Controller
                 'parent_spouse_name' => $request->parent_spouse_name,
                 'gender' => $request->gender,
                 'national_id_cnic' => $request->national_id_cnic,
+                'ntn' => $request->ntn,
                 'parent_spouse_national_id_cnic' => $request->parent_spouse_national_id_cnic,
                 'number_of_dependents' => $request->number_of_dependents,
                 'education_qualification' => $request->education_qualification,

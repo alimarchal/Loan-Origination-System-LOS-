@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->string('parent_spouse_name')->nullable(); // Parent/spouse name (optional)
             $table->string('gender')->nullable(); // Gender (optional)
             $table->string('national_id_cnic')->nullable(); // National ID/CNIC (optional)
+            $table->string('ntn')->nullable(); // National ID/CNIC (optional)
             $table->string('parent_spouse_national_id_cnic')->nullable(); // National ID/CNIC (optional)
             $table->string('number_of_dependents')->nullable(); // Number of dependents (optional)
             $table->string('education_qualification')->nullable(); // Education qualification (optional)

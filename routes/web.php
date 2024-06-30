@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\BasicBorrowerFactSheetConsumerController;
 use App\Http\Controllers\BorrowerBusinessController;
 use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\BorrowerEmploymentInformationController;
@@ -10,11 +11,13 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FinanceFacilityController;
 use App\Http\Controllers\GuarantorController;
 use App\Http\Controllers\LoanSubCategoryController;
+use App\Http\Controllers\PersonalNetWorthStatementController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\RequestedLoanAmountController;
 use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
+use App\Models\BasicBorrowerFactSheetConsumer;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -130,6 +133,26 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::put('/applicant/{borrower}/document/{document}', 'update')->name('document.update');
         Route::delete('/applicant/{borrower}/document/{document}/destroy', 'destroy')->name('document.destroy');
     });
+
+
+    // Fact Sheet Information
+    Route::controller(BasicBorrowerFactSheetConsumerController::class)->group(function () {
+        Route::get('/applicant/{borrower}/fact-sheet/index', 'index')->name('fact-sheet.index');
+        Route::get('/applicant/{borrower}/fact-sheet/create', 'create')->name('fact-sheet.create');
+        Route::post('/applicant/{borrower}/fact-sheet', 'store')->name('fact-sheet.store');
+        Route::get('/applicant/{borrower}/fact-sheet', 'close')->name('fact-sheet.close');
+        Route::delete('/applicant/{borrower}/fact-sheet/{factSheet}/destroy', 'destroy')->name('fact-sheet.destroy');
+    });
+
+    // Personal Net Worth Statement
+    Route::controller(PersonalNetWorthStatementController::class)->group(function () {
+        Route::get('/applicant/{borrower}/personal-net-worth-statement-consumer/index', 'index')->name('pnws.index');
+//        Route::get('/applicant/{borrower}/fact-sheet/create', 'create')->name('fact-sheet.create');
+//        Route::post('/applicant/{borrower}/fact-sheet', 'store')->name('fact-sheet.store');
+//        Route::get('/applicant/{borrower}/fact-sheet', 'close')->name('fact-sheet.close');
+//        Route::delete('/applicant/{borrower}/fact-sheet/{factSheet}/destroy', 'destroy')->name('fact-sheet.destroy');
+    });
+
 
 
 

@@ -17,7 +17,7 @@
 
                     <div class="relative overflow-x-auto">
                         @if($references->isNotEmpty())
-                            <h2 class="text-2xl mt-1 text-center my-2 uppercase underline font-bold text-red-700">Reference</h2>
+                            <h2 class="text-2xl mt-1 text-center my-2 uppercase  font-extrabold text-red-700">Reference (AT LEAST TWO)</h2>
 
                             <table class="min-w-max w-full table-auto">
                                 <thead>

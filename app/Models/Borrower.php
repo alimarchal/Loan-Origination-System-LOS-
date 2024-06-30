@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -30,6 +31,7 @@ class Borrower extends Model
         'parent_spouse_name',
         'gender',
         'national_id_cnic',
+        'ntn',
         'parent_spouse_national_id_cnic',
         'number_of_dependents',
         'education_qualification',
@@ -95,5 +97,15 @@ class Borrower extends Model
     public function applicant_requested_loan_information(): HasOne
     {
         return $this->hasOne(RequestedLoanAmount::class, 'borrower_id', 'id');
+    }
+
+    public function reference(): HasMany
+    {
+        return $this->hasMany(Reference::class);
+    }
+
+    public function borrower_fact_sheet_consumer(): HasOne
+    {
+        return $this->hasOne(BasicBorrowerFactSheetConsumer::class);
     }
 }
