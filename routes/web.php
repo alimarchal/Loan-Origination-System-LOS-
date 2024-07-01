@@ -148,10 +148,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
     // Personal Net Worth Statement
     Route::controller(PersonalNetWorthStatController::class)->group(function () {
         Route::get('/applicant/{borrower}/personal-net-worth-statement-consumer/index', 'index')->name('pnws.index');
-//        Route::get('/applicant/{borrower}/fact-sheet/create', 'create')->name('fact-sheet.create');
-//        Route::post('/applicant/{borrower}/fact-sheet', 'store')->name('fact-sheet.store');
-//        Route::get('/applicant/{borrower}/fact-sheet', 'close')->name('fact-sheet.close');
-//        Route::delete('/applicant/{borrower}/fact-sheet/{factSheet}/destroy', 'destroy')->name('fact-sheet.destroy');
     });
 
 
