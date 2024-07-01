@@ -11,6 +11,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FinanceFacilityController;
 use App\Http\Controllers\GuarantorController;
 use App\Http\Controllers\LoanSubCategoryController;
+use App\Http\Controllers\PersonalNetWorthStatController;
 use App\Http\Controllers\PersonalNetWorthStatementController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\RequestedLoanAmountController;
@@ -145,7 +146,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
     });
 
     // Personal Net Worth Statement
-    Route::controller(PersonalNetWorthStatementController::class)->group(function () {
+    Route::controller(PersonalNetWorthStatController::class)->group(function () {
         Route::get('/applicant/{borrower}/personal-net-worth-statement-consumer/index', 'index')->name('pnws.index');
 //        Route::get('/applicant/{borrower}/fact-sheet/create', 'create')->name('fact-sheet.create');
 //        Route::post('/applicant/{borrower}/fact-sheet', 'store')->name('fact-sheet.store');

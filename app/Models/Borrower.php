@@ -108,4 +108,9 @@ class Borrower extends Model
     {
         return $this->hasOne(BasicBorrowerFactSheetConsumer::class);
     }
+
+    public function personalNetWorthStat(): HasOne
+    {
+        return $this->hasOne(PersonalNetWorthStat::class);
+    }
 }
