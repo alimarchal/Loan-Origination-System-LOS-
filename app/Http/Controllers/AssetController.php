@@ -14,7 +14,8 @@ class AssetController extends Controller
      */
     public function index($id)
     {
-        $borrower = Borrower::with('reference', 'personalNetWorthStat')->findOrFail($id);
+        $borrower = Borrower::with('reference', 'personalNetWorthStat','guarantor')->findOrFail($id);
+//        dd($borrower->guarantor);
         return view('guarantor-undertaking-credit-report.index-pnws-consumer', compact('borrower'));
     }
 

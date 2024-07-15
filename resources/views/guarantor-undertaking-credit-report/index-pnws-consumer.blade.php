@@ -56,6 +56,13 @@
                             <div class="relative overflow-x-auto px-2">
 
 
+                                @foreach($borrower?->guarantor as $gur)
+                                    @if($loop->iteration == 1)
+                                        {{ $gur->name }}
+                                    @endif
+
+                                @endforeach
+<br>
                                 C: Deatils
                                 <div class="relative overflow-x-auto px-2 personal-net-worth-calculator">
                                     <livewire:personal-net-worth-calculator :borrower-id="$borrower->id" />

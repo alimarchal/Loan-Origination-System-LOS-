@@ -118,4 +118,9 @@ class Borrower extends Model
     {
         return $this->hasOne(ObligorScoreCard::class);
     }
+
+    public function guarantor(): HasMany
+    {
+        return $this->hasMany(Guarantor::class);
+    }
 }
