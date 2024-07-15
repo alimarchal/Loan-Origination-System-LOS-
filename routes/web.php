@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministrationController;
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\BasicBorrowerFactSheetConsumerController;
 use App\Http\Controllers\BorrowerBusinessController;
 use App\Http\Controllers\BorrowerController;
@@ -153,8 +154,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::get('/applicant/{borrower}/personal-net-worth-statement-consumer/index', 'index')->name('pnws.index');
     });
 
-
-
 // List House Hold Item Information
     Route::controller(ListHouseHoldItemController::class)->group(function () {
         Route::get('/applicant/{borrower}/list-house-hold-item/index', 'index')->name('list-house-hold-item.index');
@@ -173,9 +172,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
     });
 
 
-
-
-
+    Route::controller(AssetController::class)->group(function () {
+        Route::get('/applicant/{borrower}/guarantor-undertaking-credit-report/index', 'index')->name('pnws.index');
+    });
 
 
     // Applicant Business Information
