@@ -82,7 +82,7 @@
             </tr>
         </table>
 
-        <div class="mt-4">
+        <div class="mt-4 print:hidden">
             <button wire:click="edit" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                 Edit
             </button>
@@ -90,7 +90,7 @@
     @endif
 
     @if($personalNetWorthStat->exists)
-        <div class="mt-8">
+        <div class="mt-2">
             @livewire('personal-net-worth-forma-form', ['personalNetWorthStatId' => $personalNetWorthStat->id])
             @livewire('personal-net-worth-formb-form', ['personalNetWorthStatId' => $personalNetWorthStat->id])
             @livewire('personal-net-worth-formc-form', ['personalNetWorthStatId' => $personalNetWorthStat->id])

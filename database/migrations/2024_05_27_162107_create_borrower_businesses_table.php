@@ -36,7 +36,7 @@ return new class extends Migration
             $table->decimal('average_monthly_balance', 10, 2)->nullable(); // Avg monthly balance
             $table->date('account_opening_date')->nullable(); // Account opening date
             $table->decimal('average_balance_six_months', 10, 2)->nullable(); // Avg balance last six months
-            $table->string('account_number_no')->nullable(); // Account number
+            $table->string('account_no')->nullable(); // Account number
             $table->string('bank_name')->nullable(); // Bank name
             $table->decimal('net_worth', 10, 2)->nullable(); // Business net worth
             $table->timestamps();

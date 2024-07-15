@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
            PermissionsDemoSeeder::class,
            CompanySeeder::class,
            StatusSeeder::class,
+           ObligorScoreCardFactorSeeder::class,
+           OscfOptSeeder::class,
         ]);
     }
 }

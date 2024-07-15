@@ -113,4 +113,9 @@ class Borrower extends Model
     {
         return $this->hasOne(PersonalNetWorthStat::class);
     }
+
+    public function obligor_score_card(): HasOne
+    {
+        return $this->hasOne(ObligorScoreCard::class);
+    }
 }

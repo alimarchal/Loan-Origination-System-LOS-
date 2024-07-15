@@ -120,17 +120,49 @@
                                     <x-input id="monthly_net_salary" class="block mt-1 w-full" type="number" step="0.01" name="monthly_net_salary" :value="old('monthly_net_salary', $borrower->employment_information?->monthly_net_salary)"/>
                                 </div>
 
-                                <div>
-                                    <x-label for="service_length" value="Service Length"/>
-                                    <x-input id="service_length" class="block mt-1 w-full" type="text" name="service_length" :value="old('service_length', $borrower->employment_information?->service_length)"/>
-                                </div>
-
 
 
                                 <div>
-                                    <x-label for="remaining_service_years" value="Remaining Service Years"/>
-                                    <x-input id="remaining_service_years" class="block mt-1 w-full" type="number" step="0.01" name="remaining_service_years" :value="old('remaining_service_years', $borrower->employment_information?->remaining_service_years)"/>
+                                    <x-label for="service_length_in_years" value="Service Length in Years" />
+                                    <select name="service_length_in_years" id="service_length_in_years" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                        @for($i = 0; $i <= 20; $i++)
+                                            <option value="{{$i}}" {{ old('service_length_in_years', $borrower->employment_information?->service_length_in_years) == $i ? 'selected' : '' }}>{{$i}} Years</option>
+                                        @endfor
+                                    </select>
                                 </div>
+
+                                <div>
+                                    <x-label for="service_length_in_months" value="Service Length in Months" />
+                                    <select name="service_length_in_months" id="service_length_in_months" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                        @for($i = 0; $i <= 11; $i++)
+                                            <option value="{{$i}}" {{ old('service_length_in_months', $borrower->employment_information?->service_length_in_months) == $i ? 'selected' : '' }}>{{$i}} Months</option>
+                                        @endfor
+                                    </select>
+                                </div>
+
+
+                                <div>
+                                    <x-label for="remaining_service_years" value="Remaining Service in Years" />
+                                    <select name="remaining_service_years" id="remaining_service_years" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                        @for($i = 0; $i <= 20; $i++)
+                                            <option value="{{$i}}" {{ old('remaining_service_years', $borrower->employment_information?->remaining_service_years) == $i ? 'selected' : '' }}>{{$i}} Years</option>
+                                        @endfor
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <x-label for="remaining_service_months" value="Remaining Service in Months" />
+                                    <select name="remaining_service_months" id="remaining_service_months" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                        @for($i = 0; $i <= 11; $i++)
+                                            <option value="{{$i}}" {{ old('remaining_service_months', $borrower->employment_information?->remaining_service_months) == $i ? 'selected' : '' }}>{{$i}} Months</option>
+                                        @endfor
+                                    </select>
+                                </div>
+
 
 
                                 <div>

@@ -118,6 +118,57 @@
                                     <x-input id="relationship_to_borrower" class="block mt-1 w-full" type="text" name="relationship_to_borrower" :value="old('relationship_to_borrower')" />
                                 </div>
 
+
+                                <div>
+                                    <x-label for="dob" value="Date of Birth" />
+                                    <x-input id="dob" class="block mt-1 w-full" type="date" name="dob" :value="old('dob')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="ntn" value="NTN" />
+                                    <x-input id="ntn" class="block mt-1 w-full" type="text" name="ntn" :value="old('ntn')" />
+                                </div>
+
+
+                                <div>
+                                    <x-label for="nature_of_business" value="Nature of Business" />
+                                    <x-input id="nature_of_business" class="block mt-1 w-full" type="text" name="nature_of_business" :value="old('nature_of_business')" />
+                                </div>
+
+
+                                <div>
+                                    <x-label for="title_of_business" value="Title of Business" />
+                                    <x-input id="title_of_business" class="block mt-1 w-full" type="text" name="title_of_business" :value="old('title_of_business')" />
+                                </div>
+
+
+                                <div>
+                                    <x-label for="major_business_activities" value="Major Business Activities" />
+                                    <x-input id="major_business_activities" class="block mt-1 w-full" type="text" name="major_business_activities" :value="old('major_business_activities')" />
+                                </div>
+
+
+                                <div>
+                                    <x-label for="exact_location_of_business_place" value="Exact Location of Business Place" />
+                                    <x-input id="exact_location_of_business_place" class="block mt-1 w-full" type="text" name="exact_location_of_business_place" :value="old('exact_location_of_business_place')" />
+                                </div>
+
+
+                                <div>
+                                    <x-label for="business_bank_account_maintained" value="Business Bank Account Maintained" />
+                                    <x-input id="business_bank_account_maintained" class="block mt-1 w-full" type="text" name="business_bank_account_maintained" :value="old('business_bank_account_maintained')" />
+                                </div>
+
+
+
+                                <div>
+                                    <x-label for="statement_of_account_attachment_one" value="Statement of Account Attachment" />
+                                    <x-input id="statement_of_account_attachment_one" class="block mt-1 w-full" type="file" name="statement_of_account_attachment_one" :value="old('statement_of_account_attachment_one')" />
+                                </div>
+
+
+
+
                                 <div>
                                     <x-label for="net_worth" value="Net Worth" />
                                     <x-input id="net_worth" class="block mt-1 w-full" type="number" step="0.01" min="0" name="net_worth" :value="old('net_worth')" />

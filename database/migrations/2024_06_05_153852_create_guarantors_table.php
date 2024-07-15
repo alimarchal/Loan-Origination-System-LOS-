@@ -20,6 +20,15 @@ return new class extends Migration
             $table->string('name')->nullable();; // Guarantor's name (individual or business)
             $table->string('father_husband')->nullable(); // Guarantor's name (individual or business)
             $table->string('national_id')->nullable(); // National ID or equivalent
+            $table->date('dob')->nullable();
+            $table->string('ntn')->nullable();
+            $table->string('nature_of_business')->nullable();
+            $table->string('title_of_business')->nullable();
+            $table->string('major_business_activities')->nullable();
+            $table->string('exact_location_of_business_place')->nullable();
+            $table->string('business_bank_account_maintained')->nullable();
+            $table->string('statement_of_account_attachment')->nullable();
+
             $table->string('phone_number')->nullable(); // Contact phone number
             $table->string('phone_number_two')->nullable(); // Contact phone number
             $table->string('email')->nullable(); // Contact email
@@ -28,7 +37,6 @@ return new class extends Migration
             $table->string('department')->nullable();
             $table->string('designation')->nullable();
             $table->string('employer_name')->nullable();
-//            $table->string('reporting_to')->nullable();
             $table->string('employee_personal_number')->nullable();
             $table->string('employment_status')->nullable();
             $table->decimal('monthly_gross_salary', 10, 2)->nullable(); // Annual revenue

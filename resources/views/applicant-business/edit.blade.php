@@ -149,8 +149,8 @@
                                 </div>
 
                                 <div>
-                                    <x-label for="account_number" value="Bank Account Number" />
-                                    <x-input id="account_number" class="block mt-1 w-full" type="text" name="account_number" :value="old('account_number', $borrower->applicant_business?->account_number)" />
+                                    <x-label for="account_no" value="Bank Account Number" />
+                                    <x-input id="account_no" class="block mt-1 w-full" type="text" name="account_no" :value="old('account_no', $borrower->applicant_business?->account_no)" />
                                 </div>
 
                                 <div>

@@ -43,6 +43,12 @@ class GuarantorController extends Controller
 
         DB::beginTransaction();
         try {
+            $path_attachment_document =  null;
+            if ($request->hasFile('statement_of_account_attachment_one')) {
+                $path = $request->document_type;
+                $path_attachment_document = $request->file('statement_of_account_attachment_one')->store('soa', 'public');
+            }
+            $request->merge(['statement_of_account_attachment' => $path_attachment_document]);
             $guarantor = Guarantor::create($request->all());
             DB::commit();
             session()->flash('success', 'Guarantor information created successfully.');
@@ -84,6 +90,14 @@ class GuarantorController extends Controller
 
         DB::beginTransaction();
         try {
+
+
+            if ($request->hasFile('statement_of_account_attachment_one')) {
+                $path = $request->document_type;
+                $path_attachment_document = $request->file('statement_of_account_attachment_one')->store('soa', 'public');
+            }
+            $request->merge(['statement_of_account_attachment' => $path_attachment_document]);
+
             $guarantor->update($request->all());
             DB::commit();
             session()->flash('success', 'Guarantor information successfully updated.');

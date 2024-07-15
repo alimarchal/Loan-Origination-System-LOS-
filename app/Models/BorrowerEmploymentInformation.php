@@ -19,7 +19,6 @@ class BorrowerEmploymentInformation extends Model
         'service_length_in_months',
         'remaining_service_years',
         'remaining_service_months',
-        'remaining_service_years',
         'department',
         'official_address',
         'legal_status',

@@ -10,7 +10,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FinanceFacilityController;
 use App\Http\Controllers\GuarantorController;
+use App\Http\Controllers\ListHouseHoldItemController;
 use App\Http\Controllers\LoanSubCategoryController;
+use App\Http\Controllers\ObligorScoreCardController;
 use App\Http\Controllers\PersonalNetWorthStatController;
 use App\Http\Controllers\PersonalNetWorthStatementController;
 use App\Http\Controllers\ReferenceController;
@@ -145,11 +147,30 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::delete('/applicant/{borrower}/fact-sheet/{factSheet}/destroy', 'destroy')->name('fact-sheet.destroy');
     });
 
+
     // Personal Net Worth Statement
     Route::controller(PersonalNetWorthStatController::class)->group(function () {
         Route::get('/applicant/{borrower}/personal-net-worth-statement-consumer/index', 'index')->name('pnws.index');
     });
 
+
+
+// List House Hold Item Information
+    Route::controller(ListHouseHoldItemController::class)->group(function () {
+        Route::get('/applicant/{borrower}/list-house-hold-item/index', 'index')->name('list-house-hold-item.index');
+        Route::get('/applicant/{borrower}/list-house-hold-item/create', 'create')->name('list-house-hold-item.create');
+        Route::post('/applicant/{borrower}/list-house-hold-item', 'store')->name('list-house-hold-item.store');
+        Route::get('/applicant/{borrower}/list-house-hold-item/{listHouseHoldItem}/edit', 'edit')->name('list-house-hold-item.edit');
+        Route::put('/applicant/{borrower}/list-house-hold-item/{listHouseHoldItem}', 'update')->name('list-house-hold-item.update');
+        Route::delete('/applicant/{borrower}/list-house-hold-item/{listHouseHoldItem}/destroy', 'destroy')->name('list-house-hold-item.destroy');
+    });
+
+    // Personal Net Worth Statement
+    Route::controller(ObligorScoreCardController::class)->group(function () {
+        Route::get('/applicant/{borrower}/obligor-score-card/index', 'index')->name('obligor-score-card.index');
+        Route::post('/applicant/{borrower}/obligor-score-card/store', 'store')->name('obligor-score-card.store');
+        Route::delete('/applicant/{borrower}/obligor-score-card/destroy', 'destroy')->name('obligor-score-card.destroy');
+    });
 
 
 

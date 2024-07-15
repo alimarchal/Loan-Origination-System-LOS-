@@ -12,10 +12,10 @@
             }
         </style>
     @endpush
-    {{--        <x-slot name="header">--}}
-    {{--            <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block print:hidden"></h2>--}}
-    {{--            @include('back-navigation')--}}
-    {{--        </x-slot>--}}
+            <x-slot name="header">
+                <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block print:hidden"></h2>
+                @include('back-navigation')
+            </x-slot>
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -394,6 +394,16 @@
                                     </tr>
                                     </thead>
                                 </table>
+
+
+                                <form method="post" class="print:hidden" action="{{ route('fact-sheet.destroy',[$borrower->id, $borrower->borrower_fact_sheet_consumer->id]) }}" >
+                                    @csrf
+                                    @method('DELETE')
+                                    <x-button class="float-right" style="margin-right: 10px;" onclick="return confirm('Are you sure you want to delete this item?')">
+                                        Delete
+                                    </x-button>
+                                </form>
+
                             @else
                                 <h1 class="text-center text-2xl font-bold my-2 text-red-500">{{ ucwords(strtolower("Please add NATURE OF BUSINESS / PROFESSION and EXISTING LIMITS AND STATUS and REQUESTED LIMITS")) }}</h1>
                                 <span class="block text-center">

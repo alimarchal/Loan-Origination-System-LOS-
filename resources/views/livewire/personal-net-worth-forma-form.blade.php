@@ -60,7 +60,7 @@
                     <input type="number" step="0.01" id="marketValue" wire:model="marketValue" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
             </div>
-            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded print:hidden">
+            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded print:hidden float-right">
                 Add Entry
             </button>
         </form>

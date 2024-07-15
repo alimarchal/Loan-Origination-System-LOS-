@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBorrowerRequest;
 use App\Http\Requests\UpdateBorrowerRequest;
 use App\Models\Borrower;
+use App\Models\Branch;
+use App\Models\LoanCategory;
+use App\Models\LoanSubCategory;
+use App\Models\Region;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,12 +23,42 @@ class BorrowerController extends Controller
     public function index()
     {
 
+
         $borrowers = QueryBuilder::for(Borrower::class)
-            ->allowedIncludes([
-                'branch',
-                'region',
-                'loan_category',
-                'loan_sub_category',
+            ->allowedFilters([
+                AllowedFilter::exact('id'),
+                AllowedFilter::exact('user_id'),
+                AllowedFilter::exact('authorizer_id'),
+                AllowedFilter::exact('region_id'),
+                AllowedFilter::exact('branch_id'),
+                'borrower_type',
+                AllowedFilter::exact('loan_category_id'),
+                AllowedFilter::exact('loan_sub_category_id'),
+                'name',
+                'relationship_status',
+                'gender',
+                'national_id_cnic',
+                'ntn',
+                'education_qualification',
+                'email',
+                'mobile_number',
+                'occupation_title',
+                AllowedFilter::scope('date_of_birth_between'),
+                'marital_status',
+                'home_ownership_status',
+                'nationality',
+                AllowedFilter::scope('date_registered_between'),
+            ])
+            ->with(['region', 'branch', 'loan_category', 'loan_sub_category'])
+            ->paginate(15)
+            ->withQueryString();
+
+//        $borrowers = QueryBuilder::for(Borrower::class)
+//            ->allowedIncludes([
+//                'branch',
+//                'region',
+//                'loan_category',
+//                'loan_sub_category',
 //                'latestStatus',
 //                'latestStatus.status',
 //                'sessionYear.session',
@@ -38,8 +72,8 @@ class BorrowerController extends Controller
 //                'exam_marks',
 //                'notes',
 //                'issued_certificates',
-            ])
-            ->allowedFilters([
+//            ])
+//            ->allowedFilters([
 //                AllowedFilter::exact('id'),
 //                AllowedFilter::exact('branch_id'),
 //                AllowedFilter::exact('blood_group_id'),
@@ -72,13 +106,13 @@ class BorrowerController extends Controller
 //                'section.id',
 //                'category.id',
 //                'dob', 'religion', 'cast', 'house', 'height', 'weight', 'measure_date', 'fees_discount',
-            ])
-//            ->defaultSort('firstname')
-            ->with([
-                'branch',
-                'region',
-                'loan_category',
-                'loan_sub_category',
+//            ])
+////            ->defaultSort('firstname')
+//            ->with([
+//                'branch',
+//                'region',
+//                'loan_category',
+//                'loan_sub_category',
 //                'latestStatus',
 //                'latestStatus.status',
 //                'sessionYear.session',
@@ -92,8 +126,15 @@ class BorrowerController extends Controller
 //                'exam_marks',
 //                'notes',
 //                'issued_certificates',
-            ])->get();
-        return view('borrowers.index', compact('borrowers'));
+//            ])->get();
+
+
+        $regions = Region::all();
+        $branches = Branch::all();
+        $loanCategories = LoanCategory::all();
+        $loanSubCategories = LoanSubCategory::all();
+
+        return view('borrowers.index', compact('borrowers', 'regions', 'branches', 'loanCategories', 'loanSubCategories'));
     }
 
     /**

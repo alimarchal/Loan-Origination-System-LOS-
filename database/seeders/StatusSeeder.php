@@ -85,12 +85,13 @@ class StatusSeeder extends Seeder
             ['name' => 'Company', 'status' => 'Business Type'],
             ['name' => 'Sole Proprietorship', 'status' => 'Business Type'],
             ['name' => 'Partnership', 'status' => 'Business Type'],
+            ['name' => 'Individual', 'status' => 'Business Type'],
 
             ['name' => 'CEO', 'status' => 'Business Designation'],
             ['name' => 'Director', 'status' => 'Business Designation'],
             ['name' => 'Managing Partner', 'status' => 'Business Designation'],
             ['name' => 'Partner', 'status' => 'Business Designation'],
-//            ['name' => 'Individual', 'status' => 'Business Type'],
+
             ['name' => 'New', 'status' => 'Vehicle Type'],
             ['name' => 'Used', 'status' => 'Vehicle Type'],
             ['name' => 'Individual', 'status' => 'Guarantor Type'],

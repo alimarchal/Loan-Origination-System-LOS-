@@ -32,7 +32,7 @@ class BorrowerBusiness extends Model
         'average_monthly_balance',
         'account_opening_date',
         'average_balance_six_months',
-        'account_number_no',
+        'account_no',
         'bank_name',
         'net_worth',
     ];
