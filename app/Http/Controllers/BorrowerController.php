@@ -154,8 +154,7 @@ class BorrowerController extends Controller
         $user = Auth::user();
         $request->merge([
             'user_id' => $user->id,
-            'branch_id' => $user->branch_id,
-            'region_id' => $user->branch->region_id,
+
             'date_registered' => now(),
         ]);
         // Assuming 'date_of_birth' is in the format 'Y-m-d'

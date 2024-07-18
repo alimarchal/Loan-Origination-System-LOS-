@@ -29,6 +29,16 @@ return new class extends Migration
             $table->string('business_bank_account_maintained')->nullable();
             $table->string('statement_of_account_attachment')->nullable();
 
+            // New fields
+            $table->string('bps_sps_no')->nullable(); // BPS or SPS No.
+            $table->date('date_of_joining')->nullable(); // Date of Joining
+            $table->string('remaining_service_25_years')->nullable(); // Remaining Service for 25 years
+            $table->string('remaining_service_60_years')->nullable(); // Remaining Service for 60 years
+            $table->string('ddo_title')->nullable(); // Title of the DDO
+            $table->decimal('monthly_salary', 10, 2)->nullable(); // Monthly Take Home Salary
+            $table->decimal('other_monthly_income', 10, 2)->nullable(); // Other Monthly Income
+            $table->string('no_of_dependents')->nullable(); // No Of Dependents
+
             $table->string('phone_number')->nullable(); // Contact phone number
             $table->string('phone_number_two')->nullable(); // Contact phone number
             $table->string('email')->nullable(); // Contact email

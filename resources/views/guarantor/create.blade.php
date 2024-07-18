@@ -1,3 +1,4 @@
+
 <x-app-layout>
     @push('header') @endpush
     <x-slot name="header">
@@ -10,13 +11,11 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-
                 <x-status-message class="mb-4" />
                 <div class="pb-4 lg:pb-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
                     @include('tabs')
 
                     <div class="px-6 mb-4 lg:px-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent dark:border-gray-700">
-
                         <h2 class="text-2xl mt-4 text-center my-2 uppercase underline font-bold text-red-700">Guarantor Information</h2>
                         <x-validation-errors class="mb-4 mt-4" />
                         <form method="POST" action="{{ route('guarantor.store', $borrower->id) }}" enctype="multipart/form-data">
@@ -118,7 +117,6 @@
                                     <x-input id="relationship_to_borrower" class="block mt-1 w-full" type="text" name="relationship_to_borrower" :value="old('relationship_to_borrower')" />
                                 </div>
 
-
                                 <div>
                                     <x-label for="dob" value="Date of Birth" />
                                     <x-input id="dob" class="block mt-1 w-full" type="date" name="dob" :value="old('dob')" />
@@ -129,80 +127,91 @@
                                     <x-input id="ntn" class="block mt-1 w-full" type="text" name="ntn" :value="old('ntn')" />
                                 </div>
 
-
                                 <div>
                                     <x-label for="nature_of_business" value="Nature of Business" />
                                     <x-input id="nature_of_business" class="block mt-1 w-full" type="text" name="nature_of_business" :value="old('nature_of_business')" />
                                 </div>
-
 
                                 <div>
                                     <x-label for="title_of_business" value="Title of Business" />
                                     <x-input id="title_of_business" class="block mt-1 w-full" type="text" name="title_of_business" :value="old('title_of_business')" />
                                 </div>
 
-
                                 <div>
                                     <x-label for="major_business_activities" value="Major Business Activities" />
                                     <x-input id="major_business_activities" class="block mt-1 w-full" type="text" name="major_business_activities" :value="old('major_business_activities')" />
                                 </div>
-
 
                                 <div>
                                     <x-label for="exact_location_of_business_place" value="Exact Location of Business Place" />
                                     <x-input id="exact_location_of_business_place" class="block mt-1 w-full" type="text" name="exact_location_of_business_place" :value="old('exact_location_of_business_place')" />
                                 </div>
 
-
                                 <div>
                                     <x-label for="business_bank_account_maintained" value="Business Bank Account Maintained" />
                                     <x-input id="business_bank_account_maintained" class="block mt-1 w-full" type="text" name="business_bank_account_maintained" :value="old('business_bank_account_maintained')" />
                                 </div>
 
-
-
                                 <div>
-                                    <x-label for="statement_of_account_attachment_one" value="Statement of Account Attachment" />
-                                    <x-input id="statement_of_account_attachment_one" class="block mt-1 w-full" type="file" name="statement_of_account_attachment_one" :value="old('statement_of_account_attachment_one')" />
+                                    <x-label for="annual_turnover" value="Annual Turnover" />
+                                    <x-input id="annual_turnover" class="block mt-1 w-full" type="number" step="0.01" min="0" name="annual_turnover" :value="old('annual_turnover')" />
                                 </div>
 
-
-
-
+                                <!-- Additional Fields -->
                                 <div>
-                                    <x-label for="net_worth" value="Net Worth" />
-                                    <x-input id="net_worth" class="block mt-1 w-full" type="number" step="0.01" min="0" name="net_worth" :value="old('net_worth')" />
+                                    <x-label for="bps_sps_no" value="BPS or SPS No." />
+                                    <x-input id="bps_sps_no" class="block mt-1 w-full" type="text" name="bps_sps_no" :value="old('bps_sps_no')" />
                                 </div>
 
                                 <div>
-                                    <x-label for="business_registration_number" value="Business Registration Number" />
-                                    <x-input id="business_registration_number" class="block mt-1 w-full" type="text" name="business_registration_number" :value="old('business_registration_number')" />
+                                    <x-label for="date_of_joining" value="Date of Joining" />
+                                    <x-input id="date_of_joining" class="block mt-1 w-full" type="date" name="date_of_joining" :value="old('date_of_joining')" />
                                 </div>
 
                                 <div>
-                                    <x-label for="annual_revenue" value="Annual Revenue" />
-                                    <x-input id="annual_revenue" class="block mt-1 w-full" type="number" step="0.01" min="0" name="annual_revenue" :value="old('annual_revenue')" />
+
+                                    <x-label for="remaining_service_25_years" value="Remaining Service (25 years)" />
+                                    <x-input id="remaining_service_25_years" class="block mt-1 w-full" type="number" step="0.01" min="0" name="remaining_service_25_years" :value="old('remaining_service_25_years')" />
+
                                 </div>
 
                                 <div>
-                                    <x-label for="annual_expenses" value="Annual Expenses" />
-                                    <x-input id="annual_expenses" class="block mt-1 w-full" type="number" step="0.01" min="0" name="annual_expenses" :value="old('annual_expenses')" />
+                                    <x-label for="remaining_service_60_years" value="Remaining Service ( years)" />
+
+                                    <x-input id="remaining_service_60_years" class="block mt-1 w-full" type="number" step="0.01" min="0" name="remaining_service_60_years" :value="old('remaining_service_60_years')" />
                                 </div>
 
                                 <div>
-                                    <x-label for="net_annual_income" value="Net Annual Income" />
-                                    <x-input id="net_annual_income" class="block mt-1 w-full" type="number" step="0.01" min="0" name="net_annual_income" :value="old('net_annual_income')" />
+                                    <x-label for="ddo_title" value="Title of the DDO" />
+                                    <x-input id="ddo_title" class="block mt-1 w-full" type="text" name="ddo_title" :value="old('ddo_title')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="monthly_salary" value="Monthly Take Home Salary" />
+                                    <x-input id="monthly_salary" class="block mt-1 w-full" type="number" step="0.01" min="0" name="monthly_salary" :value="old('monthly_salary')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="other_monthly_income" value="Other Monthly Income" />
+                                    <x-input id="other_monthly_income" class="block mt-1 w-full" type="number" step="0.01" min="0" name="other_monthly_income" :value="old('other_monthly_income')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="no_of_dependents" value="No. of Dependents" />
+                                    <x-input id="no_of_dependents" class="block mt-1 w-full" type="number" min="0" name="no_of_dependents" :value="old('no_of_dependents')" />
                                 </div>
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
-                                <x-button class="ml-4" id="submit-btn">Save</x-button>
+                                <x-button class="ml-4">
+                                    {{ __('Save') }}
+                                </x-button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+

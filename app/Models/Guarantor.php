@@ -41,6 +41,17 @@ class Guarantor extends Model
         'annual_revenue',
         'annual_expenses',
         'net_annual_income',
+         // New fields
+    'bps_sps_no',
+    'date_of_joining',
+    'remaining_service_25_years',
+    'remaining_service_60_years',
+    'ddo_title',
+    'monthly_salary',
+    'other_monthly_income',
+    'no_of_dependents',
+
+
     ];
 
 }
