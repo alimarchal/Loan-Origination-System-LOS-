@@ -368,4 +368,10 @@ class BorrowerController extends Controller
 
         return view('borrowers.make-template', compact('fillable'));
     }
+
+
+    public function print(Borrower $borrower)
+    {
+        return view('borrowers.print', compact('borrower'));
+    }
 }

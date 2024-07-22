@@ -94,6 +94,12 @@ class Borrower extends Model
     }
 
 
+    public function applicant_business_many(): HasMany
+    {
+        return $this->hasMany(BorrowerBusiness::class, 'borrower_id', 'id');
+    }
+
+
     public function applicant_requested_loan_information(): HasOne
     {
         return $this->hasOne(RequestedLoanAmount::class, 'borrower_id', 'id');
