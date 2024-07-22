@@ -173,7 +173,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
 
 
     Route::controller(AssetController::class)->group(function () {
-        Route::get('/applicant/{borrower}/guarantor-undertaking-credit-report/index', 'index')->name('pnws.index');
+        Route::get('/applicant/{borrower}/guarantor-undertaking-credit-report/index', 'index')->name('guarantor-undertaking-credit-report.index');
     });
 
 
