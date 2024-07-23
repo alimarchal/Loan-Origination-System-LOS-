@@ -24,9 +24,7 @@
                         </p>
                         <h2 class="text-black font-extrabold text-sm  uppercase underline text-center">Application Form For {{ $borrower->loan_sub_category?->name }}</h2>
 
-                        @if(!empty($borrower))
-                            Yes
-                        @endif
+
 
                         <title>Personal Information</title>
                         <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Assuming you're using Laravel Mix for CSS -->
@@ -101,10 +99,7 @@
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
             <thead class="bg-gray-100 text-left">
-                <tr>
-                    <th class="px-4 py-2 border-b font-semibold">Field</th>
-                    <th class="px-4 py-2 border-b font-semibold">Value</th>
-                </tr>
+
             </thead>
             <tbody>
                 <tr>
@@ -151,22 +146,13 @@
                     <td class="px-4 py-2 border-b"><strong>FAX:</strong></td>
                     <td class="px-4 py-2 border-b">{{ $borrower->fax ?? 'N/A' }}</td>
                 </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>NATURE OF BUSINESS:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->nature_of_business ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>DETAILS OF PAYMENT SCHEDULE (IF SOUGHT):</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->details_of_payment_schedule_if_sought ?? 'N/A' }}</td>
-                </tr>
+
+
                 <tr>
                     <td class="px-4 py-2 border-b"><strong>RESIDENCE PHONE NUMBER:</strong></td>
                     <td class="px-4 py-2 border-b">{{ $borrower->residence_phone_number ?? 'N/A' }}</td>
                 </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>OFFICE PHONE NUMBER:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->office_phone_number ?? 'N/A' }}</td>
-                </tr>
+
                 <tr>
                     <td class="px-4 py-2 border-b"><strong>MOBILE NUMBER:</strong></td>
                     <td class="px-4 py-2 border-b">{{ $borrower->mobile_number ?? 'N/A' }}</td>
@@ -215,84 +201,114 @@
                     <td class="px-4 py-2 border-b"><strong>NEXT OF KIN MOBILE NUMBER:</strong></td>
                     <td class="px-4 py-2 border-b">{{ $borrower->next_of_kin_mobile_number ?? 'N/A' }}</td>
                 </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>BUSINESS NAME:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->business_name ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>BUSINESS ADDRESS:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->business_address ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>BUSINESS CONTACT NUMBER:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->business_contact_number ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>BUSINESS EMAIL:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->business_email ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>BUSINESS REGISTRATION NUMBER:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->business_registration_number ?? 'N/A' }}</td>
-                </tr>
+
             </tbody>
         </table>
     </div>
 </div>
 
 
-                            @if($borrower->applicant_business_many->isNotEmpty())
-                                Yes
-                            @endif
-
-                            <div class="container">
-                                <div class="container mx-auto px-4 py-6">
-    <h2 class="text-2xl font-semibold mb-4">Employment Information</h2>
-    <!-- Table content goes here -->
+                          <div class="container">
+    <div class="container mx-auto px-4 py-6">
+        <h2 class="text-2xl font-semibold mb-4">Employment Information</h2>
+        <!-- Table content goes here -->
+    </div>
+    <table class="table">
+        <tr>
+            <th>Job Title / Designation</th>
+            <td>{{ $borrower->employment_information->job_title_designation ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Employment Status</th>
+            <td>{{ $borrower->employment_information->employment_status ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Employer Name</th>
+            <td>{{ $borrower->employment_information->employer_name ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Monthly Gross Salary</th>
+            <td>{{ $borrower->employment_information->monthly_gross_salary ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Monthly Net Salary</th>
+            <td>{{ $borrower->employment_information->monthly_net_salary ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Service Length (Years)</th>
+            <td>{{ $borrower->employment_information->service_length_in_years ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Service Length (Months)</th>
+            <td>{{ $borrower->employment_information->service_length_in_months ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Remaining Service Years</th>
+            <td>{{ $borrower->employment_information->remaining_service_years ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Remaining Service Months</th>
+            <td>{{ $borrower->employment_information->remaining_service_months ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Department</th>
+            <td>{{ $borrower->employment_information->department ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Official Address</th>
+            <td>{{ $borrower->employment_information->official_address ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Legal Status</th>
+            <td>{{ $borrower->employment_information->legal_status ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Office Mobile Number</th>
+            <td>{{ $borrower->employment_information->office_mobile_number ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Office Phone Number</th>
+            <td>{{ $borrower->employment_information->office_phone_number ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Personal Number</th>
+            <td>{{ $borrower->employment_information->personal_number ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Grade</th>
+            <td>{{ $borrower->employment_information->grade ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Service Status</th>
+            <td>{{ $borrower->employment_information->service_status ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Mode of Salary Receipt</th>
+            <td>{{ $borrower->employment_information->mode_of_salary_receipt ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Salary Disbursement Office Name</th>
+            <td>{{ $borrower->employment_information->salary_disbursement_office_name ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Contact Person for Disbursement</th>
+            <td>{{ $borrower->employment_information->contact_person_for_disbursement ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Terminal Benefits</th>
+            <td>{{ $borrower->employment_information->terminal_benefits ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Other Benefits</th>
+            <td>{{ $borrower->employment_information->other_benefits ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <th>Other Sources of Income</th>
+            <td>{{ $borrower->employment_information->other_sources_of_income ?? 'N/A' }}</td>
+        </tr>
+    </table>
 </div>
-                                <table class="table">
-                                    <tr>
-                                        <th>Job Title / Designation</th>
-                                        <td>{{ $borrower->employment_information->job_title_designation ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Employment Status</th>
-                                        <td>{{ $borrower->employment_information->employment_status ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Employer Name</th>
-                                        <td>{{ $borrower->employment_information->employer_name ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Monthly Gross Salary</th>
-                                        <td>{{ $borrower->employment_information->monthly_gross_salary ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Monthly Net Salary</th>
-                                        <td>{{ $borrower->employment_information->monthly_net_salary ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Service Length (Years)</th>
-                                        <td>{{ $borrower->employment_information->service_length_in_years ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Service Length (Months)</th>
-                                        <td>{{ $borrower->employment_information->service_length_in_months ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Location</th>
-                                        <td>{{ $borrower->employment_information->location ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Additional Income</th>
-                                        <td>{{ $borrower->employment_information->additional_income ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Other Income Source</th>
-                                        <td>{{ $borrower->employment_information->other_income_source ?? 'N/A' }}</td>
-                                    </tr>
-                                </table>
-                            </div>
+
 
  <div class="container mx-auto px-4 py-6">
     <h2 class="text-2xl font-semibold mb-4">Requested Loan Information</h2>

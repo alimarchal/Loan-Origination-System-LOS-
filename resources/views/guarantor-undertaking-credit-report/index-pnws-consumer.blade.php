@@ -81,7 +81,7 @@
                     @include('tabs')
                     <div class="mb-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent dark:border-gray-700">
                         <h2 class="text-sm text-center my-2 uppercase underline font-bold text-black">Guarantor Undertaking Credit Report</h2>
-                        <h2 class="text-sm text-center my-2 uppercase font-bold text-black">ACCOUNT AT THE BANK OF AZAD JAMMU & KASHMIR {{ $borrower->branch?->name }}</h2>
+                        <h2 class="text-sm text-center my-2 uppercase font-bold text-black"> THE BANK OF AZAD JAMMU & KASHMIR {{ $borrower->branch?->name }}</h2>
                         <h2 class="text-sm text-center my-2 font-bold text-black">DATE OF REQUEST: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-m-Y') }}</h2>
                         <div class="relative overflow-x-auto px-2">
                             <p style="font-size: 18px;">
@@ -94,16 +94,12 @@
                                     <strong>Mrs.</strong>
                                 @endif
                                 <strong><u>{{ strtoupper($borrower->name) }}</u></strong>
-                                @if($borrower->relationship_status === 'Single')
-                                    S/O
-                                @elseif($borrower->relationship_status === 'Married')
-                                    W/O
-                                @else
-                                    D/O
-                                @endif
+                               {{($borrower->relationship_status)}}
+
+
                                 <strong><u>{{ strtoupper($borrower->parent_spouse_name) }}</u></strong>
                                 R/O <strong><u>{{ strtoupper($borrower->permanent_address) }}</u></strong>
-                                for an amount of <strong><u>{{ $borrower->amount }}</u></strong>
+
                             </p>
 
                             <p style="font-size: 18px;">
