@@ -81,6 +81,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::get('/applicant/{borrower}/vehicles/{vehicle}/edit', 'edit')->name('applicant.vehicles.edit');
         Route::put('/borrower/{borrower}/vehicles/{vehicle}', 'update')->name('applicant.vehicles.update');
         Route::delete('/applicant/{borrower}/vehicles/{vehicle}/destroy', 'destroy')->name('applicant.vehicles.destroy');
+
+
+
+
     });
 
 
@@ -137,6 +141,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::get('/applicant/{borrower}/document/{document}/edit', 'edit')->name('document.edit');
         Route::put('/applicant/{borrower}/document/{document}', 'update')->name('document.update');
         Route::delete('/applicant/{borrower}/document/{document}/destroy', 'destroy')->name('document.destroy');
+
+
+
     });
 
 

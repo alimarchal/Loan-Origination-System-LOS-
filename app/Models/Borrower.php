@@ -129,4 +129,33 @@ class Borrower extends Model
     {
         return $this->hasMany(Guarantor::class);
     }
+
+
+public function finance_facility_many()
+{
+
+
+    return $this->hasMany(FinanceFacility::class);
+
+
+}
+public function documents() {
+    return $this->hasOne(Document::class);
+}
+
+public function listHouseHoldItems()
+    {
+        return $this->hasMany(ListHouseHoldItem::class);
+    }
+
+// Borrower.php
+
+public function vehicles()
+{
+    return $this->hasMany(Vehicle::class, 'borrower_id');
+}
+
+// In App\Models\Borrower
+
+
 }

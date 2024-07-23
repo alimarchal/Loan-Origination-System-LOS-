@@ -20,4 +20,5 @@ class ListHouseHoldItem extends Model
     {
         return $this->belongsTo(Borrower::class);
     }
+
 }

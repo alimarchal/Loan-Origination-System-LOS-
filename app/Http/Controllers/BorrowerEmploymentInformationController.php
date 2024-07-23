@@ -37,7 +37,7 @@ class BorrowerEmploymentInformationController extends Controller
         $request->merge([
             'user_id' => $user->id,
             'branch_id' => $user->branch_id,
-            'region_id' => $user->branch->region_id,
+
             'borrower_id' => $borrower->id,
         ]);
 

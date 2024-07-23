@@ -374,4 +374,5 @@ class BorrowerController extends Controller
     {
         return view('borrowers.print', compact('borrower'));
     }
+
 }

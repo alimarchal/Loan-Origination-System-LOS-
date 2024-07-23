@@ -139,5 +139,6 @@ class VehicleController extends Controller
             session()->flash('error', 'An error occurred: ' . $e->getMessage());
             return back()->withInput();
         }
+
     }
 }
