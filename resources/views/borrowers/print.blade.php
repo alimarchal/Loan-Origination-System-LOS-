@@ -824,6 +824,79 @@
         </tr>
     </table>
 </div>
+<div class="bg-white shadow-lg rounded-lg overflow-hidden p-6 mt-4">
+    <h2 class="text-xl font-semibold text-gray-900 mb-4">Security Details</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Security Type</th>
+            <td>{{ $borrower->security?->security_type }}</td>
+        </tr>
+        <tr>
+            <th>Value of Gold Ornaments</th>
+            <td>{{ $borrower->security?->value_of_gold_ornaments_value }}</td>
+        </tr>
+        <tr>
+            <th>Gross Weight of Gold</th>
+            <td>{{ $borrower->security?->gross_weight_of_gold }}</td>
+        </tr>
+        <tr>
+            <th>Gold Bag Seal No</th>
+            <td>{{ $borrower->security?->gold_bag_seal_no }}</td>
+        </tr>
+        <tr>
+            <th>Market Value</th>
+            <td>{{ $borrower->security?->market_value }}</td>
+        </tr>
+        <tr>
+            <th>Forced Sales Value (FSV)</th>
+            <td>{{ $borrower->security?->forced_sales_value_fsv }}</td>
+        </tr>
+        <tr>
+            <th>Ownership</th>
+            <td>{{ $borrower->security?->ownership }}</td>
+        </tr>
+        <tr>
+            <th>Lien Account No</th>
+            <td>{{ $borrower->security?->lien_ac_no }}</td>
+        </tr>
+        <tr>
+            <th>Lien Title</th>
+            <td>{{ $borrower->security?->lien_title }}</td>
+        </tr>
+        <tr>
+            <th>Lien Bank Branch</th>
+            <td>{{ $borrower->security?->lien_bank_branch }}</td>
+        </tr>
+        <tr>
+            <th>Lien Amount</th>
+            <td>{{ $borrower->security?->lien_amount }}</td>
+        </tr>
+        <tr>
+            <th>Pledge TDR/SSC/DSC Certificate No</th>
+            <td>{{ $borrower->security?->pledge_tdr_ssc_dsc_cert_no }}</td>
+        </tr>
+        <tr>
+            <th>Pledge Date of Issuance</th>
+            <td>{{ $borrower->security?->pledge_date_of_issuance }}</td>
+        </tr>
+        <tr>
+            <th>Pledge Issuing Office</th>
+            <td>{{ $borrower->security?->pledge_issuing_office }}</td>
+        </tr>
+        <tr>
+            <th>Pledge Amount</th>
+            <td>{{ $borrower->security?->pledge_amount }}</td>
+        </tr>
+        <tr>
+            <th>Remarks</th>
+            <td>{{ $borrower->security?->remarks }}</td>
+        </tr>
+    </table>
+</div>
+
+    </table>
+</div>
+
 
 
 </div>

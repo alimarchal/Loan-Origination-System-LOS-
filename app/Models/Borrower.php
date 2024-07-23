@@ -150,12 +150,18 @@ public function listHouseHoldItems()
 
 // Borrower.php
 
-public function vehicles()
+public function vehicle()
 {
-    return $this->hasMany(Vehicle::class, 'borrower_id');
+    return $this->hasOne(Vehicle::class);
+}
+public function vehicle_many()
+{
+    return $this->hasMany(Vehicle::class);
+}
+public function security()
+{
+    return $this->hasOne(Security::class);
+}
 }
 
 // In App\Models\Borrower
-
-
-}
