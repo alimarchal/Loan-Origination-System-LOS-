@@ -893,6 +893,111 @@
         </tr>
     </table>
 </div>
+@if($borrower->applicant_business)
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden p-6 mt-4">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">BUSINESS INFORMATION</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Business Name</th>
+                <td>{{ $borrower->applicant_business->name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ $borrower->applicant_business->type }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ $borrower->applicant_business->address }}</td>
+            </tr>
+            <tr>
+                <th>Landline</th>
+                <td>{{ $borrower->applicant_business->landline }}</td>
+            </tr>
+            <tr>
+                <th>Mobile</th>
+                <td>{{ $borrower->applicant_business->mobile }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ $borrower->applicant_business->designation }}</td>
+            </tr>
+            <tr>
+                <th>Monthly Revenue</th>
+                <td>{{ $borrower->applicant_business->monthly_revenue }}</td>
+            </tr>
+            <tr>
+                <th>Experience (Years)</th>
+                <td>{{ $borrower->applicant_business->experience_years }}</td>
+            </tr>
+            <tr>
+                <th>Monthly Expenses</th>
+                <td>{{ $borrower->applicant_business->monthly_expenses }}</td>
+            </tr>
+            <tr>
+                <th>Net Monthly Income</th>
+                <td>{{ $borrower->applicant_business->net_monthly_income }}</td>
+            </tr>
+            <tr>
+                <th>Start Date</th>
+                <td>{{ $borrower->applicant_business->start_date }}</td>
+            </tr>
+            <tr>
+                <th>Acquisition Date</th>
+                <td>{{ $borrower->applicant_business->acquisition_date }}</td>
+            </tr>
+            <tr>
+                <th>Number of Employees</th>
+                <td>{{ $borrower->applicant_business->number_of_employees }}</td>
+            </tr>
+            <tr>
+                <th>Tax Number</th>
+                <td>{{ $borrower->applicant_business->tax_number }}</td>
+            </tr>
+            <tr>
+                <th>Initial Investment</th>
+                <td>{{ $borrower->applicant_business->initial_investment }}</td>
+            </tr>
+            <tr>
+                <th>Investment Source</th>
+                <td>{{ $borrower->applicant_business->investment_source }}</td>
+            </tr>
+            <tr>
+                <th>Premises Status</th>
+                <td>{{ $borrower->applicant_business->premises_status }}</td>
+            </tr>
+            <tr>
+                <th>Monthly Rent</th>
+                <td>{{ $borrower->applicant_business->monthly_rent }}</td>
+            </tr>
+            <tr>
+                <th>Average Monthly Balance</th>
+                <td>{{ $borrower->applicant_business->average_monthly_balance }}</td>
+            </tr>
+            <tr>
+                <th>Account Opening Date</th>
+                <td>{{ $borrower->applicant_business->account_opening_date }}</td>
+            </tr>
+            <tr>
+                <th>Average Balance (Six Months)</th>
+                <td>{{ $borrower->applicant_business->average_balance_six_months }}</td>
+            </tr>
+            <tr>
+                <th>Account Number</th>
+                <td>{{ $borrower->applicant_business->account_no }}</td>
+            </tr>
+            <tr>
+                <th>Bank Name</th>
+                <td>{{ $borrower->applicant_business->bank_name }}</td>
+            </tr>
+            <tr>
+                <th>Net Worth</th>
+                <td>{{ $borrower->applicant_business->net_worth }}</td>
+            </tr>
+        </table>
+    </div>
+@endif
+
+
 
     </table>
 </div>
