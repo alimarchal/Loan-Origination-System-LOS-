@@ -46,7 +46,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/borrower', 'store')->name('applicant.store');;
         Route::get('/borrower/{borrower}/edit', 'edit')->name('applicant.edit');;
         Route::put('/borrower/{borrower}', 'update')->name('applicant.update');;
-        Route::get('/applicant/{borrower}', 'print')->name('applicant.print');;
+        Route::get('/applicant/{borrower}/print', 'print')->name('applicant.print');;
+        Route::get('/applicant/{borrower}/download', 'download')->name('applicant.download');;
     });
 
     // Applicant Employment Information

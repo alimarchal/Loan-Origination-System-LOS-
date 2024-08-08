@@ -1,1034 +1,920 @@
 <x-app-layout>
-    @push('header') @endpush
+    @push('header')
+        <style>
+
+            body {
+                font-family: Arial, sans-serif;
+                font-size: 12px;
+                line-height: 1.5;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .font-bold {
+                font-weight: bold;
+            }
+
+            .uppercase {
+                text-transform: uppercase;
+            }
+
+            .mb-4 {
+                margin-bottom: 16px;
+            }
+        </style>
+
+        <style>
+            /*table, td, th {*/
+            /*    !*border: 1px solid;*!*/
+            /*    !*padding-left: 5px;*!*/
+            /*}*/
+
+            /*table {*/
+            /*    width: 100%;*/
+            /*    border-collapse: collapse;*/
+            /*}*/
+
+            @media print {
+                @page {
+                    size: portrait;
+                    /*margin: 0.5in; !* Default margin *!*/
+                    margin-left: 0.2in;
+                    margin-right: 0.2in;
+                    margin-top: 0.5in;
+                    margin-bottom: 0.2in;
+                }
+                body {
+                    zoom: 70%;
+                    background-color: white !important;
+                }
+                .no-print {
+                    display: none !important;
+                }
+                /* Preserve table styles */
+                table, th, td {
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }
+                /* Override any unwanted background colors */
+                .bg-white, .dark\:bg-gray-800 {
+                    background-color: transparent !important;
+                }
+                /* Ensure text is visible */
+                .text-gray-800, .dark\:text-gray-200 {
+                    color: black !important;
+                }
+            }
+
+
+
+        </style>
+    @endpush
+
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block">
             Applicant Information
         </h2>
         @include('back-navigation')
-    </x-slot>
 
+    </x-slot>
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg print:shadow-none">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden  sm:rounded-lg">
 
                 <x-status-message class="mb-4" />
                 <x-validation-errors class="mb-4" />
-                <div class="pb-4 lg:pb-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent  ">
+                <div class="pb-4 lg:pb-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200">
                     @include('tabs')
-                    <div class="px-6 mb-4 lg:px-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent">
+                    <div class=" mb-4  bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent ">
 
-                        <p class="text-black text-sm font-extrabold text-center">
+                        <p class="text-center my-2 uppercase  font-bold text-black">
                             Branch & Code: {{ $borrower->branch?->name }} - {{ $borrower->branch?->code }},
                             <br>Region: {{ $borrower->branch?->region?->name }}
                             <br> Date: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-M-Y') }}
                         </p>
-                        <h2 class="text-black font-extrabold text-sm  uppercase underline text-center">Application Form For {{ $borrower->loan_sub_category?->name }}</h2>
+                        <h2 class="text-center uppercase underline font-bold text-black">Application Form For {{ $borrower->loan_sub_category?->name }}</h2>
+
+                        <div class="relative overflow-x-auto">
+                            <table class="table-auto w-full border-collapse border border-black">
+                                <thead class="border-black uppercase">
+                                <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                    <th class="border-black border py-1 px-2 text-center" colspan="4">Personal Information</th>
+                                </tr>
+                                </thead>
+                                <tbody class="text-black">
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">NAME:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->name ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">RELATIONSHIP STATUS:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->relationship_status ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">PARENT/SPOUSE NAME:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">GENDER:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->gender ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">NATIONAL ID (CNIC):</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">NTN:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->ntn ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">PARENT/SPOUSE NATIONAL ID (CNIC):</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">NUMBER OF DEPENDENTS:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->number_of_dependents ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">EDUCATIONAL QUALIFICATION:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->education_qualification ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">EMAIL:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->email ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">FAX:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->fax ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">RESIDENCE PHONE NUMBER:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->residence_phone_number ?? 'N/A' }}</td>
+                                    </tr>
+
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">MOBILE NUMBER:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->mobile_number ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">PRESENT ADDRESS:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->present_address ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">PERMANENT ADDRESS:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->permanent_address ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">OCCUPATION TITLE:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->occupation_title ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">JOB TITLE:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->job_title ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">DATE OF BIRTH:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->date_of_birth ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">AGE:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->age ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">MARITAL STATUS:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->marital_status ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">HOME OWNERSHIP STATUS:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->home_ownership_status ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">NATIONALITY:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->nationality ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">NEXT OF KIN NAME:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->next_of_kin_name ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">NEXT OF KIN MOBILE NUMBER:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->next_of_kin_mobile_number ?? 'N/A' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            <br>
+
+                            <table class="table-auto w-full border-collapse border border-black">
+                                <thead class="border-black uppercase">
+                                <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                    <th class="border-black border py-1 px-2 text-center" colspan="4">Employment Information</th>
+                                </tr>
+                                </thead>
+                                <tbody class="text-black">
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Job Title / Designation</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->job_title_designation ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Employment Status</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->employment_status ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Employer Name</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->employer_name ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Monthly Gross Salary</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->monthly_gross_salary ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Monthly Net Salary</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->monthly_net_salary ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Service Length (Years)</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->service_length_in_years ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Service Length (Months)</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->service_length_in_months ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Remaining Service Years</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->remaining_service_years ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Remaining Service Months</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->remaining_service_months ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Department</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->department ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Official Address</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->official_address ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Legal Status</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->legal_status ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Office Mobile Number</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->office_mobile_number ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Office Phone Number</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->office_phone_number ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Personal Number</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->personal_number ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Grade</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->grade ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Service Status</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->service_status ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Mode of Salary Receipt</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->mode_of_salary_receipt ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Salary Disbursement Office Name</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->salary_disbursement_office_name ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Contact Person for Disbursement</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->contact_person_for_disbursement ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Terminal Benefits</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->terminal_benefits ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Other Benefits</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->other_benefits ?? 'N/A' }}</td>
+                                </tr>
+                                <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                                    <td class="border-black border py-1 px-2 font-bold text-left">Other Sources of Income</td>
+                                    <td class="border-black border py-1 px-2 text-left">{{ $borrower->employment_information->other_sources_of_income ?? 'N/A' }}</td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left"></td>
+                                    <td class="border-black border py-1 px-2 font-bold text-left"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <br>
+
+                            <table class="table-auto w-full border-collapse border border-black">
+
+                                @if($borrower->applicant_business_many->isEmpty())
+                                    <p>No references available.</p>
+                                @else
+                                    @foreach($borrower->applicant_business_many as $reference)
+                                        <thead class="border-black uppercase">
+                                        <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                            <th class="border-black border py-1 px-2 text-center" colspan="4">Business Information # {{ $loop->iteration }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-black" style="font-size: 12px!important;">
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Business Name</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->name }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Type</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->type }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Address</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->address }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Landline</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->landline }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Mobile</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->mobile }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Designation</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->designation }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Monthly Revenue</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->monthly_revenue }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Experience (Years)</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->experience_years }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Monthly Expenses</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->monthly_expenses }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Net Monthly Income</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->net_monthly_income }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Start Date</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->start_date }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Acquisition Date</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->acquisition_date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Number of Employees</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->number_of_employees }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Tax Number</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->tax_number }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Initial Investment</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->initial_investment }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Investment Source</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->investment_source }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Premises Status</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->premises_status }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Monthly Rent</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->monthly_rent }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Average Monthly Balance</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->average_monthly_balance }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Account Opening Date</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->account_opening_date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Average Balance (Six Months)</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->average_balance_six_months }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Account Number</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->account_no }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Bank Name</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->bank_name }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Net Worth</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_business->net_worth }}</td>
+                                        </tr>
+                                        </tbody>
+                                    @endforeach
+                                @endif
+
+                            </table>
+
+
+                            <br>
+
+                            <table class="table-auto w-full border-collapse border border-black">
+                                <thead class="border-black uppercase">
+                                <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                    <th class="border-black border py-1 px-2 text-center" colspan="4">Requested Loan Information</th>
+                                </tr>
+                                </thead>
+                                <tbody class="text-black" style="font-size: 12px!important;">
+                                    <tr class="border-b border-black hover:bg-yellow-100">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Request Date:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->request_date ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Requested Amount:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->requested_amount ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Margin on Gold Limit:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->margin_on_gold_limit ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Currency:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->currency ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Loan Purpose:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->loan_purpose ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Status:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->status ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Tenure in Years:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->tenure_in_years ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Tenure in Months:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->tenure_in_months ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Repayment Frequency:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->repayment_frequency ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Salary Account No:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->salary_account_no ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Salary Account Branch Name:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->salary_account_branch_name ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Salary Account Bank Name:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->salary_account_bank_name ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Account with BAJK:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->account_with_bajk ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Account with Other Banks:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->account_with_other_banks ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr class="border-b border-black hover:bg-yellow-100">
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Markup Rate Type:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->markup_rate_type ?? 'N/A' }}</td>
+                                        <td class="border-black border py-1 px-2 font-bold text-left">Is Insured:</td>
+                                        <td class="border-black border py-1 px-2 text-left">{{ $borrower->applicant_requested_loan_information->is_insured ?? 'N/A' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <br>
+
+                            <table class="table-auto w-full border-collapse border border-black">
+
+                                @if($borrower->reference->isEmpty())
+                                    <p>No references available.</p>
+                                @else
+                                    @foreach($borrower->reference as $reference)
+                                        <thead class="border-black uppercase">
+                                        <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                            <th class="border-black border py-1 px-2 text-center" colspan="4">References # {{ $loop->iteration }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-black" style="font-size: 12px!important;">
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Father/Husband:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->father_husband }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">National ID:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->national_id }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">NTN:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->ntn }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Date of Birth:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->date_of_birth }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Present Address:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->present_address }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Permanent Address:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->permanent_address }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Phone Number:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->phone_number }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Phone Number Two:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->phone_number_two }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Phone Number Three:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->phone_number_three }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Email:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->email }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Fax:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->fax }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Designation:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->designation }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Relationship to Borrower:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $reference->relationship_to_borrower }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left"></td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left"></td>
+                                        </tr>
+                                        </tbody>
+                                    @endforeach
+                                @endif
+
+                            </table>
+
+
+                            <br>
+
+                            <table class="table-auto w-full border-collapse border border-black">
+
+                                @if($borrower->finance_facility_many->isEmpty())
+                                    <p>No references available.</p>
+                                @else
+                                    @foreach($borrower->finance_facility_many as $facility)
+                                        <thead class="border-black uppercase">
+                                        <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                            <th class="border-black border py-1 px-2 text-center" colspan="4">Finance Facility Information # {{ $loop->iteration }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-black" style="font-size: 12px!important;">
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Institution Name:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->institution_name }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Repayment Status:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->repayment_status }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Facility Type:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->facility_type }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Amount:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->amount }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Loan Limit:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->loan_limit }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Outstanding Amount:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->outstanding_amount }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Monthly Installment:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->monthly_installment }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Interest Rate (%):</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->interest_rate }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Term (Months):</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->term_months }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Start Date:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->start_date }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">End Date:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->end_date }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Purpose of Loan:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->purpose_of_loan }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Status:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->status }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Remarks:</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $facility->remarks }}</td>
+                                        </tr>
+                                        </tbody>
+                                    @endforeach
+                                @endif
+
+                            </table>
+
+
+                            <br>
+
+
+                            <table class="table-auto w-full border-collapse border border-black">
+
+                                @if($borrower->documents_uploaded->isEmpty())
+                                    <p>No references available.</p>
+                                @else
+                                    <thead class="border-black uppercase">
+                                    <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                        <th class="border-black border py-1 px-2 text-center" colspan="4">Documents</th>
+                                    </tr>
+                                    </thead>
+                                    @foreach($borrower->documents_uploaded as $doc)
+
+                                        <tbody class="text-black" style="font-size: 12px!important;">
+
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Document Name</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $doc->document_type }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Uploaded</td>
+                                            <td class="border-black border py-1 px-2 text-left">@if(!empty($doc->path_attachment)) Yes @else No @endif</td>
+                                        </tr>
+                                        </tbody>
+                                    @endforeach
+                                @endif
+
+                            </table>
 
 
 
-                        <title>Personal Information</title>
-                        <link rel="stylesheet" href="{{ asset('css/app.css') }}"> <!-- Assuming you're using Laravel Mix for CSS -->
-                        <style>
-                            body {
-                                font-family: Arial, sans-serif;
-                                margin: 0;
-                                padding: 0;
-                                color: #333;
-                            }
-                            .container {
-                                max-width: 100%;
-                                margin: 0 auto;
-                                padding: 20px;
-                                box-sizing: border-box;
-                            }
-                            .personal-info, .business-information, .requested-loan-information {
-                                margin-bottom: 20px;
-                                padding: 10px;
-                                border-radius: 8px;
-                                background: #f9f9f9;
-                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                            }
-                            .personal-info h2, .business-information h2, .requested-loan-information h2 {
-                                border-bottom: 2px solid #007bff;
-                                padding-bottom: 10px;
-                                color: #007bff;
-                                font-size: 1.5em;
-                                margin-bottom: 10px;
-                            }
-                            .personal-info p, .business-information p, .requested-loan-information ul {
-                                margin: 5px 0;
-                                font-size: 1em;
-                            }
-                            .personal-info label {
-                                font-weight: bold;
-                                display: inline-block;
-                                min-width: 200px;
-                            }
-                            .table {
-                                width: 100%;
-                                border-collapse: collapse;
-                                margin-bottom: 20px;
-                            }
-                            .table th, .table td {
-                                padding: 8px 12px;
-                                border: 1px solid #ddd;
-                                text-align: left;
-                            }
-                            .table th {
-                                background-color: #f2f2f2;
-                                font-weight: bold;
-                            }
-                            @media (max-width: 768px) {
-                                .container {
-                                    padding: 10px;
-                                }
-                                .personal-info label {
-                                    display: block;
-                                    margin-bottom: 5px;
-                                }
-                            }
-                        </style>
+                            <br>
 
-                   <div class="container mx-auto px-4 py-6">
-    <div class="container mx-auto px-4 py-6">
-    <h2 class="text-2xl font-semibold mb-4">Personal Information</h2>
-    <div class="overflow-x-auto">
-        <!-- Table content goes here -->
-    </div>
-</div>
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
-            <thead class="bg-gray-100 text-left">
+                            <table class="table-auto w-full border-collapse border border-black">
 
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>NAME:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->name ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>RELATIONSHIP STATUS:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->relationship_status ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>PARENT/SPOUSE NAME:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>GENDER:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->gender ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>NATIONAL ID (CNIC):</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>NTN:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->ntn ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>PARENT/SPOUSE NATIONAL ID (CNIC):</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>NUMBER OF DEPENDENTS:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->number_of_dependents ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>EDUCATIONAL QUALIFICATION:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->education_qualification ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>EMAIL:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->email ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>FAX:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->fax ?? 'N/A' }}</td>
-                </tr>
+                                @if($borrower->listHouseHoldItems->isEmpty())
+                                    <p>No references available.</p>
+                                @else
+                                    <thead class="border-black uppercase">
+                                        <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                            <th class="border-black border py-1 px-2 text-center" colspan="4">Household Items</th>
+                                        </tr>
+                                        <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                            <th class="border-black border py-1 px-2 text-center" >Description of Items</th>
+                                            <th class="border-black border py-1 px-2 text-center" >Quantity</th>
+                                            <th class="border-black border py-1 px-2 text-center" >Market Value</th>
+                                            <th class="border-black border py-1 px-2 text-center" >Amount</th>
+                                        </tr>
+                                        </thead>
+                                    @foreach($borrower->listHouseHoldItems as $item)
+
+                                        <tbody class="text-black" style="font-size: 12px!important;">
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-center">{{ $item->description_of_items }}</td>
+                                                <td class="border-black border py-1 px-2 text-center">{{ $item->quantity }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-center">{{ $item->market_value }}</td>
+                                                <td class="border-black border py-1 px-2 text-center">{{ $item->amount }}</td>
+                                            </tr>
+                                        </tbody>
+                                    @endforeach
+                                @endif
+
+                            </table>
 
 
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>RESIDENCE PHONE NUMBER:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->residence_phone_number ?? 'N/A' }}</td>
-                </tr>
 
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>MOBILE NUMBER:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->mobile_number ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>PRESENT ADDRESS:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->present_address ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>PERMANENT ADDRESS:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->permanent_address ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>OCCUPATION TITLE:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->occupation_title ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>JOB TITLE:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->job_title ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>DATE OF BIRTH:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->date_of_birth ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>AGE:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->age ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>MARITAL STATUS:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->marital_status ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>HOME OWNERSHIP STATUS:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->home_ownership_status ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>NATIONALITY:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->nationality ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>NEXT OF KIN NAME:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->next_of_kin_name ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>NEXT OF KIN MOBILE NUMBER:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->next_of_kin_mobile_number ?? 'N/A' }}</td>
-                </tr>
+                            <br>
 
-            </tbody>
-        </table>
-    </div>
-</div>
+                            <table class="table-auto w-full border-collapse border border-black">
 
+                                @if($borrower->guarantor->isEmpty())
+                                    <p>No references available.</p>
+                                @else
+                                    @foreach($borrower->guarantor as $guarantor)
+                                        <thead class="border-black uppercase">
+                                        <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                            <th class="border-black border py-1 px-2 text-center" colspan="4">Guarantor Details # {{ $loop->iteration }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-black" style="font-size: 12px!important;">
 
-                          <div class="container">
-    <div class="container mx-auto px-4 py-6">
-        <h2 class="text-2xl font-semibold mb-4">Employment Information</h2>
-        <!-- Table content goes here -->
-    </div>
-    <table class="table">
-        <tr>
-            <th>Job Title / Designation</th>
-            <td>{{ $borrower->employment_information->job_title_designation ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Employment Status</th>
-            <td>{{ $borrower->employment_information->employment_status ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Employer Name</th>
-            <td>{{ $borrower->employment_information->employer_name ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Monthly Gross Salary</th>
-            <td>{{ $borrower->employment_information->monthly_gross_salary ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Monthly Net Salary</th>
-            <td>{{ $borrower->employment_information->monthly_net_salary ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Service Length (Years)</th>
-            <td>{{ $borrower->employment_information->service_length_in_years ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Service Length (Months)</th>
-            <td>{{ $borrower->employment_information->service_length_in_months ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Remaining Service Years</th>
-            <td>{{ $borrower->employment_information->remaining_service_years ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Remaining Service Months</th>
-            <td>{{ $borrower->employment_information->remaining_service_months ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Department</th>
-            <td>{{ $borrower->employment_information->department ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Official Address</th>
-            <td>{{ $borrower->employment_information->official_address ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Legal Status</th>
-            <td>{{ $borrower->employment_information->legal_status ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Office Mobile Number</th>
-            <td>{{ $borrower->employment_information->office_mobile_number ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Office Phone Number</th>
-            <td>{{ $borrower->employment_information->office_phone_number ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Personal Number</th>
-            <td>{{ $borrower->employment_information->personal_number ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Grade</th>
-            <td>{{ $borrower->employment_information->grade ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Service Status</th>
-            <td>{{ $borrower->employment_information->service_status ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Mode of Salary Receipt</th>
-            <td>{{ $borrower->employment_information->mode_of_salary_receipt ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Salary Disbursement Office Name</th>
-            <td>{{ $borrower->employment_information->salary_disbursement_office_name ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Contact Person for Disbursement</th>
-            <td>{{ $borrower->employment_information->contact_person_for_disbursement ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Terminal Benefits</th>
-            <td>{{ $borrower->employment_information->terminal_benefits ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Other Benefits</th>
-            <td>{{ $borrower->employment_information->other_benefits ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <th>Other Sources of Income</th>
-            <td>{{ $borrower->employment_information->other_sources_of_income ?? 'N/A' }}</td>
-        </tr>
-    </table>
-</div>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Guarantor Type</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->guarantor_type }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Title</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->title }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Name</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->name }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Father/Husband</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->father_husband }}</td>
+                                            </tr>
+
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">National ID</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->national_id }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Phone Number</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->phone_number }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Phone Number Two</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->phone_number_two }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Email</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->email }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Present Address</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->present_address }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Permanent Address</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->permanent_address }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Department</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->department }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Designation</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->designation }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Employer Name</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->employer_name }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Employee Personal Number</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->employee_personal_number }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Employment Status</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->employment_status }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Monthly Gross Salary</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->monthly_gross_salary }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Date of Retirement</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->date_of_retirement }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Relationship to Borrower</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->relationship_to_borrower }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Date of Birth</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->dob }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">NTN</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->ntn }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Nature of Business</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->nature_of_business }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Title of Business</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->title_of_business }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Major Business Activities</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->major_business_activities }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Exact Location of Business Place</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->exact_location_of_business_place }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Business Bank Account Maintained</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->business_bank_account_maintained }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Statement of Account Attachment</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->statement_of_account_attachment }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Net Worth</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->net_worth }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Business Registration Number</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->business_registration_number }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Annual Revenue</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->annual_revenue }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Annual Expenses</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->annual_expenses }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Net Annual Income</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->net_annual_income }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">BPS/SPS No</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->bps_sps_no }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Date of Joining</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->date_of_joining }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Remaining Service (25 Years)</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->remaining_service_25_years }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Remaining Service (60 Years)</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->remaining_service_60_years }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">DDO Title</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->ddo_title }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Monthly Salary</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->monthly_salary }}</td>
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Other Monthly Income</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->other_monthly_income }}</td>
+                                            </tr>
+                                            <tr class="border-b border-black hover:bg-yellow-100">
+                                                <td class="border-black border py-1 px-2 font-bold text-left">Number of Dependents</td>
+                                                <td class="border-black border py-1 px-2 text-left">{{ $guarantor->no_of_dependents }}</td>
+                                                <td class="border-black border py-1 px-2 text-left"></td>
+                                                <td class="border-black border py-1 px-2 text-left"></td>
+                                            </tr>
+                                        </tbody>
+                                    @endforeach
+                                @endif
+
+                            </table>
 
 
- <div class="container mx-auto px-4 py-6">
-    <h2 class="text-2xl font-semibold mb-4">Requested Loan Information</h2>
-    <div class="overflow-x-auto">
-        <!-- Requested Loan Information content goes here -->
-    </div>
-</div>
-        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
-            <thead class="bg-gray-100 text-left">
+                            <br>
 
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Request Date:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->request_date ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Requested Amount:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->requested_amount ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Margin on Gold Limit:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->margin_on_gold_limit ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Currency:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->currency ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Loan Purpose:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->loan_purpose ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Status:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->status ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Tenure in Years:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->tenure_in_years ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Tenure in Months:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->tenure_in_months ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Repayment Frequency:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->repayment_frequency ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Salary Account No:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->salary_account_no ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Salary Account Branch Name:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->salary_account_branch_name ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Salary Account Bank Name:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->salary_account_bank_name ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Account with BAJK:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->account_with_bajk ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Account with Other Banks:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->account_with_other_banks ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Markup Rate Type:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->markup_rate_type ?? 'N/A' }}</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 border-b"><strong>Is Insured:</strong></td>
-                    <td class="px-4 py-2 border-b">{{ $borrower->applicant_requested_loan_information->is_insured ?? 'N/A' }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="container mx-auto px-4 py-6">
-    <h2 class="text-2xl font-semibold mb-4">Refrences</h2>
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
-            <thead class="bg-gray-100 text-left">
-        @if($borrower->reference->isEmpty())
-            <p>No references available.</p>
-        @else
-            @foreach($borrower->reference as $reference)
-                <div class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md mb-4 p-4">
-                    <table class="w-full">
-                        <tbody>
 
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Father/Husband:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->father_husband }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">National ID:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->national_id }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">NTN:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->ntn }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Date of Birth:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->date_of_birth }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Present Address:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->present_address }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Permanent Address:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->permanent_address }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Phone Number:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->phone_number }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Phone Number Two:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->phone_number_two }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Phone Number Three:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->phone_number_three }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Email:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->email }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Fax:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->fax }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Designation:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->designation }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Relationship to Borrower:</th>
-                                <td class="px-4 py-2 border-b">{{ $reference->relationship_to_borrower }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                            <table class="table-auto w-full border-collapse border border-black">
+
+                                @if($borrower->vehicles->isEmpty())
+                                    <p>No references available.</p>
+                                @else
+                                    @foreach($borrower->vehicles as $vehicle)
+                                        <thead class="border-black uppercase">
+                                        <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                            <th class="border-black border py-1 px-2 text-center" colspan="4">Vehicle Details # {{ $loop->iteration }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-black" style="font-size: 12px!important;">
+
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Vehicle Type</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->vehicle_type }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Price of Vehicle</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->price_of_vehicle }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Down Payment Percentage</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->down_payment_percentage }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Finance Amount</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->finance_amount }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Model Year</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->model_year }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Year of Manufacturing</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->year_of_manufacturing }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Make</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->make }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Model</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->model }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Cost of Vehicle</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->cost_of_vehicle }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Equity Down Payment</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->equity_dawn_payment }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Financial Institute Contribution</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->financial_institute_contribution }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Name of Authorized Dealer/Seller</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->name_authorized_dealer_seller }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Repayment Mode</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->repayment_mode }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Tenure in Years</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->tenure_in_years }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Tenure in Months</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->tenure_in_month }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Markup Rate Type</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $vehicle->markup_rate_type }}</td>
+                                        </tr>
+                                        </tbody>
+                                    @endforeach
+                                @endif
+
+                            </table>
+
+                            <br>
+
+
+
+                            <table class="table-auto w-full border-collapse border border-black">
+
+                                @if($borrower->securities->isEmpty())
+                                    <p>No references available.</p>
+                                @else
+                                    @foreach($borrower->securities as $vehicle)
+                                        <thead class="border-black uppercase">
+                                        <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                                            <th class="border-black border py-1 px-2 text-center" colspan="4">Security Details # {{ $loop->iteration }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="text-black" style="font-size: 12px!important;">
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Security Type</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->security_type }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Value of Gold Ornaments</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->value_of_gold_ornaments_value }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Gross Weight of Gold</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->gross_weight_of_gold }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Gold Bag Seal No</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->gold_bag_seal_no }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Market Value</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->market_value }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Forced Sales Value (FSV)</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->forced_sales_value_fsv }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Ownership</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->ownership }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Lien Account No</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->lien_ac_no }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Lien Title</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->lien_title }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Lien Bank Branch</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->lien_bank_branch }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Lien Amount</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->lien_amount }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Pledge TDR/SSC/DSC Certificate No</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->pledge_tdr_ssc_dsc_cert_no }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Pledge Date of Issuance</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->pledge_date_of_issuance }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Pledge Issuing Office</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->pledge_issuing_office }}</td>
+                                        </tr>
+                                        <tr class="border-b border-black hover:bg-yellow-100">
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Pledge Amount</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->pledge_amount }}</td>
+                                            <td class="border-black border py-1 px-2 font-bold text-left">Remarks</td>
+                                            <td class="border-black border py-1 px-2 text-left">{{ $borrower->security?->remarks }}</td>
+                                        </tr>
+                                        </tbody>
+                                    @endforeach
+                                @endif
+
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            @endforeach
-        @endif
-    </div>
-</div>
-
-<div>
-
-<div><div class="container mx-auto px-4 py-6">
-    @if($borrower && $borrower->finance_facility_many && $borrower->finance_facility_many->isNotEmpty())
-        <div class="bg-white border border-gray-200 rounded-lg shadow-md p-4">
-            <h2 class="text-2xl font-semibold mb-4">Finance Facility Information</h2>
-            @foreach($borrower->finance_facility_many as $facility)
-                <div class="mb-6">
-                    <table class="w-full border-collapse bg-white">
-                        <tbody>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Institution Name:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->institution_name }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Repayment Status:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->repayment_status }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Facility Type:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->facility_type }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Amount:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->amount }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Loan Limit:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->loan_limit }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Outstanding Amount:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->outstanding_amount }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Monthly Installment:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->monthly_installment }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Interest Rate (%):</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->interest_rate }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Term (Months):</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->term_months }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Start Date:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->start_date }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">End Date:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->end_date }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Purpose of Loan:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->purpose_of_loan }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Status:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->status }}</td>
-                            </tr>
-                            <tr>
-                                <th class="px-4 py-2 border-b font-semibold text-left">Remarks:</th>
-                                <td class="px-4 py-2 border-b">{{ $facility->remarks }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            @endforeach
+            </div>
         </div>
-    @endif
-</div>
-<h1 class="text-3xl font-bold mb-6 text-gray-800">Documents</h1>
-
-<div class="document-info bg-white shadow-lg rounded-lg overflow-hidden">
-    @if($borrower->documents)
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-100 text-gray-700">
-
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                <tr>
-                    <td class="px-6 py-4 text-sm font-medium text-gray-900">Document Type</td>
-                    <td class="px-6 py-4 text-sm text-gray-700">{{ $borrower->documents->document_type }}</td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 text-sm font-medium text-gray-900">Description</td>
-                    <td class="px-6 py-4 text-sm text-gray-700">{{ $borrower->documents->description }}</td>
-                </tr>
-                <tr>
-                    <td class="px-6 py-4 text-sm font-medium text-gray-900">Path Attachment</td>
-                    <td class="px-6 py-4 text-sm text-gray-700">
-                        @if($borrower->documents->path_attachment)
-                            <a href="{{ asset($borrower->documents->path_attachment) }}" target="_blank" class="text-blue-600 hover:text-blue-800 underline">View Document</a>
-                            <div class="mt-2">
-                                <img src="{{ asset($borrower->documents->path_attachment) }}" alt="Uploaded Document" class="max-w-xs h-auto border border-gray-300 rounded-lg shadow-md">
-                            </div>
-                        @else
-                            <span class="text-gray-500">No attachment available.</span>
-                        @endif
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    @else
-        <div class="p-6 text-gray-500">No documents available.</div>
-    @endif
-</div>
-<h1 class="text-2xl font-bold text-gray-900 mb-4">Household Items</h1>
-<div class="document-info bg-white shadow-lg rounded-lg overflow-hidden">
-    @if($borrower->listHouseHoldItems && $borrower->listHouseHoldItems->isNotEmpty())
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-100 text-gray-700">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Description of Items</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quantity</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Market Value</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Amount</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @foreach($borrower->listHouseHoldItems as $item)
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $item->description_of_items }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $item->quantity }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $item->market_value }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $item->amount }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @else
-        <p class="px-6 py-4">No household items found.</p>
-    @endif
-</div>
-
-
-</div>
-
-</div>
-
-<h1 class="text-3xl font-bold text-gray-900 mb-6"></h1>
-
-@foreach ($borrower->guarantor as $guarantor)
-    <table class="table table-striped">
-        <tr>
-            <th>Guarantor Type</th>
-            <td>{{ $guarantor->guarantor_type }}</td>
-        </tr>
-        <tr>
-            <th>Title</th>
-            <td>{{ $guarantor->title }}</td>
-        </tr>
-        <tr>
-            <th>Name</th>
-            <td>{{ $guarantor->name }}</td>
-        </tr>
-        <tr>
-            <th>Father/Husband</th>
-            <td>{{ $guarantor->father_husband }}</td>
-        </tr>
-        <h1 class="text-3xl font-bold text-gray-900 mb-6">Guarantor Details</h1>
-
-        <tr>
-            <th>National ID</th>
-            <td>{{ $guarantor->national_id }}</td>
-        </tr>
-        <tr>
-            <th>Phone Number</th>
-            <td>{{ $guarantor->phone_number }}</td>
-        </tr>
-        <tr>
-            <th>Phone Number Two</th>
-            <td>{{ $guarantor->phone_number_two }}</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>{{ $guarantor->email }}</td>
-        </tr>
-        <tr>
-            <th>Present Address</th>
-            <td>{{ $guarantor->present_address }}</td>
-        </tr>
-        <tr>
-            <th>Permanent Address</th>
-            <td>{{ $guarantor->permanent_address }}</td>
-        </tr>
-        <tr>
-            <th>Department</th>
-            <td>{{ $guarantor->department }}</td>
-        </tr>
-        <tr>
-            <th>Designation</th>
-            <td>{{ $guarantor->designation }}</td>
-        </tr>
-        <tr>
-            <th>Employer Name</th>
-            <td>{{ $guarantor->employer_name }}</td>
-        </tr>
-        <tr>
-            <th>Employee Personal Number</th>
-            <td>{{ $guarantor->employee_personal_number }}</td>
-        </tr>
-        <tr>
-            <th>Employment Status</th>
-            <td>{{ $guarantor->employment_status }}</td>
-        </tr>
-        <tr>
-            <th>Monthly Gross Salary</th>
-            <td>{{ $guarantor->monthly_gross_salary }}</td>
-        </tr>
-        <tr>
-            <th>Date of Retirement</th>
-            <td>{{ $guarantor->date_of_retirement }}</td>
-        </tr>
-        <tr>
-            <th>Relationship to Borrower</th>
-            <td>{{ $guarantor->relationship_to_borrower }}</td>
-        </tr>
-        <tr>
-            <th>Date of Birth</th>
-            <td>{{ $guarantor->dob }}</td>
-        </tr>
-        <tr>
-            <th>NTN</th>
-            <td>{{ $guarantor->ntn }}</td>
-        </tr>
-        <tr>
-            <th>Nature of Business</th>
-            <td>{{ $guarantor->nature_of_business }}</td>
-        </tr>
-        <tr>
-            <th>Title of Business</th>
-            <td>{{ $guarantor->title_of_business }}</td>
-        </tr>
-        <tr>
-            <th>Major Business Activities</th>
-            <td>{{ $guarantor->major_business_activities }}</td>
-        </tr>
-        <tr>
-            <th>Exact Location of Business Place</th>
-            <td>{{ $guarantor->exact_location_of_business_place }}</td>
-        </tr>
-        <tr>
-            <th>Business Bank Account Maintained</th>
-            <td>{{ $guarantor->business_bank_account_maintained }}</td>
-        </tr>
-        <tr>
-            <th>Statement of Account Attachment</th>
-            <td>{{ $guarantor->statement_of_account_attachment }}</td>
-        </tr>
-        <tr>
-            <th>Net Worth</th>
-            <td>{{ $guarantor->net_worth }}</td>
-        </tr>
-        <tr>
-            <th>Business Registration Number</th>
-            <td>{{ $guarantor->business_registration_number }}</td>
-        </tr>
-        <tr>
-            <th>Annual Revenue</th>
-            <td>{{ $guarantor->annual_revenue }}</td>
-        </tr>
-        <tr>
-            <th>Annual Expenses</th>
-            <td>{{ $guarantor->annual_expenses }}</td>
-        </tr>
-        <tr>
-            <th>Net Annual Income</th>
-            <td>{{ $guarantor->net_annual_income }}</td>
-        </tr>
-        <!-- New fields -->
-        <tr>
-            <th>BPS/SPS No</th>
-            <td>{{ $guarantor->bps_sps_no }}</td>
-        </tr>
-        <tr>
-            <th>Date of Joining</th>
-            <td>{{ $guarantor->date_of_joining }}</td>
-        </tr>
-        <tr>
-            <th>Remaining Service (25 Years)</th>
-            <td>{{ $guarantor->remaining_service_25_years }}</td>
-        </tr>
-        <tr>
-            <th>Remaining Service (60 Years)</th>
-            <td>{{ $guarantor->remaining_service_60_years }}</td>
-        </tr>
-        <tr>
-            <th>DDO Title</th>
-            <td>{{ $guarantor->ddo_title }}</td>
-        </tr>
-        <tr>
-            <th>Monthly Salary</th>
-            <td>{{ $guarantor->monthly_salary }}</td>
-        </tr>
-        <tr>
-            <th>Other Monthly Income</th>
-            <td>{{ $guarantor->other_monthly_income }}</td>
-        </tr>
-        <tr>
-            <th>Number of Dependents</th>
-            <td>{{ $guarantor->no_of_dependents }}</td>
-        </tr>
-    </table>
-    <br>
-@endforeach
-
-<h1 class="text-2xl font-bold text-gray-900 mb-4">Vehicle</h1>
-<div class="bg-white shadow-lg rounded-lg overflow-hidden p-6">
-    <table class="table table-striped">
-        <tr>
-            <th>Vehicle Type</th>
-            <td>{{ $borrower->vehicle?->vehicle_type }}</td>
-        </tr>
-        <tr>
-            <th>Price of Vehicle</th>
-            <td>{{ $borrower->vehicle?->price_of_vehicle }}</td>
-        </tr>
-        <tr>
-            <th>Down Payment Percentage</th>
-            <td>{{ $borrower->vehicle?->down_payment_percentage }}</td>
-        </tr>
-        <tr>
-            <th>Finance Amount</th>
-            <td>{{ $borrower->vehicle?->finance_amount }}</td>
-        </tr>
-        <tr>
-            <th>Model Year</th>
-            <td>{{ $borrower->vehicle?->model_year }}</td>
-        </tr>
-        <tr>
-            <th>Year of Manufacturing</th>
-            <td>{{ $borrower->vehicle?->year_of_manufacturing }}</td>
-        </tr>
-        <tr>
-            <th>Make</th>
-            <td>{{ $borrower->vehicle?->make }}</td>
-        </tr>
-        <tr>
-            <th>Model</th>
-            <td>{{ $borrower->vehicle?->model }}</td>
-        </tr>
-        <tr>
-            <th>Cost of Vehicle</th>
-            <td>{{ $borrower->vehicle?->cost_of_vehicle }}</td>
-        </tr>
-        <tr>
-            <th>Equity Down Payment</th>
-            <td>{{ $borrower->vehicle?->equity_dawn_payment }}</td>
-        </tr>
-        <tr>
-            <th>Financial Institute Contribution</th>
-            <td>{{ $borrower->vehicle?->financial_institute_contribution }}</td>
-        </tr>
-        <tr>
-            <th>Name of Authorized Dealer/Seller</th>
-            <td>{{ $borrower->vehicle?->name_authorized_dealer_seller }}</td>
-        </tr>
-        <tr>
-            <th>Repayment Mode</th>
-            <td>{{ $borrower->vehicle?->repayment_mode }}</td>
-        </tr>
-        <tr>
-            <th>Tenure in Years</th>
-            <td>{{ $borrower->vehicle?->tenure_in_years }}</td>
-        </tr>
-        <tr>
-            <th>Tenure in Months</th>
-            <td>{{ $borrower->vehicle?->tenure_in_month }}</td>
-        </tr>
-        <tr>
-            <th>Markup Rate Type</th>
-            <td>{{ $borrower->vehicle?->markup_rate_type }}</td>
-        </tr>
-    </table>
-</div>
-<div class="bg-white shadow-lg rounded-lg overflow-hidden p-6 mt-4">
-    <h2 class="text-xl font-semibold text-gray-900 mb-4">Security Details</h2>
-    <table class="table table-striped">
-        <tr>
-            <th>Security Type</th>
-            <td>{{ $borrower->security?->security_type }}</td>
-        </tr>
-        <tr>
-            <th>Value of Gold Ornaments</th>
-            <td>{{ $borrower->security?->value_of_gold_ornaments_value }}</td>
-        </tr>
-        <tr>
-            <th>Gross Weight of Gold</th>
-            <td>{{ $borrower->security?->gross_weight_of_gold }}</td>
-        </tr>
-        <tr>
-            <th>Gold Bag Seal No</th>
-            <td>{{ $borrower->security?->gold_bag_seal_no }}</td>
-        </tr>
-        <tr>
-            <th>Market Value</th>
-            <td>{{ $borrower->security?->market_value }}</td>
-        </tr>
-        <tr>
-            <th>Forced Sales Value (FSV)</th>
-            <td>{{ $borrower->security?->forced_sales_value_fsv }}</td>
-        </tr>
-        <tr>
-            <th>Ownership</th>
-            <td>{{ $borrower->security?->ownership }}</td>
-        </tr>
-        <tr>
-            <th>Lien Account No</th>
-            <td>{{ $borrower->security?->lien_ac_no }}</td>
-        </tr>
-        <tr>
-            <th>Lien Title</th>
-            <td>{{ $borrower->security?->lien_title }}</td>
-        </tr>
-        <tr>
-            <th>Lien Bank Branch</th>
-            <td>{{ $borrower->security?->lien_bank_branch }}</td>
-        </tr>
-        <tr>
-            <th>Lien Amount</th>
-            <td>{{ $borrower->security?->lien_amount }}</td>
-        </tr>
-        <tr>
-            <th>Pledge TDR/SSC/DSC Certificate No</th>
-            <td>{{ $borrower->security?->pledge_tdr_ssc_dsc_cert_no }}</td>
-        </tr>
-        <tr>
-            <th>Pledge Date of Issuance</th>
-            <td>{{ $borrower->security?->pledge_date_of_issuance }}</td>
-        </tr>
-        <tr>
-            <th>Pledge Issuing Office</th>
-            <td>{{ $borrower->security?->pledge_issuing_office }}</td>
-        </tr>
-        <tr>
-            <th>Pledge Amount</th>
-            <td>{{ $borrower->security?->pledge_amount }}</td>
-        </tr>
-        <tr>
-            <th>Remarks</th>
-            <td>{{ $borrower->security?->remarks }}</td>
-        </tr>
-    </table>
-</div>
-@if($borrower->applicant_business)
-    <div class="bg-white shadow-lg rounded-lg overflow-hidden p-6 mt-4">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">BUSINESS INFORMATION</h2>
-        <table class="table table-striped">
-            <tr>
-                <th>Business Name</th>
-                <td>{{ $borrower->applicant_business->name }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ $borrower->applicant_business->type }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ $borrower->applicant_business->address }}</td>
-            </tr>
-            <tr>
-                <th>Landline</th>
-                <td>{{ $borrower->applicant_business->landline }}</td>
-            </tr>
-            <tr>
-                <th>Mobile</th>
-                <td>{{ $borrower->applicant_business->mobile }}</td>
-            </tr>
-            <tr>
-                <th>Designation</th>
-                <td>{{ $borrower->applicant_business->designation }}</td>
-            </tr>
-            <tr>
-                <th>Monthly Revenue</th>
-                <td>{{ $borrower->applicant_business->monthly_revenue }}</td>
-            </tr>
-            <tr>
-                <th>Experience (Years)</th>
-                <td>{{ $borrower->applicant_business->experience_years }}</td>
-            </tr>
-            <tr>
-                <th>Monthly Expenses</th>
-                <td>{{ $borrower->applicant_business->monthly_expenses }}</td>
-            </tr>
-            <tr>
-                <th>Net Monthly Income</th>
-                <td>{{ $borrower->applicant_business->net_monthly_income }}</td>
-            </tr>
-            <tr>
-                <th>Start Date</th>
-                <td>{{ $borrower->applicant_business->start_date }}</td>
-            </tr>
-            <tr>
-                <th>Acquisition Date</th>
-                <td>{{ $borrower->applicant_business->acquisition_date }}</td>
-            </tr>
-            <tr>
-                <th>Number of Employees</th>
-                <td>{{ $borrower->applicant_business->number_of_employees }}</td>
-            </tr>
-            <tr>
-                <th>Tax Number</th>
-                <td>{{ $borrower->applicant_business->tax_number }}</td>
-            </tr>
-            <tr>
-                <th>Initial Investment</th>
-                <td>{{ $borrower->applicant_business->initial_investment }}</td>
-            </tr>
-            <tr>
-                <th>Investment Source</th>
-                <td>{{ $borrower->applicant_business->investment_source }}</td>
-            </tr>
-            <tr>
-                <th>Premises Status</th>
-                <td>{{ $borrower->applicant_business->premises_status }}</td>
-            </tr>
-            <tr>
-                <th>Monthly Rent</th>
-                <td>{{ $borrower->applicant_business->monthly_rent }}</td>
-            </tr>
-            <tr>
-                <th>Average Monthly Balance</th>
-                <td>{{ $borrower->applicant_business->average_monthly_balance }}</td>
-            </tr>
-            <tr>
-                <th>Account Opening Date</th>
-                <td>{{ $borrower->applicant_business->account_opening_date }}</td>
-            </tr>
-            <tr>
-                <th>Average Balance (Six Months)</th>
-                <td>{{ $borrower->applicant_business->average_balance_six_months }}</td>
-            </tr>
-            <tr>
-                <th>Account Number</th>
-                <td>{{ $borrower->applicant_business->account_no }}</td>
-            </tr>
-            <tr>
-                <th>Bank Name</th>
-                <td>{{ $borrower->applicant_business->bank_name }}</td>
-            </tr>
-            <tr>
-                <th>Net Worth</th>
-                <td>{{ $borrower->applicant_business->net_worth }}</td>
-            </tr>
-        </table>
     </div>
-@endif
-
-
-
-    </table>
-</div>
-
-
-
-</div>
-
-    </div>
-</div>
-
-</div>
-
-
-
-
-
 </x-app-layout>

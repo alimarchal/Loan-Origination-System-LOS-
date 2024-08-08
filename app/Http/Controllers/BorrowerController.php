@@ -8,7 +8,10 @@ use App\Models\Borrower;
 use App\Models\Branch;
 use App\Models\LoanCategory;
 use App\Models\LoanSubCategory;
+use App\Models\ObligorScoreCard;
+use App\Models\ObligorScoreCardFactor;
 use App\Models\Region;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -373,6 +376,22 @@ class BorrowerController extends Controller
     public function print(Borrower $borrower)
     {
         return view('borrowers.print', compact('borrower'));
+    }
+
+    public function download(Borrower $borrower)
+    {
+        $pdf = Pdf::loadView('borrowers.download', compact('borrower'));
+//        $osc = ObligorScoreCard::where('borrower_id', $borrower->id)->get();
+
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->setOptions([
+            'dpi' => 150,
+            'defaultFont' => 'sans-serif',
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true
+        ]);
+        return $pdf->download('applicant_information.pdf');
+//        return $pdf->stream("", array("Attachment" => false));
     }
 
 }

@@ -14,6 +14,7 @@ class Borrower extends Model
 {
     use HasFactory;
     use HasUuids;
+
 //    use softDeletes;
 
 
@@ -66,21 +67,22 @@ class Borrower extends Model
 
     public function branch(): BelongsTo
     {
-        return $this->belongsTo(Branch::class,'branch_id','id');
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
 
     public function region(): BelongsTo
     {
-        return $this->belongsTo(Region::class,'region_id','id');
+        return $this->belongsTo(Region::class, 'region_id', 'id');
     }
 
     public function loan_category(): BelongsTo
     {
-        return $this->belongsTo(LoanSubCategory::class,'loan_category_id','id');
+        return $this->belongsTo(LoanSubCategory::class, 'loan_category_id', 'id');
     }
+
     public function loan_sub_category(): BelongsTo
     {
-        return $this->belongsTo(LoanSubCategory::class,'loan_sub_category_id','id');
+        return $this->belongsTo(LoanSubCategory::class, 'loan_sub_category_id', 'id');
     }
 
     public function employment_information(): HasOne
@@ -125,43 +127,70 @@ class Borrower extends Model
         return $this->hasOne(ObligorScoreCard::class);
     }
 
+    public function obligor_score_cards(): HasMany
+    {
+        return $this->hasMany(ObligorScoreCard::class);
+    }
+
+
     public function guarantor(): HasMany
     {
         return $this->hasMany(Guarantor::class);
     }
 
 
-public function finance_facility_many()
-{
+    public function finance_facility_many()
+    {
 
 
-    return $this->hasMany(FinanceFacility::class);
+        return $this->hasMany(FinanceFacility::class);
 
 
-}
-public function documents() {
-    return $this->hasOne(Document::class);
-}
+    }
 
-public function listHouseHoldItems()
+    public function documents()
+    {
+        return $this->hasOne(Document::class);
+    }
+
+
+    public function documents_uploaded(): HasMany
+    {
+        return $this->hasMany(Document::class);
+    }
+
+    public function listHouseHoldItems()
     {
         return $this->hasMany(ListHouseHoldItem::class);
     }
 
 // Borrower.php
 
-public function vehicle()
-{
-    return $this->hasOne(Vehicle::class);
-}
-public function vehicle_many()
-{
-    return $this->hasMany(Vehicle::class);
-}
-public function security()
-{
-    return $this->hasOne(Security::class);
-}
+    public function vehicle()
+    {
+        return $this->hasOne(Vehicle::class);
+    }
+
+    public function vehicles(): HasMany
+    {
+        return $this->hasMany(Vehicle::class);
+    }
+
+
+    public function vehicle_many()
+    {
+        return $this->hasMany(Vehicle::class);
+    }
+
+    public function security()
+    {
+        return $this->hasOne(Security::class);
+    }
+
+    public function securities()
+    {
+        return $this->hasMany(Security::class);
+    }
 }
 
 // In App\Models\Borrower
