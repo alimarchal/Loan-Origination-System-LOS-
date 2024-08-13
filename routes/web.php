@@ -25,7 +25,7 @@ use App\Models\BasicBorrowerFactSheetConsumer;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return to_route('login');
 });
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',])->group(function () {
