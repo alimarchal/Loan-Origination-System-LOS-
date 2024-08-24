@@ -14,7 +14,7 @@ class ChecklistSeeder extends Seeder
     public function run(): void
     {
         $loan_sub_category = [
-            ['loan_sub_category_id' => 1, 'sequence_no' => 1, 'name' => 'Application Form', 'status' => 'active'],
+            ['loan_sub_category_id' => 1, 'sequence_no' => 1, 'name' => 'Application Form (Personal Information)', 'status' => 'active'],
             ['loan_sub_category_id' => 1, 'sequence_no' => 2, 'name' => 'Basic Borrower’s Fact Sheet (BBFS)', 'status' => 'active'],
             ['loan_sub_category_id' => 1, 'sequence_no' => 3, 'name' => 'Personal Net worth Statement(PNWS)', 'status' => 'active'],
             ['loan_sub_category_id' => 1, 'sequence_no' => 4, 'name' => 'Employers DDO Under taking', 'status' => 'active'],

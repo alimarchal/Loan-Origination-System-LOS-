@@ -34,15 +34,14 @@ return new class extends Migration {
             $table->string('email')->nullable();
             $table->string('fax')->nullable();
             // Contact information
-            $table->string('residence_phone_number')->nullable(); // Residence phone number (optional)
-            $table->string('office_phone_number')->nullable(); // Office phone number (optional)
+            $table->string('phone_number')->nullable(); // Office phone number (optional)
             $table->string('mobile_number')->nullable(); // Mobile number (optional)
             $table->string('present_address')->nullable(); // Present address (optional)
             $table->string('permanent_address')->nullable(); // Permanent address (optional)
             // Employment information
             $table->string('occupation_title')->nullable(); // Occupation title (optional)
             $table->date('date_of_birth')->nullable(); // Date of birth (optional)
-            $table->string('age')->nullable(); // Age (optional)
+            $table->decimal('age',14,2)->nullable(); // Age (optional)
             // Additional personal information
             $table->string('marital_status')->nullable(); // Marital status (optional)
             $table->string('home_ownership_status')->nullable(); // Home ownership status (optional)

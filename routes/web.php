@@ -7,6 +7,7 @@ use App\Http\Controllers\BorrowerBusinessController;
 use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\BorrowerEmploymentInformationController;
 use App\Http\Controllers\ChecklistController;
+use App\Http\Controllers\CreditReportingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\FinanceFacilityController;
@@ -38,6 +39,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
 
 
     Route::get('/loan-subcategories/{categoryId}', [LoanSubCategoryController::class, 'getLoanSubCategories'])->name('loan.subcategories');
+
+    Route::get('/custom-loan-subcategories/{subCategoryId}', [LoanSubCategoryController::class, 'getOccupationTitles'])->name('loan.subcategories.custom');
+    Route::get('/custom-borrower-types/{occupationTitle}/{subCategoryId}', [LoanSubCategoryController::class, 'getBorrowerTypes'])->name('borrower.types.custom');
+    Route::get('/applicant-statuses/{subCategoryId}', [LoanSubCategoryController::class, 'getApplicantStatuses'])->name('applicant.statuses');
+
+
 
     // Applicant
     Route::controller(BorrowerController::class)->group(function () {
@@ -195,6 +202,17 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
 
 
     Route::get('/borrower/make-template', [BorrowerController::class, 'make_template'])->name('applicant.make-template');
+
+
+
+    // Applicant Requested Loan Information
+    Route::controller(CreditReportingController::class)->group(function () {
+        Route::get('/credit-reporting', 'index')->name('credit-reporting.index');
+        Route::get('/credit-reporting/data-check-reporting-request', 'create')->name('credit-reporting.create');
+        Route::post('/credit-reporting/data-check-reporting-request', 'store')->name('credit-reporting.store');
+        Route::get('/credit-reporting/data-check-reporting-request/{creditReporting}/edit', 'edit')->name('credit-reporting.edit');
+        Route::put('/credit-reporting/data-check-reporting-request/{creditReporting}', 'update')->name('credit-reporting.update');
+    });
 
     Route::get('administration', [AdministrationController::class, 'index'])->name('administration.index');
 

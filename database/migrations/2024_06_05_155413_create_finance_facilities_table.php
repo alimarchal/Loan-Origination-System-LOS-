@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignUuid('borrower_id')->constrained();
             $table->string('institution_name'); // Name of the bank or financial institution
             $table->string('repayment_status'); // Name of the bank or financial institution
-            $table->enum('facility_type', ['Loan', 'Credit', 'Mortgage', 'Lease', 'Other']); // Type of finance facility
-            $table->decimal('amount', 15, 2); // Amount of the facility availed
-            $table->decimal('loan_limit', 15, 2);
+            $table->string('facility_type')->nullable(); // Type of finance facility
+            $table->decimal('sanctioned_amount', 14, 2); // Amount of the facility availed
+//            $table->decimal('loan_limit', 15, 2);
             $table->decimal('outstanding_amount', 15, 2);
             $table->decimal('monthly_installment', 15, 2);
             $table->decimal('interest_rate', 5, 2)->nullable(); // Interest rate of the facility
@@ -27,7 +27,6 @@ return new class extends Migration
             $table->date('start_date')->nullable(); // Start date of the facility
             $table->date('end_date')->nullable(); // End date of the facility
             $table->string('purpose_of_loan'); // Name of the bank or financial institution
-            $table->enum('status', ['Closed', 'Ir-Red','Regular','Over Due'])->default('Closed'); // Status of the facility
             $table->text('remarks')->nullable(); // Additional remarks or notes
             $table->timestamps();
         });

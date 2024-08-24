@@ -13,8 +13,8 @@ class FinanceFacility extends Model
         'institution_name',
         'repayment_status',
         'facility_type',
-        'amount',
-        'loan_limit',
+        'sanctioned_amount',
+//        'loan_limit',
         'outstanding_amount',
         'monthly_installment',
         'interest_rate',
@@ -22,7 +22,6 @@ class FinanceFacility extends Model
         'start_date',
         'end_date',
         'purpose_of_loan',
-        'status',
         'remarks',
     ];
 }

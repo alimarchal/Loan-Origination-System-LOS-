@@ -1,10 +1,10 @@
 <x-app-layout>
     @push('header') @endpush
     <x-slot name="header">
-        <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block">
-            Finance Facility List
+
+        <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
+            Existing Finance Facility
         </h2>
-        @include('back-navigation')
     </x-slot>
 
     <div class="py-6">
@@ -17,7 +17,6 @@
 
                     <div class="relative overflow-x-auto">
                         @if($finance_facilities->isNotEmpty())
-                            <h2 class="text-2xl mt-1 text-center my-2 uppercase underline font-bold text-red-700">Finance Facility's</h2>
 
                             <table class="min-w-max w-full table-auto">
                                 <thead>
@@ -25,10 +24,9 @@
                                     <th class="py-2 px-2 text-center">ID</th>
                                     <th class="py-2 px-2 text-center">Institution Name</th>
                                     <th class="py-2 px-2 text-center">Facility Type</th>
-                                    <th class="py-2 px-2 text-center">Amount</th>
+                                    <th class="py-2 px-2 text-center">Sanctioned Amount</th>
                                     <th class="py-2 px-2 text-center">Outstanding Amount</th>
                                     <th class="py-2 px-2 text-center">Monthly Installment</th>
-                                    <th class="py-2 px-2 text-center">Status</th>
                                     <th class="py-2 px-2 text-center">Action</th>
                                 </tr>
                                 </thead>
@@ -45,7 +43,7 @@
                                             {{ $facility->facility_type }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
-                                            {{ $facility->amount }}
+                                            {{ $facility->sanctioned_amount }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
                                             {{ $facility->outstanding_amount }}
@@ -53,9 +51,7 @@
                                         <td class="py-1 px-2 text-center">
                                             {{ $facility->monthly_installment }}
                                         </td>
-                                        <td class="py-1 px-2 text-center">
-                                            {{ $facility->status }}
-                                        </td>
+
                                         <td class="py-1 px-2 text-center">
                                             <a href="{{ route('finance_facility.edit', [$facility->borrower_id, $facility->id]) }}" class="inline-flex ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -79,7 +75,7 @@
                         @endif
 
                         <a href="{{ route('finance_facility.create', $borrower->id) }}" class="inline-flex mt-2 mr-2 items-center float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150">
-                            Add New Finance Facility
+                            Add Existing Finance Facility
                         </a>
                     </div>
 

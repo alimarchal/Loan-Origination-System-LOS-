@@ -74,9 +74,7 @@
                                     </label>
                                     <select name="occupation_title" id="occupation_title" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status','Occupation Title')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ old('occupation_title') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
 
@@ -88,15 +86,9 @@
                                     </label>
                                     <select name="borrower_type" id="borrower_type" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status','Business Type')->get() as $item)
-                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                        @endforeach
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
-
-
-
-
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="name">
@@ -113,15 +105,14 @@
                                     </label>
                                     <select name="relationship_status" id="relationship_status" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status','Relationship')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ old('relationship_status') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="parent_spouse_name">
-                                        Parent/Spouse/CEO/Director/Partner/MP
+                                        Parent/Spouse
+{{--                                        /CEO/Director/Partner/MP--}}
                                         <span class="text-red-700">*</span>
                                     </label>
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="parent_spouse_name" type="text" name="parent_spouse_name" value="{{ old('parent_spouse_name') }}" required="required">
@@ -129,11 +120,44 @@
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="date_of_birth">
-                                        Date of Birth / Company Formation Date
+                                        Date of Birth
+{{--                                        / Company Formation Date--}}
                                         <span class="text-red-700">*</span>
                                     </label>
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="date_of_birth" type="date" max="{{ date('Y-m-d') }}" name="date_of_birth" value="{{ old('date_of_birth') }}" required="required">
                                 </div>
+
+
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="national_id_cnic">
+
+                                        NTN/CNIC
+                                        {{--                                        CEO/Director/--}}
+                                        <span class="text-red-700">*</span>
+                                    </label>
+                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="national_id_cnic" type="text" name="national_id_cnic" value="{{ old('national_id_cnic') }}" required="required">
+                                </div>
+
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="parent_spouse_national_id_cnic">
+                                        Parent/Spouse/CNIC
+                                        {{--                                        CEO/Director/--}}
+                                        <span class="text-red-700">*</span>
+                                    </label>
+                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="parent_spouse_national_id_cnic" type="text" name="parent_spouse_national_id_cnic" value="{{ old('parent_spouse_national_id_cnic') }}" required="required">
+                                </div>
+
+
+
+
+
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">
+                                        Email
+                                    </label>
+                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="email" type="email" name="email" value="{{ old('email') }}" >
+                                </div>
+
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="gender">
@@ -142,9 +166,7 @@
                                     </label>
                                     <select name="gender" id="gender" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status','Gender')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ old('gender') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
 
@@ -158,9 +180,7 @@
                                     </label>
                                     <select name="marital_status" id="marital_status" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status','Marital Status')->get() as $item)
-                                            <option value="{{ $item->name }}"  {{ old('marital_status') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
 
@@ -172,9 +192,7 @@
 
                                     <select name="education_qualification" id="education_qualification" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status','Education Qualification')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ old('education_qualification') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
 
@@ -186,69 +204,15 @@
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="number_of_dependents" type="number" min="0" name="number_of_dependents" value="{{ old('number_of_dependents',0) }}">
                                 </div>
 
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="national_id_cnic">
-                                        CEO/Director/NTN/CNIC
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="national_id_cnic" type="text" name="national_id_cnic" value="{{ old('national_id_cnic') }}" required="required">
-                                </div>
 
                                 <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="parent_spouse_national_id_cnic">
-                                        Parent/Spouse/CEO/Director/CNIC
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="phone_number">
+                                        Phone Number
                                         <span class="text-red-700">*</span>
                                     </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="parent_spouse_national_id_cnic" type="text" name="parent_spouse_national_id_cnic" value="{{ old('parent_spouse_national_id_cnic') }}" required="required">
+                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="residence_phone_number" type="text" name="phone_number" value="{{ old('phone_number') }}" required="required">
                                 </div>
 
-
-
-
-
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">
-                                        Email
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="email" type="email" name="email" value="{{ old('email') }}" required="required">
-                                </div>
-
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="fax">
-                                        Fax
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="fax" type="text" name="fax" value="{{ old('fax') }}" required="required">
-                                </div>
-
-
-
-
-
-{{--                                <div>--}}
-{{--                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="details_of_payment_schedule_if_sought">--}}
-{{--                                        Details Of Payment Schedule If Sought--}}
-{{--                                        <span class="text-red-700">*</span>--}}
-{{--                                    </label>--}}
-{{--                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="details_of_payment_schedule_if_sought" type="text" name="details_of_payment_schedule_if_sought" value="{{ old('details_of_payment_schedule_if_sought') }}" required="required">--}}
-{{--                                </div>--}}
-
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="residence_phone_number">
-                                        Residence Phone Number
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="residence_phone_number" type="text" name="residence_phone_number" value="{{ old('residence_phone_number') }}" required="required">
-                                </div>
-
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="office_phone_number">
-                                        Office Phone Number
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="office_phone_number" type="text" name="office_phone_number" value="{{ old('office_phone_number') }}" required="required">
-                                </div>
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="mobile_number">
@@ -257,6 +221,9 @@
                                     </label>
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="mobile_number" type="text" name="mobile_number" value="{{ old('mobile_number') }}" required="required">
                                 </div>
+
+
+
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="present_address">
@@ -332,102 +299,16 @@
         </div>
     </div>
     @push('modals')
-{{--        <script>--}}
-{{--            let openCameraButton = document.getElementById('openCameraButton');--}}
-{{--            let captureButton = document.getElementById('captureButton');--}}
-{{--            let cameraStreamElement = document.getElementById('cameraStream');--}}
-{{--            let profilePicturePreview = document.getElementById('profilePicturePreview');--}}
-{{--            let stream = null; // Keep track of the stream globally--}}
-
-{{--            openCameraButton.addEventListener('click', async function () {--}}
-{{--                if (!stream) { // Only request the stream if it hasn't been started yet--}}
-{{--                    try {--}}
-{{--                        stream = await navigator.mediaDevices.getUserMedia({video: true});--}}
-{{--                        cameraStreamElement.srcObject = stream;--}}
-{{--                        cameraStreamElement.style.display = 'block';--}}
-{{--                        cameraStreamElement.style.transform = 'scaleX(-1)';--}}
-{{--                        openCameraButton.style.display = 'none';--}}
-{{--                        captureButton.style.display = 'inline-block'; // Use inline-block for TailwindCSS consistency--}}
-{{--                    } catch (error) {--}}
-{{--                        console.error("Cannot access camera:", error);--}}
-{{--                    }--}}
-{{--                }--}}
-{{--            });--}}
-
-{{--            captureButton.addEventListener('click', function () {--}}
-{{--                const canvas = document.createElement('canvas');--}}
-{{--                canvas.width = cameraStreamElement.videoWidth;--}}
-{{--                canvas.height = cameraStreamElement.videoHeight;--}}
-{{--                const context = canvas.getContext('2d');--}}
-{{--                --}}{{--                  // Flip the canvas context horizontally--}}
-{{--                context.translate(canvas.width, 0);--}}
-{{--                context.scale(-1, 1);--}}
-{{--                context.drawImage(cameraStreamElement, 0, 0, canvas.width, canvas.height);--}}
-
-{{--                canvas.toBlob(function (blob) {--}}
-{{--                    const url = URL.createObjectURL(blob);--}}
-{{--                    profilePicturePreview.src = url;--}}
-{{--                    profilePicturePreview.style.display = 'block';--}}
-
-{{--                    const file = new File([blob], "webcam.jpg", {type: "image/jpeg"});--}}
-{{--                    const dataTransfer = new DataTransfer();--}}
-{{--                    dataTransfer.items.add(file);--}}
-{{--                    document.getElementById('profile_pic').files = dataTransfer.files;--}}
-
-{{--                    if (stream) {--}}
-{{--                        stream.getTracks().forEach(track => track.stop()); // Stop the camera stream--}}
-{{--                    }--}}
-{{--                    stream = null; // Reset the stream--}}
-{{--                    cameraStreamElement.style.display = 'none';--}}
-{{--                    captureButton.style.display = 'none';--}}
-{{--                    openCameraButton.style.display = 'inline-block'; // Allow the user to start the camera again--}}
-{{--                }, 'image/jpeg');--}}
-{{--            });--}}
-{{--        </script>--}}
-
-
-
-{{--        <script>--}}
-{{--            document.addEventListener('DOMContentLoaded', function () {--}}
-{{--                const cnicInput = document.getElementById('cnic');--}}
-{{--                const mobileInput = document.getElementById('mobile_number');--}}
-{{--                const guardianContactInput = document.getElementById('guardian_emergency_contact');--}}
-{{--                const smsAlertInput = document.getElementById('mobile_number_for_sms_alert');--}}
-
-{{--                const formatCNIC = (value) => {--}}
-{{--                    return value.replace(/\D/g, '')--}}
-{{--                        .replace(/(\d{5})(\d{7})(\d{1})/, '$1-$2-$3')--}}
-{{--                        .substr(0, 15); // CNIC format: 00000-0000000-0--}}
-{{--                };--}}
-
-{{--                const formatPhoneNumber = (value) => {--}}
-{{--                    return value.replace(/\D/g, '')--}}
-{{--                        .replace(/(\d{4})(\d{7})/, '$1-$2')--}}
-{{--                        .substr(0, 12); // Phone format: 0000-0000000--}}
-{{--                };--}}
-
-{{--                cnicInput.addEventListener('input', function (e) {--}}
-{{--                    e.target.value = formatCNIC(e.target.value);--}}
-{{--                });--}}
-
-{{--                mobileInput.addEventListener('input', function (e) {--}}
-{{--                    e.target.value = formatPhoneNumber(e.target.value);--}}
-{{--                });--}}
-
-{{--                guardianContactInput.addEventListener('input', function (e) {--}}
-{{--                    e.target.value = formatPhoneNumber(e.target.value);--}}
-{{--                });--}}
-
-{{--                smsAlertInput.addEventListener('input', function (e) {--}}
-{{--                    e.target.value = formatPhoneNumber(e.target.value);--}}
-{{--                });--}}
-{{--            });--}}
-{{--        </script>--}}
-
         <script>
             $(document).ready(function() {
                 var oldCategoryId = "{{ old('loan_category_id') }}";
                 var oldSubCategoryId = "{{ old('loan_sub_category_id') }}";
+                var oldOccupationTitleId = "{{ old('occupation_title') }}";
+                var oldBorrowerTypeId = "{{ old('borrower_type') }}";
+                var oldRelationshipStatus = "{{ old('relationship_status') }}";
+                var oldGender = "{{ old('gender') }}";
+                var oldMaritalStatus = "{{ old('marital_status') }}";
+                var oldEducationQualification = "{{ old('education_qualification') }}";
 
                 function populateSubCategories(categoryId, selectedSubCategoryId = null) {
                     var subCategorySelect = $('#loan_sub_category_id');
@@ -442,19 +323,90 @@
                                     var selected = selectedSubCategoryId == subCategory.id ? 'selected' : '';
                                     subCategorySelect.append('<option value="' + subCategory.id + '" ' + selected + '>' + subCategory.name + '</option>');
                                 });
+                                subCategorySelect.trigger('change');
                             }
                         });
                     }
                 }
 
+                function populateOccupationTitles(subCategoryId, selectedOccupationTitleId = null) {
+                    var occupationTitleSelect = $('#occupation_title');
+                    occupationTitleSelect.empty().append('<option value="">Select an option</option>');
+
+                    if (subCategoryId) {
+                        $.ajax({
+                            url: '/custom-loan-subcategories/' + subCategoryId,
+                            type: 'GET',
+                            success: function(response) {
+                                $.each(response, function(index, occupationTitle) {
+                                    var selected = selectedOccupationTitleId == occupationTitle.name ? 'selected' : '';
+                                    occupationTitleSelect.append('<option value="' + occupationTitle.name + '" ' + selected + '>' + occupationTitle.name + '</option>');
+                                });
+                                occupationTitleSelect.trigger('change');
+                            }
+                        });
+                    }
+                }
+
+                function populateApplicantStatuses(subCategoryId) {
+                    if (subCategoryId) {
+                        $.ajax({
+                            url: '/applicant-statuses/' + subCategoryId,
+                            type: 'GET',
+                            success: function(response) {
+                                populateSelect('#relationship_status', response.relationship_statuses, oldRelationshipStatus);
+                                populateSelect('#gender', response.genders, oldGender);
+                                populateSelect('#marital_status', response.marital_statuses, oldMaritalStatus);
+                                populateSelect('#education_qualification', response.education_qualification, oldEducationQualification);
+                                populateSelect('#borrower_type', response.borrower_type, oldEducationQualification);
+                            }
+                        });
+                    }
+                }
+
+                function populateSelect(selectId, options, selectedValue) {
+                    var select = $(selectId);
+                    select.empty().append('<option value="">Select an option</option>');
+                    $.each(options, function(index, option) {
+                        var selected = selectedValue == option.name ? 'selected' : '';
+                        select.append('<option value="' + option.name + '" ' + selected + '>' + option.name + '</option>');
+                    });
+                }
+
+                // Initial population of fields if old values exist
                 if (oldCategoryId) {
                     $('#loan_category_id').val(oldCategoryId);
                     populateSubCategories(oldCategoryId, oldSubCategoryId);
+
+                    if (oldSubCategoryId) {
+                        populateOccupationTitles(oldSubCategoryId, oldOccupationTitleId);
+                        populateApplicantStatuses(oldSubCategoryId);
+                        if (oldOccupationTitleId) {
+                            populateBorrowerTypes(oldOccupationTitleId, oldSubCategoryId, oldBorrowerTypeId);
+                        }
+                    }
                 }
 
+                // Event listeners for dropdown changes
                 $('#loan_category_id').change(function() {
                     var categoryId = $(this).val();
                     populateSubCategories(categoryId);
+                    $('#occupation_title').empty().append('<option value="">Select an option</option>');
+                    $('#borrower_type').empty().append('<option value="">Select an option</option>');
+                    $('#relationship_status, #gender, #marital_status').empty().append('<option value="">Select an option</option>');
+                });
+
+                $('#loan_sub_category_id').change(function() {
+                    var subCategoryId = $(this).val();
+                    populateOccupationTitles(subCategoryId);
+                    populateApplicantStatuses(subCategoryId);
+                    $('#borrower_type').empty().append('<option value="">Select an option</option>');
+                });
+
+                $('#occupation_title').change(function() {
+                    var occupationTitle = $(this).val();
+                    var subCategoryId = $('#loan_sub_category_id').val();
+                    populateBorrowerTypes(occupationTitle, subCategoryId);
                 });
             });
         </script>

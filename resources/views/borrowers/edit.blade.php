@@ -1,10 +1,9 @@
 <x-app-layout>
     @push('header') @endpush
     <x-slot name="header">
-        <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block">
+        <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
             Basic Applicant Information
         </h2>
-        @include('back-navigation')
     </x-slot>
 
     <div class="py-6">
@@ -16,11 +15,11 @@
                     @include('tabs')
                     <div class="px-6 mb-4 lg:px-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent dark:border-gray-700">
                         <x-validation-errors class="mb-4 mt-4" />
-                        <h2 class="text-2xl text-center my-2 uppercase underline font-bold text-red-700">APPLICANT INFORMATION</h2>
                         <form method="POST" action="{{ route('applicant.update', $borrower->id) }}" enctype="multipart/form-data">
                             @csrf @method('PUT')
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
 
+                                <!-- Loan Category -->
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="loan_category_id">
                                         Loan Category
@@ -28,12 +27,13 @@
                                     </label>
                                     <select name="loan_category_id" id="loan_category_id" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\LoanCategory::orderBy('name')->get() as $item)
+                                        @foreach(\App\Models\LoanCategory::orderBy('name')->where('status','active')->get() as $item)
                                             <option value="{{ $item->id }}" {{ $borrower->loan_category_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
+                                <!-- Loan Sub Category -->
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="loan_sub_category_id">
                                         Loan Sub Category
@@ -41,11 +41,8 @@
                                     </label>
                                     <select name="loan_sub_category_id" id="loan_sub_category_id" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        <!-- Populate with sub-categories based on selected category, this may need JavaScript to dynamically update -->
                                     </select>
                                 </div>
-
-
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="occupation_title">
@@ -54,13 +51,10 @@
                                     </label>
                                     <select name="occupation_title" id="occupation_title" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status','Occupation Title')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ $borrower->occupation_title == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
 
-
+                                <!-- Applicant Type -->
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="borrower_type">
                                         Applicant Type
@@ -68,9 +62,6 @@
                                     </label>
                                     <select name="borrower_type" id="borrower_type" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status', 'Business Type')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ $borrower->borrower_type == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
 
@@ -84,6 +75,7 @@
                                            name="name" value="{{ $borrower->name }}" required>
                                 </div>
 
+                                <!-- Relation -->
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="relationship_status">
                                         Relation
@@ -91,9 +83,6 @@
                                     </label>
                                     <select name="relationship_status" id="relationship_status" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status', 'Relationship')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ $borrower->relationship_status == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
 
@@ -120,54 +109,6 @@
 
 
                                 <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="gender">
-                                        Gender
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <select name="gender" id="gender" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
-                                        <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status', 'Gender')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ $borrower->gender == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="marital_status">
-                                        Marital Status
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <select name="marital_status" id="marital_status" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
-                                        <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status', 'Marital Status')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ $borrower->marital_status == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="education_qualification">
-                                        Education Qualification
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <select name="education_qualification" id="education_qualification" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
-                                        <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status', 'Education Qualification')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ $borrower->education_qualification == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="number_of_dependents">
-                                        Number of Dependents
-                                    </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="number_of_dependents"
-                                           type="number" min="0" name="number_of_dependents" value="{{ $borrower->number_of_dependents }}">
-                                </div>
-
-
-                                <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="national_id_cnic">
                                         CNIC
                                         <span class="text-red-700">*</span>
@@ -177,11 +118,11 @@
                                 </div>
 
                                 <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="national_id_cnic">
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="ntn">
                                         NTN
                                         <span class="text-red-700">*</span>
                                     </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="national_id_cnic"
+                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="ntn"
                                            type="text" name="ntn" value="{{ $borrower->ntn }}" required>
                                 </div>
 
@@ -205,50 +146,61 @@
                                            name="email" value="{{ $borrower->email }}" required>
                                 </div>
 
+
+
+                                <!-- Gender -->
                                 <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="fax">
-                                        Fax
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="gender">
+                                        Gender
                                         <span class="text-red-700">*</span>
                                     </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="fax" type="text" name="fax"
-                                           value="{{ $borrower->fax }}" required>
+                                    <select name="gender" id="gender" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                    </select>
                                 </div>
 
-{{--                                <div>--}}
-{{--                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="nature_of_business">--}}
-{{--                                        Nature of Business--}}
-{{--                                        <span class="text-red-700">*</span>--}}
-{{--                                    </label>--}}
-{{--                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="nature_of_business"--}}
-{{--                                           type="text" name="nature_of_business" value="{{ $borrower->nature_of_business }}" required>--}}
-{{--                                </div>--}}
+                                <!-- Marital Status -->
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="marital_status">
+                                        Marital Status
+                                        <span class="text-red-700">*</span>
+                                    </label>
+                                    <select name="marital_status" id="marital_status" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                    </select>
+                                </div>
 
-{{--                                <div>--}}
-{{--                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="details_of_payment_schedule_if_sought">--}}
-{{--                                        Details Of Payment Schedule If Sought--}}
-{{--                                        <span class="text-red-700">*</span>--}}
-{{--                                    </label>--}}
-{{--                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="details_of_payment_schedule_if_sought"--}}
-{{--                                           type="text" name="details_of_payment_schedule_if_sought" value="{{ $borrower->details_of_payment_schedule_if_sought }}" required>--}}
-{{--                                </div>--}}
+                                <!-- Education Qualification -->
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="education_qualification">
+                                        Education Qualification
+                                        <span class="text-red-700">*</span>
+                                    </label>
+                                    <select name="education_qualification" id="education_qualification" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                    </select>
+                                </div>
+
 
                                 <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="residence_phone_number">
-                                        Residence Phone Number
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="number_of_dependents">
+                                        Number of Dependents
+                                    </label>
+                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="number_of_dependents"
+                                           type="number" min="0" name="number_of_dependents" value="{{ $borrower->number_of_dependents }}">
+                                </div>
+
+
+
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="phone_number">
+                                        Phone Number
                                         <span class="text-red-700">*</span>
                                     </label>
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="residence_phone_number"
-                                           type="text" name="residence_phone_number" value="{{ $borrower->residence_phone_number }}" required>
+                                           type="text" name="residence_phone_number" value="{{ $borrower->phone_number }}" required>
                                 </div>
 
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="office_phone_number">
-                                        Office Phone Number
-                                        <span class="text-red-700">*</span>
-                                    </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="office_phone_number"
-                                           type="text" name="office_phone_number" value="{{ $borrower->office_phone_number }}" required>
-                                </div>
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="mobile_number">
@@ -339,40 +291,143 @@
             </div>
         </div>
     </div>
-    @push('modals')
-        <script>
-            $(document).ready(function() {
-                var oldCategoryId = "{{ old('loan_category_id', $borrower->loan_category_id) }}";
-                var oldSubCategoryId = "{{ old('loan_sub_category_id', $borrower->loan_sub_category_id) }}";
+        @push('modals')
+            <script>
+                $(document).ready(function() {
+                    // Store old values for populating fields
+                    var oldCategoryId = "{{ old('loan_category_id', $borrower->loan_category_id) }}";
+                    var oldSubCategoryId = "{{ old('loan_sub_category_id', $borrower->loan_sub_category_id) }}";
+                    var oldOccupationTitleId = "{{ old('occupation_title', $borrower->occupation_title) }}";
+                    var oldRelationshipStatus = "{{ old('relationship_status', $borrower->relationship_status) }}";
+                    var oldGender = "{{ old('gender', $borrower->gender) }}";
+                    var oldMaritalStatus = "{{ old('marital_status', $borrower->marital_status) }}";
+                    var oldEducationQualification = "{{ old('education_qualification', $borrower->education_qualification) }}";
+                    var oldBorrowerType = "{{ old('borrower_type', $borrower->borrower_type) }}";
 
-                function populateSubCategories(categoryId, selectedSubCategoryId = null) {
-                    var subCategorySelect = $('#loan_sub_category_id');
-                    subCategorySelect.empty().append('<option value="">Select an option</option>');
+                    // Variables to prevent duplicate population
+                    var lastPopulatedSubCategory = null;
+                    var isPopulating = false;
 
-                    if (categoryId) {
-                        $.ajax({
-                            url: '/loan-subcategories/' + categoryId,
-                            type: 'GET',
-                            success: function(response) {
-                                $.each(response, function(index, subCategory) {
-                                    var selected = selectedSubCategoryId == subCategory.id ? 'selected' : '';
-                                    subCategorySelect.append('<option value="' + subCategory.id + '" ' + selected + '>' + subCategory.name + '</option>');
-                                });
-                            }
+                    // Debounce function to limit how often a function can fire
+                    function debounce(func, wait) {
+                        var timeout;
+                        return function() {
+                            var context = this, args = arguments;
+                            clearTimeout(timeout);
+                            timeout = setTimeout(function() {
+                                func.apply(context, args);
+                            }, wait);
+                        };
+                    }
+
+                    // Populate loan sub-categories based on selected loan category
+                    function populateSubCategories(categoryId, selectedSubCategoryId = null) {
+                        var subCategorySelect = $('#loan_sub_category_id');
+                        subCategorySelect.empty().append('<option value="">Select an option</option>');
+
+                        if (categoryId) {
+                            $.ajax({
+                                url: '/loan-subcategories/' + categoryId,
+                                type: 'GET',
+                                success: function(response) {
+                                    $.each(response, function(index, subCategory) {
+                                        var selected = selectedSubCategoryId == subCategory.id ? 'selected' : '';
+                                        subCategorySelect.append('<option value="' + subCategory.id + '" ' + selected + '>' + subCategory.name + '</option>');
+                                    });
+                                    subCategorySelect.trigger('change');
+                                }
+                            });
+                        }
+                    }
+
+                    // Populate occupation titles based on selected loan sub-category
+                    function populateOccupationTitles(subCategoryId, selectedOccupationTitleId = null) {
+                        // Prevent duplicate population
+                        if (isPopulating || lastPopulatedSubCategory === subCategoryId) return;
+
+                        isPopulating = true;
+                        var occupationTitleSelect = $('#occupation_title');
+                        occupationTitleSelect.empty().append('<option value="">Select an option</option>');
+
+                        if (subCategoryId) {
+                            $.ajax({
+                                url: '/custom-loan-subcategories/' + subCategoryId,
+                                type: 'GET',
+                                success: function(response) {
+                                    var addedOptions = new Set();
+                                    $.each(response, function(index, occupationTitle) {
+                                        if (!addedOptions.has(occupationTitle.name)) {
+                                            var selected = selectedOccupationTitleId == occupationTitle.name ? 'selected' : '';
+                                            occupationTitleSelect.append('<option value="' + occupationTitle.name + '" ' + selected + '>' + occupationTitle.name + '</option>');
+                                            addedOptions.add(occupationTitle.name);
+                                        }
+                                    });
+                                    lastPopulatedSubCategory = subCategoryId;
+                                    isPopulating = false;
+                                },
+                                error: function() {
+                                    isPopulating = false;
+                                }
+                            });
+                        } else {
+                            isPopulating = false;
+                        }
+                    }
+
+                    // Populate applicant statuses based on selected loan sub-category
+                    function populateApplicantStatuses(subCategoryId) {
+                        if (subCategoryId) {
+                            $.ajax({
+                                url: '/applicant-statuses/' + subCategoryId,
+                                type: 'GET',
+                                success: function(response) {
+                                    populateSelect('#relationship_status', response.relationship_statuses, oldRelationshipStatus);
+                                    populateSelect('#gender', response.genders, oldGender);
+                                    populateSelect('#marital_status', response.marital_statuses, oldMaritalStatus);
+                                    populateSelect('#education_qualification', response.education_qualification, oldEducationQualification);
+                                    populateSelect('#borrower_type', response.borrower_type, oldBorrowerType);
+                                }
+                            });
+                        }
+                    }
+
+                    // Helper function to populate select elements
+                    function populateSelect(selectId, options, selectedValue) {
+                        var select = $(selectId);
+                        select.empty().append('<option value="">Select an option</option>');
+                        $.each(options, function(index, option) {
+                            var selected = selectedValue == option.name ? 'selected' : '';
+                            select.append('<option value="' + option.name + '" ' + selected + '>' + option.name + '</option>');
                         });
                     }
-                }
 
-                if (oldCategoryId) {
-                    $('#loan_category_id').val(oldCategoryId);
-                    populateSubCategories(oldCategoryId, oldSubCategoryId);
-                }
+                    // Initial population of fields
+                    if (oldCategoryId) {
+                        $('#loan_category_id').val(oldCategoryId);
+                        populateSubCategories(oldCategoryId, oldSubCategoryId);
 
-                $('#loan_category_id').change(function() {
-                    var categoryId = $(this).val();
-                    populateSubCategories(categoryId);
+                        if (oldSubCategoryId) {
+                            populateOccupationTitles(oldSubCategoryId, oldOccupationTitleId);
+                            populateApplicantStatuses(oldSubCategoryId);
+                        }
+                    }
+
+                    // Event listener for loan category change
+                    $('#loan_category_id').change(function() {
+                        var categoryId = $(this).val();
+                        populateSubCategories(categoryId);
+                        // Reset dependent fields
+                        $('#occupation_title, #relationship_status, #gender, #marital_status, #education_qualification, #borrower_type').empty().append('<option value="">Select an option</option>');
+                        lastPopulatedSubCategory = null;
+                    });
+
+                    // Event listener for loan sub-category change (debounced)
+                    $('#loan_sub_category_id').change(debounce(function() {
+                        var subCategoryId = $(this).val();
+                        populateOccupationTitles(subCategoryId);
+                        populateApplicantStatuses(subCategoryId);
+                    }, 300));
                 });
-            });
-        </script>
-    @endpush
+            </script>
+        @endpush
 </x-app-layout>

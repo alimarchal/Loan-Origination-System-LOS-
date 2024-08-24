@@ -33,18 +33,25 @@ class PermissionsDemoSeeder extends Seeder
         $role15 = Role::create(['name' => 'Regional Chief']);
         $role15 = Role::create(['name' => 'DH CRBD']);
         $role15 = Role::create(['name' => 'SM CMD']);
+        $role16 = Role::create(['name' => 'Head Office']);
 
 
         // create permissions
-        Permission::create(['name' => 'loan-inputter']);
-        Permission::create(['name' => 'loan-inputter-authorizer']);
+        Permission::create(['name' => 'loan inputter']);
+        Permission::create(['name' => 'loan authorizer']);
 
-        Permission::create(['name' => 'users-access']);
-        Permission::create(['name' => 'users-create']);
-        Permission::create(['name' => 'users-edit']);
-        Permission::create(['name' => 'users-view']);
+        Permission::create(['name' => 'users access']);
+        Permission::create(['name' => 'users create']);
+        Permission::create(['name' => 'users edit']);
+        Permission::create(['name' => 'users view']);
 
 
+        // credit report permissions
+        Permission::create(['name' => 'view credit reports']);
+        Permission::create(['name' => 'create credit report']);
+        Permission::create(['name' => 'store credit report']);
+        Permission::create(['name' => 'edit credit report']);
+        Permission::create(['name' => 'update credit report']);
 
 
 

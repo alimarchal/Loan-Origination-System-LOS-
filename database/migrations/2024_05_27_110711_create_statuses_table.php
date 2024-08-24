@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('status')->nullable();
+            $table->foreignId('loan_sub_category_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ class RequestedLoanAmount extends Model
         'request_date',
         'requested_amount',
         'margin_on_gold_limit',
+        'fund_based_non_fund_based',
         'currency',
         'loan_purpose',
         'status',
@@ -29,6 +30,7 @@ class RequestedLoanAmount extends Model
         'account_with_bajk',
         'account_with_other_banks',
         'markup_rate_type',
+        'markup_rate',
         'is_insured',
     ];
 }

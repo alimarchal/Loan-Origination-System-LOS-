@@ -15,6 +15,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Mpdf\Mpdf;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -157,7 +159,6 @@ class BorrowerController extends Controller
         $user = Auth::user();
         $request->merge([
             'user_id' => $user->id,
-
             'date_registered' => now(),
         ]);
         // Assuming 'date_of_birth' is in the format 'Y-m-d'
@@ -201,6 +202,8 @@ class BorrowerController extends Controller
                 'marital_status' => $request->marital_status,
                 'home_ownership_status' => $request->home_ownership_status,
                 'nationality' => $request->nationality,
+                'next_of_kin_name' => $request->next_of_kin_name,
+                'next_of_kin_mobile_number' => $request->next_of_kin_mobile_number,
                 'nadra_verification_for_signature' => NULL,
                 'signature_date' => NULL,
                 'nadra_verification_scanned_attachment' => NULL,
@@ -380,18 +383,47 @@ class BorrowerController extends Controller
 
     public function download(Borrower $borrower)
     {
-        $pdf = Pdf::loadView('borrowers.download', compact('borrower'));
-//        $osc = ObligorScoreCard::where('borrower_id', $borrower->id)->get();
 
-        $pdf->setPaper('A4', 'portrait');
-        $pdf->setOptions([
-            'dpi' => 150,
-            'defaultFont' => 'sans-serif',
-            'isHtml5ParserEnabled' => true,
-            'isRemoteEnabled' => true
+        // Create a new instance of mPDF
+        $mpdf = new Mpdf([
+            'mode' => 'utf-32',
+            'format' => 'A4-P', // 'P' for Portrait, 'L' for Landscape
+            'dpi' => 150, // High DPI setting
+            'default_font' => 'sans-serif',
         ]);
-        return $pdf->download('applicant_information.pdf');
-//        return $pdf->stream("", array("Attachment" => false));
+
+        // Convert the image to Base64
+        $imagePath = public_path('images/logo.png');
+        $base64Image = $this->base64EncodeImage($imagePath);
+
+        // Render the Blade view to HTML
+        $html = View::make('borrowers.download', compact('borrower','base64Image'))->render();
+
+        // Write the HTML content to the PDF
+        $mpdf->WriteHTML($html);
+
+        // Output the PDF (you can specify a filename and options here)
+        return $mpdf->Output('borrower.pdf', 'I'); // 'I' for inline display, 'D' for download
+//        $pdf = Pdf::loadView('borrowers.download', compact('borrower'));
+//
+//        $pdf->setPaper('A4', 'portrait');
+//        $pdf->setOptions([
+//            'dpi' => 150,
+//            'defaultFont' => 'sans-serif',
+//            'isHtml5ParserEnabled' => true,
+//            'isRemoteEnabled' => true
+//        ]);
+//        return $pdf->download('applicant_information.pdf');
+////        return $pdf->stream("", array("Attachment" => false));
     }
+
+    function base64EncodeImage($path) {
+        $imageData = file_get_contents($path);
+        $base64 = base64_encode($imageData);
+        $mimeType = mime_content_type($path);
+        return 'data:' . $mimeType . ';base64,' . $base64;
+    }
+
+
 
 }

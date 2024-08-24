@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('loan_purpose')->nullable(); // Purpose of the loan
 //            $table->enum('loan_type', ['Personal', 'Business', 'Other'])->nullable(); // Type of loan
             $table->enum('status', ['Fresh', 'Enhancement', 'Renewal', 'Reduction'])->nullable(); // Loan status
+            $table->string('fund_based_non_fund_based')->nullable(); // Loan tenure in years
             $table->string('tenure_in_years')->nullable(); // Loan tenure in years
             $table->string('tenure_in_months')->nullable(); // Loan tenure in months
             // salary bar to 12 to 48 months
@@ -37,6 +38,7 @@ return new class extends Migration
             $table->string('account_with_bajk')->nullable();
             $table->string('account_with_other_banks')->nullable();
             $table->string('markup_rate_type')->nullable(); // fixed, kobor
+            $table->decimal('markup_rate',14,2)->nullable();
             $table->string('is_insured')->nullable(); // always yes
 
             $table->timestamps();

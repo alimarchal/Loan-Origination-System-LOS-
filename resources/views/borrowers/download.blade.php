@@ -9,7 +9,7 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Calibri"!important;
             font-size: 12px;
             line-height: 1.3;
             margin: 0;
@@ -103,10 +103,12 @@
 </head>
 <body>
 <div class="text-center mb-4">
+    <img src="{{ $base64Image }}" alt="BAJK Logo" style="width: 250px; height: 100px;">
     <p class="font-bold uppercase">
         Branch & Code: {{ $borrower->branch?->name }} - {{ $borrower->branch?->code }},<br>
         Region: {{ $borrower->branch?->region?->name }}<br>
         Date: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-M-Y') }}
+
     </p>
     <h2 class="font-bold uppercase">Application Form For {{ $borrower->loan_sub_category?->name }}</h2>
 </div>
@@ -119,7 +121,7 @@
     </thead>
     <tbody>
     <tr>
-        <td class="font-bold w-25">NAME:</td>
+        <td class="font-bold w-25">Full Name:</td>
         <td class="w-25">{{ $borrower->name ?? 'N/A' }}</td>
         <td class="font-bold w-25">RELATIONSHIP STATUS:</td>
         <td class="w-25">{{ $borrower->relationship_status ?? 'N/A' }}</td>

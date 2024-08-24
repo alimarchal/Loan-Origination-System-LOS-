@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLoanSubCategoryRequest;
 use App\Http\Requests\UpdateLoanSubCategoryRequest;
 use App\Models\LoanSubCategory;
+use App\Models\Status;
 
 class LoanSubCategoryController extends Controller
 {
@@ -14,59 +15,45 @@ class LoanSubCategoryController extends Controller
         return response()->json($subCategories);
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function getOccupationTitles($subCategoryId)
     {
-        //
+        $loan_sub_category = LoanSubCategory::find($subCategoryId);
+
+        // Retrieve all statuses where status is 'Gender'
+        $occupationTitles = Status::where('status', 'occupation_title')->where('loan_sub_category_id',$loan_sub_category->id)->get();
+
+        return response()->json($occupationTitles);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getBorrowerTypes($occupationTitle, $subCategoryId)
     {
-        //
+
+        $loan_sub_category = LoanSubCategory::find($subCategoryId);
+
+        // Retrieve all statuses where status is 'Gender'
+        $occupationTitles = Status::where('status', 'borrower_type')->where('loan_sub_category_id',$loan_sub_category->id)->get();
+
+
+        return response()->json($occupationTitles);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreLoanSubCategoryRequest $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(LoanSubCategory $loanSubCategory)
+    public function getApplicantStatuses($subCategoryId)
     {
-        //
-    }
+        $loan_sub_category = LoanSubCategory::find($subCategoryId);
+        $relationshipStatuses = Status::where('status', 'relationship_status')->where('loan_sub_category_id',$loan_sub_category->id)->get();
+        $genders = Status::where('status', 'gender')->where('loan_sub_category_id',$loan_sub_category->id)->get();
+        $maritalStatuses = Status::where('status', 'marital_status')->where('loan_sub_category_id',$loan_sub_category->id)->get();
+        $educationalQualification = Status::where('status', 'education_qualification')->where('loan_sub_category_id',$loan_sub_category->id)->get();
+        $borrowerType = Status::where('status', 'borrower_type')->where('loan_sub_category_id',$loan_sub_category->id)->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(LoanSubCategory $loanSubCategory)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateLoanSubCategoryRequest $request, LoanSubCategory $loanSubCategory)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(LoanSubCategory $loanSubCategory)
-    {
-        //
+        return response()->json([
+            'relationship_statuses' => $relationshipStatuses,
+            'genders' => $genders,
+            'marital_statuses' => $maritalStatuses,
+            'education_qualification' => $educationalQualification,
+            'borrower_type' => $borrowerType,
+        ]);
     }
 }

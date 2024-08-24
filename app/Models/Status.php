@@ -9,5 +9,5 @@ class Status extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'status'];
+    protected $fillable = ['name', 'status','loan_sub_category_id'];
 }
