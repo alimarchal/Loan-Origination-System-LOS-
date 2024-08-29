@@ -13,6 +13,7 @@ class Reference extends Model
         'borrower_id',
         'user_id',
         'name',
+        'relationship_to_borrower',
         'father_husband',
         'national_id',
         'ntn',
@@ -20,11 +21,8 @@ class Reference extends Model
         'present_address',
         'permanent_address',
         'phone_number',
-        'phone_number_two',
-        'phone_number_three',
+        'mobile_number',
         'email',
-        'fax',
-        'designation',
         'relationship_to_borrower',
     ];
 }

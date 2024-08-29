@@ -23,11 +23,8 @@ return new class extends Migration
             $table->string('present_address')->nullable(); // Address
             $table->string('permanent_address')->nullable(); // Address
             $table->string('phone_number')->nullable(); // Contact phone number
-            $table->string('phone_number_two')->nullable(); // Contact phone number
-            $table->string('phone_number_three')->nullable(); // Contact phone number
+            $table->string('mobile_number')->nullable(); // Contact phone number
             $table->string('email')->nullable();
-            $table->string('fax')->nullable();
-            $table->string('designation')->nullable();
             $table->string('relationship_to_borrower')->nullable(); // Relationship to the borrower
             $table->timestamps();
         });

@@ -14,7 +14,12 @@ return new class extends Migration
         Schema::create('securities', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
-            $table->string('security_type')->nullable(); // primary or secondary
+            $table->string('security_type')->nullable();
+            $table->decimal('amount',14,2)->nullable();
+            $table->string('name_of_guarantor')->nullable();
+            $table->string('post_dated_cheques')->nullable();
+            $table->string('cheques_obtained')->nullable();
+
             $table->decimal('value_of_gold_ornaments_value',14,2)->nullable(); // primary or secondary
             $table->decimal('gross_weight_of_gold',14,3)->nullable();
             $table->integer('gold_bag_seal_no')->nullable();

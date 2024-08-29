@@ -1,8 +1,9 @@
 <x-app-layout>
     @push('header') @endpush
     <x-slot name="header">
-        <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block">
-            Reference List
+
+        <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
+            Reference (AT LEAST TWO)
         </h2>
         @include('back-navigation')
     </x-slot>
@@ -17,18 +18,16 @@
 
                     <div class="relative overflow-x-auto">
                         @if($references->isNotEmpty())
-                            <h2 class="text-2xl mt-1 text-center my-2 uppercase  font-extrabold text-red-700">Reference (AT LEAST TWO)</h2>
-
                             <table class="min-w-max w-full table-auto">
                                 <thead>
                                 <tr class="bg-bank-green text-white uppercase text-sm">
                                     <th class="py-2 px-2 text-center">ID</th>
                                     <th class="py-2 px-2 text-center">Name</th>
-                                    <th class="py-2 px-2 text-center">National ID</th>
-                                    <th class="py-2 px-2 text-center">Phone Number</th>
+                                    <th class="py-2 px-2 text-center">Relationship</th>
+                                    <th class="py-2 px-2 text-center">CNIC</th>
+                                    <th class="py-2 px-2 text-center">Phone</th>
+                                    <th class="py-2 px-2 text-center">Mobile</th>
                                     <th class="py-2 px-2 text-center">Email</th>
-                                    <th class="py-2 px-2 text-center">Designation</th>
-                                    <th class="py-2 px-2 text-center">Relationship to Borrower</th>
                                     <th class="py-2 px-2 text-center">Action</th>
                                 </tr>
                                 </thead>
@@ -42,20 +41,24 @@
                                             {{ $reference->name }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
+                                            {{ $reference->relationship_to_borrower }}
+                                        </td>
+                                        <td class="py-1 px-2 text-center">
                                             {{ $reference->national_id }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
                                             {{ $reference->phone_number }}
                                         </td>
+
+                                        <td class="py-1 px-2 text-center">
+                                            {{ $reference->mobile_number }}
+                                        </td>
+
                                         <td class="py-1 px-2 text-center">
                                             {{ $reference->email }}
                                         </td>
-                                        <td class="py-1 px-2 text-center">
-                                            {{ $reference->designation }}
-                                        </td>
-                                        <td class="py-1 px-2 text-center">
-                                            {{ $reference->relationship_to_borrower }}
-                                        </td>
+
+
                                         <td class="py-1 px-2 text-center">
                                             <a href="{{ route('reference.edit', [$reference->borrower_id, $reference->id]) }}" class="inline-flex ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

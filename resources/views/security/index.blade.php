@@ -16,17 +16,24 @@
 
                     <div class="relative overflow-x-auto">
                         @if($securities->isNotEmpty())
-                            <h2 class="text-2xl mt-1 text-center my-2 uppercase underline font-bold text-red-700">Securities</h2>
                             <table class="min-w-max w-full table-auto">
                                 <thead>
                                 <tr class="bg-bank-green text-white uppercase text-sm">
                                     <th class="py-2 px-2 text-center">ID</th>
+                                    @if(in_array($borrower->loan_sub_category->name, ["Advance Salary"]))
                                     <th class="py-2 px-2 text-center">Security Type</th>
-                                    <th class="py-2 px-2 text-center">Value of Gold Ornaments</th>
-                                    <th class="py-2 px-2 text-center">Gross Weight of Gold</th>
-                                    <th class="py-2 px-2 text-center">Market Value</th>
-                                    <th class="py-2 px-2 text-center">Ownership</th>
-                                    <th class="py-2 px-2 text-center">Lien Amount</th>
+                                    <th class="py-2 px-2 text-center">Amount</th>
+                                    <th class="py-2 px-2 text-center">Name Guarantor</th>
+                                    <th class="py-2 px-2 text-center">Post Dated Cheque</th>
+                                    <th class="py-2 px-2 text-center">Cheque Obtained</th>
+                                    @else
+                                        <th class="py-2 px-2 text-center">Value of Gold Ornaments</th>
+                                        <th class="py-2 px-2 text-center">Gross Weight of Gold</th>
+                                        <th class="py-2 px-2 text-center">Market Value</th>
+                                        <th class="py-2 px-2 text-center">Ownership</th>
+                                        <th class="py-2 px-2 text-center">Lien Amount</th>
+                                    @endif
+                                    <th class="py-2 px-2 text-center">Remarks</th>
                                     <th class="py-2 px-2 text-center">Action</th>
                                 </tr>
                                 </thead>
@@ -36,9 +43,28 @@
                                         <td class="py-1 px-2 text-center">
                                             {{ $loop->iteration }}
                                         </td>
+                                        @if(in_array($borrower->loan_sub_category->name, ["Advance Salary"]))
                                         <td class="py-1 px-2 text-center">
                                             {{ $security->security_type }}
                                         </td>
+
+                                        <td class="py-1 px-2 text-center">
+                                            {{ $security->amount }}
+                                        </td>
+
+                                        <td class="py-1 px-2 text-center">
+                                            {{ $security->name_of_guarantor }}
+                                        </td>
+
+                                        <td class="py-1 px-2 text-center">
+                                            {{ $security->post_dated_cheques }}
+                                        </td>
+
+                                        <td class="py-1 px-2 text-center">
+                                            {{ $security->cheques_obtained }}
+                                        </td>
+
+                                        @else
                                         <td class="py-1 px-2 text-center">
                                             {{ $security->value_of_gold_ornaments_value }}
                                         </td>
@@ -53,6 +79,12 @@
                                         </td>
                                         <td class="py-1 px-2 text-center">
                                             {{ $security->lien_amount }}
+                                        </td>
+                                        @endif
+
+
+                                        <td class="py-1 px-2 text-center">
+                                            {{ $security->remarks }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
                                             <a href="{{ route('security.edit', [$security->borrower_id, $security->id]) }}" class="inline-flex ">
@@ -74,6 +106,10 @@
                                 @endforeach
                                 </tbody>
                             </table>
+
+
+
+
                         @endif
 
                         <a href="{{ route('security.create', $borrower->id) }}" class="inline-flex mt-2 mr-2 items-center float-right px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150">

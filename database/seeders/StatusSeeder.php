@@ -188,6 +188,23 @@ class StatusSeeder extends Seeder
             ['name' => 'Post Dated Cheques', 'status' => 'security_type', 'loan_sub_category_id' => 1],
             ['name' => 'Yes', 'status' => 'cheques_obtained', 'loan_sub_category_id' => 1],
             ['name' => 'No', 'status' => 'cheques_obtained', 'loan_sub_category_id' => 1],
+            ['name' => 'S/O', 'status' => 'relationship_to_borrower', 'loan_sub_category_id' => 1],
+            ['name' => 'W/O', 'status' => 'relationship_to_borrower', 'loan_sub_category_id' => 1],
+            ['name' => 'D/O', 'status' => 'relationship_to_borrower', 'loan_sub_category_id' => 1],
+            ['name' => 'Borrower CNIC Front Side', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Borrower CNIC Back Side ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Photo of Borrower ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Borrower Latest salary slip, stamped and signed by DDO ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Borrower DDO Under Taking ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Borrower Account Statement ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Borrower Signature ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'GuarantorCNIC Front Side', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Guarantor CNIC Back Side ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Guarantor Latest salary slip, stamped and signed by DDO ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Guarantee  Letter ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Credit Manager Signature ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+            ['name' => 'Branch Manager Signature ', 'status' => 'Document', 'loan_sub_category_id' => 1],
+
 
 
 

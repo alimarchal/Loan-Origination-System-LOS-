@@ -12,6 +12,10 @@ class Security extends Model
     protected $fillable = [
         'borrower_id',
         'security_type',
+        'amount',
+        'name_of_guarantor',
+        'post_dated_cheques',
+        'cheques_obtained',
         'value_of_gold_ornaments_value',
         'gross_weight_of_gold',
         'gold_bag_seal_no',
