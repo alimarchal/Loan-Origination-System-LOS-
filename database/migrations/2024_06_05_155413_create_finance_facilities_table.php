@@ -28,6 +28,7 @@ return new class extends Migration
             $table->date('end_date')->nullable(); // End date of the facility
             $table->string('purpose_of_loan'); // Name of the bank or financial institution
             $table->text('remarks')->nullable(); // Additional remarks or notes
+            $table->decimal('amount_rescheduled', 15, 2)->default(0.00);
             $table->timestamps();
         });
     }

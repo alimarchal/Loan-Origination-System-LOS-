@@ -13,6 +13,7 @@ use App\Models\ObligorScoreCardFactor;
 use App\Models\Region;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -160,6 +161,7 @@ class BorrowerController extends Controller
         $request->merge([
             'user_id' => $user->id,
             'date_registered' => now(),
+            'nationality' => "Pakistani/AJK Resident",
         ]);
         // Assuming 'date_of_birth' is in the format 'Y-m-d'
         $dateOfBirth = $request->date_of_birth;
@@ -191,9 +193,8 @@ class BorrowerController extends Controller
                 'education_qualification' => $request->education_qualification,
                 'email' => $request->email,
                 'fax' => $request->fax,
-                'residence_phone_number' => $request->residence_phone_number,
-                'office_phone_number' => $request->office_phone_number,
                 'mobile_number' => $request->mobile_number,
+                'phone_number' => $request->phone_number,
                 'present_address' => $request->present_address,
                 'permanent_address' => $request->permanent_address,
                 'occupation_title' => $request->occupation_title,
@@ -266,46 +267,35 @@ class BorrowerController extends Controller
 
         DB::beginTransaction();
         try {
-            $borrower->update([
-                'user_id' => $request->user_id,
-                'authorizer_id' => NULL,
-                'region_id' => $request->region_id,
-                'branch_id' => $request->branch_id,
-                'borrower_type' => $request->borrower_type,
-                'loan_category_id' => $request->loan_category_id,
-                'loan_sub_category_id' => $request->loan_sub_category_id,
-                'name' => $request->name,
-                'relationship_status' => $request->relationship_status,
-                'parent_spouse_name' => $request->parent_spouse_name,
-                'gender' => $request->gender,
-                'national_id_cnic' => $request->national_id_cnic,
-                'ntn' => $request->ntn,
-                'parent_spouse_national_id_cnic' => $request->parent_spouse_national_id_cnic,
-                'number_of_dependents' => $request->number_of_dependents,
-                'education_qualification' => $request->education_qualification,
-                'email' => $request->email,
-                'fax' => $request->fax,
-                'residence_phone_number' => $request->residence_phone_number,
-                'office_phone_number' => $request->office_phone_number,
-                'mobile_number' => $request->mobile_number,
-                'present_address' => $request->present_address,
-                'permanent_address' => $request->permanent_address,
-                'occupation_title' => $request->occupation_title,
-                'date_of_birth' => $request->date_of_birth,
-                'age' => $age,
-                'marital_status' => $request->marital_status,
-                'home_ownership_status' => $request->home_ownership_status,
-                'nationality' => $request->nationality,
-                'next_of_kin_name' => $request->next_of_kin_name,
-                'next_of_kin_mobile_number' => $request->next_of_kin_mobile_number,
-                'nadra_verification_for_signature' => NULL,
-                'signature_date' => NULL,
-                'nadra_verification_scanned_attachment' => NULL,
-                'digital_signature_scanned_attachment' => NULL,
-            ]);
-
+            $borrower->update($request->all());
             DB::commit();
             session()->flash('success', 'Borrower updated  successfully.');
+            return to_route('applicant.edit', $borrower->id);
+        } catch (\Exception $e) {
+            DB::rollback();
+            // Handle error
+            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            return back()->withInput();
+        }
+    }
+
+
+    public function authorized(Request $request, Borrower $borrower)
+    {
+        $user = Auth::user();
+
+        if ($request->input('is_authorize') == 'Yes') {
+            $mergeData['authorizer_id'] = $user->id;
+            $mergeData['is_authorize'] = $request->is_authorize;
+        }
+
+        $request->merge($mergeData);
+
+        DB::beginTransaction();
+        try {
+            $borrower->update($request->all());
+            DB::commit();
+            session()->flash('success', 'Authorized updated successfully.');
             return to_route('applicant.edit', $borrower->id);
         } catch (\Exception $e) {
             DB::rollback();

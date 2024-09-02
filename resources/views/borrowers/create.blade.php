@@ -1,19 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block">
-            New Applicant
+        <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
+            Basic Applicant Information
         </h2>
-
-        <div class="flex justify-center items-center float-right">
-            <div class="flex justify-center items-center float-right">
-
-                <a href="#" class="text-center px-4 py-2 text-gray-600 bg-white border rounded-lg focus:outline-none hover:bg-gray-100 transition-colors duration-200 transform dark:text-black dark:border-gray-200 dark:hover:bg-white dark:bg-gray-700 ml-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                    </svg>
-                </a>
-            </div>
-        </div>
     </x-slot>
 
     <div class="py-6">
@@ -35,7 +24,6 @@
                         <!-- resources/views/users/create.blade.php -->
                         <x-validation-errors class="mb-4 mt-4" />
                         <x-status-message class="mb-4" />
-                        <h2 class="text-2xl text-center my-2 uppercase underline font-bold text-red-700">APPLICANT INFORMATION</h2>
                         <form method="POST" action="{{ route('applicant.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">

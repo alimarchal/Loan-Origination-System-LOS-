@@ -41,6 +41,10 @@ return new class extends Migration
             $table->decimal('markup_rate',14,2)->nullable();
             $table->string('is_insured')->nullable(); // always yes
 
+            $table->string('nature_of_business')->nullable();
+            $table->string('nature_of_business_other')->nullable();
+            $table->string('details_payment_schedule')->nullable();
+
             $table->timestamps();
         });
     }

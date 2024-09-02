@@ -20,6 +20,7 @@ class Borrower extends Model
 
     protected $fillable = [
         'user_id',
+        'is_authorize',
         'authorizer_id',
         'region_id',
         'branch_id',

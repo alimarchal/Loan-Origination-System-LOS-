@@ -37,8 +37,8 @@ class PermissionsDemoSeeder extends Seeder
 
 
         // create permissions
-        Permission::create(['name' => 'loan inputter']);
-        Permission::create(['name' => 'loan authorizer']);
+        Permission::create(['name' => 'inputter']);
+        Permission::create(['name' => 'authorizer']);
 
         Permission::create(['name' => 'users access']);
         Permission::create(['name' => 'users create']);

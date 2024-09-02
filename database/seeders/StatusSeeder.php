@@ -204,7 +204,11 @@ class StatusSeeder extends Seeder
             ['name' => 'Guarantee  Letter ', 'status' => 'Document', 'loan_sub_category_id' => 1],
             ['name' => 'Credit Manager Signature ', 'status' => 'Document', 'loan_sub_category_id' => 1],
             ['name' => 'Branch Manager Signature ', 'status' => 'Document', 'loan_sub_category_id' => 1],
-
+            ['name' => 'Industrial', 'status' => 'nature_of_business', 'loan_sub_category_id' => 1],
+            ['name' => 'Commercial', 'status' => 'nature_of_business', 'loan_sub_category_id' => 1],
+            ['name' => 'Agricultural', 'status' => 'nature_of_business', 'loan_sub_category_id' => 1],
+            ['name' => 'Services', 'status' => 'nature_of_business', 'loan_sub_category_id' => 1],
+            ['name' => 'Any Other', 'status' => 'nature_of_business', 'loan_sub_category_id' => 1],
 
 
 

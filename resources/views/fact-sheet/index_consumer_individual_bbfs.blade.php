@@ -260,7 +260,82 @@
                                 <h1 class="text-2xl text-red-500">Please add at least two reference</h1>
                             @endif
 
+
+
+
+
                             <x-validation-errors class="mb-4 mt-4"/>
+
+
+
+
+                            <table class="table-auto w-full border-collapse border-none" style="border: none!important;font-size: 12px;">
+                                <thead class=" border-none border-black uppercase" style="border: none!important;;">
+                                <tr class="border-none text-black font-bold" style="font-size: 12px!important;border: none">
+                                    <th class="border-none py-1 px-2 text-left underline" colspan="5" style="border: none">
+                                        3. NATURE OF BUSINESS / PROFESSION:
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td>Industrial</td>
+                                    <td>Commercial</td>
+                                    <td>Agricultural</td>
+                                    <td>Services</td>
+                                    <td>Any Other</td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Industrial")
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-1 mx-auto">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                            </svg>
+
+
+
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Commercial")
+
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mx-auto">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                            </svg>
+
+
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Agricultural")
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mx-auto">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                            </svg>
+
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Services")
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mx-auto">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                            </svg>
+
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Any Other")
+                                            {{ $borrower->borrower_fact_sheet_consumer->nature_of_business }}
+                                        @endif
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+
 
 
                             @if(!empty($borrower->borrower_fact_sheet_consumer))

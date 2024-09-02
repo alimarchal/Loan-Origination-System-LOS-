@@ -198,7 +198,7 @@
                                         <span class="text-red-700">*</span>
                                     </label>
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="residence_phone_number"
-                                           type="text" name="residence_phone_number" value="{{ $borrower->phone_number }}" required>
+                                           type="text" name="phone_number" value="{{ $borrower->phone_number }}" required>
                                 </div>
 
 
@@ -275,15 +275,28 @@
 
 
                             </div>
-                            <div class="flex items-center justify-end mt-4">
-                                <x-button class="ml-2" id="submit-btn">Update Borrower</x-button>
 
-                                @if($borrower->occupation_title == "Government" || $borrower->occupation_title == "Semi Government" || $borrower->occupation_title == "Autonomous Body")
-                                    <a href="{{ route('applicant.employment-information.edit', $borrower->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2">Next</a>
-                                @elseif($borrower->occupation_title == "Business Men" || $borrower->occupation_title == "Self Employed" || $borrower->occupation_title == "Professional")
-                                    <a href="{{ route('applicant.employment-information.edit', $borrower->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2">Next</a>
-                                @endif
 
+                                <div class="flex items-center justify-end mt-4">
+                                    @if($borrower->is_authorize == "No")
+                                        <x-button class="ml-2" id="submit-btn">Update Borrower</x-button>
+                                        <a href="{{ route('applicant.employment-information.edit', $borrower->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2">Next</a>
+                                    @endif
+                                </div>
+
+
+
+                        </form>
+
+
+
+                        <form method="POST" action="{{ route('applicant.authorized', $borrower->id) }}" enctype="multipart/form-data">
+                            @csrf @method('PUT')
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                                <div class="flex mt-4">
+                                    <input type="hidden" name="is_authorize" value="Yes">
+                                    <button class="inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-red-800 uppercase tracking-widest hover:bg-red-700 dark:hover:bg-white focus:bg-red-700 dark:focus:bg-white active:bg-red-900 dark:active:bg-red-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-red-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2" id="submit-btn">Authorized</button>
+                                </div>
                             </div>
                         </form>
                     </div>

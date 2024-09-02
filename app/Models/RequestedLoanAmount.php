@@ -32,5 +32,8 @@ class RequestedLoanAmount extends Model
         'markup_rate_type',
         'markup_rate',
         'is_insured',
+        'nature_of_business',
+        'nature_of_business_other',
+        'details_payment_schedule',
     ];
 }

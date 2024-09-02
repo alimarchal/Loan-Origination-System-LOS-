@@ -156,6 +156,29 @@
                                 </div>
 
 
+                                <div>
+                                    <x-label for="nature_of_business" value="Nature of Business / Profession" />
+                                    <select name="nature_of_business" required id="nature_of_business" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+                                        @foreach(\App\Models\Status::where('status', 'nature_of_business')->where('loan_sub_category_id', $borrower->loan_sub_category_id)->get() as $item)
+                                            <option value="{{ $item->name }}" {{ old('nature_of_business', $borrower->applicant_requested_loan_information?->nature_of_business) == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <x-label for="nature_of_business_other" value="If Any Other " />
+                                    <x-input id="nature_of_business_other" class="block mt-1 w-full" type="text" name="nature_of_business_other"  :value="old('markup_rate', $borrower->applicant_requested_loan_information?->nature_of_business_other)" />
+                                </div>
+
+
+                                <div>
+                                    <x-label for="details_payment_schedule" value="Details of Payment Schedule" />
+                                    <x-input id="details_payment_schedule" class="block mt-1 w-full" type="text" name="details_payment_schedule"  :value="old('markup_rate', $borrower->applicant_requested_loan_information?->details_payment_schedule)" />
+                                </div>
+
+
+
+
                             </div>
                             <div class="flex items-center justify-end mt-4">
                                 @if(empty($borrower->applicant_requested_loan_information))

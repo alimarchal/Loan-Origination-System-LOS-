@@ -5,7 +5,7 @@
             Reference (AT LEAST TWO)
         </h2>
 
-        @include('back-navigation')
+{{--        @include('back-navigation')--}}
     </x-slot>
 
     <div class="py-6">

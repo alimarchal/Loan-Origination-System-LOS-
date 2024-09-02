@@ -5,7 +5,7 @@
         <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
             Reference Information
         </h2>
-        @include('back-navigation')
+{{--        @include('back-navigation')--}}
     </x-slot>
 
     <div class="py-6">

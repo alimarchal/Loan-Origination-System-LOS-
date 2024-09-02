@@ -79,7 +79,6 @@ class RequestedLoanAmountController extends Controller
     public function update(UpdateRequestedLoanAmountRequest $request, Borrower $borrower, RequestedLoanAmount $requestedLoanAmount)
     {
 
-
         $user = Auth::user();
         $request->merge([
             'user_id' => $user->id,

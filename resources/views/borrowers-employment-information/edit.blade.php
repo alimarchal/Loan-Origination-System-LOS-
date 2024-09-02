@@ -8,7 +8,7 @@
 
 
         <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
-            Applicant Employment Information
+            Employment Information
         </h2>
     </x-slot>
 

@@ -23,5 +23,6 @@ class FinanceFacility extends Model
         'end_date',
         'purpose_of_loan',
         'remarks',
+        'amount_rescheduled',
     ];
 }
