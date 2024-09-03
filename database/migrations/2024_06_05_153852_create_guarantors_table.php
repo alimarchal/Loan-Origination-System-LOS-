@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('guarantors', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->enum('guarantor_type', ['Individual', 'Business']); // Guarantor type (individual or business)
             // Common columns
             $table->string('title')->nullable();; // Guarantor's name (individual or business)

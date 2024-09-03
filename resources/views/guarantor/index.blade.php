@@ -29,6 +29,7 @@
                                     <th class="py-2 px-2 text-center">Phone Number</th>
                                     <th class="py-2 px-2 text-center">Email</th>
                                     <th class="py-2 px-2 text-center">Relationship to Borrower</th>
+                                    <th class="py-2 px-2 text-center">Is Authorized</th>
                                     <th class="py-2 px-2 text-center">Action</th>
                                 </tr>
                                 </thead>
@@ -53,12 +54,28 @@
                                         <td class="py-1 px-2 text-center">
                                             {{ $guarantor->relationship_to_borrower }}
                                         </td>
+
                                         <td class="py-1 px-2 text-center">
+                                            {{ $guarantor->is_authorize }}
+                                        </td>
+                                        <td class="py-1 px-2 text-center">
+                                            <form action="{{ route('guarantor.authorized', [$guarantor->borrower_id, $guarantor->id]) }}" method="post" class="inline-block" onsubmit="return confirm('Do you really want to authorized this record?');">
+                                                @csrf
+                                                @method('PUT')
+                                                <input type="hidden" name="is_authorize" value="Yes">
+                                                <button type="submit" class="inline-flex">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                    </svg>
+
+                                                </button>
+                                            </form>
                                             <a href="{{ route('guarantor.edit', [$guarantor->borrower_id, $guarantor->id]) }}" class="inline-flex ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                                 </svg>
                                             </a>
+
                                             <form action="{{ route('guarantor.destroy', [$guarantor->borrower_id, $guarantor->id]) }}" method="post" class="inline-block" onsubmit="return confirm('Do you really want to delete the record?');">
                                                 @csrf
                                                 @method('DELETE')

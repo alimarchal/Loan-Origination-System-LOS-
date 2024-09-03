@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             // For Salary Loan
             $table->foreignId('user_id')->constrained();
+
             $table->enum('is_authorize',['Yes','No'])->default('No');
             $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
 

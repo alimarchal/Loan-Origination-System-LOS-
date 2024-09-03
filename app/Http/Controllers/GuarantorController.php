@@ -6,6 +6,7 @@ use App\Http\Requests\StoreGuarantorRequest;
 use App\Http\Requests\UpdateGuarantorRequest;
 use App\Models\Borrower;
 use App\Models\Guarantor;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -102,6 +103,31 @@ class GuarantorController extends Controller
             DB::commit();
             session()->flash('success', 'Guarantor information successfully updated.');
             return to_route('guarantor.edit', [$borrower->id, $guarantor->id]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            return back()->withInput();
+        }
+    }
+
+
+    public function authorized(Request $request, Borrower $borrower, Guarantor $guarantor)
+    {
+
+        $user = Auth::user();
+        if ($request->input('is_authorize') == 'Yes') {
+            $mergeData['authorizer_id'] = $user->id;
+            $mergeData['is_authorize'] = $request->is_authorize;
+        }
+
+        $request->merge($mergeData);
+
+        DB::beginTransaction();
+        try {
+            $guarantor->update($request->all());
+            DB::commit();
+            session()->flash('success', 'Guarantor information successfully updated.');
+            return to_route('guarantor.index', [$borrower->id]);
         } catch (\Exception $e) {
             DB::rollback();
             session()->flash('error', 'An error occurred: ' . $e->getMessage());

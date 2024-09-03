@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('borrower_employment_information', function (Blueprint $table) {
             $table->id(); // Primary key
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('job_title_designation')->nullable(); // Job title (optional)
             $table->string('employment_status')->nullable(); // Employment status (optional)
             $table->string('employer_name')->nullable(); // Employer name (optional)

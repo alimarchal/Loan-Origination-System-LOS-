@@ -63,6 +63,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::get('/borrower/{borrower}/employment-information', 'edit')->name('applicant.employment-information.edit');;
         Route::post('/borrower/{borrower}/employment-information', 'store')->name('applicant.employment-information.store');;
         Route::put('/borrower/{borrower}/employment-information/{borrowerEmploymentInformation}', 'update')->name('applicant.employment-information.update');;
+        Route::put('/borrower/{borrower}/employment-information/{borrowerEmploymentInformation}/authorized', 'authorized')->name('applicant.employment-information.authorized');;
     });
 
     // Applicant Business Information
@@ -105,6 +106,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/applicant/{borrower}/guarantor', 'store')->name('guarantor.store');
         Route::get('/applicant/{borrower}/guarantor/{guarantor}/edit', 'edit')->name('guarantor.edit');
         Route::put('/applicant/{borrower}/guarantor/{guarantor}', 'update')->name('guarantor.update');
+        Route::put('/applicant/{borrower}/guarantor/{guarantor}/authorized', 'authorized')->name('guarantor.authorized');
         Route::delete('/applicant/{borrower}/guarantor/{guarantor}/destroy', 'destroy')->name('guarantor.destroy');
     });
 

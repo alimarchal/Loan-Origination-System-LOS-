@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class BorrowerEmploymentInformation extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'job_title_designation',
         'employment_status',
         'employer_name',
