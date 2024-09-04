@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id(); // Primary key
             $table->foreignUuid('borrower_id')->constrained();
             $table->foreignId('user_id')->constrained(); // Foreign key to users table
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('loan_category_id')->constrained(); // Foreign key to loan categories table
             $table->foreignId('loan_sub_category_id')->constrained(); // Foreign key to loan sub-categories table
 

@@ -19,6 +19,7 @@ use App\Http\Controllers\PersonalNetWorthStatController;
 use App\Http\Controllers\PersonalNetWorthStatementController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\RequestedLoanAmountController;
+use App\Http\Controllers\SalaryAutoFormController;
 use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
@@ -203,6 +204,12 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
 
 
 
+    // Auto Generated Reports
+    Route::controller(SalaryAutoFormController::class)->group(function () {
+        Route::get('/borrower/{borrower}/employer-undertaking', 'employer_undertaking')->name('employer.undertaking');;
+    });
+
+
 
     Route::get('/borrower/make-template', [BorrowerController::class, 'make_template'])->name('applicant.make-template');
 
@@ -216,6 +223,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::get('/credit-reporting/data-check-reporting-request/{creditReporting}/edit', 'edit')->name('credit-reporting.edit');
         Route::put('/credit-reporting/data-check-reporting-request/{creditReporting}', 'update')->name('credit-reporting.update');
     });
+
+
+
+
+
 
     Route::get('administration', [AdministrationController::class, 'index'])->name('administration.index');
 

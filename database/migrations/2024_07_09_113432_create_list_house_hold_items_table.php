@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('list_house_hold_items', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('description_of_items')->nullable();
             $table->decimal('quantity',14,2)->default(0);
             $table->decimal('market_value',14,2)->default(0);

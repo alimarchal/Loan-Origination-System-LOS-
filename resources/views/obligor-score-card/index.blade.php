@@ -1,15 +1,14 @@
 <x-app-layout>
-    @push('header') @endpush
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight">
+
+
+        <x-slot name="header">
+            <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
                 Obligor Score Card
             </h2>
-            @include('back-navigation')
-        </div>
-    </x-slot>
+        </x-slot>
 
-    <div class="py-6">
+
+        <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
 

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('requested_loan_amount_id')->constrained();
             $table->enum('vehicle_type', ['New', 'Used'])->nullable(); // Vehicle type
             $table->string('model_year')->nullable(); // Model year

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('oscf_opts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('obligor_score_card_factor_id')->nullable()->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('options')->nullable();
             $table->string('score_available')->nullable();
             $table->timestamps();

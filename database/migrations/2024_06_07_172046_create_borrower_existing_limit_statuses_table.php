@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->enum('type',['Funded','Non Funded'])->nullable(); // funded or non funded
             $table->decimal('amount')->nullable();
             $table->decimal('expiry_date')->nullable();

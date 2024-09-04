@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('obligor_score_card_factors', function (Blueprint $table) {
             $table->id();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('factor')->nullable();
             $table->timestamps();
         });

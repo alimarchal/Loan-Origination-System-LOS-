@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('personal_net_worth_stats', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('name')->nullable();
             $table->string('nic_no')->nullable();
             $table->string('father_name')->nullable();

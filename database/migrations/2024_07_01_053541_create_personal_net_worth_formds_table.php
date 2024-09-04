@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('personal_net_worth_formds', function (Blueprint $table) {
             $table->id();
             $table->foreignId('personal_net_worth_stat_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('bank_institution')->nullable();
             $table->decimal('amount',14,2)->default(0);
             $table->date('expiry_date')->nullable();

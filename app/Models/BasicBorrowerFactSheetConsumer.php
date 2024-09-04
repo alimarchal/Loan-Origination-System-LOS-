@@ -11,6 +11,8 @@ class BasicBorrowerFactSheetConsumer extends Model
     use HasFactory;
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'reference_id_first',
         'reference_id_second',
         'nature_of_business',

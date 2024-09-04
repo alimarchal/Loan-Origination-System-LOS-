@@ -10,6 +10,8 @@ class PersonalNetWorthForma extends Model
     use HasFactory;
 
     protected $fillable = [
+        'is_authorize',
+        'authorizer_id',
         'personal_net_worth_stat_id',
         'particulars',
         'in_name_of',

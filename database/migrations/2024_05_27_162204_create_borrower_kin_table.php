@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('borrower_kin', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('next_of_kin')->nullable(); // Name of the borrower's next of kin
             $table->string('mobile_next_of_kin')->nullable(); // Mobile number of the borrower's next of kin
             $table->timestamps();

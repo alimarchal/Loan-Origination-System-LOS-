@@ -13,6 +13,7 @@ class Checklist extends Model
         'loan_sub_category_id',
         'sequence_no',
         'name',
+        'route',
         'status',
     ];
 }

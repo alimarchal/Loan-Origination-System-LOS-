@@ -11,6 +11,8 @@ class BorrowerBusiness extends Model
     protected $fillable = [
         'user_id',
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'name',
         'type',
         'address',

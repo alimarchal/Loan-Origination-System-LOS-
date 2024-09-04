@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('personal_net_worth_formcs', function (Blueprint $table) {
             $table->id();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('personal_net_worth_stat_id')->constrained();
             $table->string('particulars')->nullable();
             $table->string('description')->nullable();

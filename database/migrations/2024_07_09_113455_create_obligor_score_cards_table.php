@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('obligor_score_cards', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedInteger('score_card_factor_id')->nullable();
             $table->unsignedInteger('score_card_factor_opt_id')->nullable();
             $table->decimal('score_available',3,2)->default(0);

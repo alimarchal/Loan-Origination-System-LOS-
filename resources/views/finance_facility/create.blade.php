@@ -96,7 +96,7 @@
 
                                 <div>
                                     <x-label for="amount_rescheduled" value="Amount Rescheduled (If Any)" />
-                                    <x-input id="amount_rescheduled" class="block mt-1 w-full" type="text" name="amount_rescheduled" :value="old('amount_rescheduled')" />
+                                    <x-input id="amount_rescheduled" class="block mt-1 w-full" type="number" name="amount_rescheduled" :value="old('amount_rescheduled')" />
                                 </div>
 
 

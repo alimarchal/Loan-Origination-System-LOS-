@@ -10,6 +10,8 @@ class Asset extends Model
     use HasFactory;
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'net_worth_id',
         'description',
         'value',

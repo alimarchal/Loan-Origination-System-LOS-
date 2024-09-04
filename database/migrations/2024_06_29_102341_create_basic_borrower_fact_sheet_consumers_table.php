@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('basic_borrower_fact_sheet_consumers', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->unsignedInteger('reference_id_first');
             $table->unsignedInteger('reference_id_second');
             $table->string('nature_of_business');

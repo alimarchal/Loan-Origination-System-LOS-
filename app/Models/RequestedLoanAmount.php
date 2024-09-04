@@ -12,6 +12,8 @@ class RequestedLoanAmount extends Model
     protected $fillable = [
         'borrower_id',
         'user_id',
+        'is_authorize',
+        'authorizer_id',
         'loan_category_id',
         'loan_sub_category_id',
         'request_date',

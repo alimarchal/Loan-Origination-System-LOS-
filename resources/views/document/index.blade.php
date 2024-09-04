@@ -1,10 +1,9 @@
 <x-app-layout>
     @push('header') @endpush
     <x-slot name="header">
-        <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block">
-            Document List
+        <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
+            Document List (Attachments)
         </h2>
-        @include('back-navigation')
     </x-slot>
 
     <div class="py-6">
@@ -21,7 +20,6 @@
                     <div class="relative overflow-x-auto">
 
                         @if($documents->isNotEmpty())
-                            <h2 class="text-2xl mt-1 text-center my-2 uppercase underline font-bold text-red-700">Attachments</h2>
 
                             <table class="min-w-max w-full table-auto">
                                 <thead>

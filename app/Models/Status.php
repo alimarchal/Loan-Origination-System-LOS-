@@ -9,5 +9,8 @@ class Status extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'status','loan_sub_category_id'];
+    protected $fillable = [
+        'is_authorize',
+        'authorizer_id',
+        'name', 'status','loan_sub_category_id'];
 }

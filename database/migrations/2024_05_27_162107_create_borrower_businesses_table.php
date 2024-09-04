@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id(); // Primary key for the borrower businesses table
             $table->foreignUuid('borrower_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('name')->nullable(); // Business name
             $table->string('type')->nullable(); // Business type
             $table->string('address')->nullable(); // Business address

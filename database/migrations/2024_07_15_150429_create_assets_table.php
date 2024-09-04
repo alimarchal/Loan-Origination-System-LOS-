@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('net_worth_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('description');
             $table->decimal('value', 15, 2)->nullable();

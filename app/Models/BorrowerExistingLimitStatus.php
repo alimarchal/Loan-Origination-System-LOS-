@@ -11,6 +11,8 @@ class BorrowerExistingLimitStatus extends Model
     protected $fillable = [
         'borrower_id',
         'user_id',
+        'is_authorize',
+        'authorizer_id',
         'type',
         'amount',
         'expiry_date',

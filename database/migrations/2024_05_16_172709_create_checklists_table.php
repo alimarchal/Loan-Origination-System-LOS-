@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('loan_sub_category_id')->constrained();
             $table->unsignedInteger('sequence_no')->nullable();
             $table->string('name')->nullable();
+            $table->string('route')->nullable();
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();
         });

@@ -12,6 +12,8 @@ class CreditReporting extends Model
     protected $fillable = [
         'user_id',
         'branch_id',
+        'is_authorize',
+        'authorizer_id',
         'name',
         'national_id_cnic',
         'comments',

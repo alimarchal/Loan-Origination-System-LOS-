@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id(); // Primary key
             // Existing Financial Facilities FROM BAJK/OTHER BANKS
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('institution_name'); // Name of the bank or financial institution
             $table->string('repayment_status'); // Name of the bank or financial institution
             $table->string('facility_type')->nullable(); // Type of finance facility

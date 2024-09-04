@@ -10,6 +10,8 @@ class ListHouseHoldItem extends Model
     use HasFactory;
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'description_of_items',
         'quantity',
         'market_value',

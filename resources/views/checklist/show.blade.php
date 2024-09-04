@@ -1,16 +1,94 @@
 <x-app-layout>
     @push('header')
-            <style>
-                table, td, th {
-                    /*border: 1px solid;*/
-                    /*padding-left: 5px;*/
-                }
+        <style>
+            body {
+                font-size: 14px;
+                /*padding: 20px;*/
+            }
 
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                }
-            </style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 5px;
+                page-break-inside: avoid;
+            }
+
+            th, td {
+                border: 1px solid black;
+                /*padding: 4px;*/
+                padding-left: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-right: 5px;
+                text-align: left;
+                vertical-align: top;
+                word-wrap: break-word;
+            }
+
+            th {
+                /*background-color: #f2f2f2;*/
+                background-color: lightgray;
+                font-weight: bold;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+
+            .text-right {
+                text-align: right;
+            }
+
+            .font-bold {
+                font-weight: bold;
+            }
+
+            .uppercase {
+                text-transform: uppercase;
+            }
+
+            .mb-4 {
+                margin-bottom: 5px;
+            }
+
+
+            .w-10 {
+                width: 10%;
+            }
+
+            .w-16 {
+                width: 16.6%;
+            }
+
+            .w-20 {
+                width: 20%;
+            }
+
+
+            .w-25 {
+                width: 25%;
+            }
+
+            .w-30 {
+                width: 30%;
+            }
+
+            .w-50 {
+                width: 50%;
+            }
+
+            .w-75 {
+                width: 75%;
+            }
+
+            .w-100 {
+                width: 100%;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+        </style>
     @endpush
     <x-slot name="header">
         <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block">
@@ -33,37 +111,38 @@
                         <h2 class="text-2xl text-center my-2 uppercase underline font-bold text-black">The Bank of Azad Jammu & Kashmir</h2>
                         <h2 class="text-2xl text-center my-2 uppercase underline font-bold text-black">Check list for {{ $borrower->loan_sub_category->name }}</h2>
 
-                        <div class="relative overflow-x-auto">
-                            <table class="table-auto w-full border-collapse border border-black">
-                                <thead class="border-black uppercase">
-                                <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
-                                    <th class="border-black border py-1 px-2 text-center">Sr.No</th>
-                                    <th class="border-black border py-1 px-2 text-center">Details of documents</th>
-                                    <th class="border-black border py-1 px-2 text-center">attached</th>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Sr.No</th>
+                                    <th class="text-center">Details of documents</th>
+                                    <th class="text-center">Authorized</th>
                                 </tr>
-                                </thead>
-                                <tbody class="text-black text-sm font-bold">
-                                @foreach (\App\Models\Checklist::where('loan_sub_category_id',$borrower->loan_sub_category->id)->get() as $item)
-                                    <tr class="border-b border-black hover:bg-yellow-100" style="font-size: 12px!important;">
+                            </thead>
+                            <tbody>
+                                    @foreach (\App\Models\Checklist::where('loan_sub_category_id',$borrower->loan_sub_category->id)->get() as $item)
+                                        <tr>
 
-                                        <td class="border-black border py-1 px-1 text-center">
-                                            {{ $item->sequence_no }}
-                                        </td>
+                                            <td class="font-bold text-center w-10">
+                                                {{ $item->sequence_no }}
+                                            </td>
 
-                                        <td class="border-black border py-1 px-1 text-left">
-                                            {{ $item->name }}
-                                        </td>
+                                            <td class="w-75 font-bold pl-2">
+                                                @if($item->route)
+                                                    <a href="{{ route($item->route,[$borrower->id]) }}" class="text-blue-500 hover:underline">{{ $item->name }}</a>
+                                                @else
+                                                    {{ $item->name }}
+                                                @endif
+                                            </td>
 
-                                        <td class="border-black border py-1 px-1 text-center">
-
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <x-validation-errors class="mb-4 mt-4" />
+                                            <td class=" w-10">
+                                                {{ $item->is_authorized }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
                 </div>
             </div>
         </div>

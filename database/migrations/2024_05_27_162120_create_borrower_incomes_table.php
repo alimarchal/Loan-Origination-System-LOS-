@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('borrower_incomes', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->enum('is_authorize',['Yes','No'])->default('No');
+            $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             // Salary details
             $table->decimal('monthly_salary', 10, 2)->nullable(); // Monthly take-home salary
             $table->string('salary_receipt_mode')->nullable(); // Mode of salary receipt

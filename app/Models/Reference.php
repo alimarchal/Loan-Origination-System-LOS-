@@ -11,6 +11,8 @@ class Reference extends Model
 
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'user_id',
         'name',
         'relationship_to_borrower',

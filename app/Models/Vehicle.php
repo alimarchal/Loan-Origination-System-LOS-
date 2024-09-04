@@ -11,6 +11,8 @@ class Vehicle extends Model
 
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'requested_loan_amount_id',
         'vehicle_type',
         'price_of_vehicle',

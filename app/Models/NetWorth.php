@@ -11,6 +11,8 @@ class NetWorth extends Model
 
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'total_liabilities',
         'total_assets',
         'personal_net_worth',

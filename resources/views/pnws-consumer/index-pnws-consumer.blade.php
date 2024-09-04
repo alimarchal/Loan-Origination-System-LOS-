@@ -12,10 +12,12 @@
             }
         </style>
     @endpush
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block print:hidden"></h2>
-        @include('back-navigation')
-    </x-slot>
+
+        <x-slot name="header">
+            <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
+                Personal Net Worth Statement (PNWS)
+            </h2>
+        </x-slot>
 
 
         <div class="py-6">

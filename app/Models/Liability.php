@@ -11,6 +11,8 @@ class Liability extends Model
 
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'net_worth_id',
         'description',
         'value',

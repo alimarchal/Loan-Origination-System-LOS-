@@ -10,6 +10,8 @@ class BorrowerIncome extends Model
     use HasFactory;
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'monthly_salary',
         'salary_receipt_mode',
         'salary_account_number',

@@ -11,8 +11,8 @@ class Guarantor extends Model
 
     protected $fillable = [
         'borrower_id',
-        'authorizer_id',
         'is_authorize',
+        'authorizer_id',
         'guarantor_type',
         'title',
         'name',

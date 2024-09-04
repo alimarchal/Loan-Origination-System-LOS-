@@ -11,6 +11,8 @@ class Security extends Model
 
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'security_type',
         'amount',
         'name_of_guarantor',

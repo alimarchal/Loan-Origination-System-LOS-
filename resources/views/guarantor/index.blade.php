@@ -18,7 +18,6 @@
 
                     <div class="relative overflow-x-auto">
                         @if($guarantors->isNotEmpty())
-                            <h2 class="text-2xl mt-1 text-center my-2 uppercase underline font-bold text-red-700">Guarantors</h2>
 
                             <table class="min-w-max w-full table-auto">
                                 <thead>

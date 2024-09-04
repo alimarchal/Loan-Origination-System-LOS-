@@ -10,6 +10,8 @@ class FinanceFacility extends Model
     use HasFactory;
     protected $fillable = [
         'borrower_id',
+        'is_authorize',
+        'authorizer_id',
         'institution_name',
         'repayment_status',
         'facility_type',

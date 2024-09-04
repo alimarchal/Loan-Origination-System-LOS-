@@ -1,11 +1,9 @@
 <x-app-layout>
-    @push('header') @endpush
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight inline-block">
-            List House Hold Items
-        </h2>
-        @include('back-navigation')
-    </x-slot>
+        <x-slot name="header">
+            <h2 class="text-xl uppercase underline font-bold text-red-700 text-center leading-tight block">
+                House Hold Items
+            </h2>
+        </x-slot>
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -17,7 +15,6 @@
 
                     <div class="relative overflow-x-auto">
                         @if($listHouseHoldItems->isNotEmpty())
-                            <h2 class="text-2xl mt-1 text-center my-2 uppercase font-extrabold text-red-700">House Hold Items</h2>
 
                             <table class="min-w-max w-full table-auto">
                                 <thead>
