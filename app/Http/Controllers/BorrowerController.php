@@ -29,7 +29,6 @@ class BorrowerController extends Controller
     public function index()
     {
 
-
         $borrowers = QueryBuilder::for(Borrower::class)
             ->allowedFilters([
                 AllowedFilter::exact('id'),
@@ -37,9 +36,11 @@ class BorrowerController extends Controller
                 AllowedFilter::exact('authorizer_id'),
                 AllowedFilter::exact('region_id'),
                 AllowedFilter::exact('branch_id'),
-                'borrower_type',
+                AllowedFilter::scope('date_registered_between'),
+                AllowedFilter::scope('date_of_birth_between'),
                 AllowedFilter::exact('loan_category_id'),
                 AllowedFilter::exact('loan_sub_category_id'),
+                'borrower_type',
                 'name',
                 'relationship_status',
                 'gender',
@@ -49,11 +50,9 @@ class BorrowerController extends Controller
                 'email',
                 'mobile_number',
                 'occupation_title',
-                AllowedFilter::scope('date_of_birth_between'),
                 'marital_status',
                 'home_ownership_status',
                 'nationality',
-                AllowedFilter::scope('date_registered_between'),
             ])
             ->with(['region', 'branch', 'loan_category', 'loan_sub_category'])
             ->paginate(15)

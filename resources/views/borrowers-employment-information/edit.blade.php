@@ -26,7 +26,7 @@
                             <form method="POST" action="{{ route('applicant.employment-information.store', $borrower->id) }}" enctype="multipart/form-data">
                                 @csrf
                         @else
-                            <form method="POST" action="{{ route('applicant.employment-information.update',  [$borrower->id, $borrower->employment_information?->id]) }}" enctype="multipart/form-data">
+                            <form method="POST"  action="{{ route('applicant.employment-information.update',  [$borrower->id, $borrower->employment_information?->id]) }}"  enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                         @endif
@@ -216,15 +216,20 @@
 
                             </div>
                             <div class="flex items-center justify-end mt-4">
-                                @if(empty($borrower->employment_information))
-                                    <x-button class="ml-4" id="submit-btn">Save Employment Information</x-button>
-                                @else
-                                    <x-button class="ml-4" id="submit-btn">Update Employment Information</x-button>
-                                @endif
+                                @can('inputter')
+                                    @if(empty($borrower->employment_information))
+                                        <x-button class="ml-4" id="submit-btn">Save</x-button>
+                                    @else
+                                        <x-button class="ml-4" id="submit-btn">Update</x-button>
+                                    @endif
+                                @endcan
                             </div>
                         </form>
 
-                            <form method="POST" action="{{ route('applicant.employment-information.authorized', [$borrower->id, $borrower->employment_information?->id] ) }}" enctype="multipart/form-data">
+
+
+                        @can('authorizer')
+                            <form method="POST" onsubmit="return confirm('Do you really want to authorized this record?');"  action="{{ route('applicant.employment-information.authorized', [$borrower->id, $borrower->employment_information?->id] ) }}" enctype="multipart/form-data">
                                 @csrf @method('PUT')
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
                                     <div class="flex mt-4">
@@ -233,6 +238,7 @@
                                     </div>
                                 </div>
                             </form>
+                        @endcan
 
                     </div>
                 </div>

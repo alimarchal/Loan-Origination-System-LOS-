@@ -46,7 +46,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
     Route::get('/applicant-statuses/{subCategoryId}', [LoanSubCategoryController::class, 'getApplicantStatuses'])->name('applicant.statuses');
 
 
-
     // Applicant
     Route::controller(BorrowerController::class)->group(function () {
         Route::get('/borrower', 'index')->name('applicant.index');;
