@@ -73,6 +73,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/borrower/{borrower}/applicant-business', 'store')->name('applicant.applicant-business.store');
         Route::get('/borrower/{borrower}/applicant-business/{businessID}/edit', 'edit')->name('applicant.applicant-business.edit');
         Route::put('/borrower/{borrower}/applicant-business/{borrowerBusiness}', 'update')->name('applicant.applicant-business.update');
+        Route::put('/borrower/{borrower}/applicant-business/{borrowerBusiness}/authorized', 'authorized')->name('applicant.applicant-business.authorized');
         Route::delete('/applicant/{borrower}/applicant-business/{borrowerBusiness}/destroy', 'destroy')->name('applicant.applicant-business.destroy');
     });
 
@@ -81,6 +82,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::get('/applicant/{borrower}/requested-loan-information', 'edit')->name('applicant.requested-loan-information.edit');;
         Route::post('/applicant/{borrower}/requested-loan-information', 'store')->name('applicant.requested-loan-information.store');;
         Route::put('/applicant/{borrower}/requested-loan-information/{requestedLoanAmount}', 'update')->name('applicant.requested-loan-information.update');;
+        Route::put('/applicant/{borrower}/requested-loan-information/{requestedLoanAmount}/authorized', 'authorized')->name('applicant.requested-loan-information.authorized');;
     });
 
     // Applicant Vehicle
@@ -118,6 +120,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/applicant/{borrower}/finance-facility', 'store')->name('finance_facility.store');
         Route::get('/applicant/{borrower}/finance-facility/{financeFacility}/edit', 'edit')->name('finance_facility.edit');
         Route::put('/applicant/{borrower}/finance-facility/{financeFacility}', 'update')->name('finance_facility.update');
+        Route::put('/applicant/{borrower}/finance-facility/{financeFacility}/authorized', 'authorized')->name('finance_facility.authorized');
         Route::delete('/applicant/{borrower}/finance-facility/{financeFacility}/destroy', 'destroy')->name('finance_facility.destroy');
     });
 
@@ -129,6 +132,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/applicant/{borrower}/security', 'store')->name('security.store');
         Route::get('/applicant/{borrower}/security/{security}/edit', 'edit')->name('security.edit');
         Route::put('/applicant/{borrower}/security/{security}', 'update')->name('security.update');
+        Route::put('/applicant/{borrower}/security/{security}/authorized', 'authorized')->name('security.authorized');
         Route::delete('/applicant/{borrower}/security/{security}/destroy', 'destroy')->name('security.destroy');
     });
 
@@ -140,6 +144,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/applicant/{borrower}/reference', 'store')->name('reference.store');
         Route::get('/applicant/{borrower}/reference/{reference}/edit', 'edit')->name('reference.edit');
         Route::put('/applicant/{borrower}/reference/{reference}', 'update')->name('reference.update');
+        Route::put('/applicant/{borrower}/reference/{reference}/authorized', 'authorized')->name('reference.authorized');
         Route::delete('/applicant/{borrower}/reference/{reference}/destroy', 'destroy')->name('reference.destroy');
     });
 
@@ -151,6 +156,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/applicant/{borrower}/document', 'store')->name('document.store');
         Route::get('/applicant/{borrower}/document/{document}/edit', 'edit')->name('document.edit');
         Route::put('/applicant/{borrower}/document/{document}', 'update')->name('document.update');
+        Route::put('/applicant/{borrower}/document/{document}', 'authorized')->name('document.authorized');
         Route::delete('/applicant/{borrower}/document/{document}/destroy', 'destroy')->name('document.destroy');
 
 
@@ -180,6 +186,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/applicant/{borrower}/list-house-hold-item', 'store')->name('list-house-hold-item.store');
         Route::get('/applicant/{borrower}/list-house-hold-item/{listHouseHoldItem}/edit', 'edit')->name('list-house-hold-item.edit');
         Route::put('/applicant/{borrower}/list-house-hold-item/{listHouseHoldItem}', 'update')->name('list-house-hold-item.update');
+        Route::put('/applicant/{borrower}/list-house-hold-item/{listHouseHoldItem}/authorized', 'authorized')->name('list-house-hold-item.authorized');
         Route::delete('/applicant/{borrower}/list-house-hold-item/{listHouseHoldItem}/destroy', 'destroy')->name('list-house-hold-item.destroy');
     });
 

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateRequestedLoanAmountRequest;
 use App\Models\Borrower;
 use App\Models\BorrowerEmploymentInformation;
 use App\Models\RequestedLoanAmount;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -93,6 +94,33 @@ class RequestedLoanAmountController extends Controller
             $requestedLoanAmount->update($request->all());
             DB::commit();
             session()->flash('success', 'Applicant requested for loan update successfully.');
+            return to_route('applicant.requested-loan-information.edit',$borrower->id);
+        } catch (\Exception $e) {
+            DB::rollback();
+            // Handle error
+            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            return back()->withInput();
+        }
+
+    }
+
+
+    public function authorized(Request $request, Borrower $borrower, RequestedLoanAmount $requestedLoanAmount)
+    {
+
+        $user = Auth::user();
+        if ($request->input('is_authorize') == 'Yes') {
+            $mergeData['authorizer_id'] = $user->id;
+            $mergeData['is_authorize'] = $request->is_authorize;
+        }
+
+        $request->merge($mergeData);
+
+        DB::beginTransaction();
+        try {
+            $requestedLoanAmount->update($request->all());
+            DB::commit();
+            session()->flash('success', 'Applicant requested for loan authorized successfully.');
             return to_route('applicant.requested-loan-information.edit',$borrower->id);
         } catch (\Exception $e) {
             DB::rollback();

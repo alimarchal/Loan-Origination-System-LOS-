@@ -6,6 +6,7 @@ use App\Http\Requests\StoreReferenceRequest;
 use App\Http\Requests\UpdateReferenceRequest;
 use App\Models\Borrower;
 use App\Models\Reference;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -92,6 +93,30 @@ class ReferenceController extends Controller
             return back()->withInput();
         }
     }
+
+
+    public function authorized(Request $request, Borrower $borrower, Reference $reference)
+    {
+        $user = Auth::user();
+        if ($request->input('is_authorize') == 'Yes') {
+            $mergeData['authorizer_id'] = $user->id;
+            $mergeData['is_authorize'] = $request->is_authorize;
+        }
+
+        $request->merge($mergeData);
+        DB::beginTransaction();
+        try {
+            $reference->update($request->all());
+            DB::commit();
+            session()->flash('success', 'Reference successfully updated.');
+            return to_route('reference.index', [$borrower->id]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            return back()->withInput();
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.

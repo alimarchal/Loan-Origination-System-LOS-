@@ -103,6 +103,30 @@ class DocumentController extends Controller
         }
     }
 
+
+    public function authorized(UpdateDocumentRequest $request, Borrower $borrower, Document $document)
+    {
+        $user = Auth::user();
+        if ($request->input('is_authorize') == 'Yes') {
+            $mergeData['authorizer_id'] = $user->id;
+            $mergeData['is_authorize'] = $request->is_authorize;
+        }
+
+        $request->merge($mergeData);
+
+        DB::beginTransaction();
+        try {
+            $document->update($request->all());
+            DB::commit();
+            session()->flash('success', 'Document successfully updated.');
+            return to_route('document.index', [$borrower->id]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            return back()->withInput();
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */

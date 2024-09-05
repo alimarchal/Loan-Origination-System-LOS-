@@ -88,11 +88,8 @@ class GuarantorController extends Controller
         $request->merge([
             'user_id' => $user->id,
         ]);
-
         DB::beginTransaction();
         try {
-
-
             if ($request->hasFile('statement_of_account_attachment_one')) {
                 $path = $request->document_type;
                 $path_attachment_document = $request->file('statement_of_account_attachment_one')->store('soa', 'public');

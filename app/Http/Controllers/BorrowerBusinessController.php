@@ -99,6 +99,32 @@ class BorrowerBusinessController extends Controller
         }
     }
 
+
+    public function authorized(Request $request, Borrower $borrower, BorrowerBusiness $borrowerBusiness)
+    {
+
+        $user = Auth::user();
+        if ($request->input('is_authorize') == 'Yes') {
+            $mergeData['authorizer_id'] = $user->id;
+            $mergeData['is_authorize'] = $request->is_authorize;
+        }
+
+        $request->merge($mergeData);
+
+        DB::beginTransaction();
+        try {
+            $borrowerBusiness->update($request->all());
+            DB::commit();
+            session()->flash('success', 'Applicant business information successfully updated.');
+            return to_route('applicant.applicant-business.index', [$borrower->id]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            // Handle error
+            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            return back()->withInput();
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
