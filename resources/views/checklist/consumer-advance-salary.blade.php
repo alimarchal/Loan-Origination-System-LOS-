@@ -138,7 +138,6 @@
 
                                     <td class=" w-10">
 
-
                                         @if($item->sequence_no == 1)
                                             @if(!empty($borrower))
                                                 <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">

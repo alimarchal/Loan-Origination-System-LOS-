@@ -63,7 +63,8 @@ class Borrower extends Model
         'nadra_verification_for_signature',
         'signature_date',
         'nadra_verification_scanned_attachment',
-        'digital_signature_scanned_attachment'
+        'digital_signature_scanned_attachment',
+        'is_lock',
     ];
 
     public function branch(): BelongsTo

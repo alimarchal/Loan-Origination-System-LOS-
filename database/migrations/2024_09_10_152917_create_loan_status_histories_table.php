@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('loan_status_histories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('submit_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('submit_to')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignUuid('borrower_id')->constrained();
+
+            $table->string('name')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('placement')->nullable();
+            $table->string('employee_no')->nullable();
+
+            $table->text('description')->nullable();
+            $table->foreignId('loan_status_id')->nullable()->constrained();
+            $table->string('attachment')->nullable();
             $table->timestamps();
         });
     }

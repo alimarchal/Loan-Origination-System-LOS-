@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
            DistrictSeeder::class,
            BranchSeeder::class,
            TelephoneSeeder::class,
+           LoanStatusSeeder::class,
            PermissionsDemoSeeder::class,
            CompanySeeder::class,
            StatusSeeder::class,

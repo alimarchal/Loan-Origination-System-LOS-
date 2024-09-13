@@ -73,5 +73,6 @@ class PermissionsDemoSeeder extends Seeder
 
     }
 
-    //php artisan migrate:fresh --seed --seeder=PermissionsDemoSeeder
+    // php artisan migrate:fresh --seed --seeder=PermissionsDemoSeeder
+    // php artisan migrate --path=./database/migrations/2024_05_27_110713_create_loan_statuses_table.php
 }

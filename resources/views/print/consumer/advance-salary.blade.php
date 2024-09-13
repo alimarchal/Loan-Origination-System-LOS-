@@ -117,7 +117,7 @@
                 <x-validation-errors class="mb-4" />
                 <div class="pb-4 lg:pb-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200">
                     @include('tabs')
-                    <div class=" mb-4  bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent ">
+                    <div class=" mb-4 p-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent ">
 
                         <p class="text-center my-2 uppercase  font-bold text-black">
                             Branch & Code: {{ $borrower->branch?->name }} - {{ $borrower->branch?->code }},
@@ -164,10 +164,13 @@
                                 <td>{{ $borrower->email ?? 'N/A' }}</td>
                             </tr>
                             <tr>
-                                <td class="font-bold">FAX:</td>
-                                <td>{{ $borrower->fax ?? 'N/A' }}</td>
-                                <td class="font-bold">RESIDENCE PHONE NUMBER:</td>
-                                <td>{{ $borrower->residence_phone_number ?? 'N/A' }}</td>
+                                <td class="font-bold">Phone Number:</td>
+                                <td>{{ $borrower->phone_number ?? 'N/A' }}</td>
+                                <td class="font-bold">
+                                </td>
+                                <td>
+                                    {{ $borrower->residence_phone_number ?? 'N/A' }}
+                                </td>
                             </tr>
                             <tr>
                                 <td class="font-bold">MOBILE NUMBER:</td>

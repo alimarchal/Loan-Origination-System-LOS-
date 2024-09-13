@@ -57,6 +57,9 @@ return new class extends Migration {
             $table->date('signature_date')->nullable();
             $table->string('nadra_verification_scanned_attachment')->nullable();
             $table->string('digital_signature_scanned_attachment')->nullable();
+//            $table->string('latest_status')->nullable();
+//            $table->enum('status',['Draft' ,'Returned With Observation','Submitted','In Process', 'Approved','Declined',])->default('Draft');
+            $table->enum('is_lock',['Yes','No'])->default('No');
 
             $table->softDeletes();
             $table->timestamps();
