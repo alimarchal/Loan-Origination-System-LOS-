@@ -189,7 +189,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::delete('/applicant/{borrower}/list-house-hold-item/{listHouseHoldItem}/destroy', 'destroy')->name('list-house-hold-item.destroy');
     });
 
-    // Personal Net Worth Statement
+    // houNet Worth Statement
     Route::controller(ObligorScoreCardController::class)->group(function () {
         Route::get('/applicant/{borrower}/obligor-score-card/index', 'index')->name('obligor-score-card.index');
         Route::post('/applicant/{borrower}/obligor-score-card/store', 'store')->name('obligor-score-card.store');

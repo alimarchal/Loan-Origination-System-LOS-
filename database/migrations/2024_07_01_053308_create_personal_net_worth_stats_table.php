@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('personal_net_worth_stats', function (Blueprint $table) {
+        Schema::create('personal_net_worth_stats', callback: function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
             $table->enum('is_authorize',['Yes','No'])->default('No');

@@ -121,7 +121,7 @@
     </thead>
     <tbody>
     <tr>
-        <td class="font-bold w-25">Full Name:</td>
+        <td class="font-bold w-25">FULL NAME:</td>
         <td class="w-25">{{ $borrower->name ?? 'N/A' }}</td>
         <td class="font-bold w-25">RELATIONSHIP STATUS:</td>
         <td class="w-25">{{ $borrower->relationship_status ?? 'N/A' }}</td>
@@ -151,32 +151,27 @@
         <td>{{ $borrower->email ?? 'N/A' }}</td>
     </tr>
     <tr>
-        <td class="font-bold">Phone Number:</td>
+        <td class="font-bold">PHONE NUMBER:</td>
         <td>{{ $borrower->phone_number ?? 'N/A' }}</td>
-        <td class="font-bold">
-        </td>
-        <td>
-            {{ $borrower->residence_phone_number ?? 'N/A' }}
-        </td>
-    </tr>
-    <tr>
         <td class="font-bold">MOBILE NUMBER:</td>
         <td>{{ $borrower->mobile_number ?? 'N/A' }}</td>
+        </td>
+
+    </tr>
+    <tr>
+
         <td class="font-bold">PRESENT ADDRESS:</td>
         <td>{{ $borrower->present_address ?? 'N/A' }}</td>
-    </tr>
-    <tr>
         <td class="font-bold">PERMANENT ADDRESS:</td>
         <td>{{ $borrower->permanent_address ?? 'N/A' }}</td>
-        <td class="font-bold">OCCUPATION TITLE:</td>
-        <td>{{ $borrower->occupation_title ?? 'N/A' }}</td>
     </tr>
     <tr>
-        <td class="font-bold">JOB TITLE:</td>
-        <td>{{ $borrower->job_title ?? 'N/A' }}</td>
+        <td class="font-bold">OCCUPATION TITLE:</td>
+        <td>{{ $borrower->occupation_title ?? 'N/A' }}</td>
         <td class="font-bold">DATE OF BIRTH:</td>
         <td>{{ $borrower->date_of_birth ?? 'N/A' }}</td>
     </tr>
+
     <tr>
         <td class="font-bold">AGE:</td>
         <td>{{ $borrower->age ?? 'N/A' }}</td>
@@ -198,6 +193,8 @@
     </tbody>
 </table>
 
+
+
 <!-- <div class="page-break"></div> -->
 
 <table>
@@ -207,78 +204,78 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td class="font-bold w-25">Job Title / Designation</td>
-        <td class="w-25">{{ $borrower->employment_information->job_title_designation ?? 'N/A' }}</td>
-        <td class="font-bold w-25">Employment Status</td>
-        <td class="w-25">{{ $borrower->employment_information->employment_status ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Employer Name</td>
-        <td>{{ $borrower->employment_information->employer_name ?? 'N/A' }}</td>
-        <td class="font-bold">Monthly Gross Salary</td>
-        <td>{{ $borrower->employment_information->monthly_gross_salary ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Monthly Net Salary</td>
-        <td>{{ $borrower->employment_information->monthly_net_salary ?? 'N/A' }}</td>
-        <td class="font-bold">Service Length (Years)</td>
-        <td>{{ $borrower->employment_information->service_length_in_years ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Service Length (Months)</td>
-        <td>{{ $borrower->employment_information->service_length_in_months ?? 'N/A' }}</td>
-        <td class="font-bold">Remaining Service Years</td>
-        <td>{{ $borrower->employment_information->remaining_service_years ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Remaining Service Months</td>
-        <td>{{ $borrower->employment_information->remaining_service_months ?? 'N/A' }}</td>
-        <td class="font-bold">Department</td>
-        <td>{{ $borrower->employment_information->department ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Official Address</td>
-        <td>{{ $borrower->employment_information->official_address ?? 'N/A' }}</td>
-        <td class="font-bold">Legal Status</td>
-        <td>{{ $borrower->employment_information->legal_status ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Office Mobile Number</td>
-        <td>{{ $borrower->employment_information->office_mobile_number ?? 'N/A' }}</td>
-        <td class="font-bold">Office Phone Number</td>
-        <td>{{ $borrower->employment_information->office_phone_number ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Personal Number</td>
-        <td>{{ $borrower->employment_information->personal_number ?? 'N/A' }}</td>
-        <td class="font-bold">Grade</td>
-        <td>{{ $borrower->employment_information->grade ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Service Status</td>
-        <td>{{ $borrower->employment_information->service_status ?? 'N/A' }}</td>
-        <td class="font-bold">Mode of Salary Receipt</td>
-        <td>{{ $borrower->employment_information->mode_of_salary_receipt ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Salary Disbursement Office Name</td>
-        <td>{{ $borrower->employment_information->salary_disbursement_office_name ?? 'N/A' }}</td>
-        <td class="font-bold">Contact Person for Disbursement</td>
-        <td>{{ $borrower->employment_information->contact_person_for_disbursement ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Terminal Benefits</td>
-        <td>{{ $borrower->employment_information->terminal_benefits ?? 'N/A' }}</td>
-        <td class="font-bold">Other Benefits</td>
-        <td>{{ $borrower->employment_information->other_benefits ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Other Sources of Income</td>
-        <td colspan="3">{{ $borrower->employment_information->other_sources_of_income ?? 'N/A' }}</td>
-    </tr>
-    </tbody>
-</table>
+        <tr>
+            <td class="font-bold w-25">Job Title / Designation</td>
+            <td class="w-25">{{ $borrower->employment_information->job_title_designation ?? 'N/A' }}</td>
+            <td class="font-bold w-25">Employment Status</td>
+            <td class="w-25">{{ $borrower->employment_information->employment_status ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+
+            <td class="font-bold">Job Title/Designation</td>
+            <td>{{ $borrower->employment_information->job_title_designation ?? 'N/A' }}</td>
+            <td class="font-bold">Department</td>
+            <td>{{ $borrower->employment_information->department ?? 'N/A' }}</td>
+
+        </tr>
+        <tr>
+            <td class="font-bold">Monthly Gross Salary</td>
+            <td>{{ $borrower->employment_information->monthly_gross_salary ?? 'N/A' }}</td>
+            <td class="font-bold">Monthly Net Salary</td>
+            <td>{{ $borrower->employment_information->service_length_in_years ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Service Length (Months)</td>
+            <td>{{ $borrower->employment_information->service_length_in_months ?? 'N/A' }}</td>
+            <td class="font-bold">Remaining Service Years</td>
+            <td>{{ $borrower->employment_information->remaining_service_years ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Remaining Service Months</td>
+            <td>{{ $borrower->employment_information->remaining_service_months ?? 'N/A' }}</td>
+            <td class="font-bold">Department</td>
+            <td>{{ $borrower->employment_information->department ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Official Address</td>
+            <td>{{ $borrower->employment_information->official_address ?? 'N/A' }}</td>
+            <td class="font-bold">Legal Status</td>
+            <td>{{ $borrower->employment_information->legal_status ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Office Mobile Number</td>
+            <td>{{ $borrower->employment_information->office_mobile_number ?? 'N/A' }}</td>
+            <td class="font-bold">Office Phone Number</td>
+            <td>{{ $borrower->employment_information->office_phone_number ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Personal Number</td>
+            <td>{{ $borrower->employment_information->personal_number ?? 'N/A' }}</td>
+            <td class="font-bold">Grade</td>
+            <td>{{ $borrower->employment_information->grade ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Service Status</td>
+            <td>{{ $borrower->employment_information->service_status ?? 'N/A' }}</td>
+            <td class="font-bold">Mode of Salary Receipt</td>
+            <td>{{ $borrower->employment_information->mode_of_salary_receipt ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Salary Disbursement Office Name</td>
+            <td>{{ $borrower->employment_information->salary_disbursement_office_name ?? 'N/A' }}</td>
+            <td class="font-bold">Contact Person for Disbursement</td>
+            <td>{{ $borrower->employment_information->contact_person_for_disbursement ?? 'N/A' }}</td>
+        </tr>
+
+        <tr>
+            <td class="font-bold">Other Sources of Income</td>
+            <td>{{ $borrower->employment_information->other_sources_of_income ?? 'N/A' }}</td>
+            <td class="font-bold">Service Status</td>
+            <td>{{ $borrower->employment_information->service_status ?? 'N/A' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
 
 <!-- <div class="page-break"></div> -->
 
@@ -821,54 +818,31 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="font-bold w-25">Security Type</td>
-                <td class="w-25">{{ $security->security_type }}</td>
-                <td class="font-bold w-25">Value of Gold Ornaments</td>
-                <td class="w-25">{{ $security->value_of_gold_ornaments_value }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Gross Weight of Gold</td>
-                <td>{{ $security->gross_weight_of_gold }}</td>
-                <td class="font-bold">Gold Bag Seal No</td>
-                <td>{{ $security->gold_bag_seal_no }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Market Value</td>
-                <td>{{ $security->market_value }}</td>
-                <td class="font-bold">Forced Sales Value (FSV)</td>
-                <td>{{ $security->forced_sales_value_fsv }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Ownership</td>
-                <td>{{ $security->ownership }}</td>
-                <td class="font-bold">Lien Account No</td>
-                <td>{{ $security->lien_ac_no }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Lien Title</td>
-                <td>{{ $security->lien_title }}</td>
-                <td class="font-bold">Lien Bank Branch</td>
-                <td>{{ $security->lien_bank_branch }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Lien Amount</td>
-                <td>{{ $security->lien_amount }}</td>
-                <td class="font-bold">Pledge TDR/SSC/DSC Certificate No</td>
-                <td>{{ $security->pledge_tdr_ssc_dsc_cert_no }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Pledge Date of Issuance</td>
-                <td>{{ $security->pledge_date_of_issuance }}</td>
-                <td class="font-bold">Pledge Issuing Office</td>
-                <td>{{ $security->pledge_issuing_office }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Pledge Amount</td>
-                <td>{{ $security->pledge_amount }}</td>
-                <td class="font-bold">Remarks</td>
-                <td>{{ $security->remarks }}</td>
-            </tr>
+                <tr>
+                    <td class="font-bold w-25">Security Type</td>
+                    <td class="w-25">{{ $security->security_type }}</td>
+                    <td class="font-bold">No Of Post Dated Cheques</td>
+                    <td>{{ $security->post_dated_cheques}}</td>
+                </tr>
+
+                <tr>
+                    <td class="font-bold">Cheques Obtained (Yes/No)</td>
+                    <td>{{ $security->cheques_obtained}}</td>
+                    <td class="font-bold">Remarks</td>
+                    <td>{{ $security->remarks }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Amount </td>
+                    <td>{{ $security->amount}}</td>
+                    <td class="font-bold">Remarks</td>
+                    <td>{{ $security->remarks }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Name Of Guarantor </td>
+                    <td>{{ $security->name_of_guarantor}}</td>
+                    <td class="font-bold">Remarks</td>
+                    <td>{{ $security->remarks }}</td>
+                </tr>
             </tbody>
         </table>
         @if(!$loop->last)

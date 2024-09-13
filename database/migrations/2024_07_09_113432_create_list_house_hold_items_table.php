@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('list_house_hold_items', function (Blueprint $table) {
+        Schema::create('list_house_hold_items', callback: function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
             $table->enum('is_authorize',['Yes','No'])->default('No');
