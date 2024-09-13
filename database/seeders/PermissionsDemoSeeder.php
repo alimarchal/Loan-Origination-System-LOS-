@@ -47,11 +47,12 @@ class PermissionsDemoSeeder extends Seeder
 
 
         // credit report permissions
-        Permission::create(['name' => 'view credit reports']);
-        Permission::create(['name' => 'create credit report']);
-        Permission::create(['name' => 'store credit report']);
-        Permission::create(['name' => 'edit credit report']);
-        Permission::create(['name' => 'update credit report']);
+        Permission::create(['name' => 'credit report access']);
+        Permission::create(['name' => 'credit report create']);
+        Permission::create(['name' => 'credit report show']);
+        Permission::create(['name' => 'credit report edit']);
+        Permission::create(['name' => 'credit report update']);
+        Permission::create(['name' => 'credit report destroy']);
 
 
 

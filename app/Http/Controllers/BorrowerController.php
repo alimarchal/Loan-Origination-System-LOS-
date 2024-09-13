@@ -28,8 +28,25 @@ class BorrowerController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $query = Borrower::query();
 
-        $borrowers = QueryBuilder::for(Borrower::class)
+        if ($user->hasRole('Super-Admin')) {
+            // Super Admin can see all borrowers
+        } elseif ($user->hasRole('Branch Manager')) {
+            // Branch Manager can see borrowers from their branch
+            $query->where('branch_id', $user->branch_id);
+        } elseif ($user->hasRole('Regional Chief')) {
+            // Regional Chief can see borrowers from their region
+            $query->whereHas('branch', function ($q) use ($user) {
+                $q->where('region_id', $user->branch->region_id);
+            });
+        } else {
+            // Other roles can only see borrowers from their branch
+            $query->where('branch_id', $user->branch_id);
+        }
+
+        $borrowers = QueryBuilder::for($query)
             ->allowedFilters([
                 AllowedFilter::exact('id'),
                 AllowedFilter::exact('user_id'),
@@ -57,82 +74,6 @@ class BorrowerController extends Controller
             ->with(['region', 'branch', 'loan_category', 'loan_sub_category'])
             ->paginate(15)
             ->withQueryString();
-
-//        $borrowers = QueryBuilder::for(Borrower::class)
-//            ->allowedIncludes([
-//                'branch',
-//                'region',
-//                'loan_category',
-//                'loan_sub_category',
-//                'latestStatus',
-//                'latestStatus.status',
-//                'sessionYear.session',
-//                'applied_for_certificates.certificate_category_id',
-//                'adt',
-//                'blood_group',
-//                'cfs',
-//                'schedules',
-//                'fee_schedules',
-//                'student_balance',
-//                'exam_marks',
-//                'notes',
-//                'issued_certificates',
-//            ])
-//            ->allowedFilters([
-//                AllowedFilter::exact('id'),
-//                AllowedFilter::exact('branch_id'),
-//                AllowedFilter::exact('blood_group_id'),
-//                AllowedFilter::exact('gender'),
-//                AllowedFilter::exact('district'),
-//                AllowedFilter::scope('age_between', 'ageBetween'),
-//                AllowedFilter::exact('cnic'),
-//                AllowedFilter::exact('qualification'),
-//                AllowedFilter::exact('mobile_no'),
-//                AllowedFilter::exact('guardian_emergency_contact'),
-//                AllowedFilter::exact('mobile_number_for_sms_alert'),
-//                AllowedFilter::exact('certification_required'),
-//                AllowedFilter::exact('admission_type'),
-//                AllowedFilter::exact('computer_knowledge'),
-//                AllowedFilter::exact('phone_network_id'),
-//                AllowedFilter::exact('session_year_id'),
-//
-//                AllowedFilter::scope('age_between', 'ageBetween'),
-//                AllowedFilter::exact('admission_date'),
-//                AllowedFilter::partial('admission_no'),
-//                AllowedFilter::partial('roll_no'),
-//                AllowedFilter::partial('firstname'),
-//                AllowedFilter::partial('lastname'),
-//                AllowedFilter::partial('father_name'),
-//                AllowedFilter::partial('email'),
-////                AllowedFilter::exact('bloodGroup.id'),
-//                AllowedFilter::exact('latestStatus.status_id'),
-//                AllowedFilter::exact('applied_for_certificates.certificate_category_id'),
-//                AllowedFilter::scope('starts_between'),
-//                'section.id',
-//                'category.id',
-//                'dob', 'religion', 'cast', 'house', 'height', 'weight', 'measure_date', 'fees_discount',
-//            ])
-////            ->defaultSort('firstname')
-//            ->with([
-//                'branch',
-//                'region',
-//                'loan_category',
-//                'loan_sub_category',
-//                'latestStatus',
-//                'latestStatus.status',
-//                'sessionYear.session',
-//                'applied_for_certificates.certificate',
-//                'adt',
-//                'blood_group',
-//                'cfs',
-//                'schedules',
-//                'fee_schedules',
-//                'student_balance',
-//                'exam_marks',
-//                'notes',
-//                'issued_certificates',
-//            ])->get();
-
 
         $regions = Region::all();
         $branches = Branch::all();
@@ -368,6 +309,9 @@ class BorrowerController extends Controller
 
     public function print(Borrower $borrower)
     {
+
+
+
         return view('borrowers.print', compact('borrower'));
     }
 

@@ -192,6 +192,17 @@ class Borrower extends Model
     {
         return $this->hasMany(Security::class);
     }
+
+
+    public function statusHistories(): HasMany
+    {
+        return $this->hasMany(LoanStatusHistory::class);
+    }
+
+    public function currentStatus()
+    {
+        return $this->statusHistories()->latest()->first();
+    }
 }
 
 // In App\Models\Borrower

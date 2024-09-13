@@ -16,7 +16,6 @@ use App\Http\Controllers\ListHouseHoldItemController;
 use App\Http\Controllers\LoanSubCategoryController;
 use App\Http\Controllers\ObligorScoreCardController;
 use App\Http\Controllers\PersonalNetWorthStatController;
-use App\Http\Controllers\PersonalNetWorthStatementController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\RequestedLoanAmountController;
 use App\Http\Controllers\SalaryAutoFormController;

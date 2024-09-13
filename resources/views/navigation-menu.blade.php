@@ -21,14 +21,19 @@
                         Applicants
                     </x-nav-link>
 
+                    @can('credit report access')
+                        <x-nav-link href="{{ route('credit-reporting.index') }}" :active="request()->routeIs('credit-reporting.*')">
+                            Credit Reporting
+                        </x-nav-link>
+                    @endcan
 
-                    <x-nav-link href="{{ route('credit-reporting.index') }}" :active="request()->routeIs('credit-reporting.*')">
-                        Credit Reporting
-                    </x-nav-link>
 
-                    <x-nav-link href="{{ route('administration.index') }}" :active="request()->routeIs('administration.*')">
-                        {{ __('Administration') }}
-                    </x-nav-link>
+                    @can('users access')
+                        <x-nav-link href="{{ route('administration.index') }}" :active="request()->routeIs('administration.*')">
+                            {{ __('Administration') }}
+                        </x-nav-link>
+                    @endcan
+
                 </div>
             </div>
 

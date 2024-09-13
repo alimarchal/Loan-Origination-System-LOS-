@@ -103,8 +103,7 @@
                                 <thead>
                                 <tr class="bg-gray-200 text-white bg-bank-green uppercase print:border-b print:border-black  text-sm print:text-black">
                                     <th class="py-2 px-2 text-center">#</th>
-                                    <th class="py-2 px-2 text-center">Submitted By</th>
-                                    <th class="py-2 px-2 text-center">Branch ID</th>
+                                    <th class="py-2 px-2 text-center">Branch Code</th>
                                     <th class="py-2 px-2 text-center">Name</th>
                                     <th class="py-2 px-2 text-center">CNIC</th>
                                     <th class="py-2 px-2 text-center">Comments</th>
@@ -123,16 +122,11 @@
                                             {{ $cr->id }}
                                         </td>
 
-                                        <td class="py-1 px-2 text-center">
-                                            {{ $cr->user_id }}
-
-                                        </td>
-
 
                                         <td class="py-1 px-2 text-center">
-                                            {{ $cr->branch_id }}
-                                        </td>
+                                            {{ $cr->branch?->code }}
 
+                                        </td>
                                         <td class="py-1 px-2 text-center">
                                             {{ $cr->name }}
                                         </td>
@@ -146,8 +140,12 @@
                                         </td>
 
                                         <td class="py-1 px-2 text-center">
-                                            <a href="{{ \Illuminate\Support\Facades\Storage::url($cr->path_attachment) }}" class="text-blue-500 hover:underline">
-                                                Download</a>
+                                            @if(!empty($cr->path_attachment))
+                                                <a href="{{ \Illuminate\Support\Facades\Storage::url($cr->path_attachment) }}" class="text-blue-500 hover:underline">
+                                                    Download
+                                                </a>
+                                            @endif
+
                                         </td>
 
 
@@ -159,7 +157,7 @@
 
 
                                         <td class="py-1 px-2 text-center ">
-                                            {{ \Carbon\Carbon::parse($cr->updated_at)->format('d-m-Y H-i-s') }}
+                                            {{ \Carbon\Carbon::parse($cr->updated_at)->format('d M, y H:i:s') }}
                                         </td>
 
                                         @canany(['edit credit report', 'update credit report'])

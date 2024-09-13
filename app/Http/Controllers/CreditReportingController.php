@@ -18,7 +18,18 @@ class CreditReportingController extends Controller
      */
     public function index(Request $request)
     {
-        $credit_reporting = QueryBuilder::for(CreditReporting::query())
+        $user = Auth::user();
+        $query = CreditReporting::query();
+
+        if ($user->hasRole('Branch Manager')) {
+            // If the user is a Branch Manager, only show entries related to their branch
+            $query->where('branch_id', $user->branch_id);
+        } else {
+            // For other roles, we'll show all entries
+            // You can add more specific filters here for other roles if needed
+        }
+
+        $credit_reporting = QueryBuilder::for($query)
             ->allowedFilters([
                 AllowedFilter::exact('branch_id'),
                 AllowedFilter::exact('national_id_cnic'),
@@ -26,7 +37,8 @@ class CreditReportingController extends Controller
                 AllowedFilter::exact('id'),
                 AllowedFilter::partial('name'),
             ])
-            ->orderBy('created_at', 'desc') // Adjust the column and order as needed
+            ->with(['branch','user'])
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('credit-reporting.index', compact('credit_reporting'));
