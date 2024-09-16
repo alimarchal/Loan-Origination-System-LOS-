@@ -474,6 +474,11 @@
                                     <!-- <div class="page-break"></div> -->
                                 @endif
                             @endforeach
+                            @else
+                            <h1 style="color: red; text-align: center; font-size: 20px;">
+                                Guarantor Missing
+                            </h1>
+
                         @endif
 
                         @if(!$borrower->finance_facility_many->isEmpty())
@@ -533,7 +538,12 @@
                                     <!-- <div class="page-break"></div> -->
                                 @endif
                             @endforeach
-                        @endif
+                            @else
+                            <h1 style="color: red; text-align: center; font-size: 20px;">
+                                             Finance Facility Missing
+                                              </h1>
+                                                @endif
+
 
                         @if(!$borrower->securities->isEmpty())
 
@@ -688,8 +698,11 @@
 
 
                         @if(!empty($borrower->obligor_score_card))
-                            <table>
-                                <thead>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="4" class="text-center">Obligor Score Card </th>
+
                                 <tr>
                                     <th class="text-center">ID</th>
                                     <th class="text-center">Measurement / Factor</th>
@@ -714,6 +727,10 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            @else
+                            <h1 style="color: red; text-align: center; font-size: 20px;">
+                                Obligor Score Card Missing
+                            </h1>
                         @endif
 
 
@@ -838,6 +855,12 @@
                                                     <!-- <div class="page-break"></div> -->
                                                 @endif
                                             @endforeach
+                                            @else
+                                            <h1 style="color: red; text-align: center; font-size: 20px;">
+
+                                         Reference Missing
+                                         </h1>
+
                                         @endif
 
                                     @else
@@ -865,6 +888,13 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                    @else
+                                    <h1 style="color: red; text-align: center; font-size: 20px;">
+
+                                 Requested Loan DataMissing
+                                 </h1>
+
+
                                 @endif
 
 
@@ -905,10 +935,7 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-
-                                @endif
-
-
+@endif
 
                                 @if(!empty($borrower->applicant_requested_loan_information))
                                     <table>
@@ -1092,7 +1119,8 @@
                                         <h1 class="text-2xl text-red-500">You must add at least two reference not more then two</h1>
                                     @endif
                                 @else
-                                    <h1 class="text-2xl text-red-500">Please add at least two reference</h1>
+                                <h1 class="text-2xl text-red-500 text-center">Please add at least two references</h1>
+
                                 @endif
 
 
