@@ -536,46 +536,42 @@
                         @endif
 
                         @if(!$borrower->securities->isEmpty())
-                            @foreach($borrower->securities as $index => $security)
+
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th colspan="4" class="text-center">Security Details # {{ $index + 1 }}</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="font-bold w-25">Security Type</td>
-                                        <td class="w-25">{{ $security->security_type }}</td>
-                                        <td class="font-bold">No Of Post Dated Cheques</td>
-                                        <td>{{ $security->post_dated_cheques}}</td>
+                                        <th colspan="6" class="text-center">Security Detail Information</th>
                                     </tr>
 
                                     <tr>
-                                        <td class="font-bold">Cheques Obtained (Yes/No)</td>
-                                        <td>{{ $security->cheques_obtained}}</td>
-                                        <td class="font-bold">Remarks</td>
-                                        <td>{{ $security->remarks }}</td>
+                                        <th class="text-center">Security Type</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Name Guarantor</th>
+                                        <th class="text-center">Post Dated Cheque</th>
+                                        <th class="text-center">Cheque Obtained	</th>
+                                        <th class="text-center">Remarks</th>
                                     </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($borrower->securities as $index => $security)
                                     <tr>
-                                        <td class="font-bold">Amount </td>
-                                        <td>{{ $security->amount}}</td>
-                                        <td class="font-bold">Remarks</td>
-                                        <td>{{ $security->remarks }}</td>
+                                        <td class="font-bold w-16">{{ $security->security_type }}</td>
+                                        <td class="w-16 text-center">{{ $security->amount ?? 'N/A' }}</td>
+                                        <td class="w-16 text-center">{{ $security->name_of_guarantor ?? 'N/A' }}</td>
+                                        <td class="w-16 text-center">{{ $security->post_dated_cheques ?? 'N/A' }}</td>
+                                        <td class="w-16 text-center">{{ $security->cheques_obtained ?? 'N/A' }}</td>
+                                        <td class="w-16 text-center">{{ $security->remarks ?? 'N/A' }}</td>
                                     </tr>
-                                    <tr>
-                                        <td class="font-bold">Name Of Guarantor </td>
-                                        <td>{{ $security->name_of_guarantor}}</td>
-                                        <td class="font-bold">Remarks</td>
-                                        <td>{{ $security->remarks }}</td>
-                                    </tr>
+
+                                    @if(!$loop->last)
+                                        <!-- <div class="page-break"></div> -->
+                                    @endif
+                                    @endforeach
+                                    @endif
+
                                     </tbody>
                                 </table>
-                                @if(!$loop->last)
-                                    <!-- <div class="page-break"></div> -->
-                                @endif
-                            @endforeach
-                        @endif
+
 
                         @if(!$borrower->reference->isEmpty())
                             @foreach($borrower->reference as $index => $reference)

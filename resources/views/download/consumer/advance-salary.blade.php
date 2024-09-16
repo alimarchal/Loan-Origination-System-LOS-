@@ -1122,8 +1122,7 @@
 @endif
 <div class="page-break"></div>
 
-@if(!$borrower->documents_uploaded->isEmpty())
-
+@if(!empty($borrower->obligor_score_card))
     <h1 class="text-center">Obligor Score Card</h1>
     <table>
         <thead>
@@ -1154,6 +1153,10 @@
         </tr>
         </tbody>
     </table>
+@else
+    <h1 style="color: red; text-align: center">
+        Obligor Score Card Is Missing
+    </h1>
 @endif
 
 
