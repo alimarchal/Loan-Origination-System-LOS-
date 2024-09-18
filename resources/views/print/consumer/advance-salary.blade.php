@@ -1229,14 +1229,174 @@
                                 @endif
 
                             </div>
-                            <x-validation-errors class="mb-4 mt-4"/>
                         </div>
 
 
 
 
 
-                        <table class="min-w-max w-full table-auto">
+                        @if(!empty($borrower->personalNetWorthStat))
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th colspan="4" class="text-center">Personal Net Worth Statement (PNWS)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="font-bold w-25">Name:</td>
+                                        <td class="w-25">{{ $borrower->name ?? 'N/A' }}</td>
+                                        <td class="font-bold">PARENT/SPOUSE NAME:</td>
+                                        <td>{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold">NATIONAL ID (CNIC):</td>
+                                        <td>{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
+                                        <td class="font-bold">NTN:</td>
+                                        <td>{{ $borrower->ntn ?? 'N/A' }}</td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td class="font-bold">PRESENT ADDRESS:</td>
+                                        <td>{{ $borrower->present_address ?? 'N/A' }}</td>
+                                        <td class="font-bold">PERMANENT ADDRESS:</td>
+                                        <td>{{ $borrower->permanent_address ?? 'N/A' }}</td>
+                                    </tr>
+
+
+
+
+                                    <tr>
+                                        <td class="font-bold">EDUCATIONAL QUALIFICATION:</td>
+                                        <td>{{ $borrower->education_qualification ?? 'N/A' }}</td>
+                                        <td class="font-bold">PROFESSION:</td>
+                                        <td>{{ $borrower->occupation_title ?? 'N/A' }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="font-bold">Phone Number:</td>
+                                        <td>{{ $borrower->phone_number ?? 'N/A' }}</td>
+
+                                        <td class="font-bold">MOBILE NUMBER:</td>
+                                        <td>{{ $borrower->mobile_number ?? 'N/A' }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+
+                            @if($borrower->personalNetWorthStat?->personal_form_a->isNotEmpty())
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th colspan="5" class="text-left">A. Immovable Assets/ Real Estates, owned in Personal Capacity</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center w-20">Particulars</th>
+                                                <th class="text-center w-20">In the name of</th>
+                                                <th class="text-center w-20">Self acquired Or Family property	</th>
+                                                <th class="text-center w-20">Encumbered d to (*)	</th>
+                                                <th class="text-center w-20">Market Value	</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($borrower->personalNetWorthStat?->personal_form_a as $item)
+                                            <tr>
+                                                <td class="w-20 text-center">{{ $item->particulars ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->in_name_of ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->self_acquired_family_property ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->encumber_d_to_asterisk ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->market_value ?? 'N/A' }}</td>
+                                            </tr>
+                                        @endforeach
+
+                                        <tfoot>
+                                            <th colspan="4" class="text-right">Total Market Value	</th>
+                                            <th class="text-center">{{ number_format($borrower->personalNetWorthStat?->personal_form_a->sum('market_value'),2) }}</th>
+                                        </tfoot>
+                                    </table>
+                            @endif
+
+
+                            @if($borrower->personalNetWorthStat?->personal_form_b->isNotEmpty())
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th colspan="3" class="text-left">B. Movable Assets/ Securities etc.</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center w-20">Particulars</th>
+                                            <th class="text-center w-20">Description</th>
+                                            <th class="text-center w-20">Current Value</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($borrower->personalNetWorthStat?->personal_form_b as $item)
+                                            <tr>
+                                                <td class="w-20 text-center">{{ $item->particulars ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->description ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->current_value ?? 'N/A' }}</td>
+                                            </tr>
+                                        @endforeach
+
+                                        <tfoot>
+                                            <th colspan="2" class="text-right">Total Value	</th>
+                                            <th class="text-center">{{ number_format($borrower->personalNetWorthStat?->personal_form_b->sum('current_value'),2) }}</th>
+                                        </tfoot>
+                                    </table>
+                                @endif
+
+                            @if($borrower->personalNetWorthStat?->personal_form_c->isNotEmpty())
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th colspan="3" class="text-left">C. Liabilities Other than on business.</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center w-20">Particulars</th>
+                                            <th class="text-center w-20">Description</th>
+                                            <th class="text-center w-20">Amount</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($borrower->personalNetWorthStat?->personal_form_c as $item)
+                                                <tr>
+                                                    <td class="w-20 text-center">{{ $item->particulars ?? 'N/A' }}</td>
+                                                    <td class="w-20 text-center">{{ $item->description ?? 'N/A' }}</td>
+                                                    <td class="w-20 text-center">{{ $item->amount ?? 'N/A' }}</td>
+                                                </tr>
+                                            @endforeach
+
+                                            <tfoot>
+                                            <th colspan="2" class="text-right">Total Value	</th>
+                                            <th class="text-center">{{ number_format($borrower->personalNetWorthStat?->personal_form_c->sum('amount'),2) }}</th>
+                                            </tfoot>
+                                    </table>
+                                @endif
+
+
+                                @if($borrower->personalNetWorthStat?->personal_form_a->isNotEmpty()  && $borrower->personalNetWorthStat?->personal_form_b->isNotEmpty() && $borrower->personalNetWorthStat?->personal_form_c->isNotEmpty() )
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th colspan="2" class="text-center w-50">Net Worth = (A + B - C)</th>
+                                            <th  class="text-center w-25">
+                                                {{  number_format(($borrower->personalNetWorthStat?->personal_form_a->sum('market_value') + $borrower->personalNetWorthStat?->personal_form_b->sum('current_value')) - $borrower->personalNetWorthStat?->personal_form_c->sum('amount') ,2 )}}
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                @endif
+
+                        @endif
+
+
+
+
+
+
+
+                            <table class="min-w-max w-full table-auto">
                             <tbody class="text-black text-sm leading-normal">
 {{--                            @foreach($osc as $item)--}}
 {{--                                <tr class="border-b border-gray-200 hover:bg-gray-100">--}}

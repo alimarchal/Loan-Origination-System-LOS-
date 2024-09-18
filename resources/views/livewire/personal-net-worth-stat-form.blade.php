@@ -38,7 +38,7 @@
                 </tr>
                 <tr>
                     <td>Residential address: <input type="text" wire:model.defer="editableData.res_address" class="w-full"></td>
-                    <td>Tele: (Residence): <input type="text" wire:model.defer="editableData.tel_res" class="w-full"></td>
+                    <td>Tele: (Residence): <input type="text" wire:model.defer="editableData.tel_office" class="w-full"></td>
                 </tr>
                 <tr>
                     <td>Qualification: <input type="text" wire:model.defer="editableData.qualification" class="w-full"></td>
