@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 use Mpdf\Mpdf;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -356,6 +357,58 @@ class BorrowerController extends Controller
         $base64 = base64_encode($imageData);
         $mimeType = mime_content_type($path);
         return 'data:' . $mimeType . ';base64,' . $base64;
+    }
+
+
+    public function submit_for_approval_view(Request $request, Borrower $borrower)
+    {
+        if($borrower->is_lock === "No"){
+            return view('borrowers.approval.consumer.salary_submit_for_approval_branch', compact('borrower'));
+        } elseif($borrower->is_lock === "Yes")
+        {
+            session()->flash('error', 'Your have already submitted your case. Your borrower status is lock.');
+            return to_route('applicant.checklist.show', $borrower->id);
+        }
+    }
+
+
+    public function submit_consumer_salary(Request $request, Borrower $borrower)
+    {
+        $request->validate([
+            'name' => 'required',
+            'designation' => 'required',
+            'placement' => 'required',
+            'employee_no' => 'required',
+            'description' => 'required',
+            'password_confirmation' => 'required',
+        ]);
+        // Check if the provided password matches the user's password
+        if (!Hash::check($request->password, auth()->user()->password)) {
+            return back()->withErrors(['password' => 'The provided password is incorrect.']);
+        }
+
+        $user = Auth::user();
+
+        DB::beginTransaction();
+        try {
+
+            $borrower->update(['is_authorize' => 'Yes', 'authorizer_id' => $user->id, 'is_lock' => 'Yes', 'status' => 'Submitted',]);
+            $borrower->employment_information->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
+            $borrower->applicant_requested_loan_information->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
+
+
+
+            DB::commit();
+            session()->flash('success', 'Borrower updated  successfully.');
+            return to_route('applicant.edit', $borrower->id);
+        } catch (\Exception $e) {
+            DB::rollback();
+            // Handle error
+            session()->flash('error', 'An error occurred: ' . $e->getMessage());
+            return back()->withInput();
+        }
+
+
     }
 
 

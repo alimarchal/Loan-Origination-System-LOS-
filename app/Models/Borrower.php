@@ -65,6 +65,7 @@ class Borrower extends Model
         'nadra_verification_scanned_attachment',
         'digital_signature_scanned_attachment',
         'is_lock',
+        'status',
     ];
 
     public function branch(): BelongsTo
@@ -143,11 +144,7 @@ class Borrower extends Model
 
     public function finance_facility_many()
     {
-
-
         return $this->hasMany(FinanceFacility::class);
-
-
     }
 
     public function documents()
