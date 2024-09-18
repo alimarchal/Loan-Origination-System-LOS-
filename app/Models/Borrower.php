@@ -64,6 +64,9 @@ class Borrower extends Model
         'signature_date',
         'nadra_verification_scanned_attachment',
         'digital_signature_scanned_attachment',
+        'pending_at_branch',
+        'pending_at_region',
+        'pending_at_head_office',
         'is_lock',
         'status',
     ];

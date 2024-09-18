@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateBorrowerRequest;
 use App\Models\Borrower;
 use App\Models\Branch;
 use App\Models\LoanCategory;
+use App\Models\LoanStatus;
+use App\Models\LoanStatusHistory;
 use App\Models\LoanSubCategory;
 use App\Models\ObligorScoreCard;
 use App\Models\ObligorScoreCardFactor;
@@ -383,8 +385,8 @@ class BorrowerController extends Controller
             'password_confirmation' => 'required',
         ]);
         // Check if the provided password matches the user's password
-        if (!Hash::check($request->password, auth()->user()->password)) {
-            return back()->withErrors(['password' => 'The provided password is incorrect.']);
+        if (!Hash::check($request->password_confirmation, auth()->user()->password)) {
+            return back()->withErrors(['password_confirmation' => 'The provided password is incorrect.']);
         }
 
         $user = Auth::user();
@@ -392,22 +394,35 @@ class BorrowerController extends Controller
         DB::beginTransaction();
         try {
 
-            $borrower->update(['is_authorize' => 'Yes', 'authorizer_id' => $user->id, 'is_lock' => 'Yes', 'status' => 'Submitted',]);
-            $borrower->employment_information->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
-            $borrower->applicant_requested_loan_information->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
+            $borrower->update(['is_authorize' => 'Yes', 'authorizer_id' => $user->id, 'pending_at_branch' => 'No', 'is_lock' => 'Yes', 'status' => 'Submitted',]);
+            $borrower->employment_information?->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
+            $borrower->applicant_requested_loan_information?->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
 
+            // 1: Draft , 2: Returned With Observation , 3: Submitted , 4: In Process, 5: Approved, 6: Declined
+            $loan_status_id = 3;
 
+            $loan_status_histories = LoanStatusHistory::create([
+                'submit_by' => $user->id,
+                'submit_to' => NULL,
+                'borrower_id' => $borrower->id,
+                'name' => $request->name,
+                'designation' => $request->designation,
+                'placement' => $request->placement,
+                'employee_no' => $request->employee_no,
+                'description' => "This application has been reviewed and meets all necessary criteria outlined in our bank's current policies, guidelines before submitting, and confirming my password for verification. It is recommended to proceed for approval, as per bank policy." . $request->description,
+                'loan_status_id' => $loan_status_id,
+                'attachment' => NULL,
+            ]);
 
             DB::commit();
-            session()->flash('success', 'Borrower updated  successfully.');
-            return to_route('applicant.edit', $borrower->id);
+            session()->flash('success', 'Applicant details have been successfully submitted for approval.');
+            return to_route('applicant.index');
         } catch (\Exception $e) {
             DB::rollback();
             // Handle error
             session()->flash('error', 'An error occurred: ' . $e->getMessage());
             return back()->withInput();
         }
-
 
     }
 

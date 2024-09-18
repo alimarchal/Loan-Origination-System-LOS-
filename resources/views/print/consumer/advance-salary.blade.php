@@ -117,7 +117,7 @@
                 <x-validation-errors class="mb-4" />
                 <div class="pb-4 lg:pb-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200">
                     @include('tabs')
-                    <div class=" mb-4 p-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent ">
+                    <div class=" mb-4 p-8 shadow-2xl bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent ">
 
                         <p class="text-center my-2 uppercase  font-bold text-black">
                             Branch & Code: {{ $borrower->branch?->name }} - {{ $borrower->branch?->code }},

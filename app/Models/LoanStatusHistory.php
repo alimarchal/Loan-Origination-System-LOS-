@@ -9,10 +9,15 @@ class LoanStatusHistory extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'submit_by',
+        'submit_to',
         'borrower_id',
-        'user_id',
-        'status',
-        'comments',
+        'name',
+        'designation',
+        'placement',
+        'employee_no',
+        'description',
+        'loan_status_id',
         'attachment',
     ];
 
