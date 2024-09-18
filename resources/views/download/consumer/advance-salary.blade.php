@@ -783,7 +783,7 @@
     }
 @endphp
 
-<table>
+<table style="width: 100%; font-size: 15px;">
     <thead>
     <tr>
         <th colspan="6" class="text-center">Security Detail Information</th>
@@ -815,13 +815,10 @@
     @endif
     @foreach($missingSecurities as $type => $isMissing)
         @if($isMissing)
-        <tr style="color: darkred; background-color: #fdd; text-align: center;">
+        <tr style="color: red; background-color: #fdd; text-align: center;">
             <td class="font-bold w-25">{{ $type }}</td>
-            <td class="w-16 text-center">Missing</td>
-            <td class="w-16 text-center">Missing</td>
-            <td class="w-16 text-center">Missing</td>
-            <td class="w-16 text-center">Missing</td>
-            <td class="w-16 text-center">Missing</td>
+            <td  colspan="5" style="color: red; text-align: center;">Missing</td>
+
         </tr>
         @endif
     @endforeach
