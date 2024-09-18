@@ -109,6 +109,8 @@
         Region: {{ $borrower->branch?->region?->name }}<br>
         Date: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-M-Y') }}
 
+
+
     </p>
     <h2 class="font-bold uppercase">Application Form For {{ $borrower->loan_sub_category?->name }}</h2>
 </div>
@@ -371,21 +373,16 @@
             <tr>
                 <td class="font-bold">Phone Number:</td>
                 <td>{{ $reference->phone_number }}</td>
-                <td class="font-bold">Phone Number Two:</td>
-                <td>{{ $reference->phone_number_two }}</td>
+                <td class="font-bold">Mobile Number:</td>
+                <td>{{ $reference->mobile_number }}</td>
             </tr>
             <tr>
-                <td class="font-bold">Phone Number Three:</td>
-                <td>{{ $reference->phone_number_three }}</td>
                 <td class="font-bold">Email:</td>
                 <td>{{ $reference->email }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Fax:</td>
-                <td>{{ $reference->fax }}</td>
                 <td class="font-bold">Designation:</td>
                 <td>{{ $reference->designation }}</td>
             </tr>
+
             <tr>
                 <td class="font-bold">Relationship to Borrower:</td>
                 <td colspan="3">{{ $reference->relationship_to_borrower }}</td>
@@ -467,13 +464,9 @@
         Finance Facility Missing
     </h1>
 @endif
-
-
 <!-- <div class="page-break"></div> -->
-
-@if(!$borrower->documents_uploaded->isEmpty())
-    <table>
-        <thead>
+<table style="width: 100%; font-size: 15px;">
+    <thead>
         <tr>
             <th colspan="4" class="text-center">Documents</th>
         </tr>
@@ -483,8 +476,8 @@
             <th class="w-25">Description</th>
             <th class="w-25">Attachment</th>
         </tr>
-        </thead>
-        <tbody>
+    </thead>
+    <tbody>
         @foreach($borrower->documents_uploaded as $doc)
             <tr>
                 <td>{{ $loop->iteration }}</td>
@@ -497,11 +490,11 @@
                     @endif</td>
             </tr>
         @endforeach
-        </tbody>
-    </table>
-@endif
+    </tbody>
+</table>
+
 @if(!$borrower->listHouseHoldItems->isEmpty())
-    <table>
+<table style="width: 100%; font-size: 15px;">
         <thead>
         <tr>
             <th colspan="4" class="text-center">Household Items</th>
@@ -763,22 +756,31 @@
         @endif
     @endforeach
 @endif
-
 @if($borrower->securities->isNotEmpty())
 
 @php
-    // Define the security types to check
+    // Define the security types and their respective columns
     $securityTypes = [
-        'Hypothecation of House Hold Item',
-        'Personal Guarantee',
-        'Post Dated Cheques'
+        'Hypothecation of House Hold Item' => 'Amount',
+        'Personal Guarantee' => 'Name Guarantor',
+        'Post Dated Cheques' => 'Post Dated Cheque'
     ];
 
-    // Get existing security types from the borrower’s securities
-    $existingSecurityTypes = $borrower->securities->pluck('security_type')->toArray();
+    // Initialize arrays to track existing and missing securities
+    $existingSecurities = [];
+    $missingSecurities = [
+        'Hypothecation of House Hold Item' => true,
+        'Personal Guarantee' => true,
+        'Post Dated Cheques' => true
+    ];
 
-    // Determine missing security types
-    $missingSecurities = array_diff($securityTypes, $existingSecurityTypes);
+    // Check which securities are present
+    foreach($borrower->securities as $security) {
+        if (array_key_exists($security->security_type, $missingSecurities)) {
+            $existingSecurities[$security->security_type] = $security;
+            $missingSecurities[$security->security_type] = false;
+        }
+    }
 @endphp
 
 <table>
@@ -811,292 +813,263 @@
         <td colspan="6" class="text-center">No securities found</td>
     </tr>
     @endif
+    @foreach($missingSecurities as $type => $isMissing)
+        @if($isMissing)
+        <tr style="color: darkred; background-color: #fdd; text-align: center;">
+            <td class="font-bold w-25">{{ $type }}</td>
+            <td class="w-16 text-center">Missing</td>
+            <td class="w-16 text-center">Missing</td>
+            <td class="w-16 text-center">Missing</td>
+            <td class="w-16 text-center">Missing</td>
+            <td class="w-16 text-center">Missing</td>
+        </tr>
+        @endif
+    @endforeach
     </tbody>
 </table>
 
-@if(!empty($missingSecurities))
-<h2 style="color: red; text-align: center">Missing Securities:</h2>
-<ul style="color: red; text-align: center; list-style-type: none;">
-    @foreach($missingSecurities as $missingSecurityType)
-    <li>{{ $missingSecurityType }}</li>
-    @endforeach
-</ul>
 @endif
 
-@endif
+
 
 <div class="page-break"></div>
 
+<h2 class="text-sm text-center my-2 uppercase underline font-bold text-black">BASIC BORROWER'S FACT SHEET – FOR INDIVIDUALS / CONSUMERS</h2>
+<h2 class="text-sm text-center my-2 uppercase  font-bold text-black">(TO BE COMPLETED IN CAPITAL LETTERS OR TYPEWRITTEN)</h2>
+<h2 class="text-sm text-center my-2 font-bold text-black">DATE OF REQUEST: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-m-Y') }}</h2>
+<div class="relative overflow-x-auto">
+    <div class="relative overflow-x-auto">
+        @php
+            $address = $borrower->permanent_address; // Example address
+            $limit = 20; // Character limit for the first line
 
-<h2 class="text-center">BASIC BORROWER'S FACT SHEET – FOR INDIVIDUALS / CONSUMERS</h2>
-<h2 class="text-center">(TO BE COMPLETED IN CAPITAL LETTERS OR TYPEWRITTEN)</h2>
-<h2 class="text-center">DATE OF REQUEST: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-m-Y') }}</h2>
-
-@php
-    $address = $borrower->permanent_address; // Example address
-    $limit = 40; // Character limit for the first line
-
-    // Check if the address is longer than the limit
-    if (strlen($address) > $limit) {
-        $breakpoint = strrpos(substr($address, 0, $limit), ' '); // Find last space before limit
-        $firstLine = substr($address, 0, $breakpoint); // Text before the breakpoint
-        $secondLine = substr($address, $breakpoint + 1); // Text after the breakpoint
-    } else {
-        $firstLine = $address;
-        $secondLine = '';
-    }
-
-@endphp
-
-
-<table>
-    <thead>
-    <tr>
-        <th colspan="4" class="text-left">1. BORROWER'S PROFILE:</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td class="font-bold w-25">Name</td>
-        <td class="w-25">{{ strtoupper($borrower->name) }}</td>
-        <td class="font-bold w-25">Address</td>
-        <td class="w-25">{{ strtoupper($firstLine) }}</td>
-    </tr>
-    <tr>
-        <td class="" colspan="4">{{ strtoupper($secondLine) }} &nbsp;</td>
-    </tr>
-    <tr>
-        <td class="font-bold">FAX #</td>
-        <td>{{ $borrower->fax }}</td>
-        <td class="font-bold">EMAIL ADDRESS</td>
-        <td>{{ strtoupper($borrower->email) }}</td>
-    </tr>
-
-    <tr>
-
-        <td class="font-bold">OFFICE:</td>
-        <td>{{$borrower->office_phone_number}}</td>
-        <td class="font-bold"> RES.</td>
-        <td>{{$borrower->residence_phone_number}}</td>
-    </tr>
-    <tr>
-
-        <td class="font-bold">NATIONAL IDENTITY CARD #</td>
-        <td>{{ $borrower->national_id_cnic }}</td>
-        <td class="font-bold">NATIONAL TAX #</td>
-        <td>{{ $borrower->ntn }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">FATHER&rsquo;S NAME</td>
-        <td>{{ $borrower->parent_spouse_national_id_cnic }}</td>
-        <td class="font-bold">FATHER&rsquo;S NATIONAL IDENTITY CARD #</td>
-        <td>{{ $borrower->parent_spouse_national_id_cnic }}</td>
-    </tr>
-    </tbody>
-
-</table>
-
-
-@if($borrower->reference->isNotEmpty())
-    @if($borrower->reference->count() == 2)
-        <table>
-            <thead>
-            <tr>
-                <th colspan="4" class="text-left">2. REFERENCES (AT LEAST TWO):</th>
+            // Check if the address is longer than the limit
+            if (strlen($address) > $limit) {
+                $breakpoint = strrpos(substr($address, 0, $limit), ' '); // Find last space before limit
+                $firstLine = substr($address, 0, $breakpoint); // Text before the breakpoint
+                $secondLine = substr($address, $breakpoint + 1); // Text after the breakpoint
+            } else {
+                $firstLine = $address;
+                $secondLine = '';
+            }
+        @endphp
+        <table class="table-auto w-full border-collapse border border-black">
+            <thead class="border-black uppercase">
+            <tr class="bg-gray-200 text-black  text-sm font-bold" style="font-size: 12px!important;">
+                <th class="border-black border py-1 px-2 text-center" colspan="4"> BORROWER'S PROFILE</th>
             </tr>
             </thead>
 
-            <tbody>
-            @foreach($borrower->reference as $rf)
-                @php
-                    $address = $rf->permanent_address; // Example address
-                    $limit = 40; // Character limit for the first line
+            <tbody class="text-black">
+            <tr>
+                <td class="font-bold w-25">NAME:</td>
+                <td class="w-25">{{ strtoupper($borrower->name) }}</td>
+                <td class="font-bold w-25">ADDRESS:</td>
+                <td class="w-25">{{ strtoupper($firstLine) }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold w-25">ADDRESS (LINE 2):</td>
+                <td class="w-25">{{ strtoupper($secondLine) }}</td>
+                <td class="font-bold w-25">PHONE #</td>
+                <td class="w-25"></td>
+            </tr>
+            <tr>
+                <td class="font-bold w-25">FAX #:</td>
+                <td class="w-25">{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
+                <td class="font-bold w-25">EMAIL ADDRESS:</td>
+                <td class="w-25">{{ $borrower->ntn ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold w-25">CNIC:</td>
+                <td class="w-25">{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
+                <td class="font-bold w-25">NTN:</td>
+                <td class="w-25">{{ $borrower->number_of_dependents ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold w-25">FATHER’S NAME:</td>
+                <td class="w-25">{{ $borrower->education_qualification ?? 'N/A' }}</td>
+                <td class="font-bold w-25">FATHER’S CNIC #:</td>
+                <td class="w-25">{{ $borrower->email ?? 'N/A' }}</td>
+            </tr>
 
-                    // Check if the address is longer than the limit
-                    if (strlen($address) > $limit) {
-                        $breakpoint = strrpos(substr($address, 0, $limit), ' '); // Find last space before limit
-                        $firstLine = substr($address, 0, $breakpoint); // Text before the breakpoint
-                        $secondLine = substr($address, $breakpoint + 1); // Text after the breakpoint
-                    } else {
-                        $firstLine = $address;
-                        $secondLine = '';
-                    }
-                @endphp
-
-                <tr>
-                    <th colspan="4" class="text-center">Reference # {{ $loop->iteration }}</th>
-                </tr>
-                <tr>
-                    <td class="font-bold w-25">Name</td>
-                    <td class="w-25">{{ strtoupper($borrower->name) }}</td>
-                    <td class="font-bold w-25">Address</td>
-                    <td class="w-25">{{ strtoupper($firstLine) }}</td>
-                </tr>
-
-                <tr>
-                    <td colspan="4">{{ strtoupper($secondLine) }}&nbsp;</td>
-                </tr>
-
-                <tr>
-                    <td class="font-bold">PHONE #: </td>
-                    <td>{{ $rf->phone_number }}</td>
-                    <td class="font-bold">FAX #: </td>
-                    <td>{{ $rf->fax }}</td>
-                </tr>
-
-                <tr>
-                    <td class="font-bold">EMAIL ADDRESS: </td>
-                    <td>{{ strtoupper($rf->email) }}</td>
-                    <td class="font-bold">OFFICE: </td>
-                    <td>{{$rf->phone_number_two}}</td>
-                </tr>
-
-                <tr>
-                    <td class="font-bold">RES. </td>
-                    <td> {{$rf->phone_number_three}}</td>
-                    <td class="font-bold">&nbsp; </td>
-                    <td>&nbsp;</td>
-                </tr>
-
-                <tr>
-                    <td class="font-bold">NATIONAL IDENTITY CARD # </td>
-                    <td> {{ $rf->national_id }}</td>
-                    <td class="font-bold">NATIONAL TAX #</td>
-                    <td>{{ $rf->ntn }}</td>
-                </tr>
-
-                <tr>
-                    <td class="font-bold">FATHER’S NAME</td>
-                    <td> {{ $rf->father_husband }}</td>
-                    <td class="font-bold">FATHER’S NATIONAL IDENTITY CARD #</td>
-                    <td>{{ $rf->national_id }}</td>
-                </tr>
-
-            @endforeach
             </tbody>
         </table>
+
+
+        @if($borrower->reference->isNotEmpty())
+            @if($borrower->reference->count() == 2)
+                @if(!$borrower->reference->isEmpty())
+                    @foreach($borrower->reference as $index => $reference)
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="4" class="text-center">References # {{ $index + 1 }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="font-bold w-25">Father/Husband:</td>
+                                <td class="w-25">{{ $reference->father_husband }}</td>
+                                <td class="font-bold w-25">National ID:</td>
+                                <td class="w-25">{{ $reference->national_id }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">NTN:</td>
+                                <td>{{ $reference->ntn }}</td>
+                                <td class="font-bold">Date of Birth:</td>
+                                <td>{{ $reference->date_of_birth }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Present Address:</td>
+                                <td>{{ $reference->present_address }}</td>
+                                <td class="font-bold">Permanent Address:</td>
+                                <td>{{ $reference->permanent_address }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Phone Number:</td>
+                                <td>{{ $reference->phone_number }}</td>
+                                <td class="font-bold">Mobile Number:</td>
+                                <td>{{ $reference->mobile_number }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Email:</td>
+                                <td>{{ $reference->email }}</td>
+                                <td class="font-bold">Designation:</td>
+                                <td>{{ $reference->designation }}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="font-bold">Relationship to Borrower:</td>
+                                <td colspan="3">{{ $reference->relationship_to_borrower }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        @if(!$loop->last)
+                            <!-- <div class="page-break"></div> -->
+                        @endif
+                    @endforeach
+                    @else
+                    <h1 style="color: red; text-align: center; font-size: 20px;">
+
+                 Reference Missing
+                 </h1>
+
+                @endif
+
+            @else
+                <h1 class="text-2xl text-red-500">You must add at least two reference not more then two</h1>
+            @endif
+        @else
+            <h1 class="text-2xl text-red-500">Please add at least two reference</h1>
+        @endif
+
+
+
+        @if(!empty($borrower->applicant_requested_loan_information))
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="4" class="text-center">NATURE OF BUSINESS / PROFESSION</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="font-bold w-25">Nature of Business Profession</td>
+                    <td class="w-25">{{ $borrower->applicant_requested_loan_information->nature_of_business }}</td>
+                    <td class="font-bold w-25">Any Other</td>
+                    <td class="w-25">{{ $borrower->applicant_requested_loan_information->nature_of_business_other }}</td>
+                </tr>
+                </tbody>
+            </table>
+            @else
+            <h1 style="color: red; text-align: center; font-size: 20px;">
+
+         Requested Loan DataMissing
+         </h1>
+
+
+        @endif
+
+
+
+
+
+
+        @if($borrower->finance_facility_many->isNotEmpty())
+
+            <table>
+                <thead>
+                <tr>
+                    <th colspan="6" class="text-center">EXISTING LIMITS AND STATUS</th>
+                </tr>
+                <tr>
+                    <th class="text-center align-middle" rowspan="2"></th>
+                    <th class="text-center align-middle" rowspan="2">Amount (Rs)</th>
+                    <th class="text-center align-middle" rowspan="2">Expiry Date</th>
+                    <th class="text-center align-middle" colspan="3">Status</th>
+                </tr>
+                <tr>
+                    <th class="text-center">Regular</th>
+                    <th class="text-center">Amount Overdue</th>
+                    <th class="text-center">Amount Rescheduled</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach($borrower->finance_facility_many as $item)
+                    <tr>
+                        <td class="font-bold w-16 text-center">{{ $item->facility_type }}</td>
+                        <td class="w-16 text-center">{{ $item->sanctioned_amount }}</td>
+                        <td class="w-16 text-center">{{ $item->end_date }} </td>
+                        <td class="w-16 text-center">{{ $item->repayment_status }}</td>
+                        <td class="font-bold w-16 text-center">{{ $item->outstanding_amount }}</td>
+                        <td class="w-16 text-center"> {{ $item->amount_rescheduled }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+@endif
+
+        @if(!empty($borrower->applicant_requested_loan_information))
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <thead>
+                <tr>
+                    <th colspan="3" class="text-center">REQUESTED LIMITS</th>
+                </tr>
+                <tr>
+                    <th style="padding: 8px; text-align: left; border: 1px solid ">Regular</th>
+                    <th style="padding: 8px; text-align: left; border: 1px solid">Amount</th>
+                    <th style="padding: 8px; text-align: left; border: 1px solid">TENURE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td >{{ $borrower->applicant_requested_loan_information->fund_based_non_fund_based }}</td>
+                    <td >{{ $borrower->applicant_requested_loan_information->requested_amount }}</td>
+                    <td>{{ $borrower->applicant_requested_loan_information->tenure_in_years }} Years, and {{ $borrower->applicant_requested_loan_information->tenure_in_months }} Months</td>
+                </tr>
+            </tbody>
+        </table>
+@endif
+    @if(!empty($borrower->applicant_requested_loan_information))
+        <table>
+            <thead>
+            <tr>
+                <th colspan="6" class="text-center">Details of Payment schedule if term loan sought</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="6" class="font-bold w-16">{{ $borrower->applicant_requested_loan_information->details_payment_schedule }}</td>
+            </tr>
+            </tbody>
+        </table>
+
     @endif
-    @else
-    <h1 style="color: red; text-align: center">
-        Reference Missing
-    </h1>
-@endif
 
-
-
-@if(!empty($borrower->borrower_fact_sheet_consumer))
-
-    <table>
-        <thead>
-        <tr>
-            <th colspan="5" class="text-left">3. NATURE OF BUSINESS / PROFESSION:</th>
-        </tr>
-
-        <tr>
-            <th class="w-20 text-center">Industrial</th>
-            <th class="w-20 text-center">Commercial</th>
-            <th class="w-20 text-center">Agricultural</th>
-            <th class="w-20 text-center">Services</th>
-            <th class="w-20 text-center">Any Other</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr style="font-family: DejaVu Sans;">
-            <td class="font-bold text-center">
-                @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Industrial")
-                    ✓
-                @endif
-            </td>
-            <td class="font-bold text-center">
-                @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Commercial")
-                    ✓
-                @endif
-            </td>
-            <td class="font-bold text-center">
-                @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Agricultural")
-                    ✓
-                @endif
-            </td>
-            <td class="font-bold text-center">
-                @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Services")
-                    ✓
-                @endif
-            </td>
-            <td class="font-bold text-center">
-                @if($borrower->borrower_fact_sheet_consumer->nature_of_business == "Any Other")
-                    {{ $borrower->borrower_fact_sheet_consumer->nature_of_business }}
-                @endif
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-        <tr>
-            <th colspan="6" class="text-left">4. EXISTING LIMITS AND STATUS:</th>
-        </tr>
-        <tr>
-            <th class="text-center">&nbsp;</th>
-            <th class="text-center">Amount</th>
-            <th class="text-center">Expiry Date</th>
-            <th class="text-center" colspan="3">Status</th>
-        </tr>
-        <tr>
-            <th class="text-center w-16">&nbsp;</th>
-            <th class="text-center w-16">(Rs.)</th>
-            <th class="text-center w-16">&nbsp;</th>
-            <th class="text-center w-16">Regular</th>
-            <th class="text-center w-16">Amount Overdue (If any)</th>
-            <th class="text-center w-16">Amount Rescheduled / Restructured (if Any)</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="text-center">Fund Based</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->fund_based_amount }}</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->fund_based_expiry_date }}</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->fund_based_status_regular }}</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->fund_based_status_amount_overdue_if_any }}</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->fund_based_status_amount_rescheduled_or_restructured_if_any }}</td>
-        </tr>
-        <tr>
-            <td class="text-center">Non Fund Based</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->non_fund_based_amount }}</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->non_fund_based_expiry_date }}</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->non_fund_based_status_regular }}</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->non_fund_based_status_amount_overdue_if_any }}</td>
-            <td class="text-center">{{ $borrower->borrower_fact_sheet_consumer->non_fund_based_status_amount_rescheduled_or_restructured_if_any }}</td>
-        </tr>
-
-
-        <tr>
-            <td class="text-left" colspan="6">
-                5. Details of Payment schedule if term loan sought:  {{ $borrower->borrower_fact_sheet_consumer->detail_of_term_loan_sougnt }}
-                <br>
-                <br>
-                <br>
-                <br>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="text-left" colspan="6">6. Details of Payment schedule if term loan sought:
-
-                <br>
-                <br>
-                <br>
-                <br>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-
-    <h3>I CERTIFY AND UNDERTAKE THAT THE INFORMATION FURNISHED ABOVE IS TRUE TO THE BEST OF MY KNOWLEDGE</h3>
-
-
-@endif
+    </div>
+    <x-validation-errors class="mb-4 mt-4"/>
+</div>
 <div class="page-break"></div>
 
 @if(!empty($borrower->obligor_score_card))
@@ -1136,6 +1109,19 @@
     </h1>
 @endif
 
+<div class="page-break"></div>
+<h2 class="text-sm text-center my-2 uppercase underline font-bold text-black">Personal Net Worth Statement (PNWS)</h2>
+<h2 class="text-sm text-center my-2 uppercase font-bold text-black">ACCOUNT AT THE BANK OF AZAD JAMMU & KASHMIR {{ $borrower->branch?->name }}</h2>
+<h2 class="text-sm text-center my-2 font-bold text-black">DATE OF REQUEST: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-m-Y') }}</h2>
+<div class="relative overflow-x-auto px-2">
+</div>
+<div>
+
+                @livewire('personal-net-worth-forma-form', ['personalNetWorthStatId' => $borrower->personalNetWorthStat->id])
+                @livewire('personal-net-worth-formb-form', ['personalNetWorthStatId' => $borrower->personalNetWorthStat->id])
+                @livewire('personal-net-worth-formc-form', ['personalNetWorthStatId' => $borrower->personalNetWorthStat->id])
+
+</div>
 
 </body>
 </html>

@@ -205,6 +205,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
     // Applicant Business Information
     Route::controller(ChecklistController::class)->group(function () {
         Route::get('/borrower/{borrower}/checklist', 'show')->name('applicant.checklist.show');;
+
     });
 
 

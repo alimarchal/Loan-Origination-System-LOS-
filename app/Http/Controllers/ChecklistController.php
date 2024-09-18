@@ -64,4 +64,18 @@ class ChecklistController extends Controller
     {
         //
     }
+    public function show($borrowerId)
+    {
+        $borrower = Borrower::with('loan_sub_category')->findOrFail($borrowerId);
+        $checklistItems = Checklist::where('loan_sub_category_id', $borrower->loan_sub_category->id)->get();
+
+        // Debugging: Check if the data is fetched correctly
+        dd($checklistItems);
+
+        return view('download-checklist', [
+            'borrower' => $borrower,
+            'checklistItems' => $checklistItems,
+        ]);
+    }
+
 }

@@ -181,7 +181,7 @@
                                             @endif
 
                                             @elseif($item->sequence_no == 5)
-                                            @if(!empty($borrower->finance_facilities) && $borrower->finance_facilities->count() >= 1)
+                                            @if(!empty($borrower->finance_facility) && $borrower->finance_facility->count() >= 1)
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                                 </svg>
@@ -222,7 +222,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
                                         @endif @elseif($item->sequence_no == 9)
-                                        @if(!empty($list_house_hold_items) && $borrower->list_house_hold_items->count() == 1)
+                                        @if(!empty($list_house_hold_item) && $borrower->list_house_hold_item->count() == 1)
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                             </svg>
@@ -231,7 +231,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
                                         @endif @elseif($item->sequence_no == 10)
-                                        @if(!empty($borrower->obligor_score_cards) && $borrower->obligor_score_cards)
+                                        @if(!empty($borrower->obligor_score_cards) && $borrower->obligor_score_cards->count() == 1)
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                             </svg>
