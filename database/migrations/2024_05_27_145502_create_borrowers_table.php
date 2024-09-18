@@ -58,6 +58,9 @@ return new class extends Migration {
             $table->string('nadra_verification_scanned_attachment')->nullable();
             $table->string('digital_signature_scanned_attachment')->nullable();
 //            $table->string('latest_status')->nullable();
+            $table->enum('pending_at_branch',['Yes','No'])->default('Yes');
+            $table->enum('pending_at_region',['Yes','No'])->default('No');
+            $table->enum('pending_at_head_office',['Yes','No'])->default('No');
             $table->enum('status',['Draft' ,'Returned With Observation','Submitted','In Process', 'Approved', 'Declined',])->default('Draft');
             $table->enum('is_lock',['Yes','No'])->default('No');
 
