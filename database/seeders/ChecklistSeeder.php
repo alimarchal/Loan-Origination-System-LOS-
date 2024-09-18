@@ -28,6 +28,7 @@ class ChecklistSeeder extends Seeder
             ['loan_sub_category_id' => 1, 'sequence_no' => 12, 'route' => 'pnws.index', 'name' => "Personal Net Worth Statement", 'status' => 'active'],
             ['loan_sub_category_id' => 1, 'sequence_no' => 13, 'route' => 'guarantor-undertaking-credit-report.index', 'name' => 'Guarantor’s Credit Report/ Under taking', 'status' => 'active'],
             ['loan_sub_category_id' => 1, 'sequence_no' => 14, 'route' => 'employer.undertaking', 'name' => 'Employer Undertaking', 'status' => 'active'],
+            ['loan_sub_category_id' => 1, 'sequence_no' => 15, 'route' => 'borrower.submit_for_approval_view', 'name' => 'Recommended for approval as per bank policy', 'status' => 'active'],
 
 
 //            ['loan_sub_category_id' => 1, 'sequence_no' => 6, 'name' => 'E-CIB or Affidavit in lieu of ECIB & Data Check Report', 'status' => 'active'],

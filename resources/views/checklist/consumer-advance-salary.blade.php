@@ -73,6 +73,11 @@
                 width: 30%;
             }
 
+            .w-40 {
+                width: 40%;
+            }
+
+
             .w-50 {
                 width: 50%;
             }
@@ -119,6 +124,7 @@
                                 <th class="text-center">Sr.No</th>
                                 <th class="text-center">Details of documents</th>
                                 <th class="text-center">Authorized</th>
+                                <th class="text-center">Description</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -128,7 +134,7 @@
                                         {{ $item->sequence_no }}
                                     </td>
 
-                                    <td class="w-75 font-bold pl-2">
+                                    <td class="w-50 font-bold pl-2">
                                         @if($item->route)
                                             <a href="{{ route($item->route,[$borrower->id]) }}" class="text-blue-500 hover:underline">{{ $item->name }}</a>
                                         @else
@@ -279,9 +285,11 @@
                                           @endif
                                           @endif
 
+                                    </td>
 
 
-
+                                    <td class="font-bold text-center w-30">
+                                        {{ $item->description }}
                                     </td>
                                 </tr>
                             @endforeach
