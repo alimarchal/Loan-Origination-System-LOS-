@@ -123,13 +123,13 @@
     </thead>
     <tbody>
         <tr>
-            <td class="font-bold w-25">Full name:</td>
+            <td class="font-bold w-25">Full Name:</td>
             <td class="w-25">{{ $borrower->name ?? 'N/A' }}</td>
-            <td class="font-bold w-25">Relationship status:</td>
+            <td class="font-bold w-25">Relationship Status:</td>
             <td class="w-25">{{ $borrower->relationship_status ?? 'N/A' }}</td>
         </tr>
         <tr>
-            <td class="font-bold">Parent/Spouse name:</td>
+            <td class="font-bold">Parent/Spouse Name:</td>
             <td>{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
             <td class="font-bold">Gender:</td>
             <td>{{ $borrower->gender ?? 'N/A' }}</td>
@@ -141,51 +141,51 @@
             <td>{{ $borrower->ntn ?? 'N/A' }}</td>
         </tr>
         <tr>
-            <td class="font-bold">Parent/Spouse national ID (CNIC):</td>
+            <td class="font-bold">Parent/Spouse National ID (CNIC):</td>
             <td>{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
-            <td class="font-bold">Number of dependents:</td>
+            <td class="font-bold">Number of Dependents:</td>
             <td>{{ $borrower->number_of_dependents ?? 'N/A' }}</td>
         </tr>
         <tr>
-            <td class="font-bold">Educational qualification:</td>
+            <td class="font-bold">Educational Qualification:</td>
             <td>{{ $borrower->education_qualification ?? 'N/A' }}</td>
             <td class="font-bold">Email:</td>
             <td>{{ $borrower->email ?? 'N/A' }}</td>
         </tr>
         <tr>
-            <td class="font-bold">Phone number:</td>
+            <td class="font-bold">Phone Number:</td>
             <td>{{ $borrower->phone_number ?? 'N/A' }}</td>
-            <td class="font-bold">Mobile number:</td>
+            <td class="font-bold">Mobile Number:</td>
             <td>{{ $borrower->mobile_number ?? 'N/A' }}</td>
         </tr>
         <tr>
-            <td class="font-bold">Present address:</td>
+            <td class="font-bold">Present Address:</td>
             <td>{{ $borrower->present_address ?? 'N/A' }}</td>
-            <td class="font-bold">Permanent address:</td>
+            <td class="font-bold">Permanent Address:</td>
             <td>{{ $borrower->permanent_address ?? 'N/A' }}</td>
         </tr>
         <tr>
-            <td class="font-bold">Occupation title:</td>
+            <td class="font-bold">Occupation Title:</td>
             <td>{{ $borrower->occupation_title ?? 'N/A' }}</td>
-            <td class="font-bold">Date of birth:</td>
-            <td>{{ isset($borrower->date_of_birth) ? \Carbon\Carbon::parse($borrower->date_of_birth)->format('d/m/Y') : 'N/A' }}</td>
+            <td class="font-bold">Date of Birth:</td>
+            <td>{{ isset($borrower->date_of_birth) ? \Carbon\Carbon::parse($borrower->date_of_birth)->format('d-m-Y') : 'N/A' }}</td>
         </tr>
         <tr>
             <td class="font-bold">Age:</td>
             <td>{{ $borrower->age ?? 'N/A' }}</td>
-            <td class="font-bold">Marital status:</td>
+            <td class="font-bold">Marital Status:</td>
             <td>{{ $borrower->marital_status ?? 'N/A' }}</td>
         </tr>
         <tr>
-            <td class="font-bold">Home ownership status:</td>
+            <td class="font-bold">Home Qwnership Status:</td>
             <td>{{ $borrower->home_ownership_status ?? 'N/A' }}</td>
             <td class="font-bold">Nationality:</td>
             <td>{{ $borrower->nationality ?? 'N/A' }}</td>
         </tr>
         <tr>
-            <td class="font-bold">Next of kin name:</td>
+            <td class="font-bold">Next of Kin Name:</td>
             <td>{{ $borrower->next_of_kin_name ?? 'N/A' }}</td>
-            <td class="font-bold">Next of kin mobile number:</td>
+            <td class="font-bold">Next of Kin Mobile Number:</td>
             <td>{{ $borrower->next_of_kin_mobile_number ?? 'N/A' }}</td>
         </tr>
 
@@ -196,11 +196,12 @@
 
 <!-- <div class="page-break"></div> -->
 
+@if(isset($borrower->employment_information) && $borrower->employment_information->isNotEmpty())
 <table>
     <thead>
-    <tr>
-        <th colspan="4" class="text-center">Employment Information</th>
-    </tr>
+        <tr>
+            <th colspan="4" class="text-center">Employment Information</th>
+        </tr>
     </thead>
     <tbody>
         <tr>
@@ -210,12 +211,10 @@
             <td class="w-25">{{ $borrower->employment_information->employment_status ?? 'N/A' }}</td>
         </tr>
         <tr>
-
             <td class="font-bold">Service Status</td>
             <td>{{ $borrower->employment_information->service_status ?? 'N/A' }}</td>
             <td class="font-bold">Department</td>
             <td>{{ $borrower->employment_information->department ?? 'N/A' }}</td>
-
         </tr>
         <tr>
             <td class="font-bold">Monthly Gross Salary</td>
@@ -265,13 +264,19 @@
             <td class="font-bold">Contact Person for Disbursement</td>
             <td>{{ $borrower->employment_information->contact_person_for_disbursement ?? 'N/A' }}</td>
         </tr>
-
         <tr>
             <td class="font-bold">Other Sources of Income</td>
             <td colspan="6">{{ $borrower->employment_information->other_sources_of_income ?? 'N/A' }}</td>
         </tr>
-        </tbody>
-    </table>
+    </tbody>
+</table>
+@else
+<h1 style="color: red; text-align: center; font-size: 25px;">
+
+    Employment Data Missing
+    </h1>
+@endif
+
 @if($borrower->applicant_requested_loan_information)
     <table>
         <thead>
@@ -358,7 +363,7 @@
                 <td class="font-bold">NTN:</td>
                 <td>{{ $reference->ntn }}</td>
                 <td class="font-bold">Date of Birth:</td>
-                <td>{{ isset($reference->date_of_birth) ? \Carbon\Carbon::parse($reference->date_of_birth)->format('d/m/Y') : 'N/A' }}</td>
+                <td>{{ isset($reference->date_of_birth) ? \Carbon\Carbon::parse($reference->date_of_birth)->format('d-m-Y') : 'N/A' }}</td>
 
             </tr>
             <tr>
@@ -613,13 +618,13 @@
                 </tr>
                 <tr>
                     <td class="font-bold">Date of Retirement</td>
-                    <td>{{ isset($guarantor->date_of_retirement) ? \Carbon\Carbon::parse($guarantor->date_of_retirement)->format('d/m/Y') : 'N/A' }}</td>
+                    <td>{{ isset($guarantor->date_of_retirement) ? \Carbon\Carbon::parse($guarantor->date_of_retirement)->format('d-m-Y') : 'N/A' }}</td>
                     <td class="font-bold">Relationship to Borrower</td>
                     <td>{{ $guarantor->relationship_to_borrower ?? 'N/A' }}</td>
                 </tr>
                 <tr>
                     <td class="font-bold">Date of Birth</td>
-                    <td>{{ isset($guarantor->dob) ? \Carbon\Carbon::parse($guarantor->dob)->format('d/m/Y') : 'N/A' }}</td>
+                    <td>{{ isset($guarantor->dob) ? \Carbon\Carbon::parse($guarantor->dob)->format('d-m-Y') : 'N/A' }}</td>
                     <td class="font-bold">NTN</td>
                     <td>{{ $guarantor->ntn ?? 'N/A' }}</td>
                 </tr>
@@ -661,7 +666,7 @@
                 </tr>
                 <tr>
                     <td class="font-bold">Date of Joining</td>
-                    <td>{{ isset($guarantor->date_of_joining) ? \Carbon\Carbon::parse($guarantor->date_of_joining)->format('d/m/Y') : 'N/A' }}</td>
+                    <td>{{ isset($guarantor->date_of_joining) ? \Carbon\Carbon::parse($guarantor->date_of_joining)->format('d-m-Y') : 'N/A' }}</td>
                     <td class="font-bold">Remaining Service (25 Years)</td>
                     <td>{{ $guarantor->remaining_service_25_years ?? 'N/A' }}</td>
                 </tr>
@@ -762,7 +767,8 @@
         @endif
     @endforeach
 @endif
-@if($borrower->securities->isNotEmpty())
+
+ @if($borrower->securities->isNotEmpty())
 
 @php
     // Define the security types and their respective columns
@@ -920,7 +926,7 @@
                                     <td class="font-bold">NTN:</td>
                                     <td>{{ $reference->ntn ?? 'N/A' }}</td>
                                     <td class="font-bold">Date of Birth:</td>
-                                    <td>{{ isset($reference->date_of_birth) ? \Carbon\Carbon::parse($reference->date_of_birth)->format('d/m/Y') : 'N/A' }}</td>
+                                    <td>{{ isset($reference->date_of_birth) ? \Carbon\Carbon::parse($reference->date_of_birth)->format('d-m-Y') : 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Present Address:</td>
@@ -1021,7 +1027,7 @@
                 <tr>
                     <td class="font-bold w-16 text-center">{{ $item->facility_type ?? 'N/A' }}</td>
                     <td class="w-16 text-center">{{ $item->sanctioned_amount ?? 'N/A' }}</td>
-                    <td class="w-16 text-center">{{ isset($item->end_date) ? \Carbon\Carbon::parse($item->end_date)->format('d/m/Y') : 'N/A' }}</td>
+                    <td class="w-16 text-center">{{ isset($item->end_date) ? \Carbon\Carbon::parse($item->end_date)->format('d-m-Y') : 'N/A' }}</td>
                     <td class="w-16 text-center">{{ $item->repayment_status ?? 'N/A' }}</td>
                     <td class="font-bold w-16 text-center">{{ $item->outstanding_amount ?? 'N/A' }}</td>
                     <td class="w-16 text-center">{{ $item->amount_rescheduled ?? 'N/A' }}</td>
