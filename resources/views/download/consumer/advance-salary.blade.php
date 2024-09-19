@@ -783,7 +783,7 @@
     }
 @endphp
 
-<table style="width: 100%; font-size: 15px;">
+<table>
     <thead>
     <tr>
         <th colspan="6" class="text-center">Security Detail Information</th>
@@ -1112,13 +1112,7 @@
 <h2 class="text-sm text-center my-2 font-bold text-black">DATE OF REQUEST: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-m-Y') }}</h2>
 <div class="relative overflow-x-auto px-2">
 </div>
-<div>
 
-                @livewire('personal-net-worth-forma-form', ['personalNetWorthStatId' => $borrower->personalNetWorthStat->id])
-                @livewire('personal-net-worth-formb-form', ['personalNetWorthStatId' => $borrower->personalNetWorthStat->id])
-                @livewire('personal-net-worth-formc-form', ['personalNetWorthStatId' => $borrower->personalNetWorthStat->id])
-
-</div>
 
 </body>
 </html>
