@@ -113,7 +113,7 @@ class BorrowerController extends Controller
         $dob = Carbon::parse($dateOfBirth);
 
         // Calculate the age
-        $age = $dob->diffInYears(Carbon::now());
+        $age = round($dob->diffInYears(Carbon::now()),1);
 
         DB::beginTransaction();
         try {
