@@ -196,7 +196,7 @@
 
 <!-- <div class="page-break"></div> -->
 
-@if(isset($borrower->employment_information) && $borrower->employment_information->isNotEmpty())
+@if(!empty($borrower->employment_information))
 <table>
     <thead>
         <tr>
