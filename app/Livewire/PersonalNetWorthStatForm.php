@@ -46,8 +46,8 @@ class PersonalNetWorthStatForm extends Component
             'tel_office' => $this->personalNetWorthStat->tel_office ?: ($this->borrower->applicant_business?->landline ?? $this->borrower->employment_information?->office_phone_number ?? ''),
             'res_address' => $this->personalNetWorthStat->res_address ?: $this->borrower->permanent_address,
             'tel_res' => $this->personalNetWorthStat->tel_res ?: $this->borrower->residence_phone_number,
-            'qualification' => $this->personalNetWorthStat->qualification,
-            'education' => $this->personalNetWorthStat->education,
+            'qualification' => $this->borrower->education_qualification,
+            'education' => $this->borrower->education_qualification,
             'profession' => $this->personalNetWorthStat->profession,
         ];
     }
