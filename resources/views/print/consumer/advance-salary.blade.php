@@ -989,7 +989,7 @@
                             Personal Net Worth Statement (PNWS)
                         </h2>
                         <h2 class="text-sm text-center my-2 uppercase  font-bold text-black">
-                            ACCOUNT AT THE BANK OF AZAD JAMMU & KASHMIR **********
+                            ACCOUNT AT THE BANK OF AZAD JAMMU & KASHMIR
                         </h2>
                         <h2 class="text-sm text-center my-2 font-bold text-black">
                             DATE OF REQUEST: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-m-Y') }}
@@ -1019,219 +1019,6 @@
                                         </th>
                                     </tr>
                                     </thead>
-
-                                    <tbody class="text-black">
-                                    <tr>
-                                        <td class="font-bold w-25">NAME:</td>
-                                        <td class="w-25">{{ strtoupper($borrower->name) }}</td>
-                                        <td class="font-bold w-25">ADDRESS:</td>
-                                        <td class="w-25">{{ strtoupper($firstLine) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-bold w-25">ADDRESS (LINE 2):</td>
-                                        <td class="w-25">{{ strtoupper($secondLine) }}</td>
-                                        <td class="font-bold w-25">PHONE #</td>
-                                        <td class="w-25">{{ $borrower->phone_number }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-bold w-25">Mobile #:</td>
-                                        <td class="w-25">{{ $borrower->mobile_number ?? 'N/A' }}</td>
-                                        <td class="font-bold w-25">EMAIL ADDRESS:</td>
-                                        <td class="w-25">{{ $borrower->email ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-bold w-25">CNIC:</td>
-                                        <td class="w-25">{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
-                                        <td class="font-bold w-25">NTN:</td>
-                                        <td class="w-25">{{ $borrower->number_of_dependents ?? 'N/A' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-bold w-25">FATHER’S NAME:</td>
-                                        <td class="w-25">{{ $borrower->education_qualification ?? 'N/A' }}</td>
-                                        <td class="font-bold w-25">FATHER’S CNIC #:</td>
-                                        <td class="w-25">{{ $borrower->email ?? 'N/A' }}</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-
-
-                                @if($borrower->reference->isNotEmpty())
-                                    @if($borrower->reference->count() == 2)
-                                        @if(!$borrower->reference->isEmpty())
-                                            @foreach($borrower->reference as $index => $reference)
-                                                <table>
-                                                    <thead>
-                                                    <tr>
-                                                        <th colspan="4" class="text-center">References # {{ $index + 1 }}</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td class="font-bold w-25">Father/Husband:</td>
-                                                        <td class="w-25">{{ $reference->father_husband }}</td>
-                                                        <td class="font-bold w-25">National ID:</td>
-                                                        <td class="w-25">{{ $reference->national_id }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="font-bold">NTN:</td>
-                                                        <td>{{ $reference->ntn }}</td>
-                                                        <td class="font-bold">Date of Birth:</td>
-                                                        <td>{{ $reference->date_of_birth }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="font-bold">Present Address:</td>
-                                                        <td>{{ $reference->present_address }}</td>
-                                                        <td class="font-bold">Permanent Address:</td>
-                                                        <td>{{ $reference->permanent_address }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="font-bold">Phone Number:</td>
-                                                        <td>{{ $reference->phone_number }}</td>
-                                                        <td class="font-bold">Phone Number Two:</td>
-                                                        <td>{{ $reference->phone_number_two }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="font-bold">Phone Number Three:</td>
-                                                        <td>{{ $reference->phone_number_three }}</td>
-                                                        <td class="font-bold">Email:</td>
-                                                        <td>{{ $reference->email }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="font-bold">Fax:</td>
-                                                        <td>{{ $reference->fax }}</td>
-                                                        <td class="font-bold">Designation:</td>
-                                                        <td>{{ $reference->designation }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="font-bold">Relationship to Borrower:</td>
-                                                        <td colspan="3">{{ $reference->relationship_to_borrower }}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                @if(!$loop->last)
-                                                    <!-- <div class="page-break"></div> -->
-                                                @endif
-                                            @endforeach
-                                        @endif
-
-                                    @else
-                                        <h1 class="text-2xl text-red-500">You must add at least two reference not more then two</h1>
-                                    @endif
-                                @else
-                                <h1 class="text-2xl text-red-500 text-center">Please add at least two references</h1>
-
-                                @endif
-
-
-
-                                @if(!empty($borrower->applicant_requested_loan_information))
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <th colspan="4" class="text-center">NATURE OF BUSINESS / PROFESSION</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="font-bold w-25">Nature of Business Profession</td>
-                                            <td class="w-25">{{ $borrower->applicant_requested_loan_information->nature_of_business }}</td>
-                                            <td class="font-bold w-25">Any Other</td>
-                                            <td class="w-25">{{ $borrower->applicant_requested_loan_information->nature_of_business_other }}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                @endif
-
-
-
-
-
-
-                                @if($borrower->finance_facility_many->isNotEmpty())
-
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <th colspan="6" class="text-center">EXISTING LIMITS AND STATUS</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center align-middle" rowspan="2"></th>
-                                            <th class="text-center align-middle" rowspan="2">Amount (Rs)</th>
-                                            <th class="text-center align-middle" rowspan="2">Expiry Date</th>
-                                            <th class="text-center align-middle" colspan="3">Status</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center">Regular</th>
-                                            <th class="text-center">Amount Overdue</th>
-                                            <th class="text-center">Amount Rescheduled</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        @foreach($borrower->finance_facility_many as $item)
-                                            <tr>
-                                                <td class="font-bold w-16 text-center">{{ $item->facility_type }}</td>
-                                                <td class="w-16 text-center">{{ $item->sanctioned_amount }}</td>
-                                                <td class="w-16 text-center">{{ $item->end_date }} </td>
-                                                <td class="w-16 text-center">{{ $item->repayment_status }}</td>
-                                                <td class="font-bold w-16 text-center">{{ $item->outstanding_amount }}</td>
-                                                <td class="w-16 text-center"> {{ $item->amount_rescheduled }}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-
-                                @endif
-
-
-
-                                @if(!empty($borrower->applicant_requested_loan_information))
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <th colspan="6" class="text-center">REQUESTED LIMITS</th>
-                                        </tr>
-
-                                        <tr>
-                                            <th class="text-center">Regular</th>
-                                            <th class="text-center">Amount</th>
-                                            <th class="text-center">TENURE</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="font-bold w-16">{{ $borrower->applicant_requested_loan_information->fund_based_non_fund_based }}</td>
-                                            <td class="w-16">{{ $borrower->applicant_requested_loan_information->requested_amount }}</td>
-                                            <td class="w-16">{{ $borrower->applicant_requested_loan_information->tenure_in_years }} Years, and {{ $borrower->applicant_requested_loan_information->tenure_in_months }} Months</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-                                @endif
-
-
-
-                                @if(!empty($borrower->applicant_requested_loan_information))
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <th colspan="6" class="text-center">Details of Payment schedule if term loan sought</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="font-bold w-16">{{ $borrower->applicant_requested_loan_information->details_payment_schedule }}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-                                @endif
-
-                            </div>
-                        </div>
-
-
 
 
 
@@ -1387,14 +1174,36 @@
                                         </thead>
                                     </table>
                                 @endif
-
-                        @endif
-
-
-
-
-
-
+                                @if($borrower->personalNetWorthStat?->personal_form_d?->isNotEmpty())
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4" class="text-left">D.</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center w-20">Bank Institution</th>
+                                            <th class="text-center w-20">Amount</th>
+                                            <th class="text-center w-20">Expiry Date</th>
+                                            <th class="text-center w-20">Nature of Guarantee/ Surety</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($borrower->personalNetWorthStat->personal_form_d as $item)
+                                            <tr>
+                                                <td class="w-20 text-center">{{ $item->bank_institution ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->amount ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->expiry_date ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->nature_of_guarantee ?? 'N/A' }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                            <h1 style="color: red; text-align: center">
+                                Form D is missing
+                            </h1>
+                            @endif
+                            @endif
 
                             <table class="min-w-max w-full table-auto">
                             <tbody class="text-black text-sm leading-normal">

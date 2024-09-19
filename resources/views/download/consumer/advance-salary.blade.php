@@ -122,78 +122,73 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td class="font-bold w-25">FULL NAME:</td>
-        <td class="w-25">{{ $borrower->name ?? 'N/A' }}</td>
-        <td class="font-bold w-25">RELATIONSHIP STATUS:</td>
-        <td class="w-25">{{ $borrower->relationship_status ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">PARENT/SPOUSE NAME:</td>
-        <td>{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
-        <td class="font-bold">GENDER:</td>
-        <td>{{ $borrower->gender ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">NATIONAL ID (CNIC):</td>
-        <td>{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
-        <td class="font-bold">NTN:</td>
-        <td>{{ $borrower->ntn ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">PARENT/SPOUSE NATIONAL ID (CNIC):</td>
-        <td>{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
-        <td class="font-bold">NUMBER OF DEPENDENTS:</td>
-        <td>{{ $borrower->number_of_dependents ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">EDUCATIONAL QUALIFICATION:</td>
-        <td>{{ $borrower->education_qualification ?? 'N/A' }}</td>
-        <td class="font-bold">EMAIL:</td>
-        <td>{{ $borrower->email ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">PHONE NUMBER:</td>
-        <td>{{ $borrower->phone_number ?? 'N/A' }}</td>
-        <td class="font-bold">MOBILE NUMBER:</td>
-        <td>{{ $borrower->mobile_number ?? 'N/A' }}</td>
-        </td>
+        <tr>
+            <td class="font-bold w-25">Full name:</td>
+            <td class="w-25">{{ $borrower->name ?? 'N/A' }}</td>
+            <td class="font-bold w-25">Relationship status:</td>
+            <td class="w-25">{{ $borrower->relationship_status ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Parent/Spouse name:</td>
+            <td>{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
+            <td class="font-bold">Gender:</td>
+            <td>{{ $borrower->gender ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">National ID (CNIC):</td>
+            <td>{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
+            <td class="font-bold">NTN:</td>
+            <td>{{ $borrower->ntn ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Parent/Spouse national ID (CNIC):</td>
+            <td>{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
+            <td class="font-bold">Number of dependents:</td>
+            <td>{{ $borrower->number_of_dependents ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Educational qualification:</td>
+            <td>{{ $borrower->education_qualification ?? 'N/A' }}</td>
+            <td class="font-bold">Email:</td>
+            <td>{{ $borrower->email ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Phone number:</td>
+            <td>{{ $borrower->phone_number ?? 'N/A' }}</td>
+            <td class="font-bold">Mobile number:</td>
+            <td>{{ $borrower->mobile_number ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Present address:</td>
+            <td>{{ $borrower->present_address ?? 'N/A' }}</td>
+            <td class="font-bold">Permanent address:</td>
+            <td>{{ $borrower->permanent_address ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Occupation title:</td>
+            <td>{{ $borrower->occupation_title ?? 'N/A' }}</td>
+            <td class="font-bold">Date of birth:</td>
+            <td>{{ isset($borrower->date_of_birth) ? \Carbon\Carbon::parse($borrower->date_of_birth)->format('d/m/Y') : 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Age:</td>
+            <td>{{ $borrower->age ?? 'N/A' }}</td>
+            <td class="font-bold">Marital status:</td>
+            <td>{{ $borrower->marital_status ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Home ownership status:</td>
+            <td>{{ $borrower->home_ownership_status ?? 'N/A' }}</td>
+            <td class="font-bold">Nationality:</td>
+            <td>{{ $borrower->nationality ?? 'N/A' }}</td>
+        </tr>
+        <tr>
+            <td class="font-bold">Next of kin name:</td>
+            <td>{{ $borrower->next_of_kin_name ?? 'N/A' }}</td>
+            <td class="font-bold">Next of kin mobile number:</td>
+            <td>{{ $borrower->next_of_kin_mobile_number ?? 'N/A' }}</td>
+        </tr>
 
-    </tr>
-    <tr>
-
-        <td class="font-bold">PRESENT ADDRESS:</td>
-        <td>{{ $borrower->present_address ?? 'N/A' }}</td>
-        <td class="font-bold">PERMANENT ADDRESS:</td>
-        <td>{{ $borrower->permanent_address ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">OCCUPATION TITLE:</td>
-        <td>{{ $borrower->occupation_title ?? 'N/A' }}</td>
-        <td class="font-bold">DATE OF BIRTH:</td>
-        <td>{{ isset($borrower->date_of_birth) ? \Carbon\Carbon::parse($borrower->date_of_birth)->format('d/m/Y') : 'N/A' }}</td>
-
-
-    </tr>
-
-    <tr>
-        <td class="font-bold">AGE:</td>
-        <td>{{ $borrower->age ?? 'N/A' }}</td>
-        <td class="font-bold">MARITAL STATUS:</td>
-        <td>{{ $borrower->marital_status ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">HOME OWNERSHIP STATUS:</td>
-        <td>{{ $borrower->home_ownership_status ?? 'N/A' }}</td>
-        <td class="font-bold">NATIONALITY:</td>
-        <td>{{ $borrower->nationality ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">NEXT OF KIN NAME:</td>
-        <td>{{ $borrower->next_of_kin_name ?? 'N/A' }}</td>
-        <td class="font-bold">NEXT OF KIN MOBILE NUMBER:</td>
-        <td>{{ $borrower->next_of_kin_mobile_number ?? 'N/A' }}</td>
-    </tr>
     </tbody>
 </table>
 
@@ -216,8 +211,8 @@
         </tr>
         <tr>
 
-            <td class="font-bold">Job Title/Designation</td>
-            <td>{{ $borrower->employment_information->job_title_designation ?? 'N/A' }}</td>
+            <td class="font-bold">Service Status</td>
+            <td>{{ $borrower->employment_information->service_status ?? 'N/A' }}</td>
             <td class="font-bold">Department</td>
             <td>{{ $borrower->employment_information->department ?? 'N/A' }}</td>
 
@@ -273,71 +268,73 @@
 
         <tr>
             <td class="font-bold">Other Sources of Income</td>
-            <td>{{ $borrower->employment_information->other_sources_of_income ?? 'N/A' }}</td>
-            <td class="font-bold">Service Status</td>
-            <td>{{ $borrower->employment_information->service_status ?? 'N/A' }}</td>
+            <td colspan="6">{{ $borrower->employment_information->other_sources_of_income ?? 'N/A' }}</td>
         </tr>
         </tbody>
     </table>
-
+@if($borrower->applicant_requested_loan_information)
     <table>
         <thead>
-        <tr>
-            <th colspan="4" class="text-center">Requested Loan Information</th>
-        </tr>
+            <tr>
+                <th colspan="4" class="text-center">Requested Loan Information</th>
+            </tr>
         </thead>
         <tbody>
-        <tr>
-            <td class="font-bold w-25">Request Date:</td>
-            <td class="w-25">{{ $borrower->applicant_requested_loan_information->request_date ?? 'N/A' }}</td>
-            <td class="font-bold w-25">Requested Amount:</td>
-            <td class="w-25">{{ $borrower->applicant_requested_loan_information->requested_amount ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <td class="font-bold">Margin on Gold Limit:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->margin_on_gold_limit ?? 'N/A' }}</td>
-            <td class="font-bold">Currency:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->currency ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <td class="font-bold">Loan Purpose:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->loan_purpose ?? 'N/A' }}</td>
-            <td class="font-bold">Status:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->status ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <td class="font-bold">Tenure in Years:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->tenure_in_years ?? 'N/A' }}</td>
-            <td class="font-bold">Tenure in Months:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->tenure_in_months ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <td class="font-bold">Repayment Frequency:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->repayment_frequency ?? 'N/A' }}</td>
-            <td class="font-bold">Salary Account No:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->salary_account_no ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <td class="font-bold">Salary Account Branch Name:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->salary_account_branch_name ?? 'N/A' }}</td>
-            <td class="font-bold">Salary Account Bank Name:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->salary_account_bank_name ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <td class="font-bold">Account with BAJK:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->account_with_bajk ?? 'N/A' }}</td>
-            <td class="font-bold">Account with Other Banks:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->account_with_other_banks ?? 'N/A' }}</td>
-        </tr>
-        <tr>
-            <td class="font-bold">Markup Rate Type:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->markup_rate_type ?? 'N/A' }}</td>
-            <td class="font-bold">Is Insured:</td>
-            <td>{{ $borrower->applicant_requested_loan_information->is_insured ?? 'N/A' }}</td>
-        </tr>
+            <tr>
+                <td class="font-bold w-25">Request Date:</td>
+                <td class="w-25">{{ $borrower->applicant_requested_loan_information->request_date ?? 'N/A' }}</td>
+                <td class="font-bold w-25">Requested Amount:</td>
+                <td class="w-25">{{ $borrower->applicant_requested_loan_information->requested_amount ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Margin on Gold Limit:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->margin_on_gold_limit ?? 'N/A' }}</td>
+                <td class="font-bold">Currency:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->currency ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Loan Purpose:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->loan_purpose ?? 'N/A' }}</td>
+                <td class="font-bold">Status:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->status ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Tenure in Years:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->tenure_in_years ?? 'N/A' }}</td>
+                <td class="font-bold">Tenure in Months:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->tenure_in_months ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Repayment Frequency:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->repayment_frequency ?? 'N/A' }}</td>
+                <td class="font-bold">Salary Account No:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->salary_account_no ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Salary Account Branch Name:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->salary_account_branch_name ?? 'N/A' }}</td>
+                <td class="font-bold">Salary Account Bank Name:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->salary_account_bank_name ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Account with BAJK:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->account_with_bajk ?? 'N/A' }}</td>
+                <td class="font-bold">Account with Other Banks:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->account_with_other_banks ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Markup Rate Type:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->markup_rate_type ?? 'N/A' }}</td>
+                <td class="font-bold">Is Insured:</td>
+                <td>{{ $borrower->applicant_requested_loan_information->is_insured ?? 'N/A' }}</td>
+            </tr>
         </tbody>
     </table>
-
+@else
+<h1 style="color: red; text-align: center">
+    Requested Loan Information Is Missing
+ </h1>
+@endif
 
 
 <!-- <div class="page-break"></div> -->
@@ -353,9 +350,9 @@
             <tbody>
             <tr>
                 <td class="font-bold w-25">Father/Husband:</td>
-                <td class="w-25">{{ $reference->father_husband }}</td>
+                <td class="w-25">{{ $reference->father_husband ?? 'N/A'}}</td>
                 <td class="font-bold w-25">National ID:</td>
-                <td class="w-25">{{ $reference->national_id }}</td>
+                <td class="w-25">{{ $reference->national_id ?? 'N/A'}}</td>
             </tr>
             <tr>
                 <td class="font-bold">NTN:</td>
@@ -366,26 +363,26 @@
             </tr>
             <tr>
                 <td class="font-bold">Present Address:</td>
-                <td>{{ $reference->present_address }}</td>
+                <td>{{ $reference->present_address ?? 'N/A'}}</td>
                 <td class="font-bold">Permanent Address:</td>
-                <td>{{ $reference->permanent_address }}</td>
+                <td>{{ $reference->permanent_address ?? 'N/A'}}</td>
             </tr>
             <tr>
                 <td class="font-bold">Phone Number:</td>
-                <td>{{ $reference->phone_number }}</td>
+                <td>{{ $reference->phone_number?? 'N/A' }}</td>
                 <td class="font-bold">Mobile Number:</td>
-                <td>{{ $reference->mobile_number }}</td>
+                <td>{{ $reference->mobile_number?? 'N/A' }}</td>
             </tr>
             <tr>
                 <td class="font-bold">Email:</td>
-                <td>{{ $reference->email }}</td>
+                <td>{{ $reference->email?? 'N/A' }}</td>
                 <td class="font-bold">Designation:</td>
-                <td>{{ $reference->designation }}</td>
+                <td>{{ $reference->designation ?? 'N/A'}}</td>
             </tr>
 
             <tr>
                 <td class="font-bold">Relationship to Borrower:</td>
-                <td colspan="3">{{ $reference->relationship_to_borrower }}</td>
+                <td colspan="3">{{ $reference->relationship_to_borrower?? 'N/A' }}</td>
             </tr>
             </tbody>
         </table>
@@ -404,55 +401,56 @@
 
 @if(!$borrower->finance_facility_many->isEmpty())
     @foreach($borrower->finance_facility_many as $index => $facility)
-        <table>
+    <table style="width: 100%; font-size: 14px;">
             <thead>
             <tr>
                 <th colspan="4" class="text-center">Finance Facility Information # {{ $index + 1 }}</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="font-bold w-25">Institution Name:</td>
-                <td class="w-25">{{ $facility->institution_name }}</td>
-                <td class="font-bold w-25">Repayment Status:</td>
-                <td class="w-25">{{ $facility->repayment_status }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Facility Type:</td>
-                <td>{{ $facility->facility_type }}</td>
-                <td class="font-bold">Amount:</td>
-                <td>{{ $facility->amount }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Loan Limit:</td>
-                <td>{{ $facility->loan_limit }}</td>
-                <td class="font-bold">Outstanding Amount:</td>
-                <td>{{ $facility->outstanding_amount }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Monthly Installment:</td>
-                <td>{{ $facility->monthly_installment }}</td>
-                <td class="font-bold">Interest Rate (%):</td>
-                <td>{{ $facility->interest_rate }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Term (Months):</td>
-                <td>{{ $facility->term_months }}</td>
-                <td class="font-bold">Start Date:</td>
-                <td>{{ $facility->start_date }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">End Date:</td>
-                <td>{{ $facility->end_date }}</td>
-                <td class="font-bold">Purpose of Loan:</td>
-                <td>{{ $facility->purpose_of_loan }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Status:</td>
-                <td>{{ $facility->status }}</td>
-                <td class="font-bold">Remarks:</td>
-                <td>{{ $facility->remarks }}</td>
-            </tr>
+                <tr>
+                    <td class="font-bold w-25">Institution Name:</td>
+                    <td class="w-25">{{ $facility->institution_name ?? 'N/A' }}</td>
+                    <td class="font-bold w-25">Repayment Status:</td>
+                    <td class="w-25">{{ $facility->repayment_status ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Facility Type:</td>
+                    <td>{{ $facility->facility_type ?? 'N/A' }}</td>
+                    <td class="font-bold">Amount:</td>
+                    <td>{{ $facility->amount ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Loan Limit:</td>
+                    <td>{{ $facility->loan_limit ?? 'N/A' }}</td>
+                    <td class="font-bold">Outstanding Amount:</td>
+                    <td>{{ $facility->outstanding_amount ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Monthly Installment:</td>
+                    <td>{{ $facility->monthly_installment ?? 'N/A' }}</td>
+                    <td class="font-bold">Interest Rate (%):</td>
+                    <td>{{ $facility->interest_rate ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Term (Months):</td>
+                    <td>{{ $facility->term_months ?? 'N/A' }}</td>
+                    <td class="font-bold">Start Date:</td>
+                    <td>{{ $facility->start_date ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">End Date:</td>
+                    <td>{{ $facility->end_date ?? 'N/A' }}</td>
+                    <td class="font-bold">Purpose of Loan:</td>
+                    <td>{{ $facility->purpose_of_loan ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Status:</td>
+                    <td>{{ $facility->status ?? 'N/A' }}</td>
+                    <td class="font-bold">Remarks:</td>
+                    <td>{{ $facility->remarks ?? 'N/A' }}</td>
+                </tr>
+
             </tbody>
         </table>
         @if(!$loop->last)
@@ -465,33 +463,43 @@
     </h1>
 @endif
 <!-- <div class="page-break"></div> -->
-<table style="width: 100%; font-size: 15px;">
-    <thead>
-        <tr>
-            <th colspan="4" class="text-center">Documents</th>
-        </tr>
-        <tr>
-            <th class="w-25">ID</th>
-            <th class="w-25">Document Type</th>
-            <th class="w-25">Description</th>
-            <th class="w-25">Attachment</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($borrower->documents_uploaded as $doc)
+@if($borrower->documents_uploaded->isNotEmpty())
+    <table style="width: 100%; font-size: 14px;">
+        <thead>
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $doc->document_type }}</td>
-                <td>{{ $doc->description }}</td>
-                <td>@if(!empty($doc->path_attachment))
-                        Yes
-                    @else
-                        No
-                    @endif</td>
+                <th colspan="4" class="text-center">Documents</th>
             </tr>
-        @endforeach
-    </tbody>
-</table>
+            <tr>
+                <th class="w-25">ID</th>
+                <th class="w-25">Document Type</th>
+                <th class="w-25">Description</th>
+                <th class="w-25">Attachment</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($borrower->documents_uploaded as $doc)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $doc->document_type ?? 'N/A' }}</td>
+                    <td>{{ $doc->description ?? 'N/A' }}</td>
+                    <td>
+                        @if(!empty($doc->path_attachment))
+                            Yes
+                        @else
+                            No
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+@else
+ <h1 style="color: red; text-align: center">
+        Documents are missing
+    </h1>
+
+@endif
+
 
 @if(!$borrower->listHouseHoldItems->isEmpty())
 <table style="width: 100%; font-size: 15px;">
@@ -555,128 +563,125 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="font-bold w-25">Guarantor Type</td>
-                <td class="w-25">{{ $guarantor->guarantor_type }}</td>
-                <td class="font-bold w-25">Title</td>
-                <td class="w-25">{{ $guarantor->title }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Name</td>
-                <td>{{ $guarantor->name }}</td>
-                <td class="font-bold">Father/Husband</td>
-                <td>{{ $guarantor->father_husband }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">National ID</td>
-                <td>{{ $guarantor->national_id }}</td>
-                <td class="font-bold">Phone Number</td>
-                <td>{{ $guarantor->phone_number }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Phone Number Two</td>
-                <td>{{ $guarantor->phone_number_two }}</td>
-                <td class="font-bold">Email</td>
-                <td>{{ $guarantor->email }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Present Address</td>
-                <td>{{ $guarantor->present_address }}</td>
-                <td class="font-bold">Permanent Address</td>
-                <td>{{ $guarantor->permanent_address }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Department</td>
-                <td>{{ $guarantor->department }}</td>
-                <td class="font-bold">Designation</td>
-                <td>{{ $guarantor->designation }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Employer Name</td>
-                <td>{{ $guarantor->employer_name }}</td>
-                <td class="font-bold">Employee Personal Number</td>
-                <td>{{ $guarantor->employee_personal_number }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Employment Status</td>
-                <td>{{ $guarantor->employment_status }}</td>
-                <td class="font-bold">Monthly Gross Salary</td>
-                <td>{{ $guarantor->monthly_gross_salary }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Date of Retirement</td>
-                <td>{{ isset($guarantor->date_of_retirement) ? \Carbon\Carbon::parse($guarantor->date_of_retirement)->format('d/m/Y') : 'N/A' }}</td>
+                <tr>
+                    <td class="font-bold w-25">Guarantor Type</td>
+                    <td class="w-25">{{ $guarantor->guarantor_type ?? 'N/A' }}</td>
+                    <td class="font-bold w-25">Title</td>
+                    <td class="w-25">{{ $guarantor->title ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Name</td>
+                    <td>{{ $guarantor->name ?? 'N/A' }}</td>
+                    <td class="font-bold">Father/Husband</td>
+                    <td>{{ $guarantor->father_husband ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">National ID</td>
+                    <td>{{ $guarantor->national_id ?? 'N/A' }}</td>
+                    <td class="font-bold">Phone Number</td>
+                    <td>{{ $guarantor->phone_number ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Phone Number Two</td>
+                    <td>{{ $guarantor->phone_number_two ?? 'N/A' }}</td>
+                    <td class="font-bold">Email</td>
+                    <td>{{ $guarantor->email ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Present Address</td>
+                    <td>{{ $guarantor->present_address ?? 'N/A' }}</td>
+                    <td class="font-bold">Permanent Address</td>
+                    <td>{{ $guarantor->permanent_address ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Department</td>
+                    <td>{{ $guarantor->department ?? 'N/A' }}</td>
+                    <td class="font-bold">Designation</td>
+                    <td>{{ $guarantor->designation ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Employer Name</td>
+                    <td>{{ $guarantor->employer_name ?? 'N/A' }}</td>
+                    <td class="font-bold">Employee Personal Number</td>
+                    <td>{{ $guarantor->employee_personal_number ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Employment Status</td>
+                    <td>{{ $guarantor->employment_status ?? 'N/A' }}</td>
+                    <td class="font-bold">Monthly Gross Salary</td>
+                    <td>{{ $guarantor->monthly_gross_salary ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Date of Retirement</td>
+                    <td>{{ isset($guarantor->date_of_retirement) ? \Carbon\Carbon::parse($guarantor->date_of_retirement)->format('d/m/Y') : 'N/A' }}</td>
+                    <td class="font-bold">Relationship to Borrower</td>
+                    <td>{{ $guarantor->relationship_to_borrower ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Date of Birth</td>
+                    <td>{{ isset($guarantor->dob) ? \Carbon\Carbon::parse($guarantor->dob)->format('d/m/Y') : 'N/A' }}</td>
+                    <td class="font-bold">NTN</td>
+                    <td>{{ $guarantor->ntn ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Nature of Business</td>
+                    <td>{{ $guarantor->nature_of_business ?? 'N/A' }}</td>
+                    <td class="font-bold">Title of Business</td>
+                    <td>{{ $guarantor->title_of_business ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Major Business Activities</td>
+                    <td>{{ $guarantor->major_business_activities ?? 'N/A' }}</td>
+                    <td class="font-bold">Exact Location of Business Place</td>
+                    <td>{{ $guarantor->exact_location_of_business_place ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Business Bank Account Maintained</td>
+                    <td>{{ $guarantor->business_bank_account_maintained ?? 'N/A' }}</td>
+                    <td class="font-bold">Statement of Account Attachment</td>
+                    <td>{{ $guarantor->statement_of_account_attachment ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Net Worth</td>
+                    <td>{{ $guarantor->net_worth ?? 'N/A' }}</td>
+                    <td class="font-bold">Business Registration Number</td>
+                    <td>{{ $guarantor->business_registration_number ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Annual Revenue</td>
+                    <td>{{ $guarantor->annual_revenue ?? 'N/A' }}</td>
+                    <td class="font-bold">Annual Expenses</td>
+                    <td>{{ $guarantor->annual_expenses ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Net Annual Income</td>
+                    <td>{{ $guarantor->net_annual_income ?? 'N/A' }}</td>
+                    <td class="font-bold">BPS/SPS No</td>
+                    <td>{{ $guarantor->bps_sps_no ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Date of Joining</td>
+                    <td>{{ isset($guarantor->date_of_joining) ? \Carbon\Carbon::parse($guarantor->date_of_joining)->format('d/m/Y') : 'N/A' }}</td>
+                    <td class="font-bold">Remaining Service (25 Years)</td>
+                    <td>{{ $guarantor->remaining_service_25_years ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Remaining Service (60 Years)</td>
+                    <td>{{ $guarantor->remaining_service_60_years ?? 'N/A' }}</td>
+                    <td class="font-bold">DDO Title</td>
+                    <td>{{ $guarantor->ddo_title ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Monthly Salary</td>
+                    <td>{{ $guarantor->monthly_salary ?? 'N/A' }}</td>
+                    <td class="font-bold">Other Monthly Income</td>
+                    <td>{{ $guarantor->other_monthly_income ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Number of Dependents</td>
+                    <td colspan="3">{{ $guarantor->no_of_dependents ?? 'N/A' }}</td>
+                </tr>
 
-                <td class="font-bold">Relationship to Borrower</td>
-                <td>{{ $guarantor->relationship_to_borrower }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Date of Birth</td>
-                <td>{{ isset($guarantor->dob) ? \Carbon\Carbon::parse($guarantor->dob)->format('d/m/Y') : 'N/A' }}</td>
-
-                <td class="font-bold">NTN</td>
-                <td>{{ $guarantor->ntn }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Nature of Business</td>
-                <td>{{ $guarantor->nature_of_business }}</td>
-                <td class="font-bold">Title of Business</td>
-                <td>{{ $guarantor->title_of_business }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Major Business Activities</td>
-                <td>{{ $guarantor->major_business_activities }}</td>
-                <td class="font-bold">Exact Location of Business Place</td>
-                <td>{{ $guarantor->exact_location_of_business_place }}</td>
-            </tr>
-
-            <tr>
-                <td class="font-bold">Business Bank Account Maintained</td>
-                <td>{{ $guarantor->business_bank_account_maintained }}</td>
-                <td class="font-bold">Statement of Account Attachment</td>
-                <td>{{ $guarantor->statement_of_account_attachment }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Net Worth</td>
-                <td>{{ $guarantor->net_worth }}</td>
-                <td class="font-bold">Business Registration Number</td>
-                <td>{{ $guarantor->business_registration_number }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Annual Revenue</td>
-                <td>{{ $guarantor->annual_revenue }}</td>
-                <td class="font-bold">Annual Expenses</td>
-                <td>{{ $guarantor->annual_expenses }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Net Annual Income</td>
-                <td>{{ $guarantor->net_annual_income }}</td>
-                <td class="font-bold">BPS/SPS No</td>
-                <td>{{ $guarantor->bps_sps_no }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Date of Joining</td>
-                <td>{{ isset($guarantor->date_of_joining) ? \Carbon\Carbon::parse($guarantor->date_of_joining)->format('d/m/Y') : 'N/A' }}</td>
-
-                <td class="font-bold">Remaining Service (25 Years)</td>
-                <td>{{ $guarantor->remaining_service_25_years }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Remaining Service (60 Years)</td>
-                <td>{{ $guarantor->remaining_service_60_years }}</td>
-                <td class="font-bold">DDO Title</td>
-                <td>{{ $guarantor->ddo_title }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Monthly Salary</td>
-                <td>{{ $guarantor->monthly_salary }}</td>
-                <td class="font-bold">Other Monthly Income</td>
-                <td>{{ $guarantor->other_monthly_income }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Number of Dependents</td>
-                <td colspan="3">{{ $guarantor->no_of_dependents }}</td>
-            </tr>
             </tbody>
         </table>
         @if(!$loop->last)
@@ -696,59 +701,60 @@
     @foreach($borrower->vehicles as $index => $vehicle)
         <table>
             <thead>
-            <tr>
-                <th colspan="4" class="text-center">Vehicle Details # {{ $index + 1 }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="font-bold w-25">Vehicle Type</td>
-                <td class="w-25">{{ $vehicle->vehicle_type }}</td>
-                <td class="font-bold w-25">Price of Vehicle</td>
-                <td class="w-25">{{ $vehicle->price_of_vehicle }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Down Payment Percentage</td>
-                <td>{{ $vehicle->down_payment_percentage }}</td>
-                <td class="font-bold">Finance Amount</td>
-                <td>{{ $vehicle->finance_amount }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Model Year</td>
-                <td>{{ $vehicle->model_year }}</td>
-                <td class="font-bold">Year of Manufacturing</td>
-                <td>{{ $vehicle->year_of_manufacturing }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Make</td>
-                <td>{{ $vehicle->make }}</td>
-                <td class="font-bold">Model</td>
-                <td>{{ $vehicle->model }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Cost of Vehicle</td>
-                <td>{{ $vehicle->cost_of_vehicle }}</td>
-                <td class="font-bold">Equity Down Payment</td>
-                <td>{{ $vehicle->equity_dawn_payment }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Financial Institute Contribution</td>
-                <td>{{ $vehicle->financial_institute_contribution }}</td>
-                <td class="font-bold">Name of Authorized Dealer/Seller</td>
-                <td>{{ $vehicle->name_authorized_dealer_seller }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Repayment Mode</td>
-                <td>{{ $vehicle->repayment_mode }}</td>
-                <td class="font-bold">Tenure in Years</td>
-                <td>{{ $vehicle->tenure_in_years }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Tenure in Months</td>
-                <td>{{ $vehicle->tenure_in_month }}</td>
-                <td class="font-bold">Markup Rate Type</td>
-                <td>{{ $vehicle->markup_rate_type }}</td>
-            </tr>
+                <tr>
+                    <th colspan="4" class="text-center">Vehicle Details # {{ $index + 1 }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="font-bold w-25">Vehicle Type</td>
+                    <td class="w-25">{{ $vehicle->vehicle_type ?? 'N/A' }}</td>
+                    <td class="font-bold w-25">Price of Vehicle</td>
+                    <td class="w-25">{{ $vehicle->price_of_vehicle ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Down Payment Percentage</td>
+                    <td>{{ $vehicle->down_payment_percentage ?? 'N/A' }}</td>
+                    <td class="font-bold">Finance Amount</td>
+                    <td>{{ $vehicle->finance_amount ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Model Year</td>
+                    <td>{{ $vehicle->model_year ?? 'N/A' }}</td>
+                    <td class="font-bold">Year of Manufacturing</td>
+                    <td>{{ $vehicle->year_of_manufacturing ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Make</td>
+                    <td>{{ $vehicle->make ?? 'N/A' }}</td>
+                    <td class="font-bold">Model</td>
+                    <td>{{ $vehicle->model ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Cost of Vehicle</td>
+                    <td>{{ $vehicle->cost_of_vehicle ?? 'N/A' }}</td>
+                    <td class="font-bold">Equity Down Payment</td>
+                    <td>{{ $vehicle->equity_dawn_payment ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Financial Institute Contribution</td>
+                    <td>{{ $vehicle->financial_institute_contribution ?? 'N/A' }}</td>
+                    <td class="font-bold">Name of Authorized Dealer/Seller</td>
+                    <td>{{ $vehicle->name_authorized_dealer_seller ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Repayment Mode</td>
+                    <td>{{ $vehicle->repayment_mode ?? 'N/A' }}</td>
+                    <td class="font-bold">Tenure in Years</td>
+                    <td>{{ $vehicle->tenure_in_years ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="font-bold">Tenure in Months</td>
+                    <td>{{ $vehicle->tenure_in_month ?? 'N/A' }}</td>
+                    <td class="font-bold">Markup Rate Type</td>
+                    <td>{{ $vehicle->markup_rate_type ?? 'N/A' }}</td>
+                </tr>
+
             </tbody>
         </table>
         @if(!$loop->last)
@@ -783,7 +789,7 @@
     }
 @endphp
 
-<table>
+<table style="width: 100%; font-size: 14px;">
     <thead>
     <tr>
         <th colspan="6" class="text-center">Security Detail Information</th>
@@ -904,41 +910,41 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="font-bold w-25">Father/Husband:</td>
-                                <td class="w-25">{{ $reference->father_husband }}</td>
-                                <td class="font-bold w-25">National ID:</td>
-                                <td class="w-25">{{ $reference->national_id }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold">NTN:</td>
-                                <td>{{ $reference->ntn }}</td>
-                                <td class="font-bold">Date of Birth:</td>
-                                <td>{{ $reference->date_of_birth }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold">Present Address:</td>
-                                <td>{{ $reference->present_address }}</td>
-                                <td class="font-bold">Permanent Address:</td>
-                                <td>{{ $reference->permanent_address }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold">Phone Number:</td>
-                                <td>{{ $reference->phone_number }}</td>
-                                <td class="font-bold">Mobile Number:</td>
-                                <td>{{ $reference->mobile_number }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold">Email:</td>
-                                <td>{{ $reference->email }}</td>
-                                <td class="font-bold">Designation:</td>
-                                <td>{{ $reference->designation }}</td>
-                            </tr>
+                                <tr>
+                                    <td class="font-bold w-25">Father/Husband:</td>
+                                    <td class="w-25">{{ $reference->father_husband ?? 'N/A' }}</td>
+                                    <td class="font-bold w-25">National ID:</td>
+                                    <td class="w-25">{{ $reference->national_id ?? 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">NTN:</td>
+                                    <td>{{ $reference->ntn ?? 'N/A' }}</td>
+                                    <td class="font-bold">Date of Birth:</td>
+                                    <td>{{ isset($reference->date_of_birth) ? \Carbon\Carbon::parse($reference->date_of_birth)->format('d/m/Y') : 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Present Address:</td>
+                                    <td>{{ $reference->present_address ?? 'N/A' }}</td>
+                                    <td class="font-bold">Permanent Address:</td>
+                                    <td>{{ $reference->permanent_address ?? 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Phone Number:</td>
+                                    <td>{{ $reference->phone_number ?? 'N/A' }}</td>
+                                    <td class="font-bold">Mobile Number:</td>
+                                    <td>{{ $reference->mobile_number ?? 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Email:</td>
+                                    <td>{{ $reference->email ?? 'N/A' }}</td>
+                                    <td class="font-bold">Designation:</td>
+                                    <td>{{ $reference->designation ?? 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Relationship to Borrower:</td>
+                                    <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
+                                </tr>
 
-                            <tr>
-                                <td class="font-bold">Relationship to Borrower:</td>
-                                <td colspan="3">{{ $reference->relationship_to_borrower }}</td>
-                            </tr>
                             </tbody>
                         </table>
                         @if(!$loop->last)
@@ -957,10 +963,12 @@
                 <h1 class="text-2xl text-red-500">You must add at least two reference not more then two</h1>
             @endif
         @else
-            <h1 class="text-2xl text-red-500">Please add at least two reference</h1>
+          <h1 style="color: red; text-align: center; font-size: 20px;">
+
+                 Please add at least two reference
+                 </h1>
+
         @endif
-
-
 
         @if(!empty($borrower->applicant_requested_loan_information))
             <table>
@@ -970,12 +978,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="font-bold w-25">Nature of Business Profession</td>
-                    <td class="w-25">{{ $borrower->applicant_requested_loan_information->nature_of_business }}</td>
-                    <td class="font-bold w-25">Any Other</td>
-                    <td class="w-25">{{ $borrower->applicant_requested_loan_information->nature_of_business_other }}</td>
-                </tr>
+                    <tr>
+                        <td class="font-bold w-25">Nature of Business Profession</td>
+                        <td class="w-25">{{ $borrower->applicant_requested_loan_information->nature_of_business ?? 'N/A' }}</td>
+                        <td class="font-bold w-25">Any Other</td>
+                        <td class="w-25">{{ $borrower->applicant_requested_loan_information->nature_of_business_other ?? 'N/A' }}</td>
+                    </tr>
+
                 </tbody>
             </table>
             @else
@@ -984,12 +993,7 @@
          Requested Loan DataMissing
          </h1>
 
-
         @endif
-
-
-
-
 
 
         @if($borrower->finance_facility_many->isNotEmpty())
@@ -1014,14 +1018,15 @@
                 <tbody>
 
                 @foreach($borrower->finance_facility_many as $item)
-                    <tr>
-                        <td class="font-bold w-16 text-center">{{ $item->facility_type }}</td>
-                        <td class="w-16 text-center">{{ $item->sanctioned_amount }}</td>
-                        <td class="w-16 text-center">{{ $item->end_date }} </td>
-                        <td class="w-16 text-center">{{ $item->repayment_status }}</td>
-                        <td class="font-bold w-16 text-center">{{ $item->outstanding_amount }}</td>
-                        <td class="w-16 text-center"> {{ $item->amount_rescheduled }}</td>
-                    </tr>
+                <tr>
+                    <td class="font-bold w-16 text-center">{{ $item->facility_type ?? 'N/A' }}</td>
+                    <td class="w-16 text-center">{{ $item->sanctioned_amount ?? 'N/A' }}</td>
+                    <td class="w-16 text-center">{{ isset($item->end_date) ? \Carbon\Carbon::parse($item->end_date)->format('d/m/Y') : 'N/A' }}</td>
+                    <td class="w-16 text-center">{{ $item->repayment_status ?? 'N/A' }}</td>
+                    <td class="font-bold w-16 text-center">{{ $item->outstanding_amount ?? 'N/A' }}</td>
+                    <td class="w-16 text-center">{{ $item->amount_rescheduled ?? 'N/A' }}</td>
+                </tr>
+
                 @endforeach
                 </tbody>
             </table>
@@ -1106,12 +1111,209 @@
     </h1>
 @endif
 
-<div class="page-break"></div>
-<h2 class="text-sm text-center my-2 uppercase underline font-bold text-black">Personal Net Worth Statement (PNWS)</h2>
-<h2 class="text-sm text-center my-2 uppercase font-bold text-black">ACCOUNT AT THE BANK OF AZAD JAMMU & KASHMIR {{ $borrower->branch?->name }}</h2>
-<h2 class="text-sm text-center my-2 font-bold text-black">DATE OF REQUEST: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-m-Y') }}</h2>
-<div class="relative overflow-x-auto px-2">
-</div>
+
+    <div class="page-break"></div>
+
+<div class="mb-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent dark:border-gray-700">
+    <h2 class="text-sm text-center my-2 uppercase underline font-bold text-black">Personal Net Worth Statement (PNWS)</h2>
+    <h2 class="text-sm text-center my-2 uppercase font-bold text-black">ACCOUNT AT THE BANK OF AZAD JAMMU & KASHMIR {{ $borrower->branch?->name }}</h2>
+    <h2 class="text-sm text-center my-2 font-bold text-black">DATE OF REQUEST: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-m-Y') }}</h2>
+
+    @if(!empty($borrower->personalNetWorthStat))
+        <table>
+            <thead>
+            <tr>
+                <th colspan="4" class="text-center">Personal Net Worth Statement (PNWS)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="font-bold w-25">Name:</td>
+                <td class="w-25">{{ $borrower->name ?? 'N/A' }}</td>
+                <td class="font-bold">Parent/Spouse Name:</td>
+                <td>{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">National ID (CNIC):</td>
+                <td>{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
+                <td class="font-bold">NTN:</td>
+                <td>{{ $borrower->ntn ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Present Address:</td>
+                <td>{{ $borrower->present_address ?? 'N/A' }}</td>
+                <td class="font-bold">Permanent Address:</td>
+                <td>{{ $borrower->permanent_address ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Educational Qualification:</td>
+                <td>{{ $borrower->education_qualification ?? 'N/A' }}</td>
+                <td class="font-bold">Profession:</td>
+                <td>{{ $borrower->occupation_title ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold">Phone Number:</td>
+                <td>{{ $borrower->phone_number ?? 'N/A' }}</td>
+                <td class="font-bold">Mobile Number:</td>
+                <td>{{ $borrower->mobile_number ?? 'N/A' }}</td>
+            </tr>
+            </tbody>
+        </table>
+    @endif
+
+    @if($borrower->personalNetWorthStat?->personal_form_a?->isNotEmpty())
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th colspan="5" class="text-left">A. Immovable Assets/ Real Estates, owned in Personal Capacity</th>
+                </tr>
+                <tr>
+                    <th class="text-center">Particulars</th>
+                    <th class="text-center">In the name of</th>
+                    <th class="text-center">Self acquired Or Family property</th>
+                    <th class="text-center">Encumbered d to (*)</th>
+                    <th class="text-center">Market Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($borrower->personalNetWorthStat?->personal_form_a as $item)
+                    <tr>
+                        <td class="text-center">{{ $item->particulars ?? 'N/A' }}</td>
+                        <td class="text-center">{{ $item->in_name_of ?? 'N/A' }}</td>
+                        <td class="text-center">{{ $item->self_acquired_family_property ?? 'N/A' }}</td>
+                        <td class="text-center">{{ $item->encumber_d_to_asterisk ?? 'N/A' }}</td>
+                        <td class="text-center">{{ number_format($item->market_value, 2) ?? 'N/A' }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="4" class="text-right">Total Market Value</th>
+                    <th class="text-center">{{ number_format($borrower->personalNetWorthStat?->personal_form_a->sum('market_value'), 2) }}</th>
+                </tr>
+            </tfoot>
+        </table>
+    @else
+    <h1 style="color: red; text-align: center">
+        Form A (Immovable Assets/ Real Estates) is missing.
+    </h1>
+    @endif
+
+    @if($borrower->personalNetWorthStat?->personal_form_b?->isNotEmpty())
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th colspan="3" class="text-left">B. Movable Assets/ Securities etc.</th>
+                </tr>
+                <tr>
+                    <th class="text-center">Particulars</th>
+                    <th class="text-center">Description</th>
+                    <th class="text-center">Current Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($borrower->personalNetWorthStat?->personal_form_b as $item)
+                    <tr>
+                        <td class="text-center">{{ $item->particulars ?? 'N/A' }}</td>
+                        <td class="text-center">{{ $item->description ?? 'N/A' }}</td>
+                        <td class="text-center">{{ number_format($item->current_value, 2) ?? 'N/A' }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2" class="text-right">Total Value</th>
+                    <th class="text-center">{{ number_format($borrower->personalNetWorthStat?->personal_form_b->sum('current_value'), 2) }}</th>
+                </tr>
+            </tfoot>
+        </table>
+    @else
+    <h1 style="color: red; text-align: center">
+        Form B (Movable Assets/ Securities) is missing.
+    </h1>
+    @endif
+
+    @if($borrower->personalNetWorthStat?->personal_form_c?->isNotEmpty())
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+
+
+                    <th colspan="3" class="text-left">C. Liabilities Other than on business.</th>
+                </tr>
+                <tr>
+                    <th class="text-center">Particulars</th>
+                    <th class="text-center">Description</th>
+                    <th class="text-center">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($borrower->personalNetWorthStat?->personal_form_c as $item)
+                    <tr>
+                        <td class="text-center">{{ $item->particulars ?? 'N/A' }}</td>
+                        <td class="text-center">{{ $item->description ?? 'N/A' }}</td>
+                        <td class="text-center">{{ number_format($item->amount, 2) ?? 'N/A' }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2" class="text-right">Total Amount</th>
+                    <th class="text-center">{{ number_format($borrower->personalNetWorthStat?->personal_form_c->sum('amount'), 2) }}</th>
+                </tr>
+            </tfoot>
+        </table>
+    @else
+    <h1 style="color: red; text-align: center">
+        Form C (Liabilities) is missing
+     </h1>
+    @endif
+
+    @if($borrower->personalNetWorthStat?->personal_form_a?->isNotEmpty() && $borrower->personalNetWorthStat?->personal_form_b?->isNotEmpty() && $borrower->personalNetWorthStat?->personal_form_c?->isNotEmpty())
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th colspan="2" class="text-center">Net Worth = (A + B - C)</th>
+                    <th class="text-center">{{ number_format(
+                        ($borrower->personalNetWorthStat?->personal_form_a->sum('market_value') +
+                        $borrower->personalNetWorthStat?->personal_form_b->sum('current_value')) -
+                        $borrower->personalNetWorthStat?->personal_form_c->sum('amount'), 2)
+                    }}</th>
+                </tr>
+            </thead>
+        </table>
+    @endif
+    @if($borrower->personalNetWorthStat?->personal_form_d?->isNotEmpty())
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4" class="text-left">D.</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center w-20">Bank Institution</th>
+                                            <th class="text-center w-20">Amount</th>
+                                            <th class="text-center w-20">Expiry Date</th>
+                                            <th class="text-center w-20">Nature of Guarantee/ Surety</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($borrower->personalNetWorthStat->personal_form_d as $item)
+                                            <tr>
+                                                <td class="w-20 text-center">{{ $item->bank_institution ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->amount ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->expiry_date ?? 'N/A' }}</td>
+                                                <td class="w-20 text-center">{{ $item->nature_of_guarantee ?? 'N/A' }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                            <h1 style="color: red; text-align: center">
+                                Form D is missing
+                            </h1>
+                            @endif
+
+                            </div>
 
 
 </body>
