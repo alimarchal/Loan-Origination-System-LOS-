@@ -285,9 +285,28 @@
 
                                         @can('inputter')
                                             <x-button class="ml-2" id="submit-btn">Update Borrower</x-button>
+
+
+                                            @php
+                                                $checklist = \App\Models\Checklist::where('loan_sub_category_id', $borrower->loan_sub_category->id)->orderBy('sequence_no')->get();
+                                                $currentIndex = $checklist->search(fn($item) => request()->routeIs($item->route));
+                                                $prevItem = $checklist[$currentIndex - 1] ?? null;
+                                                $nextItem = $checklist[$currentIndex + 1] ?? null;
+                                            @endphp
+                                            @if($prevItem)
+                                                <a href="{{ route($prevItem->route, $borrower->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2">
+                                                    Previous
+                                                </a>
+                                            @endif
+                                            @if($nextItem)
+                                                <a href="{{ route($nextItem->route, $borrower->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2">
+                                                    Next
+                                                </a>
+                                            @endif
+
                                         @endcan
 
-{{--                                        <a href="{{ route('applicant.employment-information.edit', $borrower->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2">Next</a>--}}
+
                                     @endif
                                 </div>
 
@@ -452,5 +471,35 @@
                     }, 300));
                 });
             </script>
+
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const cnicInput = document.getElementById('national_id_cnic');
+                    const mobileInput = document.getElementById('mobile_number');
+
+                    const formatCNIC = (value) => {
+                        return value.replace(/\D/g, '')
+                            .replace(/(\d{5})(\d{7})(\d{1})/, '$1-$2-$3')
+                            .substr(0, 15); // CNIC format: 00000-0000000-0
+                    };
+
+                    const formatPhoneNumber = (value) => {
+                        return value.replace(/\D/g, '')
+                            .replace(/(\d{4})(\d{7})/, '$1-$2')
+                            .substr(0, 12); // Phone format: 0000-0000000
+                    };
+
+                    cnicInput.addEventListener('input', function(e) {
+                        e.target.value = formatCNIC(e.target.value);
+                    });
+
+                    mobileInput.addEventListener('input', function(e) {
+                        e.target.value = formatPhoneNumber(e.target.value);
+                    });
+
+                });
+            </script>
+
         @endpush
 </x-app-layout>
