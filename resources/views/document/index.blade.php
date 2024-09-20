@@ -97,7 +97,27 @@
                             Add New Document
                         </a>
                     </div>
+                    <div class="flex items-center justify-end mt-4">
+                        @can('inputter')
 
+                                @php
+                                    $checklist = \App\Models\Checklist::where('loan_sub_category_id', $borrower->loan_sub_category->id)->orderBy('sequence_no')->get();
+                                    $currentIndex = $checklist->search(fn($item) => request()->routeIs($item->route));
+                                    $prevItem = $checklist[$currentIndex - 1] ?? null;
+                                    $nextItem = $checklist[$currentIndex + 1] ?? null;
+                                @endphp
+                                @if($prevItem)
+                                    <a href="{{ route($prevItem->route, $borrower->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2">
+                                        Previous
+                                    </a>
+                                @endif
+                                @if($nextItem)
+                                    <a href="{{ route($nextItem->route, $borrower->id) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2">
+                                        Next
+                                    </a>
+                                @endif
+                        @endcan
+                    </div>
                 </div>
             </div>
         </div>

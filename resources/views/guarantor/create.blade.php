@@ -206,6 +206,8 @@
                                 <x-button class="ml-4">
                                     {{ __('Save') }}
                                 </x-button>
+
+
                             </div>
                         </form>
                     </div>
@@ -213,5 +215,32 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cnicInput = document.getElementById('national_id');
+            const mobileInput = document.getElementById('phone_number_two');
+
+            const formatCNIC = (value) => {
+                return value.replace(/\D/g, '')
+                    .replace(/(\d{5})(\d{7})(\d{1})/, '$1-$2-$3')
+                    .substr(0, 15); // CNIC format: 00000-0000000-0
+            };
+
+            const formatPhoneNumber = (value) => {
+                return value.replace(/\D/g, '')
+                    .replace(/(\d{4})(\d{7})/, '$1-$2')
+                    .substr(0, 12); // Phone format: 0000-0000000
+            };
+
+            cnicInput.addEventListener('input', function(e) {
+                e.target.value = formatCNIC(e.target.value);
+            });
+
+            mobileInput.addEventListener('input', function(e) {
+                e.target.value = formatPhoneNumber(e.target.value);
+            });
+
+        });
+    </script>
 </x-app-layout>
 
