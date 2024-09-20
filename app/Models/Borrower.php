@@ -194,6 +194,11 @@ class Borrower extends Model
         return $this->hasMany(Security::class);
     }
 
+    public function net_worth(): HasOne
+    {
+        return $this->hasOne(NetWorth::class);
+    }
+
 
     public function statusHistories(): HasMany
     {
@@ -204,6 +209,7 @@ class Borrower extends Model
     {
         return $this->statusHistories()->latest()->first();
     }
+
 }
 
 // In App\Models\Borrower

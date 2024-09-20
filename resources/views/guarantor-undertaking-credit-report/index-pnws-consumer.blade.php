@@ -233,10 +233,6 @@
 
      <td colspan="2" class="section-title"><b>D: DETAILS OF LIABILITIES & ASSETS</b></td>
 
-
-
-
-
                             <div class="relative overflow-x-auto px-2 personal-net-worth-calculator">
                                 <livewire:personal-net-worth-calculator :borrower-id="$borrower->id" />
                             </div>

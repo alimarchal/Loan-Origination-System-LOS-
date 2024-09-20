@@ -33,6 +33,8 @@ class User extends Authenticatable
         'email',
         'password',
         'designation',
+'placement',
+'employee_no',
         'grade',
         'nadra_verification_for_signature',
         'nadra_verification_scanned_attachment',

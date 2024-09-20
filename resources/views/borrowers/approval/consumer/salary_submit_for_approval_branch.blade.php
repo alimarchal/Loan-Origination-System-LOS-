@@ -48,7 +48,7 @@
 
                                 <div class="mt-2">
                                     <x-label for="description" value="{{ __('Remarks') }}" />
-                                    <x-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" required />
+                                    <x-input id="description" class="block mt-1 w-full" type="text" name="description" value="This application has been reviewed and meets all necessary criteria outlined in our banks current policies, guidelines before submitting, and confirming my password for verification. It is recommended to proceed for approval, as per bank policy." required />
                                 </div>
 
                                 <div class="mt-2">

@@ -47,6 +47,8 @@ class UserController extends Controller implements HasMiddleware
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'designation' => 'required',
+            'placement' => 'required',
+            'employee_no' => 'required',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|exists:roles,id',
         ]);
@@ -55,6 +57,8 @@ class UserController extends Controller implements HasMiddleware
             'name' => $request->name,
             'email' => $request->email,
             'designation' => $request->designation,
+            'placement' => $request->placement,
+            'employee_no' => $request->employee_no,
             'password' => Hash::make($request->password),
         ]);
 
@@ -77,6 +81,8 @@ class UserController extends Controller implements HasMiddleware
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'designation' => 'required',
+            'placement' => 'required',
+            'employee_no' => 'required',
             'permissions' => 'array',
             'permissions.*' => 'exists:permissions,id',
         ]);

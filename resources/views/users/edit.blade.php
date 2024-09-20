@@ -31,6 +31,16 @@
                         <x-input id="designation" class="block mt-1 w-full" type="text" name="designation" :value="$user->designation" />
                     </div>
 
+                    <div class="mt-4">
+                        <x-label for="placement" value="{{ __('Placement') }}" />
+                        <x-input id="placement" class="block mt-1 w-full" type="text" name="placement" :value="$user->placement" />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-label for="employee_no" value="{{ __('Employee No') }}" />
+                        <x-input id="employee_no" class="block mt-1 w-full" type="text" name="employee_no" :value="$user->employee_no" />
+                    </div>
+
 
 {{--                    <div class="mt-4">--}}
 {{--                        <x-label for="role" value="{{ __('Role') }}" />--}}
