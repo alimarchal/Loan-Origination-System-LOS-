@@ -154,16 +154,20 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
                                         @endif
-                                    @elseif($item->sequence_no == 2)
+                                        @elseif($item->sequence_no == 2)
                                         @if(!empty($borrower->employment_information) && $borrower->employment_information->count() == 1)
+                                            <!-- Display the checkmark icon if employment information is filled -->
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                             </svg>
                                         @else
+                                            <!-- Display the cross icon if employment information is not filled -->
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
+
                                         @endif
+
                                     @elseif($item->sequence_no == 3)
                                         @if(!empty($borrower->applicant_requested_loan_information) && $borrower->applicant_requested_loan_information->count() == 1)
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
@@ -173,6 +177,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
+
                                         @endif
 
                                         @elseif($item->sequence_no == 4)
@@ -187,7 +192,7 @@
                                             @endif
 
                                             @elseif($item->sequence_no == 5)
-                                            @if(!empty($borrower->finance_facility) && $borrower->finance_facility->count() >= 1)
+                                            @if(!empty($borrower->finance_facility_many) && $borrower->finance_facility_many->count() >= 1)
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                                 </svg>
@@ -228,7 +233,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
                                         @endif @elseif($item->sequence_no == 9)
-                                        @if(!empty($list_house_hold_item) && $borrower->list_house_hold_item->count() == 1)
+                                        @if(!empty($listHouseHoldItems) && $borrower->listHouseHoldItems->count() == 1)
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                             </svg>
@@ -236,8 +241,20 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
-                                        @endif @elseif($item->sequence_no == 10)
-                                        @if(!empty($borrower->obligor_score_cards) && $borrower->obligor_score_cards->count() == 1)
+                                            @endif
+                                            @elseif($item->sequence_no == 10)
+                                            @if(!empty($borrower->obligor_score_card) && $borrower->obligor_score_card)
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                </svg>
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                                </svg>
+                                            @endif
+
+                                         @elseif($item->sequence_no == 11)
+                                        @if(empty($borrower->fact_sheet))
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                             </svg>
@@ -245,25 +262,33 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                             </svg>
-                                        @endif @elseif($item->sequence_no == 11)
-                                        @if(!empty($borrower->basic_borrower_fact_sheet_consumers) && $borrower->basic_borrower_fact_sheet_consumers)
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                            </svg>
-                                        @else
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                            </svg>
-                                        @endif @elseif($item->sequence_no == 12)
-                                        @if(!empty($borrower->personal_net_worth_stats) && $borrower->personal_net_worth_stats)
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                                            </svg>
-                                        @else
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                            </svg>
-                                        @endif @elseif($item->sequence_no == 13)
+                                            @endif
+                                            @elseif($item->sequence_no == 12)
+
+                                            @if(!empty($borrower->personalNetWorthStat))
+                                                @php
+                                                    $allFormsPresent = collect(['personal_form_a', 'personal_form_b', 'personal_form_c', 'personal_form_d'])
+                                                        ->every(fn($form) => !$borrower->personalNetWorthStat->$form->isEmpty());
+                                                @endphp
+
+                                                @if($allFormsPresent)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                                    </svg>
+                                                @endif
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                                </svg>
+                                            @endif
+
+
+
+                                        @elseif($item->sequence_no == 13)
                                         @if(!empty($borrower->guarantor_undertaking))
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
@@ -285,14 +310,113 @@
                                           @endif
                                           @endif
 
-                                    </td>
+                                </td>
+                                <td class="text-center fixed-height">
+                                    @if($item->sequence_no == 1)
+
+                                    @elseif($item->sequence_no == 2)
+                                        @if(empty($borrower->employment_information) || $borrower->employment_information->count() == 0)
+                                        <div style="text-align;">
+                                            <strong>Employment Information Missing</strong>
+                                        </div>
+
+                                        @endif
+                                    @elseif($item->sequence_no == 3)
+                                        @if(empty($borrower->applicant_requested_loan_information) || $borrower->applicant_requested_loan_information->count() == 0)
+                                        <div style="text-align;">
+                                            <strong>Requested Loan Information Missing</strong>
+                                        </div>
+                                        @endif
+                                    @elseif($item->sequence_no == 4)
+                                        @if(empty($borrower->guarantor) || $borrower->guarantor->count() < 2)
+                                        <div style="text-align;">
+                                            <strong> Guarantor Information Missing</strong>
+                                        </div>
+                                        @endif
+                                        @elseif($item->sequence_no == 5)
+                                        @if(empty($borrower->finance_facility_many) || $borrower->finance_facility_many->count() == 0)
+                                        <div style="text-align;">
+                                            <strong> Finance Facility Missing</strong>
+                                        </div>
+                                        @else
+                                        <div style="text-align;">
+                                            <strong>Finance Facility has been skipped by the manager.</strong>
+                                        </div>
+                                        @endif
+
+                                    @elseif($item->sequence_no == 6)
+                                        @if(empty($borrower->security) || $borrower->security->count() < 3)
+                                        <div style="text-align;">
+                                            <strong>Security Information Missing</strong>
+                                        @endif
+                                    @elseif($item->sequence_no == 7)
+                                        @if(empty($borrower->reference) || $borrower->reference->count() < 2)
+                                            <div style="text-align;">
+                                            <strong>References Missing</strong>
+                                        @endif
+                                    @elseif($item->sequence_no == 8)
+                                        @if(empty($borrower->documents) || $borrower->documents->count() == 0)
+                                        <div style="text-align;">
+                                            <strong>Documents Missing</strong>
+                                        </div>
+                                        @endif
+                                    @elseif($item->sequence_no == 9)
+                                        @if(empty($listHouseHoldItems) || $borrower->listHouseHoldItems->count() == 1)
+                                        <div style="text-align;">
+                                            <strong>Household Items Missing</strong>
+                                        </div>
+                                        @endif
+                                    @elseif($item->sequence_no == 10)
+                                    @if(empty($borrower->obligor_score_card) || ($borrower->obligor_score_card->count() == 1))
+                                    <div style="text-align;">
+                                    <strong> Obligor Score Card Missing</strong>
+                                    </div>
+                                @endif
+
+                                        @elseif($item->sequence_no == 11)
+                                        @if(empty($borrower->fact_sheet))
+
+                                    @endif
+
+                                        @elseif($item->sequence_no == 12)
+                                        @if(!empty($borrower->personalNetWorthStat))
+                                            @php
+                                                $missingForms = [];
+                                                if ($borrower->personalNetWorthStat?->personal_form_a->isEmpty()) {
+                                                    $missingForms[] = 'Form A Missing';
+                                                }
+                                                if ($borrower->personalNetWorthStat?->personal_form_b->isEmpty()) {
+                                                    $missingForms[] = 'Form B  Missing';
+                                                }
+                                                if ($borrower->personalNetWorthStat?->personal_form_c->isEmpty()) {
+                                                    $missingForms[] = 'Form C  Missing';
+                                                }
+                                                if ($borrower->personalNetWorthStat?->personal_form_d->isEmpty()) {
+                                                    $missingForms[] = 'Form D  Missing';
+                                                }
+                                            @endphp
+
+                                            @if(!empty($missingForms))
+                                                <strong>{{ implode(', ', $missingForms) }} is missing.</strong>
+                                            @endif
+                                        @else
+                                            <strong>Personal Net Worth Statement</strong>
+                                        @endif
 
 
-                                    <td class="font-bold text-center w-30">
-                                        {{ $item->description }}
-                                    </td>
-                                </tr>
-                            @endforeach
+
+                                    @elseif($item->sequence_no == 13)
+                                        @if(empty($borrower->guarantor_undertaking))
+                                            <strong> Guarantor Undertaking Missing</strong>
+                                        @endif
+                                    @elseif($item->sequence_no == 14)
+                                        @if(empty($borrower->employer_undertaking))
+                                            <strong> Employer Undertaking Missing</strong>
+                                        @endif
+                                    @endif
+                                </td>
+                              </tr>
+                          @endforeach
                             </tbody>
                         </table>
                     </div>
