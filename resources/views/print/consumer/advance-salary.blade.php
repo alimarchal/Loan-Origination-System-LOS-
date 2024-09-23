@@ -833,27 +833,27 @@
 
                                   <tbody class="text-black">
                                     <tr>
-                                        <td class="font-bold w-25">NAME:</td>
+                                        <td class="font-bold w-25">Name:</td>
                                         <td class="w-25">{{ strtoupper($borrower->name) }}</td>
-                                        <td class="font-bold w-25">ADDRESS:</td>
+                                        <td class="font-bold w-25">Address:</td>
                                         <td class="w-25">{{ strtoupper($firstLine) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-bold w-25">ADDRESS (LINE 2):</td>
+                                        <td class="font-bold w-25">Address (Line 2):</td>
                                         <td class="w-25">{{ strtoupper($secondLine) }}</td>
-                                        <td class="font-bold w-25">PHONE </td>
+                                        <td class="font-bold w-25">Phone </td>
                                         <td class="w-25">{{ $borrower->phone_number ?? 'N/A' }}</td>
                                     </tr>
                                     <tr>
                                         <td class="font-bold w-25">CNIC:</td>
                                         <td class="w-25">{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
-                                        <td class="font-bold w-25">EMAIL ADDRESS:</td>
+                                        <td class="font-bold w-25">Email Address:</td>
                                         <td class="w-25">{{ $borrower->email ?? 'N/A' }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-bold w-25">FATHER’S NAME:</td>
+                                        <td class="font-bold w-25">Fathers Name :</td>
                                         <td class="w-25">{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
-                                        <td class="font-bold w-25">FATHER’S CNIC :</td>
+                                        <td class="font-bold w-25">Fathers CNIC :</td>
                                         <td class="w-25">{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
                                     </tr>
                                     <tr>
@@ -1317,9 +1317,45 @@
                         @endif
 
                     </div>
+                    <hr style=" border:2px solid black;" class="mb-4"></h1>
+                    <h1 class="text-center mb-4 text-2xl font-bold">Form Submit Details</h1>
 
-                    <hr style=" border:2px solid black;" class="mb-4">
-                    <h1 class="text-center mb-4 text-2xl font-bold">Form</h1>
+                    <form action="/your-action-url" method="POST" enctype="multipart/form-data" class="max-w-lg mx-auto bg-white border border-gray-300 rounded-lg shadow-lg p-4">
+                        <div class="mb-4">
+                            <label for="submitFrom" class="block text-sm font-medium text-gray-700">Submit From</label>
+                            <input type="text" id="submitFrom" name="submit_from" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="submitTo" class="block text-sm font-medium text-gray-700">Submit To</label>
+                            <input type="text" id="submitTo" name="submit_to" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                            <textarea id="description" name="description" rows="4" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="loanStatus" class="block text-sm font-medium text-gray-700">Loan Status</label>
+                            <select id="loanStatus" name="loan_status" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2">
+                                <option value="">Select Status</option>
+                                <option value="approved">Approved</option>
+                                <option value="pending">In Process</option>
+                                <option value="submitted">Submitted</option>
+                                <option value="declined">Declined</option>
+                                <option value="return_with_observation">Return With Observation</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="attachment" class="block text-sm font-medium text-gray-700">Attachment</label>
+                            <input type="file" id="attachment" name="attachment" accept="application/pdf,image/*" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2">
+                        </div>
+
+                        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 rounded-md hover:bg-blue-700 transition duration-200">Submit</button>
+                    </form>
+
 
 
                 </div>

@@ -904,27 +904,27 @@
 
             <tbody class="text-black">
             <tr>
-                <td class="font-bold w-25">NAME:</td>
+                <td class="font-bold w-25">Name:</td>
                 <td class="w-25">{{ strtoupper($borrower->name) }}</td>
-                <td class="font-bold w-25">ADDRESS:</td>
+                <td class="font-bold w-25">Address:</td>
                 <td class="w-25">{{ strtoupper($firstLine) }}</td>
             </tr>
             <tr>
-                <td class="font-bold w-25">ADDRESS (LINE 2):</td>
+                <td class="font-bold w-25">Address (Line 2):</td>
                 <td class="w-25">{{ strtoupper($secondLine) }}</td>
-                <td class="font-bold w-25">PHONE </td>
+                <td class="font-bold w-25">Phone </td>
                 <td class="w-25">{{ $borrower->phone_number ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <td class="font-bold w-25">CNIC:</td>
                 <td class="w-25">{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
-                <td class="font-bold w-25">EMAIL ADDRESS:</td>
+                <td class="font-bold w-25">Email Address:</td>
                 <td class="w-25">{{ $borrower->email ?? 'N/A' }}</td>
             </tr>
             <tr>
-                <td class="font-bold w-25">FATHER’S NAME:</td>
+                <td class="font-bold w-25">Fathers Name :</td>
                 <td class="w-25">{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
-                <td class="font-bold w-25">FATHER’S CNIC :</td>
+                <td class="font-bold w-25">Fathers CNIC :</td>
                 <td class="w-25">{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
             </tr>
             <tr>
@@ -1078,7 +1078,7 @@
                 <tr>
                     <th style="padding: 8px; text-align: left; border: 1px solid ">Regular</th>
                     <th style="padding: 8px; text-align: left; border: 1px solid">Amount</th>
-                    <th style="padding: 8px; text-align: left; border: 1px solid">TENURE</th>
+                    <th style="padding: 8px; text-align: left; border: 1px solid">Tenure</th>
                 </tr>
                 </thead>
                 <tbody>
