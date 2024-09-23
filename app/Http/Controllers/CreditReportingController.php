@@ -6,13 +6,28 @@ use App\Http\Requests\StoreCreditReportingRequest;
 use App\Http\Requests\UpdateCreditReportingRequest;
 use App\Models\CreditReporting;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 
-class CreditReportingController extends Controller
+class CreditReportingController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+
+            new Middleware('role_or_permission:credit report access', only: ['index']),
+            new Middleware('role_or_permission:credit report create', only: ['create']),
+            new Middleware('role_or_permission:credit report show', only: ['show']),
+            new Middleware('role_or_permission:credit report edit', only: ['edit']),
+            new Middleware('role_or_permission:credit report update', only: ['update']),
+            new Middleware('role_or_permission:users-edit', only: ['update']),
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
