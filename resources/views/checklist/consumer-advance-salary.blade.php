@@ -220,7 +220,7 @@
 
                                             @endif
                                         @elseif($item->sequence_no == 8)
-                                            @if(!empty($borrower->documents) && $borrower->documents->count() == 1)
+                                            @if($borrower->documents?->count() >= 1)
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
                                                 </svg>
@@ -345,7 +345,7 @@
                                                                 <strong>References Missing</strong>
                                                                 @endif
                                                                 @elseif($item->sequence_no == 8)
-                                                                    @if(empty($borrower->documents) || $borrower->documents->count() == 0)
+                                                                    @if($borrower->documents?->count() <= 1)
                                                                         <div >
                                                                             <strong>Documents Missing</strong>
                                                                         </div>

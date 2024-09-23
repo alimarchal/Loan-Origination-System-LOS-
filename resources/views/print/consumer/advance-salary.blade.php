@@ -62,6 +62,10 @@
             }
 
 
+            .w-5 {
+                width: 10%;
+            }
+
             .w-10 {
                 width: 10%;
             }
@@ -1260,42 +1264,60 @@
                     <div class="p-4">
                         @if($borrower->is_lock == "Yes" && $borrower->status == "Submitted")
                             <hr style=" border:2px solid black;" class="mb-4">
-                            <h1 class="text-center text-2xl font-bold">Official Use Only</h1>
+                            <h1 class="text-center mb-4 text-2xl font-bold">Official Use Only</h1>
 
-                                <table>
-                                    <thead>
+                            <table id="loanApplicationTable" class="min-w-full bg-white border border-gray-300">
+                                <thead>
+                                <tr>
+                                    <th colspan="7" class="py-2 px-4 bg-gray-100 text-center font-bold">Loan Application Tracking Status</th>
+                                </tr>
+                                <tr>
+                                    <th class="py-2 px-4 text-center border-b">ID</th>
+                                    <th class="py-2 px-4 text-center border-b">From</th>
+                                    <th class="py-2 px-4 text-center border-b">To</th>
+{{--                                    <th class="py-2 px-4 text-center border-b">Name</th>--}}
+                                    <th class="py-2 px-4 text-center border-b">Remarks</th>
+                                    <th class="py-2 px-4 text-center border-b">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mx-auto">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
+                                        </svg>
+                                    </th>
+                                    <th class="py-2 px-4 border-b">Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($borrower->statusHistories as $index => $item)
                                     <tr>
-                                        <th colspan="9" class="text-center">Loan Application Tracking Status</th>
+                                        <td class="py-2 px-4 border-b text-center font-bold w-5">{{ $loop->iteration }}</td>
+                                        <td class="py-2 px-4 border-b text-center w-16">{{ $item->from->name ?? 'N/A' }}</td>
+                                        <td class="py-2 px-4 border-b text-center w-16">{{ $item->to->name ?? 'N/A' }}</td>
+{{--                                        <td class="py-2 px-4 border-b text-center w-16">{{ $item->name ?? 'N/A' }}</td>--}}
+                                        <td class="py-2 px-4 border-b w-50">
+                                            <div class="remarks-container">
+                                                <span class="remarks-text" data-full-text="{{ $item->description }}">
+                                                    {{ \Illuminate\Support\Str::limit($item->description, 100, '...') }}
+                                                </span>
+                                                @if(strlen($item->description) > 100)
+                                                    <button class="text-blue-500 hover:text-blue-700 read-more-btn ml-2" data-action="expand">Read more</button>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td class="py-2 px-4 border-b text-center w-5">
+                                            @if(!empty($item->attachment))
+                                                <a href="{{ \Illuminate\Support\Facades\Storage::url($item->attachment) }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
+                                                    </svg>
+                                                </a>
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
+                                        <td class="py-2 px-4 border-b text-center w-5">{{ $item->loan_status->name ?? 'N/A' }}</td>
                                     </tr>
-
-                                    <tr>
-                                        <th class="text-center">ID</th>
-                                        <th class="text-center">From</th>
-                                        <th class="text-center">To</th>
-                                        <th class="text-center">Name</th>
-{{--                                        <th class="text-center">Designation</th>--}}
-{{--                                        <th class="text-center">Placement</th>--}}
-{{--                                        <th class="text-center">EMP No</th>--}}
-                                        <th class="text-center">Remarks</th>
-                                        <th class="text-center">Attachment</th>
-                                        <th class="text-center">Status</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($borrower->statusHistories as $item)
-                                        <tr>
-                                            <td class="font-bold">{{ $loop->iteration }}</td>
-                                            <td class="">{{ $item->submit_by ?? 'N/A' }}</td>
-                                            <td class="">{{ $item->submit_to ?? 'N/A' }}</td>
-                                            <td class="">{{ $item->name ?? 'N/A' }}</td>
-                                            <td class="">{{ $item->description ?? 'N/A' }}</td>
-                                            <td class="">
-                                            </td>
-                                        </tr>
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
+                                @endforeach
+                                </tbody>
+                            </table>
 
                         @endif
 
@@ -1303,4 +1325,55 @@
                 </div>
             </div>
         </div>
+    @push('modals')
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const table = document.getElementById('loanApplicationTable');
+
+                    table.addEventListener('click', function(e) {
+                        if (e.target.classList.contains('read-more-btn')) {
+                            const btn = e.target;
+                            const container = btn.closest('.remarks-container');
+                            const textSpan = container.querySelector('.remarks-text');
+                            const fullText = textSpan.dataset.fullText;
+
+                            if (btn.dataset.action === 'expand') {
+                                textSpan.textContent = fullText;
+                                btn.textContent = 'Show less';
+                                btn.dataset.action = 'collapse';
+                            } else {
+                                textSpan.textContent = fullText.substr(0, 100) + '...';
+                                btn.textContent = 'Read more';
+                                btn.dataset.action = 'expand';
+                            }
+                        }
+                    });
+
+                    // Initialize tooltips
+                    const remarks = table.querySelectorAll('.remarks-text');
+                    remarks.forEach(remark => {
+                        const tooltip = document.createElement('div');
+                        tooltip.className = 'tooltip hidden absolute bg-gray-800 text-white p-2 rounded';
+                        tooltip.textContent = remark.dataset.fullText;
+                        remark.parentNode.appendChild(tooltip);
+
+                        remark.addEventListener('mouseenter', function() {
+                            tooltip.classList.remove('hidden');
+                        });
+
+                        remark.addEventListener('mouseleave', function() {
+                            tooltip.classList.add('hidden');
+                        });
+                    });
+                });
+            </script>
+
+            <style>
+                .tooltip {
+                    max-width: 300px;
+                    word-wrap: break-word;
+                    z-index: 1000;
+                }
+            </style>
+    @endpush
 </x-app-layout>
