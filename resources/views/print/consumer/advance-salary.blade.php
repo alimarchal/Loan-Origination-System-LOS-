@@ -1261,6 +1261,7 @@
                             <hr style=" border:2px solid black;" class="mb-4">
                             <h1 class="text-center mb-4 text-2xl font-bold">Official Use Only</h1>
 
+
                             <table id="loanApplicationTable" class="min-w-full bg-white border border-gray-300">
                                 <thead>
                                 <tr>
@@ -1270,6 +1271,7 @@
                                     <th class="py-2 px-4 text-center border-b">ID</th>
                                     <th class="py-2 px-4 text-center border-b">From</th>
                                     <th class="py-2 px-4 text-center border-b">To</th>
+                                    <th class="py-2 px-4 text-center border-b">Created At</th>
 {{--                                    <th class="py-2 px-4 text-center border-b">Name</th>--}}
                                     <th class="py-2 px-4 text-center border-b">Remarks</th>
                                     <th class="py-2 px-4 text-center border-b">
@@ -1286,6 +1288,7 @@
                                         <td class="py-2 px-4 border-b text-center font-bold w-5">{{ $loop->iteration }}</td>
                                         <td class="py-2 px-4 border-b text-center w-16">{{ $item->from->name ?? 'N/A' }}</td>
                                         <td class="py-2 px-4 border-b text-center w-16">{{ $item->to->name ?? 'N/A' }}</td>
+                                        <td class="py-2 px-4 border-b text-center w-16">{{ $item->created_at ?? 'N/A' }}</td>
 {{--                                        <td class="py-2 px-4 border-b text-center w-16">{{ $item->name ?? 'N/A' }}</td>--}}
                                         <td class="py-2 px-4 border-b w-50">
                                             <div class="remarks-container">
@@ -1317,48 +1320,9 @@
                         @endif
 
                     </div>
-                    <hr style=" border:2px solid black;" class="mb-4"></h1>
-                    <h1 class="text-center mb-4 text-2xl font-bold">Form Submit Details</h1>
-
-                    <form action="/your-action-url" method="POST" enctype="multipart/form-data" class="max-w-lg mx-auto bg-white border border-gray-300 rounded-lg shadow-lg p-4">
-                        <div class="mb-4">
-                            <label for="submitFrom" class="block text-sm font-medium text-gray-700">Submit From</label>
-                            <input type="text" id="submitFrom" name="submit_from" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2">
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="submitTo" class="block text-sm font-medium text-gray-700">Submit To</label>
-                            <input type="text" id="submitTo" name="submit_to" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2">
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea id="description" name="description" rows="4" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2"></textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="loanStatus" class="block text-sm font-medium text-gray-700">Loan Status</label>
-                            <select id="loanStatus" name="loan_status" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2">
-                                <option value="">Select Status</option>
-                                <option value="approved">Approved</option>
-                                <option value="pending">In Process</option>
-                                <option value="submitted">Submitted</option>
-                                <option value="declined">Declined</option>
-                                <option value="return_with_observation">Return With Observation</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="attachment" class="block text-sm font-medium text-gray-700">Attachment</label>
-                            <input type="file" id="attachment" name="attachment" accept="application/pdf,image/*" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 p-2">
-                        </div>
-
-                        <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 rounded-md hover:bg-blue-700 transition duration-200">Submit</button>
-                    </form>
-
-
 
                 </div>
+
             </div>
         </div>
     @push('modals')
