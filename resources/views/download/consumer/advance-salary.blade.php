@@ -6,16 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Applicant Information</title>
 
+{{--    <link rel="preconnect" href="https://fonts.googleapis.com">--}}
+{{--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>--}}
+{{--    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">--}}
+
 
     <style>
         body {
-            font-family: "Calibri" !important;
+            /*font-family: "Roboto", sans-serif;*/
+            /*font-family: "Calibri" !important;*/
             font-size: 12px;
             line-height: 1.3;
-            margin: 0;
-            padding: 0px;
+            /*margin: 0;*/
+            /*padding: 0;*/
             /*padding: 20px;*/
         }
+
+        /*body {*/
+        /*    font-family: calibri, sans-serif;*/
+        /*}*/
 
         table {
             width: 100%;
@@ -63,8 +72,27 @@
         }
 
 
+        .w-1 {
+            width: 1%;
+        }
+
+        .w-2 {
+            width: 1%;
+        }
+
+
+        .w-5 {
+            width: 1%;
+        }
+
+
         .w-10 {
             width: 10%;
+        }
+
+
+        .w-15 {
+            width: 15%;
         }
 
         .w-16 {
@@ -103,7 +131,13 @@
 </head>
 <body>
 <div class="text-center mb-4">
-    <img src="{{ $base64Image }}" alt="BAJK Logo" style="width: 250px; height: 100px;">
+
+    @if($base64Image)
+        <img src="{{ $base64Image }}" alt="Logo" style="width: 200px">
+    @else
+        <p>Logo could not be loaded</p>
+    @endif
+
     <p class="font-bold uppercase">
         Branch & Code: {{ $borrower->branch?->name }} - {{ $borrower->branch?->code }},<br>
         Region: {{ $borrower->branch?->region?->name }}<br>
@@ -479,19 +513,19 @@
             <th colspan="4" class="text-center">Documents</th>
         </tr>
         <tr>
-            <th class="w-25">ID</th>
-            <th class="w-25">Document Type</th>
-            <th class="w-25">Description</th>
-            <th class="w-25">Attachment</th>
+            <th class="w-5 text-center">ID</th>
+            <th class="w-50">Document Type</th>
+            <th class="w-30">Description</th>
+            <th class="w-15 text-center">Attachment</th>
         </tr>
         </thead>
         <tbody>
         @foreach($borrower->documents_uploaded as $doc)
             <tr>
-                <td>{{ $loop->iteration }}</td>
+                <td class="text-center">{{ $loop->iteration }}</td>
                 <td>{{ $doc->document_type ?? 'N/A' }}</td>
                 <td>{{ $doc->description ?? 'N/A' }}</td>
-                <td>
+                <td class=" text-center">
                     @if(!empty($doc->path_attachment))
                         Yes
                     @else
@@ -1323,50 +1357,75 @@
     @endif
 
 
+
+
+
+    <h2 class="text-center font-bold">Attached Documents</h2>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+        @foreach($documents as $index => $document)
+            <div style="width: 45%; margin-bottom: 20px; margin-right: auto;margin-left: auto; text-align: center;">
+                @if(isset($document['error']))
+                    <p style="color: red;">Error with document: {{ $document['error'] }}</p>
+                @else
+                    <img src="{{ $document['image'] }}" alt="Document {{ $index + 1 }}" style="max-width: 100%; max-height: 600px; object-fit: contain;">
+                @endif
+                <p style="margin-top: 5px; font-weight: bold;">{{ $document['type'] ?? 'Unknown Document Type' }}</p>
+            </div>
+            @if(($index + 1) % 2 == 0)
+                <div style="flex-basis: 100%; height: 0;"></div>
+            @endif
+        @endforeach
+    </div>
+
+
+    <div class="page-break"></div>
     <div class="p-4">
         @if($borrower->is_lock == "Yes" && $borrower->status == "Submitted")
             <h1 class="text-center mb-4 text-2xl font-bold">Official Use Only</h1>
 
-            <table id="loanApplicationTable" class="min-w-full bg-white border border-gray-300">
-                <thead>
+
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
                 <tr>
-                    <th colspan="10" class="py-2 px-4 bg-gray-100 text-center font-bold">Loan Application Tracking Status</th>
+                    <th colspan="10"  class="text-center">Loan Application Tracking Status</th>
                 </tr>
                 <tr>
-                    <th class="py-2 px-x text-center border-b">ID</th>
-                    <th class="py-2 px-x text-center border-b">From</th>
-                    <th class="py-2 px-x text-center border-b">To</th>
-                    <th class="py-2 px-x text-center border-b">Name</th>
-                    <th class="py-2 px-x text-center border-b">Designation</th>
-                    <th class="py-2 px-x text-center border-b">Placement</th>
-                    <th class="py-2 px-x text-center border-b">EMP No</th>
-                    <th class="py-2 px-x text-center border-b">Remarks</th>
-                    <th class="py-2 px-x border-b  text-center">Status</th>
-                    <th class="py-2 px-x border-b  text-center">Time</th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">From</th>
+                    <th class="text-center">To</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Designation</th>
+                    <th class="text-center">Placement</th>
+                    <th class="text-center">EMP No</th>
+                    <th class="text-center">Remarks</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Time</th>
                 </tr>
                 </thead>
+
+
                 <tbody>
-                @foreach($borrower->statusHistories as $index => $item)
+                    @foreach($borrower->statusHistories as $index => $item)
                     <tr>
-                        <td class="py-2 px-2 border-b text-center font-bold" style="horiz-align: center; vertical-align: middle">{{ $loop->iteration }}</td>
-                        <td class="py-2 px-2 border-b text-center" style="horiz-align: center; vertical-align: middle">{{ $item->from->name ?? 'N/A' }}</td>
-                        <td class="py-2 px-2 border-b text-center" style="horiz-align: center; vertical-align: middle">{{ $item->to->name ?? 'N/A' }}</td>
-                        <td class="py-2 px-2 border-b text-center" style="horiz-align: center; vertical-align: middle">{{ $item->name ?? 'N/A' }}</td>
-                        <td class="py-2 px-2 border-b text-center" style="horiz-align: center; vertical-align: middle">{{ $item->designation ?? 'N/A' }}</td>
-                        <td class="py-2 px-2 border-b text-center" style="horiz-align: center; vertical-align: middle">{{ $item->placement ?? 'N/A' }}</td>
-                        <td class="py-2 px-2 border-b text-center" style="horiz-align: center; vertical-align: middle">{{ $item->employee_no ?? 'N/A' }}</td>
-                        <td class="py-2 px-2 border-b">
-                           {{ $item->description }}
+                        <td class="text-center font-bold" style="horiz-align: center; vertical-align: middle">{{ $loop->iteration }}</td>
+                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->from->name ?? 'N/A' }}</td>
+                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->to->name ?? 'N/A' }}</td>
+                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->name ?? 'N/A' }}</td>
+                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->designation ?? 'N/A' }}</td>
+                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->placement ?? 'N/A' }}</td>
+                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->employee_no ?? 'N/A' }}</td>
+                        <td class="text-center" >
+                            {{ $item->description }}
                         </td>
-                        <td class="py-2 px-2 border-b text-center w-5" style="horiz-align: center; vertical-align: middle">{{ $item->loan_status->name ?? 'N/A' }}</td>
-                        <td class="py-2 px-2 border-b text-center w-5" style="horiz-align: center; vertical-align: middle">{{ \Carbon\Carbon::parse($item->created_at) ?? 'N/A' }}</td>
+                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->loan_status->name ?? 'N/A' }}</td>
+                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ \Carbon\Carbon::parse($item->created_at) ?? 'N/A' }}</td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
 
         @endif
-
     </div>
 
 </div>

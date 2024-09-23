@@ -19,7 +19,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
 use Mpdf\Mpdf;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -318,48 +322,113 @@ class BorrowerController extends Controller
         return view('borrowers.print', compact('borrower'));
     }
 
+    function base64EncodeImage($path) {
+        Log::info("Original path: " . $path);
+
+        if ($path === 'images/logo.png') {
+            $fullPath = public_path($path);
+        } else if (strpos($path, '/') === 0 || (PHP_OS_FAMILY === 'Windows' && strpos($path, ':\\') === 1)) {
+            $fullPath = $path;
+        } else {
+            $fullPath = storage_path('app/public/' . $path);
+        }
+
+        Log::info("Attempting to access: " . $fullPath);
+
+        if (!file_exists($fullPath)) {
+            Log::error("File does not exist: $fullPath");
+            return null;
+        }
+
+        if (!is_readable($fullPath)) {
+            Log::error("File is not readable: $fullPath");
+            return null;
+        }
+
+        $imageData = @file_get_contents($fullPath);
+        if ($imageData === false) {
+            $errorMessage = "Failed to read file contents: $fullPath. Error: " . error_get_last()['message'];
+            Log::error($errorMessage);
+            return null;
+        }
+
+        $base64 = base64_encode($imageData);
+        $mimeType = mime_content_type($fullPath) ?: 'application/octet-stream';
+
+        Log::info("Successfully encoded image: $fullPath");
+        return 'data:' . $mimeType . ';base64,' . $base64;
+    }
+
     public function download(Borrower $borrower)
     {
-
-        // Create a new instance of mPDF
-        $mpdf = new Mpdf([
+        ini_set('pcre.backtrack_limit', '5000000');
+        $mpdf = new \Mpdf\Mpdf([
             'mode' => 'utf-32',
-            'format' => 'A4-P', // 'P' for Portrait, 'L' for Landscape
-            'dpi' => 150, // High DPI setting
-            'default_font' => 'sans-serif',
+            'format' => 'A4-P',
+            'margin_left' => 12.7,
+            'margin_right' => 12.7,
+            'margin_top' => 12.7,
+            'margin_bottom' => 12.7,
+//            'margin_header' => 5,
+            'margin_footer' => 10,
+            'dpi' => 150,
+            'default_font' => 'sans-serif'
         ]);
 
-        // Convert the image to Base64
-        $imagePath = public_path('images/logo.png');
+        $mpdf->SetTitle('Borrower Information');
+        $mpdf->SetAuthor('Your Application Name');
+
+        // Add page numbers
+        $mpdf->SetFooter( 'Print Date: ' . date('d-m-Y H:i:s') . ', UID:' . Auth::user()->id . ', BID: ' . $borrower->id . '  <br>Page {PAGENO} of {nbpg} ' );
+
+
+        // Convert the logo image to Base64
+        $imagePath = 'images/logo.png';
         $base64Image = $this->base64EncodeImage($imagePath);
 
-        // Render the Blade view to HTML
-        $html = View::make('borrowers.download', compact('borrower','base64Image'))->render();
+        // Prepare documents
+        $documents = [];
+        if ($borrower->documents->isNotEmpty()) {
+            foreach ($borrower->documents as $document) {
+                $result = $this->base64EncodeImage($document->path_attachment);
+                if ($result) {
+                    $documents[] = [
+                        'image' => $result,
+                        'type' => $document->document_type,
+                    ];
+                } else {
+                    $documents[] = [
+                        'error' => "Could not load document",
+                        'type' => $document->document_type,
+                    ];
+                }
+            }
+        }
+
+
+
+        // Render the main content
+        $html = view('borrowers.download', compact('borrower', 'base64Image', 'documents'))->render();
 
         // Write the HTML content to the PDF
         $mpdf->WriteHTML($html);
 
-        // Output the PDF (you can specify a filename and options here)
-        return $mpdf->Output('borrower.pdf', 'I'); // 'I' for inline display, 'D' for download
-//        $pdf = Pdf::loadView('borrowers.download', compact('borrower'));
-//
-//        $pdf->setPaper('A4', 'portrait');
-//        $pdf->setOptions([
-//            'dpi' => 150,
-//            'defaultFont' => 'sans-serif',
-//            'isHtml5ParserEnabled' => true,
-//            'isRemoteEnabled' => true
-//        ]);
-//        return $pdf->download('applicant_information.pdf');
-////        return $pdf->stream("", array("Attachment" => false));
+
+        // Generate a unique filename
+        $filename = 'borrower_' . $borrower->id . '_' . time() . '.pdf';
+
+        // Save the PDF to storage
+        Storage::put('borrower_pdfs/' . $filename, $mpdf->Output('', 'S'));
+
+        // Output the PDF for download
+        return response($mpdf->Output($filename, 'S'))
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+
+        // Output the PDF
+//        return $mpdf->Output('borrower.pdf', 'I');
     }
 
-    function base64EncodeImage($path) {
-        $imageData = file_get_contents($path);
-        $base64 = base64_encode($imageData);
-        $mimeType = mime_content_type($path);
-        return 'data:' . $mimeType . ';base64,' . $base64;
-    }
 
 
     public function submit_for_approval_view(Request $request, Borrower $borrower)
@@ -372,6 +441,8 @@ class BorrowerController extends Controller
             return to_route('applicant.checklist.show', $borrower->id);
         }
     }
+
+
 
 
     public function submit_consumer_salary(Request $request, Borrower $borrower)
