@@ -385,14 +385,10 @@
             <tr>
                 <td class="font-bold">Email:</td>
                 <td>{{ $reference->email?? 'N/A' }}</td>
-                <td class="font-bold">Designation:</td>
-                <td>{{ $reference->designation ?? 'N/A'}}</td>
+                <td class="font-bold">Relationship to Borrower:</td>
+                <td>{{ $reference->relationship_to_borrower?? 'N/A' }}</td>
             </tr>
 
-            <tr>
-                <td class="font-bold">Relationship to Borrower:</td>
-                <td colspan="3">{{ $reference->relationship_to_borrower?? 'N/A' }}</td>
-            </tr>
             </tbody>
         </table>
         @if(!$loop->last)
