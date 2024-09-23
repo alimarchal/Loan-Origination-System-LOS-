@@ -152,7 +152,7 @@ class Borrower extends Model
 
     public function documents()
     {
-        return $this->hasOne(Document::class);
+        return $this->hasMany(Document::class);
     }
 
 

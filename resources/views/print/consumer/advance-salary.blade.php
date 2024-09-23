@@ -1317,6 +1317,11 @@
                         @endif
 
                     </div>
+
+                    <hr style=" border:2px solid black;" class="mb-4">
+                    <h1 class="text-center mb-4 text-2xl font-bold">Form</h1>
+
+
                 </div>
             </div>
         </div>
