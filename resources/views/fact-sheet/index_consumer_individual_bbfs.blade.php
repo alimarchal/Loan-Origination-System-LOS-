@@ -199,24 +199,14 @@
                                                     <tr>
                                                         <td class="font-bold">Phone Number:</td>
                                                         <td>{{ $reference->phone_number }}</td>
-                                                        <td class="font-bold">Phone Number Two:</td>
-                                                        <td>{{ $reference->phone_number_two }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="font-bold">Phone Number Three:</td>
-                                                        <td>{{ $reference->phone_number_three }}</td>
                                                         <td class="font-bold">Email:</td>
                                                         <td>{{ $reference->email }}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td class="font-bold">Fax:</td>
-                                                        <td>{{ $reference->fax }}</td>
-                                                        <td class="font-bold">Designation:</td>
-                                                        <td>{{ $reference->designation }}</td>
-                                                    </tr>
+
+
                                                     <tr>
                                                         <td class="font-bold">Relationship to Borrower:</td>
-                                                        <td colspan="3">{{ $reference->relationship_to_borrower }}</td>
+                                                        <td colspan="6">{{ $reference->relationship_to_borrower }}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
