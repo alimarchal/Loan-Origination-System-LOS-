@@ -28,8 +28,8 @@
                                     <th class="py-2 px-2 text-center">Document Type</th>
                                     <th class="py-2 px-2 text-center">Description</th>
                                     <th class="py-2 px-2 text-center">Attachment</th>
-                                    <th class="py-2 px-2 text-center">Action</th>
                                     <th class="py-2 px-2 text-center">Authorized</th>
+                                    <th class="py-2 px-2 text-center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="text-black text-sm leading-normal">
