@@ -331,7 +331,7 @@
                                         @elseif($item->sequence_no == 5)
 
                                             @if($borrower->finance_facility_many->isEmpty())
-                                                Finance Facility Skipped / Not Filled
+                                            <strong>  Finance Facility Skipped / Not Filled </strong>
                                             @endif
 
                                         @elseif($item->sequence_no == 6)
@@ -380,12 +380,12 @@
                                                                                 $missingForms[] = 'Form C  Missing';
                                                                             }
                                                                             if ($borrower->personalNetWorthStat?->personal_form_d->isEmpty()) {
-                                                                                $missingForms[] = 'Form D  Missing';
+                                                                                $missingForms[] = 'Form D Missing';
                                                                             }
                                                                         @endphp
 
                                                                         @if(!empty($missingForms))
-                                                                            <strong>{{ implode(', ', $missingForms) }} is missing.</strong>
+                                                                            <strong>{{ implode(', ', $missingForms) }} </strong>
                                                                         @endif
                                                                     @else
                                                                         <strong>Personal Net Worth Statement</strong>

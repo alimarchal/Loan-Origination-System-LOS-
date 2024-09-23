@@ -419,14 +419,10 @@
             <tr>
                 <td class="font-bold">Email:</td>
                 <td>{{ $reference->email?? 'N/A' }}</td>
-                <td class="font-bold">Designation:</td>
-                <td>{{ $reference->designation ?? 'N/A'}}</td>
+                <td class="font-bold">Relationship to Borrower:</td>
+                <td>{{ $reference->relationship_to_borrower?? 'N/A' }}</td>
             </tr>
 
-            <tr>
-                <td class="font-bold">Relationship to Borrower:</td>
-                <td colspan="3">{{ $reference->relationship_to_borrower?? 'N/A' }}</td>
-            </tr>
             </tbody>
         </table>
         @if(!$loop->last)
@@ -502,7 +498,7 @@
     @endforeach
 @else
     <h1 style="color: red; text-align: center">
-        Finance Facility Missing
+        Finance Facility Skipped / Not Filled
     </h1>
 @endif
 <!-- <div class="page-break"></div> -->
@@ -916,26 +912,24 @@
             <tr>
                 <td class="font-bold w-25">ADDRESS (LINE 2):</td>
                 <td class="w-25">{{ strtoupper($secondLine) }}</td>
-                <td class="font-bold w-25">PHONE #</td>
-                <td class="w-25"></td>
-            </tr>
-            <tr>
-                <td class="font-bold w-25">FAX #:</td>
-                <td class="w-25">{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
-                <td class="font-bold w-25">EMAIL ADDRESS:</td>
-                <td class="w-25">{{ $borrower->ntn ?? 'N/A' }}</td>
+                <td class="font-bold w-25">PHONE </td>
+                <td class="w-25">{{ $borrower->phone_number ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <td class="font-bold w-25">CNIC:</td>
-                <td class="w-25">{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
-                <td class="font-bold w-25">NTN:</td>
-                <td class="w-25">{{ $borrower->number_of_dependents ?? 'N/A' }}</td>
+                <td class="w-25">{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
+                <td class="font-bold w-25">EMAIL ADDRESS:</td>
+                <td class="w-25">{{ $borrower->email ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <td class="font-bold w-25">FATHER’S NAME:</td>
-                <td class="w-25">{{ $borrower->education_qualification ?? 'N/A' }}</td>
-                <td class="font-bold w-25">FATHER’S CNIC #:</td>
-                <td class="w-25">{{ $borrower->email ?? 'N/A' }}</td>
+                <td class="w-25">{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
+                <td class="font-bold w-25">FATHER’S CNIC :</td>
+                <td class="w-25">{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td class="font-bold w-25">NTN:</td>
+                <td colspan="3" class="w-25">{{ $borrower->ntn ?? 'N/A' }}</td>
             </tr>
 
             </tbody>
@@ -1330,7 +1324,7 @@
         <table>
             <thead>
             <tr>
-                <th colspan="4" class="text-left">D.</th>
+                <th colspan="4" class="text-left">D.Details of Assignd Guarantees/Sureties</th>
             </tr>
             <tr>
                 <th class="text-center w-20">Bank Institution</th>
