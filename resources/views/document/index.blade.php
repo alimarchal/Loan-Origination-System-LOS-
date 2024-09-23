@@ -39,7 +39,7 @@
                                             {{ $loop->iteration }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
-                                            {{ $document->document_type }}
+                                            {{ $document->doc_type->name }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
                                             {{ $document->description }}

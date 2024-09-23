@@ -28,8 +28,8 @@
                                     <x-label for="document_type" value="Document Type" />
                                     <select name="document_type" id="document_type" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
                                         <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::where('status', 'Document')->get() as $item)
-                                            <option value="{{ $item->name }}" {{ old('document_type') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        @foreach(\App\Models\Status::where('loan_sub_category_id', $borrower->loan_sub_category_id)->where('status','Document')->get() as $item)
+                                            <option value="{{ $item->id }}" {{ old('document_type') == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

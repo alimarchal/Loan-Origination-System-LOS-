@@ -685,31 +685,85 @@
                       @endif
 
                       @if(!$borrower->documents_uploaded->isEmpty())
+
                           <table>
                               <thead>
                               <tr>
-                                  <th colspan="4" class="text-center">Documents</th>
+                                  <th colspan="5" class="text-center">Documents</th>
                               </tr>
                               <tr>
-                                  <th class="w-25">ID</th>
-                                  <th class="w-25">Document Type</th>
-                                  <th class="w-25">Description</th>
-                                  <th class="w-25">Attachment</th>
+                                  <th class="text-center">ID</th>
+                                  <th class="text-center">Document Name</th>
+                                  <th class="text-center">Description</th>
+                                  <th class="text-center">Attachment</th>
+                                  <th class="text-center">Uploaded</th>
                               </tr>
                               </thead>
                               <tbody>
-                              @foreach($borrower->documents_uploaded as $doc)
-                                  <tr>
-                                      <td>{{ $loop->iteration }}</td>
-                                      <td>{{ $doc->document_type }}</td>
-                                      <td>{{ $doc->description }}</td>
-                                      <td>@if(!empty($doc->path_attachment))
-                                              Yes
-                                          @else
-                                              No
-                                          @endif</td>
-                                  </tr>
-                              @endforeach
+
+                              @php
+                                  $documentTypes = $borrower->documents->pluck('description', 'document_type')->toArray();
+                                  $uploadedDocuments = $borrower->documents->pluck('document_type')->toArray();
+                                  $uploadDates = $borrower->documents->pluck('created_at', 'document_type')->toArray();
+                              @endphp
+
+
+                              @if(!$borrower->documents_uploaded->isEmpty())
+                                  <table>
+                                      <thead>
+                                      <tr>
+                                          <th colspan="5" class="text-center">Documents</th>
+                                      </tr>
+                                      <tr>
+                                          <th class="text-center">ID</th>
+                                          <th class="text-center">Document Name</th>
+                                          <th class="text-center">Description</th>
+                                          <th class="text-center">Attachment</th>
+                                          <th class="text-center">Uploaded</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      @php
+                                          $uploadedDocuments = $borrower->documents->pluck('path_attachment', 'document_type')->toArray();
+                                      @endphp
+
+                                      @foreach(\App\Models\Status::where('loan_sub_category_id', $borrower->loan_sub_category_id)->where('status','Document')->get() as $item)
+                                          <tr>
+                                              <td class="text-center">{{ $loop->iteration }}</td>
+                                              <td>{{ $item->name }}</td>
+                                              <td>
+                                                  @foreach($borrower->documents as $doc_item)
+                                                      @if($item->id === $doc_item->document_type)
+                                                          {{ $doc_item->description }}
+                                                      @endif
+                                                  @endforeach
+                                              </td>
+                                              <td class="text-center">
+                                                  @if(isset($uploadedDocuments[$item->id]))
+                                                      <a href="{{ asset('storage/' . $uploadedDocuments[$item->id]) }}" target="_blank" title="View Attachment">
+                                                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 mx-auto">
+                                                              <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"></path>
+                                                          </svg>
+                                                      </a>
+                                                  @endif
+                                              </td>
+                                              <td class="text-center">
+                                                  @if(isset($uploadedDocuments[$item->id]))
+                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-500 mx-auto">
+                                                          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                      </svg>
+                                                  @else
+                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-500 mx-auto">
+                                                          <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                      </svg>
+                                                  @endif
+                                              </td>
+                                          </tr>
+                                      @endforeach
+                                      </tbody>
+                                  </table>
+                              @endif
+
                               </tbody>
                           </table>
                       @endif
@@ -1293,11 +1347,8 @@
                                         <td class="py-2 px-4 border-b w-50">
                                             <div class="remarks-container">
                                                 <span class="remarks-text" data-full-text="{{ $item->description }}">
-                                                    {{ \Illuminate\Support\Str::limit($item->description, 100, '...') }}
+                                                    {{ $item->description }}
                                                 </span>
-                                                @if(strlen($item->description) > 100)
-                                                    <button class="text-blue-500 hover:text-blue-700 read-more-btn ml-2" data-action="expand">Read more</button>
-                                                @endif
                                             </div>
                                         </td>
                                         <td class="py-2 px-4 border-b text-center w-5">
@@ -1325,55 +1376,55 @@
 
             </div>
         </div>
-    @push('modals')
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const table = document.getElementById('loanApplicationTable');
+{{--    @push('modals')--}}
+{{--            <script>--}}
+{{--                document.addEventListener('DOMContentLoaded', function() {--}}
+{{--                    const table = document.getElementById('loanApplicationTable');--}}
 
-                    table.addEventListener('click', function(e) {
-                        if (e.target.classList.contains('read-more-btn')) {
-                            const btn = e.target;
-                            const container = btn.closest('.remarks-container');
-                            const textSpan = container.querySelector('.remarks-text');
-                            const fullText = textSpan.dataset.fullText;
+{{--                    table.addEventListener('click', function(e) {--}}
+{{--                        if (e.target.classList.contains('read-more-btn')) {--}}
+{{--                            const btn = e.target;--}}
+{{--                            const container = btn.closest('.remarks-container');--}}
+{{--                            const textSpan = container.querySelector('.remarks-text');--}}
+{{--                            const fullText = textSpan.dataset.fullText;--}}
 
-                            if (btn.dataset.action === 'expand') {
-                                textSpan.textContent = fullText;
-                                btn.textContent = 'Show less';
-                                btn.dataset.action = 'collapse';
-                            } else {
-                                textSpan.textContent = fullText.substr(0, 100) + '...';
-                                btn.textContent = 'Read more';
-                                btn.dataset.action = 'expand';
-                            }
-                        }
-                    });
+{{--                            if (btn.dataset.action === 'expand') {--}}
+{{--                                textSpan.textContent = fullText;--}}
+{{--                                btn.textContent = 'Show less';--}}
+{{--                                btn.dataset.action = 'collapse';--}}
+{{--                            } else {--}}
+{{--                                textSpan.textContent = fullText.substr(0, 100) + '...';--}}
+{{--                                btn.textContent = 'Read more';--}}
+{{--                                btn.dataset.action = 'expand';--}}
+{{--                            }--}}
+{{--                        }--}}
+{{--                    });--}}
 
-                    // Initialize tooltips
-                    const remarks = table.querySelectorAll('.remarks-text');
-                    remarks.forEach(remark => {
-                        const tooltip = document.createElement('div');
-                        tooltip.className = 'tooltip hidden absolute bg-gray-800 text-white p-2 rounded';
-                        tooltip.textContent = remark.dataset.fullText;
-                        remark.parentNode.appendChild(tooltip);
+{{--                    // Initialize tooltips--}}
+{{--                    const remarks = table.querySelectorAll('.remarks-text');--}}
+{{--                    remarks.forEach(remark => {--}}
+{{--                        const tooltip = document.createElement('div');--}}
+{{--                        tooltip.className = 'tooltip hidden absolute bg-gray-800 text-white p-2 rounded';--}}
+{{--                        tooltip.textContent = remark.dataset.fullText;--}}
+{{--                        remark.parentNode.appendChild(tooltip);--}}
 
-                        remark.addEventListener('mouseenter', function() {
-                            tooltip.classList.remove('hidden');
-                        });
+{{--                        remark.addEventListener('mouseenter', function() {--}}
+{{--                            tooltip.classList.remove('hidden');--}}
+{{--                        });--}}
 
-                        remark.addEventListener('mouseleave', function() {
-                            tooltip.classList.add('hidden');
-                        });
-                    });
-                });
-            </script>
+{{--                        remark.addEventListener('mouseleave', function() {--}}
+{{--                            tooltip.classList.add('hidden');--}}
+{{--                        });--}}
+{{--                    });--}}
+{{--                });--}}
+{{--            </script>--}}
 
-            <style>
-                .tooltip {
-                    max-width: 300px;
-                    word-wrap: break-word;
-                    z-index: 1000;
-                }
-            </style>
-    @endpush
+{{--            <style>--}}
+{{--                .tooltip {--}}
+{{--                    max-width: 300px;--}}
+{{--                    word-wrap: break-word;--}}
+{{--                    z-index: 1000;--}}
+{{--                }--}}
+{{--            </style>--}}
+{{--    @endpush--}}
 </x-app-layout>

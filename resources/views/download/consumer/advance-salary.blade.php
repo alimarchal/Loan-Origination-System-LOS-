@@ -502,6 +502,13 @@
     </h1>
 @endif
 <!-- <div class="page-break"></div> -->
+
+
+
+
+
+
+
 @if($borrower->documents_uploaded->isNotEmpty())
     <table style="width: 100%; font-size: 14px;">
         <thead>
@@ -512,24 +519,63 @@
             <th class="w-5 text-center">ID</th>
             <th class="w-50">Document Type</th>
             <th class="w-30">Description</th>
-            <th class="w-15 text-center">Attachment</th>
+            <th class="w-15 text-center">Uploaded</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($borrower->documents_uploaded as $doc)
-            <tr>
-                <td class="text-center">{{ $loop->iteration }}</td>
-                <td>{{ $doc->document_type ?? 'N/A' }}</td>
-                <td>{{ $doc->description ?? 'N/A' }}</td>
-                <td class=" text-center">
-                    @if(!empty($doc->path_attachment))
-                        Yes
-                    @else
-                        No
-                    @endif
-                </td>
-            </tr>
-        @endforeach
+
+
+
+        @php
+            $documentTypes = $borrower->documents->pluck('description', 'document_type')->toArray();
+            $uploadedDocuments = $borrower->documents->pluck('document_type')->toArray();
+            $uploadDates = $borrower->documents->pluck('created_at', 'document_type')->toArray();
+        @endphp
+
+
+        @if(!$borrower->documents_uploaded->isEmpty())
+                @php
+                    $uploadedDocuments = $borrower->documents->pluck('path_attachment', 'document_type')->toArray();
+                @endphp
+
+                @foreach(\App\Models\Status::where('loan_sub_category_id', $borrower->loan_sub_category_id)->where('status','Document')->get() as $item)
+                    <tr>
+                        <td class="text-center">{{ $loop->iteration }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>
+                            @foreach($borrower->documents as $doc_item)
+                                @if($item->id === $doc_item->document_type)
+                                    {{ $doc_item->description }}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td class="text-center">
+                            @if(isset($uploadedDocuments[$item->id]))
+                                Yes
+                            @else
+                                No
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+
+        @endif
+
+
+{{--        @foreach($borrower->documents_uploaded as $doc)--}}
+{{--            <tr>--}}
+{{--                <td class="text-center">{{ $loop->iteration }}</td>--}}
+{{--                <td>{{ $doc->document_type ?? 'N/A' }}</td>--}}
+{{--                <td>{{ $doc->description ?? 'N/A' }}</td>--}}
+{{--                <td class=" text-center">--}}
+{{--                    @if(!empty($doc->path_attachment))--}}
+{{--                        Yes--}}
+{{--                    @else--}}
+{{--                        No--}}
+{{--                    @endif--}}
+{{--                </td>--}}
+{{--            </tr>--}}
+{{--        @endforeach--}}
         </tbody>
     </table>
 @else
@@ -1352,7 +1398,7 @@
 
 
 
-
+    <div class="page-break"></div>
 
     <h2 class="text-center font-bold">Attached Documents</h2>
 
@@ -1364,7 +1410,7 @@
                 @else
                     <img src="{{ $document['image'] }}" alt="Document {{ $index + 1 }}" style="max-width: 100%; max-height: 600px; object-fit: contain;">
                 @endif
-                <p style="margin-top: 5px; font-weight: bold;">{{ $document['type'] ?? 'Unknown Document Type' }}</p>
+                <p style="margin-top: 5px; font-weight: bold;">{{ App\Models\Status::find($document['type'])->name ?? 'Unknown Document Type' }}</p>
             </div>
             @if(($index + 1) % 2 == 0)
                 <div style="flex-basis: 100%; height: 0;"></div>

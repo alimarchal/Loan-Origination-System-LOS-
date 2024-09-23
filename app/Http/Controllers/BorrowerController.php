@@ -181,6 +181,8 @@ class BorrowerController extends Controller
      */
     public function show(Borrower $borrower)
     {
+
+
         return view('borrowers.print', compact('borrower'));
     }
 
