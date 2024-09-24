@@ -36,7 +36,8 @@ class PermissionsDemoSeeder extends Seeder
         $role16 = Role::create(['name' => 'Head Office']);
 
 
-        // create permissions
+        // create permissions\
+
         Permission::create(['name' => 'inputter']);
         Permission::create(['name' => 'authorizer']);
 

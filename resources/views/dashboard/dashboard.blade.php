@@ -5,35 +5,295 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <x-welcome />
+            {{--            <h1 class="text-2xl text-center font-extrabold pb-4">Financing</h1>--}}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
+                <!-- Card 1 -->
+                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 1 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Draft
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=123757&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
 
-                <div id="chart"></div>
+                <!-- Card 2 -->
+                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 2 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Submitted
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=ZgPBQPTN8R9f&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
 
+                <!-- Card 3 -->
+                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 3 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    In Process
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
 
+                <!-- Card 4 -->
+                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 3 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Approved
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 5 -->
+                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 3 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Declined
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 6 -->
+                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 3 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Returned With Observation
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
+
+            <div class="grid grid-cols-12 gap-6 ">
+                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 1 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Consumer Financing
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=123757&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 2 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Commercial / SME
+
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=ZgPBQPTN8R9f&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 3 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Micro Financing
+
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ 3 }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Agriculture Financing
+
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+            <div class="grid grid-cols-6 gap-6 mt-6">
+                <div class="col-span-6 md:col-span-6 lg:col-span-3">
+                    <div class="bg-white transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg p-4" id="chart">
+                    </div>
+                </div>
+
+                <div class="col-span-6 md:col-span-6 lg:col-span-3">
+                    <div class="bg-white transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg p-4" id="chart_two">
+                    </div>
+                </div>
+            </div>
+
+
+{{--            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">--}}
+{{--                <x-welcome/>--}}
+{{--                <div id="chart"></div>--}}
+{{--            </div>--}}
         </div>
     </div>
     @push('modals')
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var options = {
+            document.addEventListener('DOMContentLoaded', function () {
+// Chart 1: Pie Chart - "Loan Category"
+                var options1 = {
+                    series: [44, 55, 13, 43, 22],
                     chart: {
-                        type: 'line'
+                        width: 500,
+                        height: 400, // Height set to 400
+                        type: 'pie',
                     },
-                    series: [{
-                        name: 'sales',
-                        data: [30,40,35,50,49,60,70,91,125]
-                    }],
-                    xaxis: {
-                        categories: [1991,1992,1993,1994,1995,1996,1997,1998,1999]
-                    }
-                }
+                    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+                    title: {
+                        text: 'Loan Category',
+                        align: 'center',
+                        style: {
+                            fontSize: '20px',
+                            fontWeight: 'bold',
+                            color: '#263238' // Optional: Customize the color as needed
+                        }
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                };
 
-                var chart = new ApexCharts(document.querySelector("#chart"), options);
-                chart.render();
+// Initialize Chart 1
+                var chart1 = new ApexCharts(document.querySelector("#chart"), options1);
+                chart1.render();
+
+
+// Chart 2: Donut Chart - "Gender Wise"
+                var options2 = {
+                    series: [44, 55, 13, 43, 22],
+                    chart: {
+                        width: 500,
+                        height: 400, // Height set to 400
+                        type: 'pie',
+                    },
+                    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+                    title: {
+                        text: 'Loan Category',
+                        align: 'center',
+                        style: {
+                            fontSize: '20px',
+                            fontWeight: 'bold',
+                            color: '#263238' // Optional: Customize the color as needed
+                        }
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                };
+
+// Initialize Chart 2
+                var chart2 = new ApexCharts(document.querySelector("#chart_two"), options2);
+                chart2.render();
+
+
             });
         </script>
     @endpush
