@@ -154,6 +154,94 @@
     </h4>
 </div>
 
+
+<table class="w-full table-auto">
+    <thead>
+        <tr>
+            <th colspan="4" class="text-center p-4 bg-gray-100 dark:bg-gray-700 text-lg font-bold">
+                Checklist for {{ $borrower->loan_sub_category->name }}
+            </th>
+        </tr>
+        <tr>
+            <th class="text-center p-2 border-b">Sr.No</th>
+            <th class="text-center p-2 border-b">Details of Documents</th>
+            <th class="text-center p-2 border-b">Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (\App\Models\Checklist::where('loan_sub_category_id', $borrower->loan_sub_category->id)->get() as $item)
+        @if ($item->sequence_no != 15) <!-- Check to skip Sr.No 15 -->
+        <tr>
+            <td class="font-bold text-center p-2 border-b">
+                {{ $item->sequence_no }}
+            </td>
+            <td class="pl-2 p-2 border-b">
+                {{ $item->name }}
+            </td>
+            <td class="text-center p-2 border-b">
+                @php
+                    $isCompleted = false;
+                    switch($item->sequence_no) {
+                        case 1:
+                            $isCompleted = !empty($borrower);
+                            break;
+                        case 2:
+                            $isCompleted = !empty($borrower->employment_information);
+                            break;
+                        case 3:
+                            $isCompleted = !empty($borrower->applicant_requested_loan_information);
+                            break;
+                        case 4:
+                            $isCompleted = !empty($borrower->guarantor) && $borrower->guarantor->count() == 2;
+                            break;
+                        case 5:
+                            $isCompleted = !empty($borrower->finance_facility_many);
+                            break;
+                        case 6:
+                            $isCompleted = !empty($borrower->security) && $borrower->security->count() == 3;
+                            break;
+                        case 7:
+                            $isCompleted = !empty($borrower->reference) && $borrower->reference->count() == 2;
+                            break;
+                        case 8:
+                            $isCompleted = $borrower->documents?->count() >= 1;
+                            break;
+                        case 9:
+                            $isCompleted = $borrower->listHouseHoldItems->count() == 1;
+                            break;
+                        case 10:
+                            $isCompleted = !empty($borrower->obligor_score_card);
+                            break;
+                        case 11:
+                            $isCompleted = !empty($borrower->fact_sheet);
+                            break;
+                        case 12:
+                            if (!empty($borrower->personalNetWorthStat)) {
+                                $isCompleted = collect(['personal_form_a', 'personal_form_b', 'personal_form_c', 'personal_form_d'])
+                                    ->every(fn($form) => !$borrower->personalNetWorthStat->$form->isEmpty());
+                            }
+                            break;
+                        case 13:
+                            $isCompleted = !empty($borrower->net_worth);
+                            break;
+                        case 14:
+                            $isCompleted = !empty($borrower->employment_information);
+                            break;
+                    }
+                @endphp
+                <span class="{{ $isCompleted ? 'text-green-500' : 'text-red-500' }} font-bold">
+                    {!! $isCompleted ? '<b>&#x2714;</b>' : '<b>&#10007;</b>' !!}
+                </span>
+            </td>
+        </tr>
+        @endif
+        @endforeach
+    </tbody>
+</table>
+
+
+
+          <div class="page-break"></div>
 <table>
     <thead>
     <tr>
@@ -1459,7 +1547,11 @@
                             {{ $item->description }}
                         </td>
                         <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->loan_status->name ?? 'N/A' }}</td>
-                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ \Carbon\Carbon::parse($item->created_at) ?? 'N/A' }}</td>
+<td class="text-center" style="text-align: center; vertical-align: middle">
+    {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y H:i:s') ?? 'N/A' }}
+</td>
+
+
                     </tr>
                 @endforeach
                 </tbody>
@@ -1468,6 +1560,8 @@
         @endif
     </div>
 
+</div>
+</div>
 </div>
 
 

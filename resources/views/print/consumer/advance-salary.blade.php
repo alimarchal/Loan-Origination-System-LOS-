@@ -960,7 +960,7 @@
                                                         <td class="font-bold">Relationship to Borrower:</td>
                                                         <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
                                                     </tr>
-                
+
                                                   </tbody>
                                               </table>
                                               @if(!$loop->last)
@@ -1367,6 +1367,8 @@
 
             </div>
         </div>
+    </div>
+</div>
 {{--    @push('modals')--}}
 {{--            <script>--}}
 {{--                document.addEventListener('DOMContentLoaded', function() {--}}
