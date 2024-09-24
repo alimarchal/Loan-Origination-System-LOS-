@@ -22,7 +22,6 @@ use App\Http\Controllers\SalaryAutoFormController;
 use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
-use App\Models\BasicBorrowerFactSheetConsumer;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
