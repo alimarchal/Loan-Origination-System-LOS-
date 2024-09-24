@@ -930,46 +930,37 @@
                                                   </tr>
                                                   </thead>
                                                   <tbody>
-                                                  <tr>
-                                                      <td class="font-bold w-25">Father/Husband:</td>
-                                                      <td class="w-25">{{ $reference->father_husband }}</td>
-                                                      <td class="font-bold w-25">National ID:</td>
-                                                      <td class="w-25">{{ $reference->national_id }}</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td class="font-bold">NTN:</td>
-                                                      <td>{{ $reference->ntn }}</td>
-                                                      <td class="font-bold">Date of Birth:</td>
-                                                      <td>{{ $reference->date_of_birth }}</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td class="font-bold">Present Address:</td>
-                                                      <td>{{ $reference->present_address }}</td>
-                                                      <td class="font-bold">Permanent Address:</td>
-                                                      <td>{{ $reference->permanent_address }}</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td class="font-bold">Phone Number:</td>
-                                                      <td>{{ $reference->phone_number }}</td>
-                                                      <td class="font-bold">Phone Number Two:</td>
-                                                      <td>{{ $reference->phone_number_two }}</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td class="font-bold">Phone Number Three:</td>
-                                                      <td>{{ $reference->phone_number_three }}</td>
-                                                      <td class="font-bold">Email:</td>
-                                                      <td>{{ $reference->email }}</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td class="font-bold">Fax:</td>
-                                                      <td>{{ $reference->fax }}</td>
-                                                      <td class="font-bold">Designation:</td>
-                                                      <td>{{ $reference->designation }}</td>
-                                                  </tr>
-                                                  <tr>
-                                                      <td class="font-bold">Relationship to Borrower:</td>
-                                                      <td colspan="3">{{ $reference->relationship_to_borrower }}</td>
-                                                  </tr>
+                                                    <tr>
+                                                        <td class="font-bold w-25">Father/Husband:</td>
+                                                        <td class="w-25">{{ $reference->father_husband ?? 'N/A' }}</td>
+                                                        <td class="font-bold w-25">National ID:</td>
+                                                        <td class="w-25">{{ $reference->national_id ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="font-bold">NTN:</td>
+                                                        <td>{{ $reference->ntn ?? 'N/A' }}</td>
+                                                        <td class="font-bold">Date of Birth:</td>
+                                                        <td>{{ isset($reference->date_of_birth) ? \Carbon\Carbon::parse($reference->date_of_birth)->format('d-m-Y') : 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="font-bold">Present Address:</td>
+                                                        <td>{{ $reference->present_address ?? 'N/A' }}</td>
+                                                        <td class="font-bold">Permanent Address:</td>
+                                                        <td>{{ $reference->permanent_address ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="font-bold">Phone Number:</td>
+                                                        <td>{{ $reference->phone_number ?? 'N/A' }}</td>
+                                                        <td class="font-bold">Mobile Number:</td>
+                                                        <td>{{ $reference->mobile_number ?? 'N/A' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="font-bold">Email:</td>
+                                                        <td>{{ $reference->email ?? 'N/A' }}</td>
+                                                        <td class="font-bold">Relationship to Borrower:</td>
+                                                        <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
+                                                    </tr>
+                
                                                   </tbody>
                                               </table>
                                               @if(!$loop->last)
