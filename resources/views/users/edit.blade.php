@@ -69,10 +69,17 @@
                         @foreach(\Spatie\Permission\Models\Permission::all() as $permission)
                             <div class="flex items-center">
                                 <input type="checkbox" name="permissions[]" id="permission_{{ $permission->id }}" value="{{ $permission->id }}" class="form-checkbox"
-                                    {{ $user->hasPermissionTo($permission) ? 'checked' : '' }}>
-                                <label for="permission_{{ $permission->id }}" class="ml-2">{{ $permission->name }}</label>
+                                        {{ $user->hasPermissionTo($permission->name) ? 'checked' : '' }}> <!-- Check for both direct and role-based permissions -->
+
+                                <label for="permission_{{ $permission->id }}" class="ml-2">
+                                    {{ $permission->name }}
+                                    @if(!$user->hasDirectPermission($permission->name) && $user->hasPermissionTo($permission->name))
+                                        <small>(inherited from role)</small>
+                                    @endif
+                                </label>
                             </div>
                         @endforeach
+
 
                         @error('permissions')
                             <p class="text-red-500 text-xs italic mt-2">{{ $message }}</p>

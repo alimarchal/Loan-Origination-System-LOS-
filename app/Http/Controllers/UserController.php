@@ -18,10 +18,10 @@ class UserController extends Controller implements HasMiddleware
     {
         return [
 
-            new Middleware('role_or_permission:users-access', only: ['index']),
-            new Middleware('role_or_permission:users-create', only: ['create']),
-            new Middleware('role_or_permission:users-edit', only: ['edit']),
-            new Middleware('role_or_permission:users-edit', only: ['update']),
+            new Middleware('role_or_permission:Users Access', only: ['index']),
+            new Middleware('role_or_permission:Users Create', only: ['create']),
+            new Middleware('role_or_permission:Users Edit', only: ['edit']),
+            new Middleware('role_or_permission:Users View', only: ['update']),
         ];
     }
     public function index()
@@ -72,6 +72,10 @@ class UserController extends Controller implements HasMiddleware
 
     public function edit(User $user, Request $request)
     {
+        // Reload the user with fresh permissions and roles
+        $user = $user->load('permissions');
+//        dd($user->getRoleNames(), $user->getAllPermissions(), $user->getDirectPermissions());
+
         return view('users.edit', compact('user'));
     }
 
@@ -94,8 +98,23 @@ class UserController extends Controller implements HasMiddleware
 
 
         $user->update($request->all());
-        $permissions = array_map('intval', $request->input('permissions', []));
-        $user->syncPermissions($permissions);
+
+        // Get the selected permissions from the form
+        $permissions = $request->input('permissions', []);
+
+        // Detach all existing direct permissions
+        $user->permissions()->detach();
+
+        // Assign only the selected permissions
+        $directPermissions = Permission::whereIn('id', $permissions)->pluck('name')->toArray();
+        $user->syncPermissions($directPermissions);
+
+        // Clear cached permissions to ensure up-to-date data
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+
+//        $permissions = array_map('intval', $request->input('permissions', []));
+//        $user->syncPermissions($permissions);
 
         session()->flash('success', 'User has been updated successfully.');
         return to_route('users.edit', $user->id);
