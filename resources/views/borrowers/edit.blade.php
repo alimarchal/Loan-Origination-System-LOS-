@@ -283,7 +283,7 @@
                                 <div class="flex items-center justify-end mt-4">
                                     @if($borrower->is_authorize == "No")
 
-                                        @can('inputter')
+                                        @can('Inputter')
                                             <x-button class="ml-2" id="submit-btn">Update Borrower</x-button>
 
 
