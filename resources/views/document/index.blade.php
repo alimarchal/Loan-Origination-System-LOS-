@@ -59,7 +59,7 @@
                                         <td class="py-1 px-2 text-center">
 
                                             @if($document->is_authorize == "No")
-                                                @can('authorizer')
+                                                @can('Authorizer')
                                                     <form action="{{ route('document.authorized', [$document->borrower_id, $document->id]) }}" method="post" class="inline-block" onsubmit="return confirm('Do you really want to authorized this record?');">
                                                         @csrf
                                                         @method('PUT')
@@ -72,7 +72,7 @@
                                                         </button>
                                                     </form>
                                                 @endcan
-                                                @can('inputter')
+                                                @can('Inputter')
                                                         <form action="{{ route('document.destroy', [$document->borrower_id, $document->id]) }}" method="post" class="inline-block" onsubmit="return confirm('Do you really want to delete the record?');">
                                                             @csrf
                                                             @method('DELETE')
@@ -99,7 +99,7 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
                         <div class="flex items-center justify-left mt-1 mx-2">
-                            @can('inputter')
+                            @can('Inputter')
 
                                 @php
                                     $checklist = \App\Models\Checklist::where('loan_sub_category_id', $borrower->loan_sub_category->id)->orderBy('sequence_no')->get();

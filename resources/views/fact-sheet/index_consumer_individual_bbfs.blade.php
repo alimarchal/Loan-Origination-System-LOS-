@@ -332,7 +332,7 @@
                             <x-validation-errors class="mb-4 mt-4"/>
                         </div>
                                                     <div class="flex items-center justify-end mt-4">
-                                @can('inputter')
+                                @can('Inputter')
 
 
                                         @php

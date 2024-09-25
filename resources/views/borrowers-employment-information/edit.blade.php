@@ -208,7 +208,7 @@
 
                                         </div>
                                         <div class="flex items-center justify-end mt-4">
-                                            @can('inputter')
+                                            @can('Inputter')
                                                 @if(empty($borrower->employment_information))
                                                     <x-button class="ml-4" id="submit-btn">Save</x-button>
                                                 @else
@@ -243,7 +243,7 @@
 
 
 
-                                    @can('authorizer')
+                                    @can('Authorizer')
                                         @if(!empty($borrower->employment_information))
                                             <form method="POST" onsubmit="return confirm('Do you really want to authorized this record?');" action="{{ route('applicant.employment-information.authorized', [$borrower->id, $borrower->employment_information?->id] ) }}" enctype="multipart/form-data">
                                                 @csrf @method('PUT')
