@@ -13,6 +13,7 @@ use App\Models\LoanSubCategory;
 use App\Models\ObligorScoreCard;
 use App\Models\ObligorScoreCardFactor;
 use App\Models\Region;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -181,8 +182,6 @@ class BorrowerController extends Controller
      */
     public function show(Borrower $borrower)
     {
-
-
         return view('borrowers.print', compact('borrower'));
     }
 
@@ -474,22 +473,28 @@ class BorrowerController extends Controller
             // 1: Draft , 2: Returned With Observation , 3: Submitted , 4: In Process, 5: Approved, 6: Declined
             $loan_status_id = 3;
 
-            // get the regional credit manager id using branch_id of user
+
+            // get the region first which region it belongs to
+            $region_id = $borrower->branch->region_id;
+            // Fetch all users with the role "Regional Credit Manager"
+            $regional_credit_manager = User::role('Regional Credit Manager')->where('branch_id', $borrower->branch_id)->get();
+
+            foreach ($regional_credit_manager as $rcm) {
+                $loan_status_histories = LoanStatusHistory::create([
+                    'submit_by' => $user->id,
+                    'submit_to' => $rcm->id,
+                    'borrower_id' => $borrower->id,
+                    'name' => $request->name,
+                    'designation' => $request->designation,
+                    'placement' => $request->placement,
+                    'employee_no' => $request->employee_no,
+                    'description' => "This application has been reviewed and meets all necessary criteria outlined in our bank's current policies, guidelines before submitting, and confirming my password for verification. It is recommended to proceed for approval, as per bank policy." . $request->description,
+                    'loan_status_id' => $loan_status_id,
+                    'attachment' => NULL,
+                ]);
+            }
 
 
-
-            $loan_status_histories = LoanStatusHistory::create([
-                'submit_by' => $user->id,
-                'submit_to' => NULL,
-                'borrower_id' => $borrower->id,
-                'name' => $request->name,
-                'designation' => $request->designation,
-                'placement' => $request->placement,
-                'employee_no' => $request->employee_no,
-                'description' => "This application has been reviewed and meets all necessary criteria outlined in our bank's current policies, guidelines before submitting, and confirming my password for verification. It is recommended to proceed for approval, as per bank policy." . $request->description,
-                'loan_status_id' => $loan_status_id,
-                'attachment' => NULL,
-            ]);
 
             DB::commit();
             session()->flash('success', 'Applicant details have been successfully submitted for approval.');

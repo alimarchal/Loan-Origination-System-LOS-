@@ -8,11 +8,11 @@
             }
 
             body {
-                font-family: 'Calibri', sans-serif;
-                font-size: 12px;
-                line-height: 1.3;
-                margin: 0px;
-                padding: 0px;
+                /*font-family: 'Calibri', sans-serif;*/
+                /*font-size: 12px;*/
+                /*line-height: 1.3;*/
+                /*margin: 0px;*/
+                /*padding: 0px;*/
                 /*padding: 20px;*/
             }
 
@@ -119,7 +119,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                    <div class="p-8">
+                    <div style="font-family: 'Calibri', sans-serif;font-size: 12px;line-height: 1.3" class="p-8">
 
                       <p class="text-center my-2 uppercase  font-bold text-black">
                           Branch & Code: {{ $borrower->branch?->name }} - {{ $borrower->branch?->code }},
@@ -1275,8 +1275,7 @@
 
                       </div>
                   </div>
-
-                    <div class="p-4">
+                    <div style="font-family: 'Calibri', sans-serif;font-size: 12px;line-height: 1.3" class="p-4 pb-0">
                         @if($borrower->is_lock == "Yes" && $borrower->status == "Submitted")
                             <hr style=" border:2px solid black;" class="mb-4">
                             <h1 class="text-center mb-4 text-2xl font-bold">Official Use Only</h1>
@@ -1338,61 +1337,62 @@
 
                     </div>
 
-                </div>
 
+                    <div class="mx-auto p-12" style="font-size: 15px;">
+                        <form method="POST" action="{{ route('applicant.update', $borrower->id) }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('post')
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style="font-size: 15px!important;">
+                                    <div>
+                                        <x-label for="submit_to" value="{{ __('Forward To (Submit To)') }}" />
+                                        <select name="submit_to"  id="submit_to"  class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" >
+                                            <option value="">Select an option</option>
+{{--                                            User::role('Regional Credit Manager')->where('branch_id', $borrower->branch_id)->get();--}}
+
+{{--                                            @if(Auth()->user()->hasRole('Branch Manager'))--}}
+{{--                                                <p>You are an Admin.</p>--}}
+{{--                                            @elseif($user->hasRole('editor'))--}}
+{{--                                                <p>You are an Editor.</p>--}}
+{{--                                            @else--}}
+{{--                                                <p>You do not have a specific role.</p>--}}
+{{--                                            @endif--}}
+
+
+                                            @foreach(\App\Models\User::all() as $user)
+                                                <option value="{{ $user->id }}">
+                                                    {{ $user->name }}, Designation: {{ $user->designation }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+
+                                    <div>
+                                        <x-label for="loan_status_id" value="{{ __('Loan Status') }}" />
+                                        <select name="loan_status_id" id="loan_status_id"  class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" >
+                                            <option value="">Select an option</option>
+                                            @foreach(\App\Models\LoanStatus::whereNotIn('name',['Submitted','Draft'])->orderBy('name','ASC')->get() as $lsh)
+                                                <option value="{{ $lsh->id }}" {{ $lsh->name == "In Process" ?'selected':'' }}>{{ $lsh->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <x-label for="attachment_one" value="{{ __('Attachment') }}" />
+                                        <x-input id="attachment_one" class="block mt-1 w-full" type="file" name="attachment_one"  />
+                                    </div>
+
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4  mb-16 mt-4" style="font-size: 15px!important;">
+                                        <div>
+                                            <x-label for="description" value="{{ __('Notes / Remarks') }}" />
+                                            <textarea id="description" rows="10" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"></textarea>
+                                        </div>
+
+                                    </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-{{--    @push('modals')--}}
-{{--            <script>--}}
-{{--                document.addEventListener('DOMContentLoaded', function() {--}}
-{{--                    const table = document.getElementById('loanApplicationTable');--}}
-
-{{--                    table.addEventListener('click', function(e) {--}}
-{{--                        if (e.target.classList.contains('read-more-btn')) {--}}
-{{--                            const btn = e.target;--}}
-{{--                            const container = btn.closest('.remarks-container');--}}
-{{--                            const textSpan = container.querySelector('.remarks-text');--}}
-{{--                            const fullText = textSpan.dataset.fullText;--}}
-
-{{--                            if (btn.dataset.action === 'expand') {--}}
-{{--                                textSpan.textContent = fullText;--}}
-{{--                                btn.textContent = 'Show less';--}}
-{{--                                btn.dataset.action = 'collapse';--}}
-{{--                            } else {--}}
-{{--                                textSpan.textContent = fullText.substr(0, 100) + '...';--}}
-{{--                                btn.textContent = 'Read more';--}}
-{{--                                btn.dataset.action = 'expand';--}}
-{{--                            }--}}
-{{--                        }--}}
-{{--                    });--}}
-
-{{--                    // Initialize tooltips--}}
-{{--                    const remarks = table.querySelectorAll('.remarks-text');--}}
-{{--                    remarks.forEach(remark => {--}}
-{{--                        const tooltip = document.createElement('div');--}}
-{{--                        tooltip.className = 'tooltip hidden absolute bg-gray-800 text-white p-2 rounded';--}}
-{{--                        tooltip.textContent = remark.dataset.fullText;--}}
-{{--                        remark.parentNode.appendChild(tooltip);--}}
-
-{{--                        remark.addEventListener('mouseenter', function() {--}}
-{{--                            tooltip.classList.remove('hidden');--}}
-{{--                        });--}}
-
-{{--                        remark.addEventListener('mouseleave', function() {--}}
-{{--                            tooltip.classList.add('hidden');--}}
-{{--                        });--}}
-{{--                    });--}}
-{{--                });--}}
-{{--            </script>--}}
-
-{{--            <style>--}}
-{{--                .tooltip {--}}
-{{--                    max-width: 300px;--}}
-{{--                    word-wrap: break-word;--}}
-{{--                    z-index: 1000;--}}
-{{--                }--}}
-{{--            </style>--}}
-{{--    @endpush--}}
 </x-app-layout>

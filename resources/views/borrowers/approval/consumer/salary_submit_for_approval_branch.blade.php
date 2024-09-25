@@ -64,7 +64,7 @@
                             </p>
                                 <div class="flex items-center justify-end mt-2">
                                     @if($borrower->is_authorize == "No" && $borrower->is_lock == "No")
-                                        @can('inputter')
+                                        @can('Inputter')
                                             <x-button class="ml-2" id="submit-btn">Submit and recommended to proceed for approval</x-button>
                                         @endcan
                                     @endif
