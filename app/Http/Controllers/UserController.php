@@ -65,6 +65,90 @@ class UserController extends Controller implements HasMiddleware
         $role = Role::find($request->role);
         $user->assignRole($role);
 
+        $permissions = [
+            'Inputter',
+            'Authorizer',
+            'Users Access',
+            'Users Create',
+            'Users Edit',
+            'Users View',
+            'Credit Report Access',
+            'Credit Report Create',
+            'Credit Report Show',
+            'Credit Report Edit',
+            'Credit Report Update',
+            'Remarks',
+            'Sanctions Advised Issued',
+            'Borrower Access',
+            'Borrower Create',
+            'Borrower Edit',
+            'Borrower Show',
+            'Print PDF',
+        ];
+        $roles = [
+            'Branch Manager' => [
+                'Inputter', 'Authorizer', 'Credit Report Access', 'Credit Report Create',
+                'Credit Report Show', 'Borrower Access', 'Borrower Create', 'Borrower Edit',
+                'Borrower Show', 'Print PDF'
+            ],
+            'Credit Manager' => [
+                'Authorizer', 'Credit Report Access', 'Credit Report Show', 'Borrower Access',
+                'Borrower Show', 'Print PDF'
+            ],
+            'Credit Officer' => [
+                'Authorizer', 'Credit Report Access', 'Credit Report Show', 'Borrower Access',
+                'Borrower Show', 'Print PDF'
+            ],
+            'Regional Credit Manager' => [
+                'Credit Report Access', 'Credit Report Show', 'Remarks', 'Sanctions Advised Issued',
+                'Borrower Access', 'Borrower Show', 'Print PDF'
+            ],
+            'Regional Chief' => [
+                'Credit Report Access', 'Credit Report Show', 'Remarks', 'Borrower Access',
+                'Borrower Show', 'Print PDF'
+            ],
+            'DH CRBD' => [
+                'Remarks', 'Borrower Access', 'Borrower Show', 'Print PDF'
+            ],
+            'SM CRBD' => [
+                'Remarks', 'Borrower Access', 'Borrower Show', 'Print PDF'
+            ],
+            'SM Manager Officer' => [
+                'Credit Report Access', 'Credit Report Show', 'Credit Report Edit',
+                'Credit Report Update', 'Remarks', 'Sanctions Advised Issued', 'Borrower Access',
+                'Borrower Show', 'Print PDF'
+            ],
+            'DH CMD' => [
+                'Credit Report Access', 'Credit Report Show', 'Credit Report Edit',
+                'Credit Report Update', 'Remarks', 'Sanctions Advised Issued', 'Borrower Access',
+                'Borrower Show', 'Print PDF'
+            ],
+            'SM CMD' => [
+                'Credit Report Access', 'Credit Report Show', 'Credit Report Edit',
+                'Credit Report Update', 'Remarks', 'Borrower Access', 'Borrower Show', 'Print PDF'
+            ],
+            'CMD Manager Officer' => [
+                'Credit Report Access', 'Credit Report Show', 'Credit Report Edit',
+                'Credit Report Update', 'Remarks', 'Borrower Access', 'Borrower Show', 'Print PDF'
+            ],
+            'Admin' => [
+                'Users Access', 'Users Create', 'Users Edit', 'Users View', 'Credit Report Access',
+                'Credit Report Show', 'Credit Report Edit', 'Credit Report Update', 'Borrower Access',
+                'Borrower Show', 'Print PDF'
+            ],
+            'Super Admin' => $permissions, // All permissions
+        ];
+        foreach ($roles as $roleName => $rolePermissions) {
+
+            if ($roleName == $role->name){
+                // Sync the permissions of the user with the permissions of the assigned role
+                $user->syncPermissions($rolePermissions);
+            }
+
+
+        }
+
+
         session()->flash('status', 'User has been successfully created.');
 
         return to_route('users.index');
@@ -96,22 +180,19 @@ class UserController extends Controller implements HasMiddleware
         }
 
 
-
         $user->update($request->all());
 
-        // Get the selected permissions from the form
-        $permissions = $request->input('permissions', []);
-
-        // Detach all existing direct permissions
+        // Revoke all permissions from the user
         $user->permissions()->detach();
 
-        // Assign only the selected permissions
-        $directPermissions = Permission::whereIn('id', $permissions)->pluck('name')->toArray();
-        $user->syncPermissions($directPermissions);
+        // Sync direct permissions only (the ones that are not inherited from roles)
+        $directPermissions = Permission::whereIn('id', $request->input('permissions', []))->pluck('name')->toArray();
 
-        // Clear cached permissions to ensure up-to-date data
+        // Clear cached permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
+        // Sync only the direct permissions
+        $user->syncPermissions($directPermissions);
 
 //        $permissions = array_map('intval', $request->input('permissions', []));
 //        $user->syncPermissions($permissions);

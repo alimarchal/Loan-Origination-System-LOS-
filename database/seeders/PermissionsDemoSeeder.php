@@ -18,7 +18,7 @@ class PermissionsDemoSeeder extends Seeder
     public function run(): void
     {
         // Reset cached roles and permissions
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Create permissions
         $permissions = [
@@ -103,7 +103,7 @@ class PermissionsDemoSeeder extends Seeder
 
         foreach ($roles as $roleName => $rolePermissions) {
             $role = Role::create(['name' => $roleName, 'guard_name' => 'web']);
-            $role->givePermissionTo($rolePermissions);
+//            $role->givePermissionTo($rolePermissions);
         }
 
         // Create users and assign roles
@@ -114,9 +114,10 @@ class PermissionsDemoSeeder extends Seeder
                 'password' => Hash::make('password123'),
             ]);
             $user->assignRole($roleName);
+            // Sync the permissions of the user with the permissions of the assigned role
+            $user->syncPermissions($rolePermissions);
         }
     }
-
     // php artisan migrate:fresh --seed --seeder=PermissionsDemoSeeder
     // php artisan migrate --path=./database/migrations/2024_05_27_110713_create_loan_statuses_table.php
 }

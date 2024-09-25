@@ -18,13 +18,20 @@ class CreditReportingController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
+            // Ensure only users with the 'Branch Manager', 'Credit Manager', or 'Admin' role can access the index
+            new Middleware('role:Branch Manager|Credit Manager|Admin', ['only' => ['index']]),
 
-            new Middleware('role_or_permission:credit report access', only: ['index']),
-            new Middleware('role_or_permission:credit report create', only: ['create']),
-            new Middleware('role_or_permission:credit report show', only: ['show']),
-            new Middleware('role_or_permission:credit report edit', only: ['edit']),
-            new Middleware('role_or_permission:credit report update', only: ['update']),
-            new Middleware('role_or_permission:users-edit', only: ['update']),
+            // Only allow users with 'Branch Manager' or 'Admin' roles to create credit reports
+            new Middleware('role:Branch Manager|Admin', ['only' => ['create', 'store']]),
+
+            // Only allow users with 'Admin' or specific role to view credit reports
+            new Middleware('role:Admin|Credit Officer', ['only' => ['show']]),
+
+            // Only allow users with 'Admin' or 'Credit Officer' roles to edit and update credit reports
+            new Middleware('role:Admin|Credit Officer', ['only' => ['edit', 'update']]),
+
+            // Only users with 'Admin' role can delete credit reports (if necessary)
+            new Middleware('role:Admin', ['only' => ['destroy']]),
         ];
     }
 
