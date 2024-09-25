@@ -30,11 +30,16 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('administration', [AdministrationController::class, 'index'])->name('administration.index');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::group(['middleware' => ['role:Admin|Super Admin']], function() {
+
+    });
 
 
     Route::get('/loan-subcategories/{categoryId}', [LoanSubCategoryController::class, 'getLoanSubCategories'])->name('loan.subcategories');
@@ -237,6 +242,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
 
 
 
-    Route::get('administration', [AdministrationController::class, 'index'])->name('administration.index');
+
 
 });
