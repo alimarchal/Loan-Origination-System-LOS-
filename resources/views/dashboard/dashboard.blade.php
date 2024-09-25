@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=123757&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src="{{ url('icons-images/draft.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=ZgPBQPTN8R9f&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src="{{ url('icons-images/submitted.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -210,6 +210,8 @@
                     <div class="bg-white transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg p-4" id="chart_two">
                     </div>
                 </div>
+
+
             </div>
 
 
@@ -222,12 +224,12 @@
     @push('modals')
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-// Chart 1: Pie Chart - "Loan Category"
+                // Chart 1: Pie Chart - "Loan Category"
                 var options1 = {
                     series: [44, 55, 13, 43, 22],
                     chart: {
                         width: 500,
-                        height: 400, // Height set to 400
+                        height: 300, // Height set to 400
                         type: 'pie',
                     },
                     labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
@@ -253,17 +255,17 @@
                     }]
                 };
 
-// Initialize Chart 1
+                // Initialize Chart 1
                 var chart1 = new ApexCharts(document.querySelector("#chart"), options1);
                 chart1.render();
 
 
-// Chart 2: Donut Chart - "Gender Wise"
+                // Chart 2: Donut Chart - "Gender Wise"
                 var options2 = {
                     series: [44, 55, 13, 43, 22],
                     chart: {
                         width: 500,
-                        height: 400, // Height set to 400
+                        height: 300, // Height set to 400
                         type: 'pie',
                     },
                     labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
@@ -289,7 +291,7 @@
                     }]
                 };
 
-// Initialize Chart 2
+                // Initialize Chart 2
                 var chart2 = new ApexCharts(document.querySelector("#chart_two"), options2);
                 chart2.render();
 

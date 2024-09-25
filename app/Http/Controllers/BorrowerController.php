@@ -474,6 +474,10 @@ class BorrowerController extends Controller
             // 1: Draft , 2: Returned With Observation , 3: Submitted , 4: In Process, 5: Approved, 6: Declined
             $loan_status_id = 3;
 
+            // get the regional credit manager id using branch_id of user
+
+
+
             $loan_status_histories = LoanStatusHistory::create([
                 'submit_by' => $user->id,
                 'submit_to' => NULL,

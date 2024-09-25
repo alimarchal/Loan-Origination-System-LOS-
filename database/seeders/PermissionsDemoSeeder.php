@@ -35,6 +35,8 @@ class PermissionsDemoSeeder extends Seeder
         $role15 = Role::create(['name' => 'SM CMD']);
         $role16 = Role::create(['name' => 'Head Office']);
 
+        // tested final
+
 
         // create permissions\
 
