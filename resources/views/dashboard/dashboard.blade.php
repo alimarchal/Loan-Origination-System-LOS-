@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src="{{ url('icons-images/inprocess.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src="{{ url('icons-images/approved.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src="{{ url('icons-images/declined.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src= "{{ url('icons-images/return.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=123757&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src="{{ url('icons-images/consumer.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=ZgPBQPTN8R9f&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src="{{ url('icons-images/commercial.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src="{{ url('icons-images/micro.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@
                                 </div>
                             </div>
                             <div class="col-span-1 flex items-center justify-end">
-                                <img src="https://img.icons8.com/?size=128&id=J0FhendbHVsR&format=png" alt="employees on leave" class="h-12 w-12">
+                                <img src= "{{ url('icons-images/agriculture.png') }}" alt="employees on leave" class="h-12 w-12">
                             </div>
                         </div>
                     </div>
@@ -297,6 +297,8 @@
 
 
             });
+
+
         </script>
     @endpush
 </x-app-layout>

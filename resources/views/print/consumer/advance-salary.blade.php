@@ -684,29 +684,6 @@
                           </h1>
                       @endif
 
-                      @if(!$borrower->documents_uploaded->isEmpty())
-
-                          <table>
-                              <thead>
-                              <tr>
-                                  <th colspan="5" class="text-center">Documents</th>
-                              </tr>
-                              <tr>
-                                  <th class="text-center">ID</th>
-                                  <th class="text-center">Document Name</th>
-                                  <th class="text-center">Description</th>
-                                  <th class="text-center">Attachment</th>
-                                  <th class="text-center">Uploaded</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-
-                              @php
-                                  $documentTypes = $borrower->documents->pluck('description', 'document_type')->toArray();
-                                  $uploadedDocuments = $borrower->documents->pluck('document_type')->toArray();
-                                  $uploadDates = $borrower->documents->pluck('created_at', 'document_type')->toArray();
-                              @endphp
-
 
                               @if(!$borrower->documents_uploaded->isEmpty())
                                   <table>
@@ -764,9 +741,7 @@
                                   </table>
                               @endif
 
-                              </tbody>
-                          </table>
-                      @endif
+
 
 
                       @if(!$borrower->listHouseHoldItems->isEmpty())

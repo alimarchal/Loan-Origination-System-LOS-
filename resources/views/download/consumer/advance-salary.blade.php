@@ -158,7 +158,7 @@
 <table class="w-full table-auto">
     <thead>
         <tr>
-            <th colspan="4" class="text-center p-4 bg-gray-100 dark:bg-gray-700 text-lg font-bold">
+            <th colspan="3" class="text-center p-4 bg-gray-100 dark:bg-gray-700 text-lg font-bold">
                 Checklist for {{ $borrower->loan_sub_category->name }}
             </th>
         </tr>
