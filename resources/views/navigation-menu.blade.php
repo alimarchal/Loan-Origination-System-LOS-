@@ -23,7 +23,14 @@
 
                     @can('Credit Report Access')
                         <x-nav-link href="{{ route('credit-reporting.index') }}" :active="request()->routeIs('credit-reporting.*')">
-                            Credit Reporting
+                            Data Check Report
+                        </x-nav-link>
+                    @endcan
+
+
+                    @can('Sanctions Advised Issued')
+                        <x-nav-link href="{{ route('sanction-advice.index') }}" :active="request()->routeIs('sanction-advice.*')">
+                            Sanction Advices
                         </x-nav-link>
                     @endcan
 

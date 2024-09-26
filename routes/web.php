@@ -19,6 +19,7 @@ use App\Http\Controllers\PersonalNetWorthStatController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\RequestedLoanAmountController;
 use App\Http\Controllers\SalaryAutoFormController;
+use App\Http\Controllers\SanctionAdviceController;
 use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
@@ -63,6 +64,13 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::get('/borrower/{borrower}/submit-for-approval', 'submit_for_approval_view')->name('borrower.submit_for_approval_view');
         Route::post('/applicant/{borrower}/submit', 'submit_consumer_salary')->name('borrower.submit_for_approval');
     });
+
+
+    Route::controller(SanctionAdviceController::class)->group(function () {
+        Route::get('/sanction-advice', 'index')->name('sanction-advice.index');
+        Route::get('/sanction-advice/{borrower}/create', 'create')->name('sanction-advice.create');
+    });
+
 
     // Applicant Employment Information
     Route::controller(BorrowerEmploymentInformationController::class)->group(function () {
@@ -230,11 +238,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
 
     // Applicant Requested Loan Information
     Route::controller(CreditReportingController::class)->group(function () {
-        Route::get('/credit-reporting', 'index')->name('credit-reporting.index');
-        Route::get('/credit-reporting/data-check-reporting-request', 'create')->name('credit-reporting.create');
-        Route::post('/credit-reporting/data-check-reporting-request', 'store')->name('credit-reporting.store');
-        Route::get('/credit-reporting/data-check-reporting-request/{creditReporting}/edit', 'edit')->name('credit-reporting.edit');
-        Route::put('/credit-reporting/data-check-reporting-request/{creditReporting}', 'update')->name('credit-reporting.update');
+        Route::get('/data-check-report', 'index')->name('credit-reporting.index');
+        Route::get('/data-check-report/data-check-reporting-request', 'create')->name('credit-reporting.create');
+        Route::post('/data-check-report/data-check-reporting-request', 'store')->name('credit-reporting.store');
+        Route::get('/data-check-report/data-check-reporting-request/{creditReporting}/edit', 'edit')->name('credit-reporting.edit');
+        Route::put('/data-check-report/data-check-reporting-request/{creditReporting}', 'update')->name('credit-reporting.update');
     });
 
 

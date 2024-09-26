@@ -63,6 +63,8 @@ return new class extends Migration {
             $table->enum('pending_at_head_office',['Yes','No'])->default('No');
             $table->enum('status',['Draft' ,'Returned With Observation','Submitted','In Process', 'Approved', 'Declined',])->default('Draft');
             $table->enum('is_lock',['Yes','No'])->default('No');
+            $table->enum('is_sanction_advice_issued',['Yes','No'])->default('No');
+            $table->integer('sanction_advice_issued_by')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
