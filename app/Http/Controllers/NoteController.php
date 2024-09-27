@@ -56,10 +56,10 @@ class NoteController extends Controller
             try {
                 LoanStatusHistory::create($request->all());
 
-                $borrower->status = 'In Process';
-                $borrower->pending_at_region = 'Yes';
-                $borrower->pending_at_branch = 'No';
-                $borrower->pending_at_head_office = 'No';
+//                $borrower->status = 'In Process';
+//                $borrower->pending_at_region = 'Yes';
+//                $borrower->pending_at_branch = 'No';
+//                $borrower->pending_at_head_office = 'No';
                 $borrower->save();
 
                 DB::commit();

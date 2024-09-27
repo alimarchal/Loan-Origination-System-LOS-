@@ -186,29 +186,32 @@
 
 
                                     <td class="py-0.5 px-1 text-center ">
-                                        @php
-                                            $pendingAt = [];
 
-                                            if ($borrower->pending_at_branch == "Yes") {
-                                                $pendingAt[] = 'Branch';
-                                            }
-                                            if ($borrower->pending_at_region == "Yes") {
-                                                $pendingAt[] = 'Region';
-                                            }
-                                            if ($borrower->pending_at_head_office == "Yes") {
-                                                $pendingAt[] = 'Head Office';
-                                            }
-                                        @endphp
+                                        {{ $borrower->statusHistories->last()->to->name }}
 
-                                        @if(count($pendingAt) > 0)
-                                            @if(count($pendingAt) > 1)
-                                                {{ implode(', ', $pendingAt) }}
-                                            @else
-                                                {{ $pendingAt[0] }}
-                                            @endif
-                                        @else
-                                            #N/A
-                                        @endif
+{{--                                        @php--}}
+{{--                                            $pendingAt = [];--}}
+
+{{--                                            if ($borrower->pending_at_branch == "Yes") {--}}
+{{--                                                $pendingAt[] = 'Branch';--}}
+{{--                                            }--}}
+{{--                                            if ($borrower->pending_at_region == "Yes") {--}}
+{{--                                                $pendingAt[] = 'Region';--}}
+{{--                                            }--}}
+{{--                                            if ($borrower->pending_at_head_office == "Yes") {--}}
+{{--                                                $pendingAt[] = 'Head Office';--}}
+{{--                                            }--}}
+{{--                                        @endphp--}}
+
+{{--                                        @if(count($pendingAt) > 0)--}}
+{{--                                            @if(count($pendingAt) > 1)--}}
+{{--                                                {{ implode(', ', $pendingAt) }}--}}
+{{--                                            @else--}}
+{{--                                                {{ $pendingAt[0] }}--}}
+{{--                                            @endif--}}
+{{--                                        @else--}}
+{{--                                            #N/A--}}
+{{--                                        @endif--}}
 
 
 
@@ -216,7 +219,8 @@
 
 
                                     <td class="py-1 px-2 text-center ">
-                                         {{ $borrower->status }}
+                                        {{ $borrower->statusHistories->last()->loan_status->name }}
+{{--                                         {{ $borrower->status }}--}}
                                     </td>
 
                                     <td class="py-1 px-2 text-center print:hidden">
