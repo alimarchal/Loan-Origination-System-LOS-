@@ -1509,7 +1509,7 @@
 
     <div class="page-break"></div>
     <div class="p-4">
-        @if($borrower->is_lock == "Yes" && $borrower->status == "Submitted")
+        @if($borrower->is_lock == "Yes")
             <h1 class="text-center mb-4 text-2xl font-bold">Official Use Only</h1>
 
 
@@ -1547,9 +1547,9 @@
                             {{ $item->description }}
                         </td>
                         <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->loan_status->name ?? 'N/A' }}</td>
-<td class="text-center" style="text-align: center; vertical-align: middle">
-    {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y H:i:s') ?? 'N/A' }}
-</td>
+                        <td class="text-center" style="text-align: center; vertical-align: middle">
+                            {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y H:i:s') ?? 'N/A' }}
+                        </td>
 
 
                     </tr>

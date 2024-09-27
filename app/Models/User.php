@@ -80,4 +80,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Branch::class);
     }
+
+    public static function get_branches_by_region($id)
+    {
+        return Branch::where('region_id', $id)->pluck('id')->toArray();
+    }
 }

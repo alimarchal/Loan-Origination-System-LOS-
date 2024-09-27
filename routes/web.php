@@ -14,6 +14,7 @@ use App\Http\Controllers\FinanceFacilityController;
 use App\Http\Controllers\GuarantorController;
 use App\Http\Controllers\ListHouseHoldItemController;
 use App\Http\Controllers\LoanSubCategoryController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\ObligorScoreCardController;
 use App\Http\Controllers\PersonalNetWorthStatController;
 use App\Http\Controllers\ReferenceController;
@@ -65,6 +66,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/applicant/{borrower}/submit', 'submit_consumer_salary')->name('borrower.submit_for_approval');
     });
 
+    Route::controller(NoteController::class)->group(function () {
+        Route::post('/notes-remarks/{borrower}/{user}', 'store')->name('notes.store');
+    });
 
     Route::controller(SanctionAdviceController::class)->group(function () {
         Route::get('/sanction-advice', 'index')->name('sanction-advice.index');

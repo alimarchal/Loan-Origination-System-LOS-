@@ -182,6 +182,9 @@ class BorrowerController extends Controller
      */
     public function show(Borrower $borrower)
     {
+
+//        $branches_id = \App\Models\User::get_branches_by_region($borrower->branch->region_id);
+//dd(\App\Models\User::role('Regional Credit Manager')->whereIn('branch_id',\App\Models\User::get_branches_by_region($borrower->branch->region_id))->get());
         return view('borrowers.print', compact('borrower'));
     }
 
