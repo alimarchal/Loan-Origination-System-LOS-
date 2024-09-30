@@ -1522,10 +1522,7 @@
                     <th class="text-center">ID</th>
                     <th class="text-center">From</th>
                     <th class="text-center">To</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Designation</th>
-                    <th class="text-center">Placement</th>
-                    <th class="text-center">EMP No</th>
+                    <th class="text-center">User Information</th>
                     <th class="text-center">Remarks</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Time</th>
@@ -1539,15 +1536,20 @@
                         <td class="text-center font-bold" style="horiz-align: center; vertical-align: middle">{{ $loop->iteration }}</td>
                         <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->from->name ?? 'N/A' }}</td>
                         <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->to->name ?? 'N/A' }}</td>
-                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->name ?? 'N/A' }}</td>
-                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->designation ?? 'N/A' }}</td>
-                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->placement ?? 'N/A' }}</td>
-                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->employee_no ?? 'N/A' }}</td>
-                        <td class="text-center" >
+                        <td class="text-center" style="text-align: left; vertical-align: middle;">
+                            {{ $item->name ?? 'N/A' }}<br>
+                            {{ $item->designation ?? 'N/A' }}<br>
+                            {{ $item->placement ?? 'N/A' }}<br>
+                            {{ $item->employee_no ?? 'N/A' }}<br>
+                        </td>
+{{--                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->designation ?? 'N/A' }}</td>--}}
+{{--                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->placement ?? 'N/A' }}</td>--}}
+{{--                        <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->employee_no ?? 'N/A' }}</td>--}}
+                        <td class="text-center" style="text-align: center; vertical-align: middle" >
                             {{ $item->description }}
                         </td>
                         <td class="text-center" style="horiz-align: center; vertical-align: middle">{{ $item->loan_status->name ?? 'N/A' }}</td>
-                        <td class="text-center" style="text-align: center; vertical-align: middle">
+                        <td class="text-center w-10" style="text-align: center; vertical-align: middle">
                             {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y H:i:s') ?? 'N/A' }}
                         </td>
 

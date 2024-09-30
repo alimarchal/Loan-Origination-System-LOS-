@@ -124,13 +124,15 @@
                    <x-validation-errors class="mb-4 mt-2 p-8" />
                 <div style="font-family: 'Calibri', sans-serif;font-size: 12px;line-height: 1.3" class="p-8">
 
-                    <p class="text-center my-2 uppercase  font-bold text-black">
-                        Branch & Code: {{ $borrower->branch?->name }} - {{ $borrower->branch?->code }},
-                        <br>Region: {{ $borrower->branch?->region?->name }}
-                        <br> Date: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-M-Y') }}
+                    <p class="text-center my-2 uppercase  font-bold text-black" style="font-size: 16px;">
+                       {{ $borrower->branch?->name }},  {{ $borrower->branch?->code }}, {{ $borrower->branch?->region?->name }} Region <br>
+                        Loan ID: {{ $borrower->id }}<br>
+                        Application For {{ $borrower->loan_sub_category?->name }} <br>
+                        Requested Amount: {{ $borrower->applicant_requested_loan_information->requested_amount }}<br>
+                        Date: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-M-Y') }}
                     </p>
-                    <h2 class="text-center uppercase underline font-bold text-black">Application Form For {{ $borrower->loan_sub_category?->name }}</h2>
 
+                    <br>
                     <table>
                         <thead>
                         <tr>

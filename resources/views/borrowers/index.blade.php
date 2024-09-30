@@ -187,7 +187,7 @@
 
                                     <td class="py-0.5 px-1 text-center ">
 
-                                        {{ $borrower->statusHistories->last()->to->name }}
+                                        {{ $borrower->statusHistories?->last()->to?->getRoleNames()->first() }}
 
 {{--                                        @php--}}
 {{--                                            $pendingAt = [];--}}
@@ -219,7 +219,7 @@
 
 
                                     <td class="py-1 px-2 text-center ">
-                                        {{ $borrower->statusHistories->last()->loan_status->name }}
+                                        {{ $borrower->statusHistories?->last()->loan_status->name }}
 {{--                                         {{ $borrower->status }}--}}
                                     </td>
 
