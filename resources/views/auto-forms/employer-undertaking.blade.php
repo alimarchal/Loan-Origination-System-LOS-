@@ -10,7 +10,7 @@
                 width: 100%;
                 border-collapse: collapse;
                 margin-bottom: 5px;
-                page-break-inside: avoid;
+                page-break-inside: avoid; 
             }
 
             th, td {
