@@ -1,6 +1,9 @@
 <x-app-layout>
     @push('header')
-
+        <!-- Include stylesheet -->
+        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
+        <!-- Include the Quill library -->
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
         <style>
 
             table {
@@ -332,11 +335,13 @@
                              </tr>
                             <tr>
                                 <td class="font-bold" style="width: 20%!important;">Secondary:</td>
-                                <td>  • 06 Post Dated Cheques favoring BAJK along with Departmental undertaking.<br>
-                                      • One Personal Guarantee: <br>
-                                      • Designation: <br>
-                                      •  CNIC: <br>
-                                      • Contact #  PP:
+
+                                <td>  • {{ $borrower->security->where('security_type','Post Dated Cheques')->first()?->post_dated_cheques }} Post Dated Cheques favoring BAJK along with Departmental undertaking.<br>
+                                        @php $guarantor = $borrower->guarantor?->first() @endphp
+                                      • One Personal Guarantee: {{ $guarantor->name }}<br>
+                                      • Designation:  {{ $guarantor->designation }}<br>
+                                      • CNIC:  {{ $guarantor->national_id }}<br>
+                                      • Contact #  PP: {{ $guarantor->phone_number }}
 
 
 
@@ -384,24 +389,49 @@
                         </table>
 
 
-                        <table class="w-full mb-4 border-collapse border border-gray-300">
-                            <tr>
-                                <td class="border border-gray-300 p-2">Name of the Applicant</td>
-                                <td class="border border-gray-300 p-2">muhammad danish abbasi</td>
-                                <td class="border border-gray-300 p-2">Contact #</td>
-                                <td class="border border-gray-300 p-2">12345678</td>
-                            </tr>
-                            <tr>
-                                <td class="border border-gray-300 p-2">Father/Husband's Name</td>
-                                <td class="border border-gray-300 p-2">muhammad yousaf abbasi</td>
-                                <td class="border border-gray-300 p-2">PP NO.</td>
-                                <td class="border border-gray-300 p-2">1234</td>
-                            </tr>
-                            <!-- Add more rows for other details -->
-                        </table>
+                            <!-- Create the editor container -->
+                            <div class="mx-4">
+                                <div id="editor">
+
+                                    <h2 class="text-xl font-bold mb-4">E: DOCUMENTS REQUIRED BEFORE DISBURSEMENT:</h2>
+                                    <p class="mb-4">Loan may be disbursed only on issuance of the DAC that will be issued on receipt / scrutiny of the following Charge / Security documents for the Principal Plus Total Amount of the Markup), using Bank's standard / approved charge documents (legible copies) having proper stamps affixed for appropriate value.</p>
+                                    <ol class="list-decimal pl-6 mb-6">
+                                        <li>Letter of Acceptance of Terms and Conditions of the Finance.</li>
+                                        <li>Agreement of Finance for Short/Medium/Long Term on Markup basis.</li>
+                                        <li>Demand Promissory Note.</li>
+                                        <li>Letter of Hypothecation of Moveable Assets.</li>
+                                        <li>Letter of Installment.</li>
+                                        <li>Letter of Continuity.</li>
+                                        <li>Letter of Arrangement.</li>
+                                        <li>Letter of Guarantee from the Borrower & Guarantor in their personal capacity.</li>
+                                        <li>Undertaking regarding Postdated Cheques in favor of BAJK.</li>
+                                        <li>Repayment Schedule of Installment.</li>
+                                        <li>Authority Letter to debit the account for recovery of Installment and other charges.</li>
+                                    </ol>
+
+                                    <h2 class="text-xl font-bold mb-4">F: GENERAL TERMS AND CONDITIONS:</h2>
+                                    <ol class="list-decimal pl-6 mb-6">
+                                        <li>The Bank reserves the right to call back the finance at any time or change, or modify any term and conditions, without assigning any reason during currency of the limit.</li>
+                                        <li>The facility shall be got adjusted in full by the expiry of the limit positively.</li>
+                                        <li>Bank reserves the right to change the markup rate at any time.</li>
+                                        <li>Routing of salary as per BAJK approved policy.</li>
+                                        <li>Processing fee as per latest schedule of charges to be recovered.</li>
+                                        <li>Validity period of this sanctioned advice is thirty days.</li>
+                                        <li>In case of Salary Loan Enhancement, the outstanding balance must be settled at the time of disbursement.</li>
+                                        <li>Insurance must be obtained as per Bank's Policy.</li>
+                                    </ol>
+
+                                    <p class="font-bold mb-4">Note:</p>
+                                    <p>The applicant has not availed any multiple loans from BAJK as reported by Regional Offices.</p>
+
+                                    <p class="font-bold mt-6 mb-2">THE PROPOSAL IS SUBMITTED FOR APPROVAL BEFORE (CONCERNED COMMITTEE)</p>
+
+                                </div>
+                            </div>
 
 
-                        <div class="flex justify-between mt-8">
+
+                            <div class="flex justify-between mt-8">
                             <div>
                                 <p>__________________</p>
                                 <p class="font-bold">Credit Officer</p>
@@ -423,19 +453,12 @@
 
                     <x-validation-errors class="mb-4 mt-4"/>
 
-                    <!-- Include stylesheet -->
-                    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet"/>
 
 
-                    <!-- Create the editor container -->
-                    <div id="editor">
-                        <p>Hello World!</p>
-                        <p>Some initial <strong>bold</strong> text</p>
-                        <p><br/></p>
-                    </div>
 
-                    <!-- Include the Quill library -->
-                    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+
+
 
                     <!-- Initialize Quill editor -->
                     <script>
@@ -444,198 +467,7 @@
                         });
                     </script>
 
-                    <form method="POST" action="{{ route('guarantor.store', $borrower->id) }}" enctype="multipart/form-data">
-                        @csrf
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-                            <!-- Form fields for Guarantor -->
-                            <div>
-                                <x-label for="guarantor_type" value="Guarantor Type"/>
-                                <select name="guarantor_type" id="guarantor_type" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
-                                    <option value="">Select an option</option>
-                                    <option value="Individual" {{ old('guarantor_type') == 'Individual' ? 'selected' : '' }}>Individual</option>
-                                    <option value="Business" {{ old('guarantor_type') == 'Business' ? 'selected' : '' }}>Business</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <x-label for="title" value="Title"/>
-                                <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="name" value="Name"/>
-                                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$borrower->name" readonly/>
-                            </div>
-
-                            <div>
-                                <x-label for="father_husband" value="Father/Husband Name"/>
-                                <x-input id="father_husband" class="block mt-1 w-full" type="text" name="father_husband" :value="old('father_husband')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="national_id" value="National ID"/>
-                                <x-input id="national_id" class="block mt-1 w-full" type="text" name="national_id" :value="old('national_id')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="phone_number" value="Phone Number"/>
-                                <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="phone_number_two" value="Phone Number Two"/>
-                                <x-input id="phone_number_two" class="block mt-1 w-full" type="text" name="phone_number_two" :value="old('phone_number_two')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="email" value="Email"/>
-                                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="present_address" value="Present Address"/>
-                                <x-input id="present_address" class="block mt-1 w-full" type="text" name="present_address" :value="old('present_address')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="permanent_address" value="Permanent Address"/>
-                                <x-input id="permanent_address" class="block mt-1 w-full" type="text" name="permanent_address" :value="old('permanent_address')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="department" value="Department"/>
-                                <x-input id="department" class="block mt-1 w-full" type="text" name="department" :value="old('department')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="designation" value="Designation"/>
-                                <x-input id="designation" class="block mt-1 w-full" type="text" name="designation" :value="old('designation')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="employer_name" value="Employer Name"/>
-                                <x-input id="employer_name" class="block mt-1 w-full" type="text" name="employer_name" :value="old('employer_name')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="employee_personal_number" value="Employee Personal Number"/>
-                                <x-input id="employee_personal_number" class="block mt-1 w-full" type="text" name="employee_personal_number" :value="old('employee_personal_number')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="employment_status" value="Employment Status"/>
-                                <x-input id="employment_status" class="block mt-1 w-full" type="text" name="employment_status" :value="old('employment_status')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="monthly_gross_salary" value="Monthly Gross Salary"/>
-                                <x-input id="monthly_gross_salary" class="block mt-1 w-full" type="number" step="0.01" min="0" name="monthly_gross_salary" :value="old('monthly_gross_salary')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="date_of_retirement" value="Date of Retirement"/>
-                                <x-input id="date_of_retirement" class="block mt-1 w-full" type="date" name="date_of_retirement" :value="old('date_of_retirement')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="relationship_to_borrower" value="Relationship to Borrower"/>
-                                <x-input id="relationship_to_borrower" class="block mt-1 w-full" type="text" name="relationship_to_borrower" :value="old('relationship_to_borrower')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="dob" value="Date of Birth"/>
-                                <x-input id="dob" class="block mt-1 w-full" type="date" name="dob" :value="old('dob')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="ntn" value="NTN"/>
-                                <x-input id="ntn" class="block mt-1 w-full" type="text" name="ntn" :value="old('ntn')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="nature_of_business" value="Nature of Business"/>
-                                <x-input id="nature_of_business" class="block mt-1 w-full" type="text" name="nature_of_business" :value="old('nature_of_business')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="title_of_business" value="Title of Business"/>
-                                <x-input id="title_of_business" class="block mt-1 w-full" type="text" name="title_of_business" :value="old('title_of_business')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="major_business_activities" value="Major Business Activities"/>
-                                <x-input id="major_business_activities" class="block mt-1 w-full" type="text" name="major_business_activities" :value="old('major_business_activities')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="exact_location_of_business_place" value="Exact Location of Business Place"/>
-                                <x-input id="exact_location_of_business_place" class="block mt-1 w-full" type="text" name="exact_location_of_business_place" :value="old('exact_location_of_business_place')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="business_bank_account_maintained" value="Business Bank Account Maintained"/>
-                                <x-input id="business_bank_account_maintained" class="block mt-1 w-full" type="text" name="business_bank_account_maintained" :value="old('business_bank_account_maintained')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="annual_turnover" value="Annual Turnover"/>
-                                <x-input id="annual_turnover" class="block mt-1 w-full" type="number" step="0.01" min="0" name="annual_turnover" :value="old('annual_turnover')"/>
-                            </div>
-
-                            <!-- Additional Fields -->
-                            <div>
-                                <x-label for="bps_sps_no" value="BPS or SPS No."/>
-                                <x-input id="bps_sps_no" class="block mt-1 w-full" type="text" name="bps_sps_no" :value="old('bps_sps_no')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="date_of_joining" value="Date of Joining"/>
-                                <x-input id="date_of_joining" class="block mt-1 w-full" type="date" name="date_of_joining" :value="old('date_of_joining')"/>
-                            </div>
-
-                            <div>
-
-                                <x-label for="remaining_service_25_years" value="Remaining Service (25 years)"/>
-                                <x-input id="remaining_service_25_years" class="block mt-1 w-full" type="number" step="0.01" min="0" name="remaining_service_25_years" :value="old('remaining_service_25_years')"/>
-
-                            </div>
-
-                            <div>
-                                <x-label for="remaining_service_60_years" value="Remaining Service ( years)"/>
-
-                                <x-input id="remaining_service_60_years" class="block mt-1 w-full" type="number" step="0.01" min="0" name="remaining_service_60_years" :value="old('remaining_service_60_years')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="ddo_title" value="Title of the DDO"/>
-                                <x-input id="ddo_title" class="block mt-1 w-full" type="text" name="ddo_title" :value="old('ddo_title')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="monthly_salary" value="Monthly Take Home Salary"/>
-                                <x-input id="monthly_salary" class="block mt-1 w-full" type="number" step="0.01" min="0" name="monthly_salary" :value="old('monthly_salary')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="other_monthly_income" value="Other Monthly Income"/>
-                                <x-input id="other_monthly_income" class="block mt-1 w-full" type="number" step="0.01" min="0" name="other_monthly_income" :value="old('other_monthly_income')"/>
-                            </div>
-
-                            <div>
-                                <x-label for="no_of_dependents" value="No. of Dependents"/>
-                                <x-input id="no_of_dependents" class="block mt-1 w-full" type="number" min="0" name="no_of_dependents" :value="old('no_of_dependents')"/>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-end mt-4">
-                            <x-button class="ml-4">
-                                {{ __('Save') }}
-                            </x-button>
-
-
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
