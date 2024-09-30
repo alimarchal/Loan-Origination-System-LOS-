@@ -26,12 +26,17 @@ return new class extends Migration
             $table->date('dor')->nullable();
             $table->string('TypeOfFinance')->nullable();
             $table->string('SglCode')->nullable();
-            $table->string('Nature of Finance	')->nullable();
-            $table->string('Tenure')->nullable();
-            $table->string('Purpose of the Finance')->nullable();
-            $table->string('Take Home Salary	')->nullable();
+            $table->string('NatureOfFinance')->nullable();
+            $table->string('PurposeOfFinance')->nullable();
+            $table->decimal('TakeHomeSalary',14,2)->nullable();
             $table->string('DSR_Required')->nullable();
             $table->string('DSR_Actual')->nullable();
+            $table->string('RequestedAmountStatus')->nullable();
+            $table->decimal('AmountOfFinanceLimit',14,2)->nullable();
+
+            $table->string('Tenure')->nullable();
+            $table->string('Purpose of the Finance')->nullable();
+
             $table->string('AmountOfFinanceLimit')->nullable();
             $table->string('AmountOfFinanceLimit')->nullable();
             $table->string('Enhancement')->nullable();

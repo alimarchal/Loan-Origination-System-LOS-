@@ -202,33 +202,55 @@
                             <tbody>
                             <tr>
                                 <td class="font-bold" style="width: 20%!important;">Type  Of Finance:</td>
-                                <td class="" style="width: 40%!important;">{{ $borrower->loan_category->name }} - {{ $borrower->loan_sub_category->name }} </td>
+                                <td class="" style="width: 30%!important;">
+                                    <x-input id="TypeOfFinance" class="block shadow-none w-full h-8 rounded-none" type="text" name="TypeOfFinance" value=" {{ $borrower->loan_category->name }} - {{ $borrower->loan_sub_category->name }}" readonly />
+                                </td>
                                 <td class="font-bold" style="width: 20%!important;">SGL:</td>
-                                <td class="" style="width: 20%!important;"></td>
+                                <td class="" style="width: 30%!important;">
+                                    <x-input id="SglCode" class="block shadow-none w-full h-8 rounded-none" type="text" name="SglCode" value="4160"/>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="font-bold">Nature Of Finance:</td>
-                                <td>Demand Finance</td>
+                                <td>
+                                    <x-input id="NatureOfFinance" class="block shadow-none w-full h-8 rounded-none" type="text" name="NatureOfFinance" value="Demand Finance"/>
+                                </td>
                                 <td class="font-bold">Purpose Of Finance:</td>
-                                <td>{{ $borrower->applicant_requested_loan_information->loan_purpose ?? 'N/A' }}</</td>
+                                <td>
+                                    <x-input id="NatureOfFinance" class="block shadow-none w-full h-8 rounded-none" type="text" name="NatureOfFinance" value="{{ $borrower->applicant_requested_loan_information->loan_purpose ?? 'N/A' }}"/>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="font-bold">Tenure:</td>
-                                <td>{{$borrower->applicant_requested_loan_information->tenure_in_months }}</td>
+                                <td>
+                                    <x-input id="title" class="block shadow-none w-full h-8 rounded-none" type="text" name="title" :value="$borrower->applicant_requested_loan_information->tenure_in_months"/>
+
+{{--                                    {{$borrower->applicant_requested_loan_information->tenure_in_months }}--}}
+                                </td>
                                 <td class="font-bold">Take Home Salary:</td>
-                                <td>{{ $borrower->employment_information->monthly_gross_salary ?? 'N/A' }}</td>
+                                <td >
+                                    <x-input id="TakeHomeSalary" class="block w-full h-8 rounded-none" type="text" name="TakeHomeSalary" :value="$borrower->employment_information->monthly_gross_salary ?? 'N/A'"/>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="font-bold">DSR(Required):</td>
-                                <td></td>
+                                <td class="font-bold">DSR (Required):</td>
+                                <td>
+                                    <x-input id="DSR_Required" class="block w-full h-8 rounded-none" type="text" name="DSR_Required" value="40%" />
+                                </td>
                                 <td class="font-bold">DSR(Actual)</td>
-                                <td></td>
+                                <td>
+                                    <x-input id="DSR_Actual" class="block w-full h-8 rounded-none" type="text" name="DSR_Actual" />
+                                </td>
                             </tr>
                             <tr>
-                                <td class="font-bold">Amount Of Finance</td>
-                                <td> {{ $borrower->applicant_requested_loan_information->requested_amount }}</td>
-                                <td class="font-bold">Previous Enhancement :</td>
-                                <td></td>
+                                <td class="font-bold">Status</td>
+                                <td>
+                                    <x-input id="RequestedAmountStatus" class="block w-full h-8 rounded-none" type="text" name="RequestedAmountStatus" :value="$borrower->applicant_requested_loan_information?->status" readonly />
+                                </td>
+                                <td class="font-bold">Amount of Finance / Limit</td>
+                                <td>
+                                    <x-input id="AmountOfFinanceLimit" class="block w-full h-8 rounded-none" type="text" name="AmountOfFinanceLimit" :value="$borrower->applicant_requested_loan_information?->requested_amount" />
+                                </td>
                             </tr>
                             <tr>
                                 <td class="font-bold">Enhancement</td>
@@ -250,7 +272,11 @@
                             </tr>
                             <tr>
                                 <td class="font-bold">Repayment Schedule:<br> Monthly Installment</td>
-                                <td colspan="3">Tentative Monthly Installment Rs.36,205/- Including Markup, Life Insurance and Principal.
+                                <td colspan="3">Tentative Monthly Installment Rs.
+                                    <span >
+{{--                                        <x-input id="DSR_Actual" class=" w-1/6 h-8 " type="text" name="DSR_Actual" value="36,205" /> /---}}
+                                        <x-input id="DSR_Actual" class=" w-1/6 h-8 " type="number" min="0" step="0.01" name="DSR_Actual"  /> /-
+                                    </span> Including Markup, Life Insurance and Principal.
                                     Grace period for broken days of the month during which loan is disbursed will be allowed i.e.,
                                     only markup shall be charged for grace period whereas Principal repayment will Commence
                                     from subsequent month (Instruction Circular no. CMD/HO/2018/207 dated: January 29, 2018
