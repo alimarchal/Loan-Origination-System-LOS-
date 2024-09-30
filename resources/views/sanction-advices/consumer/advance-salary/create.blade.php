@@ -203,9 +203,9 @@
                             <tr>
                                 <td class="font-bold" style="width: 20%!important;">Type  Of Finance:</td>
                                 <td class="" style="width: 30%!important;">
-                                    <x-input id="TypeOfFinance" class="block shadow-none w-full h-8 rounded-none" type="text" name="TypeOfFinance" value=" {{ $borrower->loan_category->name }} - {{ $borrower->loan_sub_category->name }}" readonly />
+                                    <x-input id="TypeOfFinance" class="block shadow-none w-full h-8 rounded-none" type="text" name="TypeOfFinance" value=" {{ $borrower->loan_category->name}} - {{ $borrower->loan_sub_category->name }}" readonly />
                                 </td>
-                                <td class="font-bold" style="width: 20%!important;">SGL:</td>
+                                <td class="font-bold" style="width: 20%!important;">SGL Code:</td>
                                 <td class="" style="width: 30%!important;">
                                     <x-input id="SglCode" class="block shadow-none w-full h-8 rounded-none" type="text" name="SglCode" value="4160"/>
                                 </td>
@@ -237,45 +237,57 @@
                                 <td>
                                     <x-input id="DSR_Required" class="block w-full h-8 rounded-none" type="text" name="DSR_Required" value="40%" />
                                 </td>
-                                <td class="font-bold">DSR(Actual)</td>
+                                <td class="font-bold">DSR(Actual):</td>
                                 <td>
-                                    <x-input id="DSR_Actual" class="block w-full h-8 rounded-none" type="text" name="DSR_Actual" />
+                                    <x-input id="DSR_Actual" class="block w-full h-8 rounded-none" type="text" name="DSR_Actual" value="26.22%" />
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-bold">Status</td>
+                                <td class="font-bold">Status:</td>
                                 <td>
                                     <x-input id="RequestedAmountStatus" class="block w-full h-8 rounded-none" type="text" name="RequestedAmountStatus" :value="$borrower->applicant_requested_loan_information?->status" readonly />
                                 </td>
-                                <td class="font-bold">Amount of Finance / Limit</td>
+                                <td class="font-bold">Amount of Finance / Limit:</td>
                                 <td>
                                     <x-input id="AmountOfFinanceLimit" class="block w-full h-8 rounded-none" type="text" name="AmountOfFinanceLimit" :value="$borrower->applicant_requested_loan_information?->requested_amount" />
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-bold">Enhancement</td>
-                                <td></td>
-                                <td class="font-bold">Total Enhancement O/S:</td>
-                                <td></td>
+                                <td class="font-bold">Previous Enhancement O/S:</td>
+                                <td>
+                                    <x-input id="PreviousOutstanding" class="block w-full h-8 rounded-none" type="text" name="PreviousOutstanding"  />
+                                </td>
+                                <td class="font-bold">Enhancement :</td>
+                                <td>
+                                    <x-input id="EnhancementAmount" class="block w-full h-8 rounded-none" type="text" name="EnhancementAmount"  />
+                                </td>
                             </tr>
                             <tr>
-                                <td class="font-bold">Repayment History</td>
-                                <td>{{ $facility->repayment_status ?? 'N/A' }}</td>
-                                <td class="font-bold">Rate of Markup</td>
-                                <td></td>
+
+                                <td class="font-bold">Total Enhancement :</td>
+                                <td>
+                                    <x-input id="TotalAmount" class="block w-full h-8 rounded-none" type="text" name="TotalAmount"  />
+                                </td>
+                                <td class="font-bold">Repayment History:</td>
+                                <td>
+                                <x-input id="RepaymentHistory" class="block w-full h-8 rounded-none" type="text" name="RepaymentHistory" :value="$facility->repayment_status ?? 'N/A'" readonly />
+                                </td>
                             </tr>
                             <tr>
-                                <td class="font-bold">Enhancement</td>
-                                <td></td>
-                                <td class="font-bold">Total Enhancement O/S:</td>
-                                <td></td>
+
+                                <td class="font-bold">Rate of Markup:</td>
+                                <td>
+                                    <x-input id="RateofMarkup" class="block w-full h-8 rounded-none" type="text" name="RateofMarkup"  />
+                                </td>
                             </tr>
+
+
                             <tr>
                                 <td class="font-bold">Repayment Schedule:<br> Monthly Installment</td>
                                 <td colspan="3">Tentative Monthly Installment Rs.
                                     <span >
-{{--                                        <x-input id="DSR_Actual" class=" w-1/6 h-8 " type="text" name="DSR_Actual" value="36,205" /> /---}}
-                                        <x-input id="DSR_Actual" class=" w-1/6 h-8 " type="number" min="0" step="0.01" name="DSR_Actual"  /> /-
+{{--                                        <x-input id="RepaymentScheduleMonthlyInstallment" class=" w-1/6 h-8 " type="text" name="RepaymentScheduleMonthlyInstallment" value="36,205" /> /---}}
+                                        <x-input id="RepaymentScheduleMonthlyInstallment" class=" w-1/6 h-8 " type="number" min="0" step="0.01" name="RepaymentScheduleMonthlyInstallment"  /> /-
                                     </span> Including Markup, Life Insurance and Principal.
                                     Grace period for broken days of the month during which loan is disbursed will be allowed i.e.,
                                     only markup shall be charged for grace period whereas Principal repayment will Commence
@@ -283,16 +295,22 @@
                                     Repayment Schedule is attached for reference only</td>
                             </tr>
                             <tr>
-                                <td class="font-bold">Insurance Treatment</td>
+                                <td class="font-bold">Insurance Treatment:</td>
                                 <td >Insurance premium is to be recovered along with monthly installment and be credited to the head of "Insurance Life Insurance-SGL premium payable (Life).</td>
                                 <td class="font-bold">Life Insurance-SGL</td>
-                                <td>1925</td>
+                                <td>
+                                     <x-input id="LifeInsuranceSGL" class="block w-full h-8 rounded-none" type="text" name="LifeInsuranceSGL"  value=""/>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="font-bold">Recovery Mode of Installment</td>
-                                <td colspan="3">Regular; Monthly installment to be recovered on or before 5th of each month.
-                                 <br> Default: Delay payment mark-up @ 02% over and above the normal mark-up rate be charged on the principal portion of the overdue installment from the due date till date of recovery and be recovered from the borrower. Instruction Circular no BAJK/HO/CMD/2022/320 dated: August 19, 2022</td>
-                                 </td>
+                                <td class="font-bold">Recovery Mode of Installment:</td>
+                             <td colspan="3">
+                            <strong>Regular</strong>; Monthly installment to be recovered on or before 5th of each month.
+                             <br>
+                             <strong>Default</strong>: Delay payment mark-up @ 02% over and above the normal mark-up rate will be charged on the principal portion of the overdue installment from the due date till the date of recovery and will be recovered from the borrower.
+                           Instruction Circular no BAJK/HO/CMD/2022/320 dated: August 19, 2022
+                            </td>
+
 
                             </tr>
 
@@ -300,13 +318,15 @@
                         <table>
                             <thead>
                             <tr>
-                                <th colspan="4" class="text-left">C: Security DETAILS</th>
+                                <th colspan="4" class="text-left">C: Security DETAILS:</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td class="font-bold" style="width: 20%!important;">Primary:</td>
-                                <td colspan="3"  class="" style="width: 40%!important;">Hypothecation of Househo~ld Goods valuing to Rs.4,000,000/-<br>
+                                <td colspan="3"  class="" style="width: 40%!important;">Hypothecation of Household Goods valuing to
+                                       <x-input id="SecuritySecondary" class=" w-1/6 h-8 " type="number" min="0" step="0.01" name="SecuritySecondary" value="$securities->amount" /> /-
+                                    <br>
                                        (Minimum equivalent to loan amount)
                                      </td>
                              </tr>
@@ -346,13 +366,19 @@
                           </tr>
                           <tr>
                       <td class="font-bold" style="width: 20%!important;">Borrower</td>
-                                  <td>Nil</td>
-                                <td></td>
+                                  <td>
+                                       <x-input id="BorrowerPGsNoIssued" class="block w-full h-8 rounded-none" type="text" name="BorrowerPGsNoIssued"  />
+                                  </td>
+                                <td>
+                                    <x-input id="BorrowerRPStatus" class="block w-full h-8 rounded-none" type="text" name="BorrowerRPStatus"  />
+                                </td>
                             </tr>
                             <tr>
                              <td class="font-bold" style="width: 20%!important;">Guarantor</td>
-                                     <td>Nil</td>
-                                       <td></td>
+                                     <td><x-input id="GuarantorPGsNoIssued" class="block w-full h-8 rounded-none" type="text" name="GuarantorPGsNoIssued"  /></td>
+
+                                        <td><x-input id="GuarantorRPStatus" class="block w-full h-8 rounded-none" type="text" name="GuarantorRPStatus"  /></td>
+
                      </tr>
                             </tbody>
                         </table>

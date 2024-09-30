@@ -33,21 +33,25 @@ return new class extends Migration
             $table->string('DSR_Actual')->nullable();
             $table->string('RequestedAmountStatus')->nullable();
             $table->decimal('AmountOfFinanceLimit',14,2)->nullable();
+            $table->string('PreviousOutstanding')->nullable();
+            $table->string('EnhancementAmount')->nullable();
+            $table->string('Enhancement')->nullable();
+            $table->string('TotalAmount')->nullable();
 
             $table->string('Tenure')->nullable();
             $table->string('Purpose of the Finance')->nullable();
 
             $table->string('AmountOfFinanceLimit')->nullable();
             $table->string('AmountOfFinanceLimit')->nullable();
-            $table->string('Enhancement')->nullable();
-            $table->string('PreviousOutstanding')->nullable();
+
+
             $table->string('EnhancementAmount')->nullable();
-            $table->string('TotalAmount')->nullable();
-            $table->text('Repayment History')->nullable();
-            $table->text('Rate of Markup')->nullable();
-            $table->text('Repayment Schedule Monthly Installment')->nullable();
+
+            $table->text('RepaymentHistory')->nullable();
+            $table->text('RateofMarkup')->nullable();
+            $table->text('RepaymentScheduleMonthlyInstallment')->nullable();
             $table->text('Insurance Treatment	')->nullable();
-            $table->text('Life Insurance-SGL	')->nullable();
+            $table->text('LifeInsuranceSGL	')->nullable();
             $table->text('Recovery Mode of Installment')->nullable();
             $table->text('SecurityPrimary')->nullable();
             $table->text('SecuritySecondary')->nullable();
