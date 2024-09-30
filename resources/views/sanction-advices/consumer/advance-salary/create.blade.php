@@ -328,7 +328,7 @@
                             <tr>
                                 <td class="font-bold" style="width: 20%!important;">Primary:</td>
                                 <td colspan="3"  class="" style="width: 40%!important;">Hypothecation of Household Goods valuing to
-                                       <x-input id="SecuritySecondary" class=" w-1/6 h-8 " type="number" min="0" step="0.01" name="SecuritySecondary" value="$securities->amount" /> /-
+                                       <x-input id="SecuritySecondary" class=" w-1/6 h-8 " type="number" min="0" step="0.01" name="SecuritySecondary" :value="$borrower->listHouseHoldItems->sum('amount')" /> /-
                                     <br>
                                        (Minimum equivalent to loan amount)
                                      </td>

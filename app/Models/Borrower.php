@@ -210,6 +210,12 @@ class Borrower extends Model
         return $this->statusHistories()->latest()->first();
     }
 
+
+    public function sanction_advice(): HasOne
+    {
+        return $this->hasOne(SanctionAdvice::class);
+    }
+
 }
 
 // In App\Models\Borrower
