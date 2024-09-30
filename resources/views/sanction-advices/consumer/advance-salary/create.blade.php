@@ -191,6 +191,147 @@
                             </tbody>
                         </table>
 
+
+
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="4" class="text-left">B: LIMIT DETAILS</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="font-bold" style="width: 20%!important;">Type  Of Finance:</td>
+                                <td class="" style="width: 40%!important;">{{ $borrower->loan_category->name }} - {{ $borrower->loan_sub_category->name }} </td>
+                                <td class="font-bold" style="width: 20%!important;">SGL:</td>
+                                <td class="" style="width: 20%!important;"></td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Nature Of Finance:</td>
+                                <td>Demand Finance</td>
+                                <td class="font-bold">Purpose Of Finance:</td>
+                                <td>{{ $borrower->applicant_requested_loan_information->loan_purpose ?? 'N/A' }}</</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Tenure:</td>
+                                <td>{{$borrower->applicant_requested_loan_information->tenure_in_months }}</td>
+                                <td class="font-bold">Take Home Salary:</td>
+                                <td>{{ $borrower->employment_information->monthly_gross_salary ?? 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">DSR(Required):</td>
+                                <td></td>
+                                <td class="font-bold">DSR(Actual)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Amount Of Finance</td>
+                                <td> {{ $borrower->applicant_requested_loan_information->requested_amount }}</td>
+                                <td class="font-bold">Previous Enhancement :</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Enhancement</td>
+                                <td></td>
+                                <td class="font-bold">Total Enhancement O/S:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Repayment History</td>
+                                <td>{{ $facility->repayment_status ?? 'N/A' }}</td>
+                                <td class="font-bold">Rate of Markup</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Enhancement</td>
+                                <td></td>
+                                <td class="font-bold">Total Enhancement O/S:</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Repayment Schedule:<br> Monthly Installment</td>
+                                <td colspan="3">Tentative Monthly Installment Rs.36,205/- Including Markup, Life Insurance and Principal.
+                                    Grace period for broken days of the month during which loan is disbursed will be allowed i.e.,
+                                    only markup shall be charged for grace period whereas Principal repayment will Commence
+                                    from subsequent month (Instruction Circular no. CMD/HO/2018/207 dated: January 29, 2018
+                                    Repayment Schedule is attached for reference only</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Insurance Treatment</td>
+                                <td >Insurance premium is to be recovered along with monthly installment and be credited to the head of "Insurance Life Insurance-SGL premium payable (Life).</td>
+                                <td class="font-bold">Life Insurance-SGL</td>
+                                <td>1925</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold">Recovery Mode of Installment</td>
+                                <td colspan="3">Regular; Monthly installment to be recovered on or before 5th of each month.
+                                 <br> Default: Delay payment mark-up @ 02% over and above the normal mark-up rate be charged on the principal portion of the overdue installment from the due date till date of recovery and be recovered from the borrower. Instruction Circular no BAJK/HO/CMD/2022/320 dated: August 19, 2022</td>
+                                 </td>
+
+                            </tr>
+
+
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="4" class="text-left">C: Security DETAILS</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="font-bold" style="width: 20%!important;">Primary:</td>
+                                <td colspan="3"  class="" style="width: 40%!important;">Hypothecation of Househo~ld Goods valuing to Rs.4,000,000/-<br>
+                                       (Minimum equivalent to loan amount)
+                                     </td>
+                             </tr>
+                            <tr>
+                                <td class="font-bold" style="width: 20%!important;">Secondary:</td>
+                                <td>  • 06 Post Dated Cheques favoring BAJK along with Departmental undertaking.<br>
+                                      • One Personal Guarantee: <br>
+                                      • Designation: <br>
+                                      •  CNIC: <br>
+                                      • Contact #  PP:
+
+
+
+
+                                </td> </td>
+
+
+
+                            </tr>
+
+
+
+                            </tbody>
+                        </table>
+
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="4" class="text-left">D: Personal Guarantee (s) extended by Borrower / Guarantor (if any):</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                          <td></td>
+                             <td class="font-bold" style="width: 20%!important;">No of PG's</td>
+                             <td class="font-bold" style="width: 20%!important;">Repayment Status</td>
+                          </tr>
+                          <tr>
+                      <td class="font-bold" style="width: 20%!important;">Borrower</td>
+                                  <td>Nil</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                             <td class="font-bold" style="width: 20%!important;">Guarantor</td>
+                                     <td>Nil</td>
+                                       <td></td>
+                     </tr>
+                            </tbody>
+                        </table>
+
+
                         <table class="w-full mb-4 border-collapse border border-gray-300">
                             <tr>
                                 <td class="border border-gray-300 p-2">Name of the Applicant</td>
@@ -476,4 +617,3 @@
         });
     </script>
 </x-app-layout>
-
