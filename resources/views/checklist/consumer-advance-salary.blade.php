@@ -151,7 +151,7 @@
                                                 </svg>
                                             @endif
                                         @elseif($item->sequence_no == 2)
-                                            @if(!empty($borrower->employment_information) && $borrower->employment_information->count() == 1)
+                                            @if(!empty($borrower->employment_information))
                                                 <!-- Display the checkmark icon if employment information is filled -->
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
@@ -165,7 +165,7 @@
                                             @endif
 
                                         @elseif($item->sequence_no == 3)
-                                            @if(!empty($borrower->applicant_requested_loan_information) && $borrower->applicant_requested_loan_information->count() == 1)
+                                            @if(!empty($borrower->applicant_requested_loan_information))
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
                                                 </svg>
@@ -199,7 +199,7 @@
                                             @endif
 
                                         @elseif($item->sequence_no == 6)
-                                            @if(!empty($borrower->security) && $borrower->security->count() == 3)
+                                            @if($borrower->securities->isNotEmpty() && $borrower->securities->count() == 3)
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
                                                 </svg>
@@ -209,7 +209,7 @@
                                                 </svg>
                                             @endif
                                         @elseif($item->sequence_no == 7)
-                                            @if(!empty($borrower->reference) && $borrower->reference->count() == 2)
+                                            @if($borrower->reference->isNotEmpty() && $borrower->reference?->count() == 2)
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
                                                 </svg>
@@ -220,7 +220,7 @@
 
                                             @endif
                                         @elseif($item->sequence_no == 8)
-                                            @if($borrower->documents?->count() >= 1)
+                                            @if($borrower->documents->isNotEmpty())
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
                                                 </svg>
@@ -230,7 +230,7 @@
                                                 </svg>
                                             @endif
                                         @elseif($item->sequence_no == 9)
-                                            @if($borrower->listHouseHoldItems->count() == 1)
+                                            @if($borrower->listHouseHoldItems->isNotEmpty())
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
                                                 </svg>
@@ -345,7 +345,7 @@
                                                                 <strong>References Missing</strong>
                                                                 @endif
                                                                 @elseif($item->sequence_no == 8)
-                                                                    @if($borrower->documents?->count() <= 1)
+                                                                    @if($borrower->documents->isEmpty())
                                                                         <div >
                                                                             <strong>Documents Missing</strong>
                                                                         </div>

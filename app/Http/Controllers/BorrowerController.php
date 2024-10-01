@@ -108,6 +108,8 @@ class BorrowerController extends Controller
         $user = Auth::user();
         $request->merge([
             'user_id' => $user->id,
+            'region_id' => $user->branch->region_id,
+            'branch_id' => $user->branch_id,
             'date_registered' => now(),
             'nationality' => "Pakistani/AJK Resident",
         ]);

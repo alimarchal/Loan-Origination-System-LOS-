@@ -192,22 +192,22 @@
                             $isCompleted = !empty($borrower->applicant_requested_loan_information);
                             break;
                         case 4:
-                            $isCompleted = !empty($borrower->guarantor) && $borrower->guarantor->count() == 2;
+                            $isCompleted = $borrower->guarantor?->isNotEmpty();
                             break;
                         case 5:
-                            $isCompleted = !empty($borrower->finance_facility_many);
+                            $isCompleted = $borrower->finance_facility_many?->isNotEmpty();
                             break;
                         case 6:
-                            $isCompleted = !empty($borrower->security) && $borrower->security->count() == 3;
+                            $isCompleted = $borrower->securities->isNotEmpty() && $borrower->securities->count() == 3;
                             break;
                         case 7:
-                            $isCompleted = !empty($borrower->reference) && $borrower->reference->count() == 2;
+                            $isCompleted = $borrower->reference->isNotEmpty() && $borrower->reference->count() == 2;
                             break;
                         case 8:
-                            $isCompleted = $borrower->documents?->count() >= 1;
+                            $isCompleted = $borrower->documents->isNotEmpty();
                             break;
                         case 9:
-                            $isCompleted = $borrower->listHouseHoldItems->count() == 1;
+                            $isCompleted = $borrower->listHouseHoldItems->isNotEmpty();
                             break;
                         case 10:
                             $isCompleted = !empty($borrower->obligor_score_card);
