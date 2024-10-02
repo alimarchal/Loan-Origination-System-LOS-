@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sanction_advice', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
-            $table->string('name')->nullable();
+            $table->string('Name')->nullable();
             $table->string('father_husband')->nullable();
             $table->string('address')->nullable();
             $table->string('OfficeAddress')->nullable();
