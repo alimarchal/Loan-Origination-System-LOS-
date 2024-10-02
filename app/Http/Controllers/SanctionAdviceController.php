@@ -55,7 +55,8 @@ class SanctionAdviceController extends Controller
      */
     public function edit(SanctionAdvice $sanctionAdvice)
     {
-        //
+
+
     }
 
     /**
@@ -73,4 +74,6 @@ class SanctionAdviceController extends Controller
     {
         //
     }
+
+
 }

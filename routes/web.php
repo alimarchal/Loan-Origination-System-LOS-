@@ -73,7 +73,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
     Route::controller(SanctionAdviceController::class)->group(function () {
         Route::get('/sanction-advice', 'index')->name('sanction-advice.index');
         Route::get('/sanction-advice/{borrower}/create', 'create')->name('sanction-advice.create');
+        Route::post('/sanction-advice', 'store')->name('sanction-advice.store');
+        Route::get('/sanction-advice/edit', 'edit')->name('sanction-advice.edit');
     });
+
+
 
 
     // Applicant Employment Information

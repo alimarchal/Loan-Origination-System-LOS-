@@ -14,55 +14,39 @@ return new class extends Migration
         Schema::create('sanction_advice', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
-            $table->string('name')->nullable();
-            $table->string('father_husband')->nullable();
-            $table->string('address')->nullable();
-            $table->string('OfficeAddress')->nullable();
-            $table->string('occupation')->nullable();
-            $table->string('contact')->nullable();
-            $table->string('pp_no')->nullable();
-            $table->string('cnic')->nullable();
-            $table->date('dob')->nullable();
-            $table->date('dor')->nullable();
+
+            // Fields directly related to the sanction advice
+            $table->date('dor')->nullable(); // Date of Report
             $table->string('TypeOfFinance')->nullable();
-            $table->string('SglCode')->nullable();
+            $table->string(column: 'SglCode')->nullable();
             $table->string('NatureOfFinance')->nullable();
             $table->string('PurposeOfFinance')->nullable();
-            $table->decimal('TakeHomeSalary',14,2)->nullable();
+            $table->decimal('TakeHomeSalary', 14, 2)->nullable();
             $table->string('DSR_Required')->nullable();
             $table->string('DSR_Actual')->nullable();
             $table->string('RequestedAmountStatus')->nullable();
-            $table->decimal('AmountOfFinanceLimit',14,2)->nullable();
+            $table->decimal('AmountOfFinanceLimit', 14, 2)->nullable();
             $table->string('PreviousOutstanding')->nullable();
-            $table->string('EnhancementAmount')->nullable();
+            $table->decimal('EnhancementAmount', 14, 2)->nullable();
             $table->string('Enhancement')->nullable();
-            $table->string('TotalAmount')->nullable();
-
+            $table->decimal('TotalAmount', 14, 2)->nullable();
             $table->string('Tenure')->nullable();
-            $table->string('Purpose of the Finance')->nullable();
-
-            $table->string('AmountOfFinanceLimit')->nullable();
-            $table->string('AmountOfFinanceLimit')->nullable();
-
-
-            $table->string('EnhancementAmount')->nullable();
-
             $table->text('RepaymentHistory')->nullable();
             $table->text('RateofMarkup')->nullable();
             $table->text('RepaymentScheduleMonthlyInstallment')->nullable();
-            $table->text('Insurance Treatment	')->nullable();
-            $table->text('LifeInsuranceSGL	')->nullable();
-            $table->text('Recovery Mode of Installment')->nullable();
+            $table->text('InsuranceTreatment')->nullable();
+            $table->text('LifeInsuranceSGL')->nullable();
+            $table->text('RecoveryModeOfInstallment')->nullable();
             $table->text('SecurityPrimary')->nullable();
             $table->text('SecuritySecondary')->nullable();
-            // Personal Guarantee (s) extended by Borrower / Guarantor (if any):
+
+            // Personal Guarantee (s) extended by Borrower / Guarantor
             $table->text('BorrowerPGsNoIssued')->nullable();
-            // Repayment Status
-            $table->text('BorrowerRPStatus')->nullable();
             $table->text('BorrowerRPStatus')->nullable();
             $table->text('GuarantorPGsNoIssued')->nullable();
             $table->text('GuarantorRPStatus')->nullable();
-            // DOCUMENTS REQUIRED BEFORE DISBURSEMENT:
+
+            // DOCUMENTS REQUIRED BEFORE DISBURSEMENT
             $table->text('DocReqBefDis')->nullable();
             $table->text('GeneralTos')->nullable();
             $table->text('Note')->nullable();
