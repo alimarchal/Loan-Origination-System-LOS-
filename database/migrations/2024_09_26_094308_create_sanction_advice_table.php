@@ -49,6 +49,7 @@ return new class extends Migration
             // DOCUMENTS REQUIRED BEFORE DISBURSEMENT
             $table->text('DocReqBefDis')->nullable();
             $table->text('GeneralTos')->nullable();
+            $table->text('OtherSpecialTos')->nullable();
             $table->text('Note')->nullable();
 
             $table->timestamps();
