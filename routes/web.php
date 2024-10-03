@@ -73,9 +73,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
     Route::controller(SanctionAdviceController::class)->group(function () {
         Route::get('/sanction-advice', 'index')->name('sanction-advice.index');
         Route::get('/sanction-advice/{borrower}/create', 'create')->name('sanction-advice.create');
-        Route::post('/sanction-advice', 'store')->name('sanction-advice.store');
-        Route::get('/sanction-advice/edit', 'edit')->name('sanction-advice.edit');
-        Route::put('/sanction-advice/{borrower}', 'update')->name('sanction-advice.update');
+        Route::post('/sanction-advice/{borrower}', 'store')->name('sanction-advice.store');
+        Route::get('/sanction-advice/{sanctionAdvice}/{borrower}/edit', 'edit')->name('sanction-advice.edit');
+        Route::put('/sanction-advice/{borrower}/{sanctionAdvice}', 'update')->name('sanction-advice.update');
 
     });
 
@@ -240,11 +240,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::get('/borrower/{borrower}/employer-undertaking', 'employer_undertaking')->name('employer.undertaking');;
     });
 
-
-
     Route::get('/borrower/make-template', [BorrowerController::class, 'make_template'])->name('applicant.make-template');
-
-
 
     // Applicant Requested Loan Information
     Route::controller(CreditReportingController::class)->group(function () {

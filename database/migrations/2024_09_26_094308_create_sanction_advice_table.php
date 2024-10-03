@@ -14,43 +14,47 @@ return new class extends Migration
         Schema::create('sanction_advice', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->foreignId('user_create_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('user_update_id')->nullable()->constrained('users')->nullOnDelete();
 
             // Fields directly related to the sanction advice
-            $table->date('dor')->nullable(); // Date of Report
-            $table->string('TypeOfFinance')->nullable();
-            $table->string(column: 'SglCode')->nullable();
-            $table->string('NatureOfFinance')->nullable();
-            $table->string('PurposeOfFinance')->nullable();
-            $table->decimal('TakeHomeSalary', 14, 2)->nullable();
-            $table->string('DSR_Required')->nullable();
-            $table->string('DSR_Actual')->nullable();
-            $table->string('RequestedAmountStatus')->nullable();
-            $table->decimal('AmountOfFinanceLimit', 14, 2)->nullable();
-            $table->string('PreviousOutstanding')->nullable();
-            $table->decimal('EnhancementAmount', 14, 2)->nullable();
-            $table->string('Enhancement')->nullable();
-            $table->decimal('TotalAmount', 14, 2)->nullable();
-            $table->string('Tenure')->nullable();
-            $table->text('RepaymentHistory')->nullable();
-            $table->text('RateofMarkup')->nullable();
-            $table->text('RepaymentScheduleMonthlyInstallment')->nullable();
-            $table->text('InsuranceTreatment')->nullable();
-            $table->text('LifeInsuranceSGL')->nullable();
-            $table->text('RecoveryModeOfInstallment')->nullable();
-            $table->text('SecurityPrimary')->nullable();
-            $table->text('SecuritySecondary')->nullable();
+            $table->date('date_of_report')->nullable(); // Date of Report
+            $table->string('type_of_finance')->nullable();
+            $table->string('sgl_code')->nullable();
+            $table->string('nature_of_finance')->nullable();
+            $table->string('purpose_of_finance')->nullable();
+            $table->decimal('take_home_salary', 14, 2)->nullable();
+            $table->string('dsr_required')->nullable();
+            $table->string('dsr_actual')->nullable();
+            $table->string('requested_amount_status')->nullable();
+            $table->decimal('amount_of_finance_limit', 14, 2)->nullable();
+            $table->string('previous_outstanding')->nullable();
+            $table->decimal('enhancement_amount', 14, 2)->nullable();
+            $table->string('enhancement')->nullable();
+            $table->decimal('total_amount', 14, 2)->nullable();
+            $table->string('tenure')->nullable();
+            $table->text('repayment_history')->nullable();
+            $table->text('rate_of_markup')->nullable();
+            $table->decimal('monthly_installment',14,2)->nullable();
+            $table->text('repayment_schedule_monthly_installment')->nullable();
+            $table->text('insurance_treatment')->nullable();
+            $table->text('life_insurance_sgl')->nullable();
+            $table->text('recovery_mode_of_installment')->nullable();
+            $table->decimal('security_primary_amount',14,2)->nullable();
+            $table->text('security_primary')->nullable();
+            $table->text('security_secondary')->nullable();
 
-            // Personal Guarantee (s) extended by Borrower / Guarantor
-            $table->text('BorrowerPGsNoIssued')->nullable();
-            $table->text('BorrowerRPStatus')->nullable();
-            $table->text('GuarantorPGsNoIssued')->nullable();
-            $table->text('GuarantorRPStatus')->nullable();
+            // Personal Guarantee(s) extended by Borrower / Guarantor
+            $table->text('borrower_pgs_no_issued')->nullable();
+            $table->text('borrower_rp_status')->nullable();
+            $table->text('guarantor_pgs_no_issued')->nullable();
+            $table->text('guarantor_rp_status')->nullable();
 
-            // DOCUMENTS REQUIRED BEFORE DISBURSEMENT
-            $table->text('DocReqBefDis')->nullable();
-            $table->text('GeneralTos')->nullable();
-            $table->text('OtherSpecialTos')->nullable();
-            $table->text('Note')->nullable();
+            // Documents Required Before Disbursement
+            $table->text('documents_required_before_disbursement')->nullable();
+            $table->text('general_terms_of_service')->nullable();
+            $table->text('other_special_terms_of_service')->nullable();
+            $table->text('note')->nullable();
 
             $table->timestamps();
         });

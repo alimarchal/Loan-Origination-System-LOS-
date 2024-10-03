@@ -113,58 +113,80 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl print:shadow-none sm:rounded-lg">
                 <x-status-message class="ml-4 mt-4" />
-                <x-validation-errors class="ml-4 mt-4" /> @if($sanction_advices->isNotEmpty())
+                <x-validation-errors class="ml-4 mt-4" />
+
+                @if($sanction_advices->isNotEmpty())
                     <div class="relative overflow-x-auto rounded-lg ">
                         <table class="min-w-max w-full table-auto">
                             <thead>
                             <tr class="bg-gray-200 text-white bg-bank-green uppercase print:border-b print:border-black  text-sm print:text-black">
                                 <th class="py-2 px-2 text-center">#</th>
+                                <th class="py-2 px-2 text-left">BR Code</th>
                                 <th class="py-2 px-2 text-left">Name</th>
                                 <th class="py-2 px-2 text-center">CNIC/NTN</th>
                                 <th class="py-2 px-2 text-center">Loan Category</th>
-                                <th class="py-2 px-2 text-center">Mobile</th>
+                                <th class="py-2 px-2 text-center">Amount</th>
                                 <th class="py-2 px-2 text-center">Status</th>
                                 <th class="py-2 px-2 text-center print:hidden">Action</th>
                             </tr>
                             </thead>
-                            @foreach ($sanction_advices as $borrower)
+                            @foreach ($sanction_advices as $sa)
                                 <tbody class="text-black text-md leading-normal font-extrabold">
                                 <tr class="border-b border-gray-200 hover:bg-gray-100">
                                     <td class="py-1 px-2 text-center">
                                         {{ $loop->iteration }}
                                     </td>
 
+                                    <td class="py-1 px-2 text-center">
+                                        {{ $sa->borrower->branch->code }}
+                                    </td>
+
                                     <td class="py-1 px-2 text-left">
-                                        {{ $borrower->gender == 'Male' ? 'Mr.' : ($borrower->gender == 'Female' ? 'Ms.' : 'M/s.') }}{{ $borrower->name }}
+                                        {{ $sa->borrower->gender == 'Male' ? 'Mr.' : ($sa->borrower->gender == 'Female' ? 'Ms.' : 'M/s.') }}{{ $sa->borrower->name }}
                                     </td>
 
                                     <td class="py-1 px-2 text-center">
-                                        {{ $borrower->national_id_cnic }}
+                                        {{ $sa->borrower->national_id_cnic }}
                                     </td>
 
                                     <td class="py-1 px-2 text-center">
-                                        {{ $borrower->loan_sub_category->name }}
+                                        {{ $sa->borrower->loan_sub_category->name }}
                                     </td>
 
 
                                     <td class="py-1 px-2 text-center">
-                                        {{ $borrower->mobile_number }}
+                                        {{ $sa->borrower->applicant_requested_loan_information->requested_amount }}
                                     </td>
 
 
                                     <td class="py-1 px-2 text-center ">
-                                         {{ $borrower->status }}
+                                        @if($sa->is_lock == "Yes")
+                                            Draft
+                                        @else
+                                            Finalized
+                                        @endif
+
                                     </td>
 
                                     <td class="py-1 px-2 text-center print:hidden">
-                                        <a href="{{ route('sanction-advice.create', $borrower) }}" class="inline-flex items-center px-4 py-2 bg-blue-800 dark:bg-blue-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-blue-800 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-white focus:bg-blue-700 dark:focus:bg-white active:bg-blue-900 dark:active:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-blue-800 disabled:opacity-50 transition ease-in-out duration-150">
-                                            Create
-                                        </a>
+
+                                        @if($sa->is_lock == "Yes")
+                                            <a href="{{ route('sanction-advice.edit', [$sa->id, $sa->borrower_id ]) }}" class="inline-flex items-center ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path>
+                                                </svg>
+                                            </a>
+                                        @else
+
+                                        @endif
 
 
-                                        <a href="{{ route('sanction-advice.edit', $borrower) }}" class="inline-flex items-center px-4 py-2 bg-blue-800 dark:bg-blue-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-blue-800 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-white focus:bg-blue-700 dark:focus:bg-white active:bg-blue-900 dark:active:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-blue-800 disabled:opacity-50 transition ease-in-out duration-150">
-                                            Edit
-                                        </a>
+
+
+
+{{--                                        <a href="{{ route('sanction-advice.edit', $sa->sanction_advice?->id) }}" class="inline-flex items-center px-4 py-2 bg-blue-800 dark:bg-blue-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-blue-800 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-white focus:bg-blue-700 dark:focus:bg-white active:bg-blue-900 dark:active:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-blue-800 disabled:opacity-50 transition ease-in-out duration-150">--}}
+{{--                                            Edit--}}
+{{--                                        </a>--}}
                                     </td>
                                 </tr>
                                 </tbody>
