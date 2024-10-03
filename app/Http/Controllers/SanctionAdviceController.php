@@ -27,7 +27,7 @@ class SanctionAdviceController extends Controller
 
 //        if (empty($borrower->sanction_advice))
 //        {
-            return view('sanction-advices.consumer.advance-salary.create',compact('borrower'));
+            return view('sanction-advices.consumer.advance-salary.create',compact(var_name: 'borrower'));
 //        } else {
 //            abort(403);
 //        }
