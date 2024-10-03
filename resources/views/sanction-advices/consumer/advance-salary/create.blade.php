@@ -304,7 +304,8 @@
                                         <!-- Second Quill Editor -->
                                         <div id="editor5" class="mt-2">
                                             <p>
-                                                Hypothecation of Household Goods valuing to <strong>Rs.{{ $borrower->listHouseHoldItems->sum('amount') }}/-</strong>
+                                                Hypothecation of Household Goods valuing to <strong>Rs.{{ $borrower->listHouseHoldItems->sum('amount') }}/-</strong> (Minimum equivalent to loan amount)
+
                                             </p>
                                         </div>
 
@@ -363,7 +364,7 @@
                             <input type="hidden" name="documents_required_before_disbursement" id="documents_required_before_disbursement">
 
                             <!-- Quill Editor Section -->
-                            <div class="mx-4">
+                            <div class="">
                                 <div id="editor">
                                     <h2 class="text-xl font-bold mb-4">E: DOCUMENTS REQUIRED BEFORE DISBURSEMENT:</h2>
                                     <p>Loan may be disbursed only on issuance of the DAC that will be issued on receipt/scrutiny of the following Charge/Security documents:</p>
@@ -381,6 +382,15 @@
                                         <li>Authority Letter for recovery of Installment and charges.</li>
                                     </ol>
 
+
+
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <!-- Hidden input to store Quill data -->
+                                <input type="hidden" name="general_terms_of_service" id="general_terms_of_service">
+                                <div id="editor7" class="my-2">
                                     <h2 class="text-xl font-bold mb-4">F: GENERAL TERMS AND CONDITIONS:</h2>
                                     <ol class="list-decimal pl-6 mb-6">
                                         <li>The Bank reserves the right to call back the finance at any time or modify any terms.</li>
@@ -480,6 +490,16 @@
                 });
 
 
+                // Initialize the second Quill editor
+                const quill7 = new Quill('#editor7', {
+                    theme: 'snow',
+                    readOnly: true,  // Make it read-only if necessary
+                    modules: {
+                        toolbar: false  // Disable toolbar if it's read-only
+                    }
+                });
+
+
                 // Get the form
                 const form = document.getElementById('sanction-form');
 
@@ -492,6 +512,7 @@
                     const quillHtml4 = quill4.root.innerHTML;
                     const quillHtml5 = quill5.root.innerHTML;
                     const quillHtml6 = quill6.root.innerHTML;
+                    const quillHtml7 = quill7.root.innerHTML;
 
                     // Place content into the hidden input
                     document.getElementById('documents_required_before_disbursement').value = quillHtml;
@@ -500,6 +521,7 @@
                     document.getElementById('recovery_mode_of_installment').value = quillHtml4;
                     document.getElementById('security_primary').value = quillHtml5;
                     document.getElementById('security_secondary').value = quillHtml6;
+                    document.getElementById('general_terms_of_service').value = quillHtml7;
                 });
             </script>
 

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('sanction_advice', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('borrower_id')->constrained();
+            $table->foreignId('user_create_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('user_update_id')->nullable()->constrained('users')->nullOnDelete();
 
             // Fields directly related to the sanction advice
             $table->date('date_of_report')->nullable(); // Date of Report

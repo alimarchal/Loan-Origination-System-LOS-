@@ -74,8 +74,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::get('/sanction-advice', 'index')->name('sanction-advice.index');
         Route::get('/sanction-advice/{borrower}/create', 'create')->name('sanction-advice.create');
         Route::post('/sanction-advice/{borrower}', 'store')->name('sanction-advice.store');
-        Route::get('/sanction-advice/{sanctionAdvice}/edit', 'edit')->name('sanction-advice.edit');
-//        Route::put('/sanction-advice/{borrower}', 'update')->name('sanction-advice.update');
+        Route::get('/sanction-advice/{sanctionAdvice}/{borrower}/edit', 'edit')->name('sanction-advice.edit');
+        Route::put('/sanction-advice/{borrower}/{sanctionAdvice}', 'update')->name('sanction-advice.update');
 
     });
 

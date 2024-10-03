@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SanctionAdvice extends Model
 {
@@ -44,5 +45,11 @@ class SanctionAdvice extends Model
         'general_terms_of_service',
         'other_special_terms_of_service',
         'note',
+        'is_lock',
     ];
+
+    public function borrower(): BelongsTo
+    {
+        return $this->belongsTo(Borrower::class);
+    }
 }

@@ -16,7 +16,7 @@ class SanctionAdviceController extends Controller
     public function index()
     {
 //        $sanction_advices = Borrower::where('status','Approved')->where('is_sanction_advice_issued','No')->get();
-        $sanction_advices = Borrower::all();
+        $sanction_advices = SanctionAdvice::all();
         return view('sanction-advices.consumer.advance-salary.index',compact('sanction_advices'));
     }
 
@@ -39,7 +39,7 @@ class SanctionAdviceController extends Controller
      */
     public function store(StoreSanctionAdviceRequest $request, Borrower $borrower)
     {
-        dd($request->all());
+//        dd($request->all());
         // Start database transaction
         DB::beginTransaction();
         $sanction_advice = null;
@@ -72,7 +72,7 @@ class SanctionAdviceController extends Controller
         }
 
         if(!empty($sanction_advice)){
-            return to_route("sanction-advice.edit", $sanction_advice->id);
+            return to_route("sanction-advice.edit", [$sanction_advice->id, $borrower->id]);
         } else{
             return to_route("sanction-advice.index");
         }
@@ -90,9 +90,9 @@ class SanctionAdviceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SanctionAdvice $sanctionAdvice)
+    public function edit(SanctionAdvice $sanctionAdvice, Borrower $borrower)
     {
-        return view('sanction-advices.consumer.advance-salary.edit', compact('sanctionAdvice'));
+        return view('sanction-advices.consumer.advance-salary.edit', compact('sanctionAdvice','borrower'));
     }
 
     /**
@@ -100,12 +100,21 @@ class SanctionAdviceController extends Controller
      */
     public function update(UpdateSanctionAdviceRequest $request, Borrower $borrower, SanctionAdvice $sanctionAdvice)
     {
-        // Start database transaction
+        // Start a database transaction
         DB::beginTransaction();
 
         try {
-            // Update the existing SanctionAdvice with the validated data from the request
-            $sanctionAdvice->update($request->validated());
+            // Add the current date to the request data
+            $request->merge([
+                'date_of_report' => Carbon::now()->format('Y-m-d'),
+            ]);
+
+            // Update the SanctionAdvice record
+            $updated = $sanctionAdvice->update($request->all());
+
+            if (!$updated) {
+                throw new \Exception("Sanction Advice update failed unexpectedly.");
+            }
 
             // Commit the transaction if everything goes well
             DB::commit();
@@ -113,23 +122,24 @@ class SanctionAdviceController extends Controller
             // Flash success message to the session
             session()->flash('success', 'Sanction Advice successfully updated!');
 
+            // Redirect back to the edit page with success message
+            return redirect()->route('sanction-advice.edit', [$sanctionAdvice->id, $borrower->id]);
+
         } catch (\Exception $e) {
-            // Rollback the transaction if an error occurs
+            // Rollback the transaction in case of any error
             DB::rollBack();
 
-            // Log the error for debugging
-            Log::error('Sanction Advice update failed: ' . $e->getMessage());
+            // Log the error with additional context
+            Log::error('Sanction Advice update failed for ID ' . $sanctionAdvice->id . ' due to: ' . $e->getMessage());
 
             // Flash error message to the session
             session()->flash('error', 'Sanction Advice update failed! Please try again.');
 
-            // Redirect back with input
+            // Redirect back with old input data
             return redirect()->back()->withInput();
         }
-
-        // Redirect back to the previous route
-        return redirect()->back();
     }
+
 
     /**
      * Remove the specified resource from storage.

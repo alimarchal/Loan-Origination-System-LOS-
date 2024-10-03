@@ -71,7 +71,7 @@
     @endpush
     <x-slot name="header">
         <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight text-center block">
-            Editing Sanction Advice
+            EDITING SANCTION ADVICE OF {{ $borrower->name }} <br> Requested Amount: {{ $borrower->applicant_requested_loan_information->requested_amount }}
         </h2>
     </x-slot>
 
@@ -79,10 +79,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <x-status-message class="mb-4"/>
-                <form method="POST" action="{{ route('sanction-advice.update', [$borrower->id, $sanctionAdvice->id]) }}" enctype="multipart/form-data">
+                <x-validation-errors class="mb-4" />
+                <form method="POST" action="{{ route('sanction-advice.update', [$borrower->id, $sanctionAdvice->id]) }}" enctype="multipart/form-data" id="sanction-form">
                     @csrf
                     @method('PUT')
-
                     <div class="pb-4 lg:pb-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
                         <div class="px-6 mb-4 lg:px-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent dark:border-gray-700">
 
@@ -90,8 +90,8 @@
                             <h5 class="text-lg font-bold text-center uppercase">REGIONAL OFFICE {{ $borrower->region->name }}</h5>
 
                             <div class="mb-4">
-                                <p class="font-semibold">No: {{ $sanctionAdvice->no ?? 'BAJK/HO/CMD/2024/228' }}</p>
-                                <p class="font-semibold">Dated: {{ $sanctionAdvice->created_at->format('F d, Y') ?? 'Month Date, 2024' }}</p>
+                                <p class="font-semibold">No: BAJK/HO/CMD/2024/228</p>
+                                <p class="font-semibold">Dated: Month Date, 2024</p>
                             </div>
 
                             <h3 class="text-xl font-bold text-center underline">OFFICE NOTE</h3>
@@ -160,116 +160,111 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="font-bold">Type Of Finance:</td>
+                                    <td class="font-bold">Type of Finance:</td>
                                     <td>
-                                        <x-input id="type_of_finance" class="block shadow-none w-full h-8 rounded-none" type="text" name="type_of_finance" value="{{ old('type_of_finance', $sanctionAdvice->type_of_finance) }}" readonly />
+                                        <x-input id="type_of_finance" class="block shadow-none w-full h-8 rounded-none" type="text" name="type_of_finance" value="{{ $sanctionAdvice->type_of_finance }}" readonly />
                                     </td>
                                     <td class="font-bold">SGL Code:</td>
                                     <td>
-                                        <x-input id="sgl_code" class="block shadow-none w-full h-8 rounded-none" type="text" name="sgl_code" value="{{ old('sgl_code', $sanctionAdvice->sgl_code) }}"/>
+                                        <x-input id="sgl_code" class="block shadow-none w-full h-8 rounded-none" type="text" name="sgl_code" value="{{ $sanctionAdvice->sgl_code }}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Nature Of Finance:</td>
                                     <td>
-                                        <x-input id="nature_of_finance" class="block shadow-none w-full h-8 rounded-none" type="text" name="nature_of_finance" value="{{ old('nature_of_finance', $sanctionAdvice->nature_of_finance) }}"/>
+                                        <x-input id="nature_of_finance" class="block shadow-none w-full h-8 rounded-none" type="text" name="nature_of_finance" value="Demand Finance"/>
                                     </td>
                                     <td class="font-bold">Purpose Of Finance:</td>
                                     <td>
-                                        <x-input id="purpose_of_finance" class="block shadow-none w-full h-8 rounded-none" type="text" name="purpose_of_finance" value="{{ old('purpose_of_finance', $sanctionAdvice->purpose_of_finance) }}"/>
+                                        <x-input id="purpose_of_finance" class="block shadow-none w-full h-8 rounded-none" type="text" name="purpose_of_finance" value="{{ $sanctionAdvice->purpose_of_finance ?? 'N/A' }}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Tenure:</td>
                                     <td>
-                                        <x-input id="tenure" class="block shadow-none w-full h-8 rounded-none" type="text" name="tenure" value="{{ old('tenure', $sanctionAdvice->tenure) }}"/>
+                                        <x-input id="tenure" class="block shadow-none w-full h-8 rounded-none" type="text" name="tenure" :value="$sanctionAdvice->tenure"/>
                                     </td>
                                     <td class="font-bold">Take Home Salary:</td>
                                     <td>
-                                        <x-input id="take_home_salary" class="block w-full h-8 rounded-none" type="text" name="take_home_salary" value="{{ old('take_home_salary', $sanctionAdvice->take_home_salary) }}"/>
+                                        <x-input id="take_home_salary" class="block w-full h-8 rounded-none" type="text" name="take_home_salary" :value="$sanctionAdvice->take_home_salary ?? 'N/A'"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">DSR (Required):</td>
                                     <td>
-                                        <x-input id="dsr_required" class="block w-full h-8 rounded-none" type="text" name="dsr_required" value="{{ old('dsr_required', $sanctionAdvice->dsr_required) }}" />
+                                        <x-input id="dsr_required" class="block w-full h-8 rounded-none" type="text" name="dsr_required" value="{{ $sanctionAdvice->dsr_required }}" />
                                     </td>
                                     <td class="font-bold">DSR (Actual):</td>
                                     <td>
-                                        <x-input id="dsr_actual" class="block w-full h-8 rounded-none" type="text" name="dsr_actual" value="{{ old('dsr_actual', $sanctionAdvice->dsr_actual) }}" />
+                                        <x-input id="dsr_actual" class="block w-full h-8 rounded-none" type="text" name="dsr_actual" value="{{ $sanctionAdvice->dsr_actual }}" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Status:</td>
                                     <td>
-                                        <x-input id="requested_amount_status" class="block w-full h-8 rounded-none" type="text" name="requested_amount_status" value="{{ old('requested_amount_status', $sanctionAdvice->requested_amount_status) }}" readonly />
+                                        <x-input id="requested_amount_status" class="block w-full h-8 rounded-none" type="text" name="requested_amount_status" :value="$sanctionAdvice->requested_amount_status" readonly />
                                     </td>
                                     <td class="font-bold">Amount of Finance / Limit:</td>
                                     <td>
-                                        <x-input id="amount_of_finance_limit" class="block w-full h-8 rounded-none" type="text" name="amount_of_finance_limit" value="{{ old('amount_of_finance_limit', $sanctionAdvice->amount_of_finance_limit) }}"/>
+                                        <x-input id="amount_of_finance_limit" class="block w-full h-8 rounded-none" type="text" name="amount_of_finance_limit" :value="$sanctionAdvice->amount_of_finance_limit" />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Previous Outstanding:</td>
                                     <td>
-                                        <x-input id="previous_outstanding" class="block w-full h-8 rounded-none" type="text" name="previous_outstanding" value="{{ old('previous_outstanding', $sanctionAdvice->previous_outstanding) }}"/>
+                                        <x-input id="previous_outstanding" class="block w-full h-8 rounded-none" value="{{ $sanctionAdvice->previous_outstanding }}"  type="text" name="previous_outstanding"/>
                                     </td>
                                     <td class="font-bold">Enhancement Amount:</td>
                                     <td>
-                                        <x-input id="enhancement_amount" class="block w-full h-8 rounded-none" type="text" name="enhancement_amount" value="{{ old('enhancement_amount', $sanctionAdvice->enhancement_amount) }}"/>
+                                        <x-input id="enhancement_amount" class="block w-full h-8 rounded-none"  value="{{ $sanctionAdvice->enhancement_amount }}" type="text" name="enhancement_amount"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Total Enhancement:</td>
                                     <td>
-                                        <x-input id="total_amount" class="block w-full h-8 rounded-none" type="text" name="total_amount" value="{{ old('total_amount', $sanctionAdvice->total_amount) }}"/>
+                                        <x-input id="total_amount" class="block w-full h-8 rounded-none" type="text" name="total_amount" value="{{ $sanctionAdvice->total_amount }}"/>
                                     </td>
                                     <td class="font-bold">Repayment History:</td>
                                     <td>
-                                        <x-input id="repayment_history" class="block w-full h-8 rounded-none" type="text" name="repayment_history" value="{{ old('repayment_history', $sanctionAdvice->repayment_history) }}"/>
+                                        <x-input id="repayment_history" class="block w-full h-8 rounded-none" type="text" name="repayment_history" value="{{ $sanctionAdvice->repayment_history ?? 'N/A' }}" readonly />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Rate of Markup:</td>
-                                    <td>
-                                        <x-input id="rate_of_markup" class="block w-full h-8 rounded-none" type="text" name="rate_of_markup" value="{{ old('rate_of_markup', $sanctionAdvice->rate_of_markup) }}"/>
+                                    <td colspan="3">
+                                        <x-input id="rate_of_markup" class="block w-full h-8 rounded-none" type="text" name="rate_of_markup" value="{{ $sanctionAdvice->rate_of_markup }}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Repayment Schedule (Monthly Installment):</td>
                                     <td colspan="3">
-                                        Rs. <x-input id="monthly_installment" class="w-1/3 h-8" type="number" min="0" step="0.01" name="monthly_installment value="{{ old('repayment_schedule_monthly_installment', $sanctionAdvice->repayment_schedule_monthly_installment) }} "/>
+                                        Rs. <x-input id="monthly_installment" class="w-1/3 h-8" type="number" min="0" step="0.01" name="monthly_installment" value="{{ $sanctionAdvice->monthly_installment }}"/>
                                         <br>
 
                                         <input type="hidden" name="repayment_schedule_monthly_installment" id="repayment_schedule_monthly_installment">
-                                        <!-- third Quill Editor -->
-                                        <div id="editor3">
-                                            <p>
-                                                Tentative Monthly Installment, Including Markup, Life Insurance and Principal. Grace period for broken days of the month during which loan is disbursed will be allowed i.e., only markup shall be charged for grace period whereas Principal repayment will Commence from subsequent month (Instruction Circular no. CMD/HO/2018/207 dated: January 29, 2018 Repayment Schedule is attached for reference only.
-                                            </p>
+                                        <!-- Second Quill Editor -->
+                                        <div id="editor3" class="mt-2">
+                                            {!! $sanctionAdvice->repayment_schedule_monthly_installment !!}
                                         </div>
 
                                     </td>
-                                  </tr>
-                                 <tr>
+                                </tr>
+                                <tr>
                                     <td class="font-bold">Insurance Treatment:</td>
                                     <td colspan="3">
 
                                         <input type="hidden" name="insurance_treatment" id="insurance_treatment">
                                         <!-- Second Quill Editor -->
                                         <div id="editor2">
-                                            <p>
-                                                Insurance premium is to be recovered along with monthly installment and credited to "Insurance Life Insurance-SGL Premium Payable (Life)."
-                                            </p>
+                                            {!! $sanctionAdvice->insurance_treatment !!}
                                         </div>
 
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td class="font-bold">Life Insurance-SGL:</td>
-                                    <td>
-                                        <x-input id="life_insurance_sgl" class="block w-full h-8 rounded-none" type="text" name="life_insurance_sgl" value="{{ old('life_insurance_sgl', $sanctionAdvice->life_insurance_sgl) }}"/>
+                                    <td colspan="3">
+                                        <x-input id="life_insurance_sgl" class="block w-full h-8 rounded-none" type="text" name="life_insurance_sgl" value="{{ $sanctionAdvice->life_insurance_sgl }}"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -278,9 +273,9 @@
 
 
                                         <input type="hidden" name="recovery_mode_of_installment" id="recovery_mode_of_installment">
-                                        <!-- fourth Quill Editor -->
+                                        <!-- Second Quill Editor -->
                                         <div id="editor4">
-                                            <strong>Regular:</strong> Monthly installment to be recovered on or before 5th of each month.<br><strong>Default:</strong> Delay payment mark-up @ 02% over and above the normal mark-up rate be charged on the principal portion of the overdue installment from the due date till date of recovery and be recovered from the borrower. Instruction Circular no BAJK/HO/CMD/2022/320 dated: August 19, 2022
+                                            {!! $sanctionAdvice->recovery_mode_of_installment !!}
                                         </div>
 
 
@@ -296,33 +291,27 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="font-bold">Primary:</td>
-                                        <td colspan="3">
-                                            Hypothecation of Household Goods valuing to
-                                            <x-input id="security_primary_amount" class="w-1/6 h-8" type="number" readonly min="0" step="0.01" name="security_primary_amount" :value="$borrower->listHouseHoldItems->sum('amount')"/> /-
+                                <tr>
+                                    <td class="font-bold">Primary:</td>
+                                    <td colspan="3">
+                                         Hypothecation of Household Goods valuing to
+                                        <x-input id="security_primary_amount" class="w-1/6 h-8" type="number" readonly min="0" step="0.01" name="security_primary_amount" :value="$borrower->listHouseHoldItems->sum('amount')"/> /-
 
-                                            <input type="hidden" name="security_primary" id="security_primary">
-                                            <!-- fifth Quill Editor -->
-                                            <div id="editor5" class="mt-2">
-                                                <p>
-                                                    Hypothecation of Household Goods valuing to <strong>Rs.{{ $borrower->listHouseHoldItems->sum('amount') }}/-</strong>
-                                                </p>
-                                            </div>
-                                        </td>
+                                        <input type="hidden" name="security_primary" id="security_primary">
+                                        <!-- Second Quill Editor -->
+                                        <div id="editor5" class="mt-1">
+                                            {!! $sanctionAdvice->security_primary !!}
+                                        </div>
+
+
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Secondary:</td>
                                     <td colspan="3">
-
                                         <input type="hidden" name="security_secondary" id="security_secondary">
-                                        <div id="editor6">
-                                              &nbsp;• Post Dated Cheques favoring BAJK <br>
-                                              • Personal Guarantee from: {{ $borrower->guarantor?->first()?->name }}<br>
-                                              • Designation: {{ $borrower->guarantor?->first()?->designation }}<br>
-                                              • CNIC: {{ $borrower->guarantor?->first()?->national_id }}
-
-                                        </div>
+                                        <div id="editor6">{!! $sanctionAdvice->security_secondary !!}</div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -338,198 +327,211 @@
                                 <tr>
                                     <td class="font-bold">Borrower</td>
                                     <td>
-                                        <x-input id="borrower_pgs_no_issued" class="block w-full h-8 rounded-none" type="text" name="borrower_pgs_no_issued" value="{{ old('borrower_pgs_no_issued', $sanctionAdvice->borrower_pgs_no_issued) }}"/>
+                                        <x-input id="borrower_pgs_no_issued" class="block w-full h-8 rounded-none" type="text" name="borrower_pgs_no_issued" value="{{ $sanctionAdvice->borrower_pgs_no_issued }}"/>
                                     </td>
                                     <td class="font-bold">Repayment Status</td>
                                     <td>
-                                        <x-input id="borrower_rp_status" class="block w-full h-8 rounded-none" type="text" name="borrower_rp_status" value="{{ old('borrower_rp_status', $sanctionAdvice->borrower_rp_status) }}"/>
+                                        <x-input id="borrower_rp_status" class="block w-full h-8 rounded-none" type="text" name="borrower_rp_status" value="{{ $sanctionAdvice->borrower_rp_status }}"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Guarantor</td>
                                     <td>
-                                        <x-input id="guarantor_pgs_no_issued" class="block w-full h-8 rounded-none" type="text" name="guarantor_pgs_no_issued" value="{{ old('guarantor_pgs_no_issued', $sanctionAdvice->guarantor_pgs_no_issued) }}"/>
+                                        <x-input id="guarantor_pgs_no_issued" class="block w-full h-8 rounded-none" type="text" name="guarantor_pgs_no_issued" value="{{ $sanctionAdvice->guarantor_pgs_no_issued }}" />
                                     </td>
                                     <td class="font-bold">Repayment Status</td>
                                     <td>
-                                        <x-input id="guarantor_rp_status" class="block w-full h-8 rounded-none" type="text" name="guarantor_rp_status" value="{{ old('guarantor_rp_status', $sanctionAdvice->guarantor_rp_status) }}"/>
+                                        <x-input id="guarantor_rp_status" class="block w-full h-8 rounded-none" type="text" name="guarantor_rp_status" value="{{ $sanctionAdvice->guarantor_rp_status }}" />
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
+
+                            <!-- Hidden input to store Quill data -->
                             <input type="hidden" name="documents_required_before_disbursement" id="documents_required_before_disbursement">
 
                             <!-- Quill Editor Section -->
-                            <div class="mx-4">
+                            <div class="">
                                 <div id="editor">
-                                    <h2 class="text-xl font-bold mb-4">E: DOCUMENTS REQUIRED BEFORE DISBURSEMENT:</h2>
-                                    <p>Loan may be disbursed only on issuance of the DAC that will be issued on receipt/scrutiny of the following Charge/Security documents:</p>
-                                    <ol class="list-decimal pl-6 mb-6">
-                                        <li>Letter of Acceptance of Terms and Conditions of the Finance.</li>
-                                        <li>Agreement of Finance for Short/Medium/Long Term on Markup basis.</li>
-                                        <li>Demand Promissory Note.</li>
-                                        <li>Letter of Hypothecation of Moveable Assets.</li>
-                                        <li>Letter of Installment.</li>
-                                        <li>Letter of Continuity.</li>
-                                        <li>Letter of Arrangement.</li>
-                                        <li>Letter of Guarantee from the Borrower & Guarantor.</li>
-                                        <li>Undertaking regarding Postdated Cheques.</li>
-                                        <li>Repayment Schedule of Installment.</li>
-                                        <li>Authority Letter for recovery of Installment and charges.</li>
-                                    </ol>
-
-                                    <h2 class="text-xl font-bold mb-4">F: GENERAL TERMS AND CONDITIONS:</h2>
-                                    <ol class="list-decimal pl-6 mb-6">
-                                        <li>The Bank reserves the right to call back the finance at any time or modify any terms.</li>
-                                        <li>The facility shall be fully adjusted by the expiry date.</li>
-                                        <li>The Bank reserves the right to change the markup rate.</li>
-                                        <li>Routing of salary as per BAJK policy.</li>
-                                        <li>Processing fee as per latest schedule.</li>
-                                        <li>Validity of this advice is thirty days.</li>
-                                        <li>In case of enhancement, outstanding balance must be settled.</li>
-                                        <li>Insurance must be obtained as per Bank's policy.</li>
-                                    </ol>
-
-                                    <p class="font-bold">Note:</p>
-                                    <p>The applicant has not availed multiple loans from BAJK as reported by Regional Offices.</p>
-
-                                    <p class="font-bold mt-6">THE PROPOSAL IS SUBMITTED FOR APPROVAL BEFORE (CONCERNED COMMITTEE)</p>
+                                   {!! $sanctionAdvice->documents_required_before_disbursement !!}
                                 </div>
                             </div>
 
+
+                            <div class="">
+                                <!-- Hidden input to store Quill data -->
+                                <input type="hidden" name="general_terms_of_service" id="general_terms_of_service">
+                                <div id="editor7" class="my-2">
+                                    {!! $sanctionAdvice->general_terms_of_service !!}
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4">
+
+                            <!-- Gender -->
+                            <div>
+                                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="gender">
+                                    Do you want to finalize this Sanction Advice?
+                                    <span class="text-red-700">*</span>
+                                </label>
+                                <select name="is_lock" id="is_lock" required class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                    <option value="">Select an option</option>
+                                    <option value="Yes">Yes, Finalize It</option>
+                                    <option value="No">No, Just Update The Basic Information For Draft</option>
+                                </select>
+                            </div>
+                            </div>
+
+                            <!-- Submit Button -->
                             <div class="flex items-center justify-end mt-4">
                                 <x-button class="ml-4" id="submit-btn">Update</x-button>
                             </div>
 
-                            <!-- Initialize Quill editor -->
-                            <script>
-                                const quill = new Quill('#editor', {
-                                    theme: 'snow'
-                                });
-                            </script>
+                            {{--                            <!-- Initialize Quill editor -->--}}
+                            {{--                            <script>--}}
+                            {{--                                const quill = new Quill('#editor', {--}}
+                            {{--                                    theme: 'snow'--}}
+                            {{--                                });--}}
+                            {{--                            </script>--}}
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
     @push('modals')
 
-            <!-- Quill and Form Submission Scripts -->
-            <script>
-                // Initialize Quill
-                const quill = new Quill('#editor', {
-                    theme: 'snow',
-                    readOnly: true,  // Make it read-only if necessary
-                    modules: {
-                        toolbar: false  // Disable toolbar if it's read-only
-                    }
-                });
-
-                // Initialize the second Quill editor
-                const quill2 = new Quill('#editor2', {
-                    theme: 'snow',
-                    readOnly: true,  // Make it read-only if necessary
-                    modules: {
-                        toolbar: false  // Disable toolbar if it's read-only
-                    }
-                });
-
-
-                // Initialize the second Quill editor
-                const quill3 = new Quill('#editor3', {
-                    theme: 'snow',
-                    readOnly: true,  // Make it read-only if necessary
-                    modules: {
-                        toolbar: false  // Disable toolbar if it's read-only
-                    }
-                });
-
-
-                // Initialize the second Quill editor
-                const quill4 = new Quill('#editor4', {
-                    theme: 'snow',
-                    readOnly: true,  // Make it read-only if necessary
-                    modules: {
-                        toolbar: false  // Disable toolbar if it's read-only
-                    }
-                });
-
-
-                // Initialize the second Quill editor
-                const quill5 = new Quill('#editor5', {
-                    theme: 'snow',
-                    readOnly: true,  // Make it read-only if necessary
-                    modules: {
-                        toolbar: false  // Disable toolbar if it's read-only
-                    }
-                });
-
-                // Initialize the second Quill editor
-                const quill6 = new Quill('#editor6', {
-                    theme: 'snow',
-                    readOnly: true,  // Make it read-only if necessary
-                    modules: {
-                        toolbar: false  // Disable toolbar if it's read-only
-                    }
-                });
-
-
-                // Get the form
-                const form = document.getElementById('sanction-form');
-
-                // On form submission, place Quill content into hidden input
-                form.addEventListener('submit', function (e) {
-                    // Get HTML content from Quill
-                    const quillHtml = quill.root.innerHTML;
-                    const quillHtml2 = quill2.root.innerHTML;
-                    const quillHtml3 = quill3.root.innerHTML;
-                    const quillHtml4 = quill4.root.innerHTML;
-                    const quillHtml5 = quill5.root.innerHTML;
-                    const quillHtml6 = quill6.root.innerHTML;
-
-                    // Place content into the hidden input
-                    document.getElementById('documents_required_before_disbursement').value = quillHtml;
-                    document.getElementById('insurance_treatment').value = quillHtml2;
-                    document.getElementById('repayment_schedule_monthly_installment').value = quillHtml3;
-                    document.getElementById('recovery_mode_of_installment').value = quillHtml4;
-                    document.getElementById('security_primary').value = quillHtml5;
-                    document.getElementById('security_secondary').value = quillHtml6;
-                });
-            </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const cnicInput = document.getElementById('national_id');
-            const mobileInput = document.getElementById('phone_number_two');
-
-            const formatCNIC = (value) => {
-                return value.replace(/\D/g, '')
-                    .replace(/(\d{5})(\d{7})(\d{1})/, '$1-$2-$3')
-                    .substr(0, 15);
-            };
-
-            const formatPhoneNumber = (value) => {
-                return value.replace(/\D/g, '')
-                    .replace(/(\d{4})(\d{7})/, '$1-$2')
-                    .substr(0, 12);
-            };
-
-            cnicInput.addEventListener('input', function (e) {
-                e.target.value = formatCNIC(e.target.value);
+        <!-- Quill and Form Submission Scripts -->
+        <script>
+            // Initialize Quill
+            const quill = new Quill('#editor', {
+                theme: 'snow',
+                readOnly: true,  // Make it read-only if necessary
+                modules: {
+                    toolbar: false  // Disable toolbar if it's read-only
+                }
             });
 
-            mobileInput.addEventListener('input', function (e) {
-                e.target.value = formatPhoneNumber(e.target.value);
+            // Initialize the second Quill editor
+            const quill2 = new Quill('#editor2', {
+                theme: 'snow',
+                readOnly: true,  // Make it read-only if necessary
+                modules: {
+                    toolbar: false  // Disable toolbar if it's read-only
+                }
             });
-        });
-    </script>
-     <!-- Add this CSS to remove the border around the Quill editor -->
-{{--            <style>--}}
-{{--                .ql-container {--}}
-{{--                    border: none !important; /* Removes border around the content */--}}
-{{--                    padding: 0 !important;    /* Optional: Adjust padding if necessary */--}}
-{{--                }--}}
-{{--            </style>--}}
 
+
+            // Initialize the second Quill editor
+            const quill3 = new Quill('#editor3', {
+                theme: 'snow',
+                readOnly: true,  // Make it read-only if necessary
+                modules: {
+                    toolbar: false  // Disable toolbar if it's read-only
+                }
+            });
+
+
+            // Initialize the second Quill editor
+            const quill4 = new Quill('#editor4', {
+                theme: 'snow',
+                readOnly: true,  // Make it read-only if necessary
+                modules: {
+                    toolbar: false  // Disable toolbar if it's read-only
+                }
+            });
+
+
+            // Initialize the second Quill editor
+            const quill5 = new Quill('#editor5', {
+                theme: 'snow',
+                readOnly: true,  // Make it read-only if necessary
+                modules: {
+                    toolbar: false  // Disable toolbar if it's read-only
+                }
+            });
+
+            // Initialize the second Quill editor
+            const quill6 = new Quill('#editor6', {
+                theme: 'snow',
+                readOnly: true,  // Make it read-only if necessary
+                modules: {
+                    toolbar: false  // Disable toolbar if it's read-only
+                }
+            });
+
+
+
+            // Initialize the second Quill editor
+            const quill7 = new Quill('#editor7', {
+                theme: 'snow',
+                readOnly: true,  // Make it read-only if necessary
+                modules: {
+                    toolbar: false  // Disable toolbar if it's read-only
+                }
+            });
+
+
+            // Get the form
+            const form = document.getElementById('sanction-form');
+
+            // On form submission, place Quill content into hidden input
+            form.addEventListener('submit', function (e) {
+                // Get HTML content from Quill
+                const quillHtml = quill.root.innerHTML;
+                const quillHtml2 = quill2.root.innerHTML;
+                const quillHtml3 = quill3.root.innerHTML;
+                const quillHtml4 = quill4.root.innerHTML;
+                const quillHtml5 = quill5.root.innerHTML;
+                const quillHtml6 = quill6.root.innerHTML;
+                const quillHtml7 = quill7.root.innerHTML;
+
+                // Place content into the hidden input
+                document.getElementById('documents_required_before_disbursement').value = quillHtml;
+                document.getElementById('insurance_treatment').value = quillHtml2;
+                document.getElementById('repayment_schedule_monthly_installment').value = quillHtml3;
+                document.getElementById('recovery_mode_of_installment').value = quillHtml4;
+                document.getElementById('security_primary').value = quillHtml5;
+                document.getElementById('security_secondary').value = quillHtml6;
+                document.getElementById('general_terms_of_service').value = quillHtml7;
+            });
+        </script>
+
+        <!-- CNIC and Phone Number Formatting -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const cnicInput = document.getElementById('national_id');
+                const mobileInput = document.getElementById('phone_number_two');
+
+                const formatCNIC = (value) => {
+                    return value.replace(/\D/g, '')
+                        .replace(/(\d{5})(\d{7})(\d{1})/, '$1-$2-$3')
+                        .substr(0, 15);
+                };
+
+                const formatPhoneNumber = (value) => {
+                    return value.replace(/\D/g, '')
+                        .replace(/(\d{4})(\d{7})/, '$1-$2')
+                        .substr(0, 12);
+                };
+
+                cnicInput.addEventListener('input', function (e) {
+                    e.target.value = formatCNIC(e.target.value);
+                });
+
+                mobileInput.addEventListener('input', function (e) {
+                    e.target.value = formatPhoneNumber(e.target.value);
+                });
+            });
+        </script>
+
+        <!-- Add this CSS to remove the border around the Quill editor -->
+        {{--            <style>--}}
+        {{--                .ql-container {--}}
+        {{--                    border: none !important; /* Removes border around the content */--}}
+        {{--                    padding: 0 !important;    /* Optional: Adjust padding if necessary */--}}
+        {{--                }--}}
+        {{--            </style>--}}
+    @endpush
 </x-app-layout>
