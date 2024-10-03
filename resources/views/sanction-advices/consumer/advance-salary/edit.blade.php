@@ -238,16 +238,34 @@
                                 <tr>
                                     <td class="font-bold">Repayment Schedule (Monthly Installment):</td>
                                     <td colspan="3">
-                                        Tentative Monthly Installment Rs.
-                                        <x-input id="repayment_schedule_monthly_installment" class="w-1/6 h-8" type="number" min="0" step="0.01" name="repayment_schedule_monthly_installment" value="{{ old('repayment_schedule_monthly_installment', $sanctionAdvice->repayment_schedule_monthly_installment) }}"/> /-
+                                        Rs. <x-input id="monthly_installment" class="w-1/3 h-8" type="number" min="0" step="0.01" name="monthly_installment value="{{ old('repayment_schedule_monthly_installment', $sanctionAdvice->repayment_schedule_monthly_installment) }} "/>
+                                        <br>
+
+                                        <input type="hidden" name="repayment_schedule_monthly_installment" id="repayment_schedule_monthly_installment">
+                                        <!-- third Quill Editor -->
+                                        <div id="editor3">
+                                            <p>
+                                                Tentative Monthly Installment, Including Markup, Life Insurance and Principal. Grace period for broken days of the month during which loan is disbursed will be allowed i.e., only markup shall be charged for grace period whereas Principal repayment will Commence from subsequent month (Instruction Circular no. CMD/HO/2018/207 dated: January 29, 2018 Repayment Schedule is attached for reference only.
+                                            </p>
+                                        </div>
+
                                     </td>
-                                </tr>
-                                <tr>
+                                  </tr>
+                                 <tr>
                                     <td class="font-bold">Insurance Treatment:</td>
                                     <td colspan="3">
-                                        Insurance premium is to be recovered along with monthly installment and credited to "Insurance Life Insurance-SGL Premium Payable (Life)."
+
+                                        <input type="hidden" name="insurance_treatment" id="insurance_treatment">
+                                        <!-- Second Quill Editor -->
+                                        <div id="editor2">
+                                            <p>
+                                                Insurance premium is to be recovered along with monthly installment and credited to "Insurance Life Insurance-SGL Premium Payable (Life)."
+                                            </p>
+                                        </div>
+
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td class="font-bold">Life Insurance-SGL:</td>
                                     <td>
@@ -257,8 +275,15 @@
                                 <tr>
                                     <td class="font-bold">Recovery Mode of Installment:</td>
                                     <td colspan="3">
-                                        <strong>Regular:</strong> Monthly installment to be recovered on or before 5th of each month. <br>
-                                        <strong>Default:</strong> Delay payment mark-up @ 02% over the normal mark-up rate will be charged on the overdue installment.
+
+
+                                        <input type="hidden" name="recovery_mode_of_installment" id="recovery_mode_of_installment">
+                                        <!-- fourth Quill Editor -->
+                                        <div id="editor4">
+                                            <strong>Regular:</strong> Monthly installment to be recovered on or before 5th of each month.<br><strong>Default:</strong> Delay payment mark-up @ 02% over and above the normal mark-up rate be charged on the principal portion of the overdue installment from the due date till date of recovery and be recovered from the borrower. Instruction Circular no BAJK/HO/CMD/2022/320 dated: August 19, 2022
+                                        </div>
+
+
                                     </td>
                                 </tr>
                                 </tbody>
@@ -271,20 +296,33 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="font-bold">Primary:</td>
-                                    <td colspan="3">
-                                        Hypothecation of Household Goods valuing to
-                                        <x-input id="security_secondary" class="w-1/6 h-8" type="number" min="0" step="0.01" name="security_secondary" value="{{ old('security_secondary', $sanctionAdvice->security_secondary) }}"/> /-
-                                    </td>
+                                    <tr>
+                                        <td class="font-bold">Primary:</td>
+                                        <td colspan="3">
+                                            Hypothecation of Household Goods valuing to
+                                            <x-input id="security_primary_amount" class="w-1/6 h-8" type="number" readonly min="0" step="0.01" name="security_primary_amount" :value="$borrower->listHouseHoldItems->sum('amount')"/> /-
+
+                                            <input type="hidden" name="security_primary" id="security_primary">
+                                            <!-- fifth Quill Editor -->
+                                            <div id="editor5" class="mt-2">
+                                                <p>
+                                                    Hypothecation of Household Goods valuing to <strong>Rs.{{ $borrower->listHouseHoldItems->sum('amount') }}/-</strong>
+                                                </p>
+                                            </div>
+                                        </td>
                                 </tr>
                                 <tr>
                                     <td class="font-bold">Secondary:</td>
                                     <td colspan="3">
-                                        • Post Dated Cheques favoring BAJK <br>
-                                        • Personal Guarantee from: {{ $borrower->guarantor?->first()?->name }}<br>
-                                        • Designation: {{ $borrower->guarantor?->first()?->designation }}<br>
-                                        • CNIC: {{ $borrower->guarantor?->first()?->national_id }}
+
+                                        <input type="hidden" name="security_secondary" id="security_secondary">
+                                        <div id="editor6">
+                                              &nbsp;• Post Dated Cheques favoring BAJK <br>
+                                              • Personal Guarantee from: {{ $borrower->guarantor?->first()?->name }}<br>
+                                              • Designation: {{ $borrower->guarantor?->first()?->designation }}<br>
+                                              • CNIC: {{ $borrower->guarantor?->first()?->national_id }}
+
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -319,7 +357,9 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <input type="hidden" name="documents_required_before_disbursement" id="documents_required_before_disbursement">
 
+                            <!-- Quill Editor Section -->
                             <div class="mx-4">
                                 <div id="editor">
                                     <h2 class="text-xl font-bold mb-4">E: DOCUMENTS REQUIRED BEFORE DISBURSEMENT:</h2>
@@ -373,6 +413,90 @@
             </div>
         </div>
     </div>
+    @push('modals')
+
+            <!-- Quill and Form Submission Scripts -->
+            <script>
+                // Initialize Quill
+                const quill = new Quill('#editor', {
+                    theme: 'snow',
+                    readOnly: true,  // Make it read-only if necessary
+                    modules: {
+                        toolbar: false  // Disable toolbar if it's read-only
+                    }
+                });
+
+                // Initialize the second Quill editor
+                const quill2 = new Quill('#editor2', {
+                    theme: 'snow',
+                    readOnly: true,  // Make it read-only if necessary
+                    modules: {
+                        toolbar: false  // Disable toolbar if it's read-only
+                    }
+                });
+
+
+                // Initialize the second Quill editor
+                const quill3 = new Quill('#editor3', {
+                    theme: 'snow',
+                    readOnly: true,  // Make it read-only if necessary
+                    modules: {
+                        toolbar: false  // Disable toolbar if it's read-only
+                    }
+                });
+
+
+                // Initialize the second Quill editor
+                const quill4 = new Quill('#editor4', {
+                    theme: 'snow',
+                    readOnly: true,  // Make it read-only if necessary
+                    modules: {
+                        toolbar: false  // Disable toolbar if it's read-only
+                    }
+                });
+
+
+                // Initialize the second Quill editor
+                const quill5 = new Quill('#editor5', {
+                    theme: 'snow',
+                    readOnly: true,  // Make it read-only if necessary
+                    modules: {
+                        toolbar: false  // Disable toolbar if it's read-only
+                    }
+                });
+
+                // Initialize the second Quill editor
+                const quill6 = new Quill('#editor6', {
+                    theme: 'snow',
+                    readOnly: true,  // Make it read-only if necessary
+                    modules: {
+                        toolbar: false  // Disable toolbar if it's read-only
+                    }
+                });
+
+
+                // Get the form
+                const form = document.getElementById('sanction-form');
+
+                // On form submission, place Quill content into hidden input
+                form.addEventListener('submit', function (e) {
+                    // Get HTML content from Quill
+                    const quillHtml = quill.root.innerHTML;
+                    const quillHtml2 = quill2.root.innerHTML;
+                    const quillHtml3 = quill3.root.innerHTML;
+                    const quillHtml4 = quill4.root.innerHTML;
+                    const quillHtml5 = quill5.root.innerHTML;
+                    const quillHtml6 = quill6.root.innerHTML;
+
+                    // Place content into the hidden input
+                    document.getElementById('documents_required_before_disbursement').value = quillHtml;
+                    document.getElementById('insurance_treatment').value = quillHtml2;
+                    document.getElementById('repayment_schedule_monthly_installment').value = quillHtml3;
+                    document.getElementById('recovery_mode_of_installment').value = quillHtml4;
+                    document.getElementById('security_primary').value = quillHtml5;
+                    document.getElementById('security_secondary').value = quillHtml6;
+                });
+            </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -400,4 +524,12 @@
             });
         });
     </script>
+     <!-- Add this CSS to remove the border around the Quill editor -->
+{{--            <style>--}}
+{{--                .ql-container {--}}
+{{--                    border: none !important; /* Removes border around the content */--}}
+{{--                    padding: 0 !important;    /* Optional: Adjust padding if necessary */--}}
+{{--                }--}}
+{{--            </style>--}}
+
 </x-app-layout>
