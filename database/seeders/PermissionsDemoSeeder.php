@@ -22,24 +22,35 @@ class PermissionsDemoSeeder extends Seeder
 
         // Create permissions
         $permissions = [
-            'Inputter',
-            'Authorizer',
-            'Users Access',
-            'Users Create',
-            'Users Edit',
-            'Users View',
-            'Credit Report Access',
-            'Credit Report Create',
-            'Credit Report Show',
-            'Credit Report Edit',
-            'Credit Report Update',
-            'Remarks',
-            'Sanctions Advised Issued',
-            'Borrower Access',
-            'Borrower Create',
-            'Borrower Edit',
-            'Borrower Show',
-            'Print PDF',
+            'inputter',
+            'authorizer',
+            'users access',
+            'users create',
+            'users edit',
+            'users view',
+            'credit report access',
+            'credit report create',
+            'credit report show',
+            'credit report edit',
+            'credit report update',
+            'remarks',
+            'sanctions adviced access',
+            'sanctions adviced issue',
+            'sanctions adviced create',
+            'sanctions adviced show',
+            'sanctions adviced edit',
+            'sanctions adviced update',
+            'borrower access',
+            'borrower create',
+            'borrower edit',
+            'borrower show',
+            'print PDF',
+            'DAC access',
+            'DAC issue',
+            'DAC create',
+            'DAC show',
+            'DAC edit',
+            'DAC update',
         ];
 
         foreach ($permissions as $permission) {
@@ -49,54 +60,144 @@ class PermissionsDemoSeeder extends Seeder
         // Create roles and assign permissions
         $roles = [
             'Branch Manager' => [
-                'Inputter', 'Authorizer', 'Credit Report Access', 'Credit Report Create',
-                'Credit Report Show', 'Borrower Access', 'Borrower Create', 'Borrower Edit',
-                'Borrower Show', 'Print PDF'
+                'authorizer', 
+                'credit report access', 
+                'credit report show', 
+                'borrower access',
+                'borrower show',
+                'print PDF'
             ],
-            'Credit Manager' => [
-                'Authorizer', 'Credit Report Access', 'Credit Report Show', 'Borrower Access',
-                'Borrower Show', 'Print PDF'
+            'Branch Credit Manager' => [
+                'inputter', 
+                'credit report access',
+                'credit report create',
+                'credit report show', 
+                'borrower access',
+                'borrower create',
+                'borrower edit',
+                'borrower show',
+                 'print PDF'
             ],
-            'Credit Officer' => [
-                'Authorizer', 'Credit Report Access', 'Credit Report Show', 'Borrower Access',
-                'Borrower Show', 'Print PDF'
+            'Branch Credit Officer' => [
+                'inputter', 
+                'credit report access',
+                'credit report create',
+                'credit report show', 
+                'borrower access',
+                'borrower create',
+                'borrower edit',
+                'borrower show',
+                'print PDF'
+                 
             ],
             'Regional Credit Manager' => [
-                'Credit Report Access', 'Credit Report Show', 'Remarks', 'Sanctions Advised Issued',
-                'Borrower Access', 'Borrower Show', 'Print PDF'
+                'credit report access',
+                'credit report create',
+                'credit report show',
+                'remarks',
+                'sanctions adviced access',
+                'sanctions adviced issue',
+                'sanctions adviced create',
+                'sanctions adviced show',
+                'sanctions adviced edit',
+                'sanctions adviced update',
+                'borrower access',
+                'borrower show',
+                'print PDF'
+
             ],
-            'Regional Chief' => [
-                'Credit Report Access', 'Credit Report Show', 'Remarks', 'Borrower Access',
-                'Borrower Show', 'Print PDF'
+            'Regional Credit Officer' => [
+                 'credit report access',
+                 'credit report show',
+                 'remarks',
+                 'borrower access',
+                 'borrower show',
+                 'print PDF'
+
             ],
-            'DH CRBD' => [
-                'Remarks', 'Borrower Access', 'Borrower Show', 'Print PDF'
+            'Regional Head' => [
+                  'credit report access',
+                  'credit report show',
+                  'remarks', 
+                  'borrower access',
+                  'borrower show',
+                  'sanctions adviced access',
+                  'sanctions adviced show',
+                  'print PDF'
             ],
-            'SM CRBD' => [
-                'Remarks', 'Borrower Access', 'Borrower Show', 'Print PDF'
+            'Divisional Head CRBD' => [
+                'remarks',
+                'borrower access',
+                'borrower show',
+                'print PDF'
             ],
-            'SM Manager Officer' => [
-                'Credit Report Access', 'Credit Report Show', 'Credit Report Edit',
-                'Credit Report Update', 'Remarks', 'Sanctions Advised Issued', 'Borrower Access',
-                'Borrower Show', 'Print PDF'
+            'Senior Manager CRBD' => [
+                'remarks',
+                'borrower access',
+                'borrower show',
+                'print PDF'
             ],
-            'DH CMD' => [
-                'Credit Report Access', 'Credit Report Show', 'Credit Report Edit',
-                'Credit Report Update', 'Remarks', 'Sanctions Advised Issued', 'Borrower Access',
-                'Borrower Show', 'Print PDF'
+            'Manager Officer CRBD' => [
+                'credit report access',
+                'credit report show',
+                'remarks', 
+                'borrower access',
+                'borrower show',
+                'print PDF'
             ],
-            'SM CMD' => [
-                'Credit Report Access', 'Credit Report Show', 'Credit Report Edit',
-                'Credit Report Update', 'Remarks', 'Borrower Access', 'Borrower Show', 'Print PDF'
+            
+             'Divisional Head CMD' => [
+                'credit report access',
+                'credit report show', 
+                'credit report edit',
+                'credit report update',
+                'remarks',
+                'sanctions adviced access', 
+                'sanctions adviced issue',
+                'sanctions adviced create',
+                'sanctions adviced show',
+                'sanctions adviced edit',
+                'sanctions adviced update',
+                'borrower access',
+                'borrower show', 
+                'print PDF'
             ],
-            'CMD Manager Officer' => [
-                'Credit Report Access', 'Credit Report Show', 'Credit Report Edit',
-                'Credit Report Update', 'Remarks', 'Borrower Access', 'Borrower Show', 'Print PDF'
+            'Senior Manager CMD' => [
+                  'credit report access',
+                  'credit report show', 
+                  'credit report edit',
+                  'credit report update',
+                  'remarks',
+                  'sanctions adviced access', 
+                  'sanctions adviced issue',
+                  'sanctions adviced create',
+                  'sanctions adviced show',
+                  'sanctions adviced edit',
+                  'sanctions adviced update',
+                  'borrower access',
+                  'borrower show', 
+                  'print PDF'
             ],
-            'Admin' => [
-                'Users Access', 'Users Create', 'Users Edit', 'Users View', 'Credit Report Access',
-                'Credit Report Show', 'Credit Report Edit', 'Credit Report Update', 'Borrower Access',
-                'Borrower Show', 'Print PDF'
+            'Manager Officer CMD' => [
+                 'credit report access',
+                 'credit report show', 
+                 'credit report edit',
+                 'credit report update',
+                 'remarks',
+                 'borrower access',
+                 'borrower show', 
+                 'print PDF'
+                 
+            ],
+            'Regional Manager CAD' => [
+                'DAC access',
+                'DAC issue',
+                'DAC create',
+                'DAC show',
+                'DAC edit',
+                'DAC update',
+                'sanctions adviced access',
+                'sanctions adviced show',
             ],
             'Super Admin' => $permissions, // All permissions
         ];
