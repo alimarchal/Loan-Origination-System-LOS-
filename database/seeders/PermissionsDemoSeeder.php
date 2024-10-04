@@ -60,18 +60,18 @@ class PermissionsDemoSeeder extends Seeder
         // Create roles and assign permissions
         $roles = [
             'Branch Manager' => [
-                'authorizer', 
-                'credit report access', 
-                'credit report show', 
+                'authorizer',
+                'credit report access',
+                'credit report show',
                 'borrower access',
                 'borrower show',
                 'print PDF'
             ],
             'Branch Credit Manager' => [
-                'inputter', 
+                'inputter',
                 'credit report access',
                 'credit report create',
-                'credit report show', 
+                'credit report show',
                 'borrower access',
                 'borrower create',
                 'borrower edit',
@@ -79,16 +79,16 @@ class PermissionsDemoSeeder extends Seeder
                  'print PDF'
             ],
             'Branch Credit Officer' => [
-                'inputter', 
+                'inputter',
                 'credit report access',
                 'credit report create',
-                'credit report show', 
+                'credit report show',
                 'borrower access',
                 'borrower create',
                 'borrower edit',
                 'borrower show',
                 'print PDF'
-                 
+
             ],
             'Regional Credit Manager' => [
                 'credit report access',
@@ -118,7 +118,7 @@ class PermissionsDemoSeeder extends Seeder
             'Regional Head' => [
                   'credit report access',
                   'credit report show',
-                  'remarks', 
+                  'remarks',
                   'borrower access',
                   'borrower show',
                   'sanctions adviced access',
@@ -140,54 +140,54 @@ class PermissionsDemoSeeder extends Seeder
             'Manager Officer CRBD' => [
                 'credit report access',
                 'credit report show',
-                'remarks', 
+                'remarks',
                 'borrower access',
                 'borrower show',
                 'print PDF'
             ],
-            
+
              'Divisional Head CMD' => [
                 'credit report access',
-                'credit report show', 
+                'credit report show',
                 'credit report edit',
                 'credit report update',
                 'remarks',
-                'sanctions adviced access', 
+                'sanctions adviced access',
                 'sanctions adviced issue',
                 'sanctions adviced create',
                 'sanctions adviced show',
                 'sanctions adviced edit',
                 'sanctions adviced update',
                 'borrower access',
-                'borrower show', 
+                'borrower show',
                 'print PDF'
             ],
             'Senior Manager CMD' => [
                   'credit report access',
-                  'credit report show', 
+                  'credit report show',
                   'credit report edit',
                   'credit report update',
                   'remarks',
-                  'sanctions adviced access', 
+                  'sanctions adviced access',
                   'sanctions adviced issue',
                   'sanctions adviced create',
                   'sanctions adviced show',
                   'sanctions adviced edit',
                   'sanctions adviced update',
                   'borrower access',
-                  'borrower show', 
+                  'borrower show',
                   'print PDF'
             ],
             'Manager Officer CMD' => [
                  'credit report access',
-                 'credit report show', 
+                 'credit report show',
                  'credit report edit',
                  'credit report update',
                  'remarks',
                  'borrower access',
-                 'borrower show', 
+                 'borrower show',
                  'print PDF'
-                 
+
             ],
             'Regional Manager CAD' => [
                 'DAC access',
