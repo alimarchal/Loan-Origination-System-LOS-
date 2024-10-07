@@ -528,7 +528,7 @@ class BorrowerController extends Controller
 
                     // 1: Draft , 2: Returned With Observation , 3: Submitted , 4: In Process, 5: Approved, 6: Declined
                     $loan_status_id = 1;
-                    $borrower->pending_at_branch = "No";
+                    $borrower->pending_at_branch = "Yes";
                     $borrower->save();
 
                     $loan_status_histories = LoanStatusHistory::create([

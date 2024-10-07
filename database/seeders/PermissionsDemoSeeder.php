@@ -145,7 +145,6 @@ class PermissionsDemoSeeder extends Seeder
                 'borrower show',
                 'download pdf'
             ],
-            
              'Divisional Head CMD' => [
                 'credit report access',
                 'credit report show', 

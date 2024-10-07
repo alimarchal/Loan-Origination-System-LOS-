@@ -21,7 +21,7 @@
                         Applicants
                     </x-nav-link>
 
-                    @can('Credit Report Access')
+                    @can('credit report access')
                         <x-nav-link href="{{ route('credit-reporting.index') }}" :active="request()->routeIs('credit-reporting.*')">
                             Data Check Report
                         </x-nav-link>

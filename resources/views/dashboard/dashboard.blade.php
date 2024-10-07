@@ -8,14 +8,89 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{--            <h1 class="text-2xl text-center font-extrabold pb-4">Financing</h1>--}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
+
+            <div class="grid grid-cols-12 gap-6 mb-4 ">
+                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ $primary_cards[1] }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Consumer Financing
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="{{ url('icons-images/consumer.png') }}" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ $primary_cards[2] }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Commercial / SME
+
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="{{ url('icons-images/commercial.png') }}" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ $primary_cards[3] }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Micro Financing
+
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src="{{ url('icons-images/micro.png') }}" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-1">
+                            <div class="col-span-2">
+                                <div class="text-3xl font-bold leading-8">
+                                    {{ $primary_cards[4] }}
+                                </div>
+                                <div class="mt-1 text-base font-extrabold text-black">
+                                    Agriculture Financing
+
+                                </div>
+                            </div>
+                            <div class="col-span-1 flex items-center justify-end">
+                                <img src= "{{ url('icons-images/agriculture.png') }}" alt="employees on leave" class="h-12 w-12">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-2">
                 <!-- Card 1 -->
                 <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
                     <div class="p-5">
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ 1 }}
+                                    {{ $secondary_cards["Draft"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Draft
@@ -34,7 +109,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ 2 }}
+                                    {{ $secondary_cards["Submitted"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Submitted
@@ -53,7 +128,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ 3 }}
+                                    {{ $secondary_cards["In Process"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     In Process
@@ -72,7 +147,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ 3 }}
+                                    {{ $secondary_cards["Approved"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Approved
@@ -91,7 +166,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ 3 }}
+                                    {{ $secondary_cards["Declined"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Declined
@@ -110,7 +185,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ 3 }}
+                                    {{ $secondary_cards["Returned With Observation"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Returned With Observation
@@ -124,79 +199,7 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-12 gap-6 ">
-                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
-                    <div class="p-5">
-                        <div class="grid grid-cols-3 gap-1">
-                            <div class="col-span-2">
-                                <div class="text-3xl font-bold leading-8">
-                                    {{ 1 }}
-                                </div>
-                                <div class="mt-1 text-base font-extrabold text-black">
-                                    Consumer Financing
-                                </div>
-                            </div>
-                            <div class="col-span-1 flex items-center justify-end">
-                                <img src="{{ url('icons-images/consumer.png') }}" alt="employees on leave" class="h-12 w-12">
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
-                    <div class="p-5">
-                        <div class="grid grid-cols-3 gap-1">
-                            <div class="col-span-2">
-                                <div class="text-3xl font-bold leading-8">
-                                    {{ 2 }}
-                                </div>
-                                <div class="mt-1 text-base font-extrabold text-black">
-                                    Commercial / SME
 
-                                </div>
-                            </div>
-                            <div class="col-span-1 flex items-center justify-end">
-                                <img src="{{ url('icons-images/commercial.png') }}" alt="employees on leave" class="h-12 w-12">
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
-                    <div class="p-5">
-                        <div class="grid grid-cols-3 gap-1">
-                            <div class="col-span-2">
-                                <div class="text-3xl font-bold leading-8">
-                                    {{ 3 }}
-                                </div>
-                                <div class="mt-1 text-base font-extrabold text-black">
-                                    Micro Financing
-
-                                </div>
-                            </div>
-                            <div class="col-span-1 flex items-center justify-end">
-                                <img src="{{ url('icons-images/micro.png') }}" alt="employees on leave" class="h-12 w-12">
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
-                    <div class="p-5">
-                        <div class="grid grid-cols-3 gap-1">
-                            <div class="col-span-2">
-                                <div class="text-3xl font-bold leading-8">
-                                    {{ 3 }}
-                                </div>
-                                <div class="mt-1 text-base font-extrabold text-black">
-                                    Agriculture Financing
-
-                                </div>
-                            </div>
-                            <div class="col-span-1 flex items-center justify-end">
-                                <img src= "{{ url('icons-images/agriculture.png') }}" alt="employees on leave" class="h-12 w-12">
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
 
 
 
