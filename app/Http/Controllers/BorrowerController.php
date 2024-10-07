@@ -88,7 +88,7 @@ class BorrowerController extends Controller
         $loanCategories = LoanCategory::all();
         $loanSubCategories = LoanSubCategory::all();
 
-        return view('borrowers.index', compact('borrowers', 'regions', 'branches', 'loanCategories', 'loanSubCategories'));
+        return view('borrowers.index', compact('borrowers', 'user', 'regions', 'branches', 'loanCategories', 'loanSubCategories'));
     }
 
     /**
@@ -184,12 +184,8 @@ class BorrowerController extends Controller
      */
     public function show(Borrower $borrower)
     {
-
-//        dd($borrower->statusHistories->last()->loan_status->name);
-
-//        $branches_id = \App\Models\User::get_branches_by_region($borrower->branch->region_id);
-//dd(\App\Models\User::role('Regional Credit Manager')->whereIn('branch_id',\App\Models\User::get_branches_by_region($borrower->branch->region_id))->get());
-        return view('borrowers.print', compact('borrower'));
+        $user = Auth::user();
+        return view('borrowers.print', compact('borrower','user'));
     }
 
     /**
@@ -456,8 +452,6 @@ class BorrowerController extends Controller
     public function submit_consumer_salary(Request $request, Borrower $borrower)
     {
         $request->validate([
-            'name' => 'required',
-            'designation' => 'required',
             'placement' => 'required',
             'employee_no' => 'required',
             'description' => 'required',
@@ -473,33 +467,87 @@ class BorrowerController extends Controller
         DB::beginTransaction();
         try {
 
-            $borrower->update(['is_authorize' => 'Yes', 'authorizer_id' => $user->id, 'pending_at_branch' => 'No', 'is_lock' => 'Yes', 'status' => 'Submitted',]);
-            $borrower->employment_information?->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
-            $borrower->applicant_requested_loan_information?->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
 
-            // 1: Draft , 2: Returned With Observation , 3: Submitted , 4: In Process, 5: Approved, 6: Declined
-            $loan_status_id = 3;
+            if ($user->hasRole(['Branch Credit Manager','Branch Credit Officer']))
+            {
+                // 1: Draft , 2: Returned With Observation , 3: Submitted , 4: In Process, 5: Approved, 6: Declined
+                $loan_status_id = 1;
+                $borrower->pending_at_branch = "Yes";
+
+                $branch_manager = User::where('branch_id', $user->branch_id)->role('Branch Manager')->get();
+
+                foreach ($branch_manager as $bm) {
+                    $loan_status_histories = LoanStatusHistory::create([
+                        'submit_by' => $user->id,
+                        'submit_to' => $bm->id,
+                        'borrower_id' => $borrower->id,
+                        'name' => $request->name,
+                        'designation' => $request->designation,
+                        'placement' => $request->placement,
+                        'employee_no' => $request->employee_no,
+                        'description' => "It is recommended to proceed for authorization, as per bank policy." . $request->description,
+                        'loan_status_id' => $loan_status_id,
+                        'attachment' => NULL,
+                    ]);
+                }
+
+            } elseif($user->hasRole(['Branch Manager']))
+            {
+                $submit_to_user= User::find($request->submit_to);
+                if ($submit_to_user->hasRole('Regional Credit Manager'))
+                {
+                    $borrower->update(['is_authorize' => 'Yes', 'authorizer_id' => $user->id, 'pending_at_branch' => 'No', 'is_lock' => 'Yes', 'status' => 'Submitted',]);
+                    $borrower->employment_information?->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
+                    $borrower->applicant_requested_loan_information?->update(['authorizer_id' => $user->id, 'is_authorize' => 'Yes']);
+
+                    // 1: Draft , 2: Returned With Observation , 3: Submitted , 4: In Process, 5: Approved, 6: Declined
+                    $loan_status_id = 3;
 
 
-            // get the region first which region it belongs to
-            $region_id = $borrower->branch->region_id;
-            // Fetch all users with the role "Regional Credit Manager"
-            $regional_credit_manager = User::role('Regional Credit Manager')->where('branch_id', $borrower->branch_id)->get();
+                    // get the region first which region it belongs to
+                    $region_id = $borrower->branch->region_id;
+                    // Fetch all users with the role "Regional Credit Manager"
+                    $regional_credit_manager = User::role('Regional Credit Manager')->where('branch_id', $borrower->branch_id)->get();
 
-            foreach ($regional_credit_manager as $rcm) {
-                $loan_status_histories = LoanStatusHistory::create([
-                    'submit_by' => $user->id,
-                    'submit_to' => $rcm->id,
-                    'borrower_id' => $borrower->id,
-                    'name' => $request->name,
-                    'designation' => $request->designation,
-                    'placement' => $request->placement,
-                    'employee_no' => $request->employee_no,
-                    'description' => "This application has been reviewed and meets all necessary criteria outlined in our bank's current policies, guidelines before submitting, and confirming my password for verification. It is recommended to proceed for approval, as per bank policy." . $request->description,
-                    'loan_status_id' => $loan_status_id,
-                    'attachment' => NULL,
-                ]);
+                    foreach ($regional_credit_manager as $rcm) {
+                        $loan_status_histories = LoanStatusHistory::create([
+                            'submit_by' => $user->id,
+                            'submit_to' => $rcm->id,
+                            'borrower_id' => $borrower->id,
+                            'name' => $request->name,
+                            'designation' => $request->designation,
+                            'placement' => $request->placement,
+                            'employee_no' => $request->employee_no,
+                            'description' => "This application has been reviewed and meets all necessary criteria outlined in our bank's current policies, guidelines before submitting, and confirming my password for verification. It is recommended to proceed for approval, as per bank policy." . $request->description,
+                            'loan_status_id' => $loan_status_id,
+                            'attachment' => NULL,
+                        ]);
+                    }
+                }
+                elseif($submit_to_user->hasRole(['Branch Credit Manager','Branch Credit Officer'])) {
+
+                    // 1: Draft , 2: Returned With Observation , 3: Submitted , 4: In Process, 5: Approved, 6: Declined
+                    $loan_status_id = 1;
+                    $borrower->pending_at_branch = "No";
+                    $borrower->save();
+
+                    $loan_status_histories = LoanStatusHistory::create([
+                        'submit_by' => $user->id,
+                        'submit_to' => $request->submit_to,
+                        'borrower_id' => $borrower->id,
+                        'name' => $request->name,
+                        'designation' => $request->designation,
+                        'placement' => $request->placement,
+                        'employee_no' => $request->employee_no,
+                        'description' => $request->description,
+                        'loan_status_id' => $loan_status_id,
+                        'attachment' => NULL,
+                    ]);
+
+                }
+
             }
+
 
 
 

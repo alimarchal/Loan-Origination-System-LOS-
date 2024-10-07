@@ -34,23 +34,23 @@ class PermissionsDemoSeeder extends Seeder
             'credit report edit',
             'credit report update',
             'remarks',
-            'sanctions adviced access',
-            'sanctions adviced issue',
-            'sanctions adviced create',
-            'sanctions adviced show',
-            'sanctions adviced edit',
-            'sanctions adviced update',
+            'sanctions advice access',
+            'sanctions advice issue',
+            'sanctions advice create',
+            'sanctions advice show',
+            'sanctions advice edit',
+            'sanctions advice update',
             'borrower access',
             'borrower create',
             'borrower edit',
             'borrower show',
-            'print PDF',
-            'DAC access',
-            'DAC issue',
-            'DAC create',
-            'DAC show',
-            'DAC edit',
-            'DAC update',
+            'download pdf',
+            'dac access',
+            'dac issue',
+            'dac create',
+            'dac show',
+            'dac edit',
+            'dac update',
         ];
 
         foreach ($permissions as $permission) {
@@ -60,50 +60,50 @@ class PermissionsDemoSeeder extends Seeder
         // Create roles and assign permissions
         $roles = [
             'Branch Manager' => [
-                'authorizer',
-                'credit report access',
-                'credit report show',
+                'authorizer', 
+                'credit report access', 
+                'credit report show', 
                 'borrower access',
                 'borrower show',
-                'print PDF'
+                'download pdf'
             ],
             'Branch Credit Manager' => [
-                'inputter',
+                'inputter', 
                 'credit report access',
                 'credit report create',
-                'credit report show',
+                'credit report show', 
                 'borrower access',
                 'borrower create',
                 'borrower edit',
                 'borrower show',
-                 'print PDF'
+                'download pdf'
             ],
             'Branch Credit Officer' => [
-                'inputter',
+                'inputter', 
                 'credit report access',
                 'credit report create',
-                'credit report show',
+                'credit report show', 
                 'borrower access',
                 'borrower create',
                 'borrower edit',
                 'borrower show',
-                'print PDF'
-
+                'download pdf'
+                 
             ],
             'Regional Credit Manager' => [
                 'credit report access',
                 'credit report create',
                 'credit report show',
                 'remarks',
-                'sanctions adviced access',
-                'sanctions adviced issue',
-                'sanctions adviced create',
-                'sanctions adviced show',
-                'sanctions adviced edit',
-                'sanctions adviced update',
+                'sanctions advice access',
+                'sanctions advice issue',
+                'sanctions advice create',
+                'sanctions advice show',
+                'sanctions advice edit',
+                'sanctions advice update',
                 'borrower access',
                 'borrower show',
-                'print PDF'
+                'download pdf'
 
             ],
             'Regional Credit Officer' => [
@@ -112,92 +112,92 @@ class PermissionsDemoSeeder extends Seeder
                  'remarks',
                  'borrower access',
                  'borrower show',
-                 'print PDF'
+                 'download pdf'
 
             ],
             'Regional Head' => [
                   'credit report access',
                   'credit report show',
-                  'remarks',
+                  'remarks', 
                   'borrower access',
                   'borrower show',
-                  'sanctions adviced access',
-                  'sanctions adviced show',
-                  'print PDF'
+                  'sanctions advice access',
+                  'sanctions advice show',
+                  'download pdf'
             ],
             'Divisional Head CRBD' => [
                 'remarks',
                 'borrower access',
                 'borrower show',
-                'print PDF'
+                'download pdf'
             ],
             'Senior Manager CRBD' => [
                 'remarks',
                 'borrower access',
                 'borrower show',
-                'print PDF'
+                'download pdf'
             ],
             'Manager Officer CRBD' => [
                 'credit report access',
                 'credit report show',
-                'remarks',
+                'remarks', 
                 'borrower access',
                 'borrower show',
-                'print PDF'
+                'download pdf'
             ],
-
+            
              'Divisional Head CMD' => [
                 'credit report access',
-                'credit report show',
+                'credit report show', 
                 'credit report edit',
                 'credit report update',
                 'remarks',
-                'sanctions adviced access',
-                'sanctions adviced issue',
-                'sanctions adviced create',
-                'sanctions adviced show',
-                'sanctions adviced edit',
-                'sanctions adviced update',
+                'sanctions advice access', 
+                'sanctions advice issue',
+                'sanctions advice create',
+                'sanctions advice show',
+                'sanctions advice edit',
+                'sanctions advice update',
                 'borrower access',
-                'borrower show',
-                'print PDF'
+                'borrower show', 
+                'download pdf'
             ],
             'Senior Manager CMD' => [
                   'credit report access',
-                  'credit report show',
+                  'credit report show', 
                   'credit report edit',
                   'credit report update',
                   'remarks',
-                  'sanctions adviced access',
-                  'sanctions adviced issue',
-                  'sanctions adviced create',
-                  'sanctions adviced show',
-                  'sanctions adviced edit',
-                  'sanctions adviced update',
+                  'sanctions advice access', 
+                  'sanctions advice issue',
+                  'sanctions advice create',
+                  'sanctions advice show',
+                  'sanctions advice edit',
+                  'sanctions advice update',
                   'borrower access',
-                  'borrower show',
-                  'print PDF'
+                  'borrower show', 
+                  'download pdf'
             ],
             'Manager Officer CMD' => [
                  'credit report access',
-                 'credit report show',
+                 'credit report show', 
                  'credit report edit',
                  'credit report update',
                  'remarks',
                  'borrower access',
-                 'borrower show',
-                 'print PDF'
-
+                 'borrower show', 
+                 'download pdf'
+                 
             ],
             'Regional Manager CAD' => [
-                'DAC access',
-                'DAC issue',
-                'DAC create',
-                'DAC show',
-                'DAC edit',
-                'DAC update',
-                'sanctions adviced access',
-                'sanctions adviced show',
+                'dac access',
+                'dac issue',
+                'dac create',
+                'dac show',
+                'dac edit',
+                'dac update',
+                'sanctions advice access',
+                'sanctions advice show',
             ],
             'Super Admin' => $permissions, // All permissions
         ];
@@ -211,6 +211,7 @@ class PermissionsDemoSeeder extends Seeder
         foreach ($roles as $roleName => $rolePermissions) {
             $user = User::create([
                 'name' => $roleName . ' User',
+                'branch_id' => 1,
                 'email' => strtolower(str_replace(' ', '.', $roleName)) . '@example.com',
                 'password' => Hash::make('password123'),
             ]);
@@ -218,7 +219,19 @@ class PermissionsDemoSeeder extends Seeder
             // Sync the permissions of the user with the permissions of the assigned role
             $user->syncPermissions($rolePermissions);
         }
+
     }
     // php artisan migrate:fresh --seed --seeder=PermissionsDemoSeeder
+
+    /*
+
+TRUNCATE `model_has_permissions`;
+TRUNCATE `model_has_roles`;
+TRUNCATE `permissions`;
+TRUNCATE `roles`;
+TRUNCATE `role_has_permissions`;
+TRUNCATE `users`;
+    // php artisan db:seed --class=PermissionsDemoSeeder
+     */
     // php artisan migrate --path=./database/migrations/2024_05_27_110713_create_loan_statuses_table.php
 }
