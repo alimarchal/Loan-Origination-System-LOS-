@@ -1,4 +1,4 @@
-@php use Illuminate\Support\Facades\Auth; @endphp
+@php use App\Models\LoanStatusHistory;use Illuminate\Support\Facades\Auth; @endphp
 <x-app-layout>
     @push('header')
         <style>
@@ -1426,173 +1426,194 @@
 
             @can('remarks')
 
-                <div class="mx-auto p-12" style="font-size: 15px;">
+                @php
+                    $latestStatus = LoanStatusHistory::where('borrower_id', $borrower->id)
+                        ->latest('created_at')
+                        ->first();
+                    $canEdit = $latestStatus && $latestStatus->submit_to == Auth::id();
+                @endphp
 
-                    <h1 class="text-center text-3xl font-extrabold mb-4 text-red-700">Remarks / Notes </h1>
-                    <hr class="pb-8 border-1 border-black">
-                    <form method="POST" action="{{ route('notes.store', [$borrower->id, auth()->user()->id]) }}" class=" mb-8 " enctype="multipart/form-data">
-                        @csrf
-                        @method('post')
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style="font-size: 15px!important;">
-                            <div>
-                                <x-label for="submit_to" value="{{ __('Forward To (Submit To)') }}"/>
-                                @php
-                                    $currentUserRole = Auth::user()->getRoleNames()->first();
+                @if($canEdit)
+                    <div class="mx-auto p-12" style="font-size: 15px;">
+                        <h1 class="text-center text-3xl font-extrabold mb-4 text-red-700">Remarks / Notes </h1>
+                        <hr class="pb-8 border-1 border-black">
+                        <form method="POST" action="{{ route('notes.store', [$borrower->id, auth()->user()->id]) }}" class=" mb-8 " enctype="multipart/form-data">
+                            @csrf
+                            @method('post')
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style="font-size: 15px!important;">
+                                <div>
+                                    <x-label for="submit_to" value="{{ __('Forward To (Submit To)') }}"/>
+                                    @php
+                                        $currentUserRole = Auth::user()->getRoleNames()->first();
 
-                                    $roleMappings = [
-                                        'Branch Manager' => [
-                                            'roles' => ['Regional Credit Manager'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Branch Credit Manager' => [
-                                            'roles' => ['Branch Manager', 'Regional Credit Manager'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Branch Credit Officer' => [
-                                            'roles' => ['Branch Credit Manager', 'Branch Manager'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Regional Credit Manager' => [
-                                            'roles' => ['Regional Credit Officer'],
-                                            'includeRegionalChiefs' => true,
-                                            'includeBranchManager' => true,
-                                        ],
-                                        'Regional Credit Officer' => [
-                                            'roles' => ['Regional Credit Manager'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Regional Head' => [
-                                            'roles' => ['Divisional Head CRBD', 'Divisional Head CMD','Regional Credit Manager'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Divisional Head CRBD' => [
-                                            'roles' => ['Senior Manager CRBD', 'Divisional Head CMD','Regional Head'],
-                                            'includeRegionalChiefs' => true,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Senior Manager CRBD' => [
-                                            'roles' => ['Manager Officer CRBD', 'Divisional Head CRBD'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Manager Officer CRBD' => [
-                                            'roles' => ['Senior Manager CRBD'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Divisional Head CMD' => [
-                                            'roles' => ['Senior Manager CMD','Regional Head'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Senior Manager CMD' => [
-                                            'roles' => ['Manager Officer CMD', 'Divisional Head CMD'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Manager Officer CMD' => [
-                                            'roles' => ['Senior Manager CMD'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                        'Regional Manager CAD' => [
-                                            'roles' => ['Divisional Head CMD'],
-                                            'includeRegionalChiefs' => false,
-                                            'includeBranchManager' => false,
-                                        ],
-                                    ];
+                                        $roleMappings = [
+                                            'Branch Manager' => [
+                                                'roles' => ['Regional Credit Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Branch Credit Manager' => [
+                                                'roles' => ['Branch Manager', 'Regional Credit Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Branch Credit Officer' => [
+                                                'roles' => ['Branch Credit Manager', 'Branch Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Regional Credit Manager' => [
+                                                'roles' => ['Regional Credit Officer'],
+                                                'includeRegionalChiefs' => true,
+                                                'includeBranchManager' => true,
+                                            ],
+                                            'Regional Credit Officer' => [
+                                                'roles' => ['Regional Credit Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Regional Head' => [
+                                                'roles' => ['Divisional Head CRBD', 'Divisional Head CMD','Regional Credit Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Divisional Head CRBD' => [
+                                                'roles' => ['Senior Manager CRBD', 'Divisional Head CMD','Regional Head'],
+                                                'includeRegionalChiefs' => true,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Senior Manager CRBD' => [
+                                                'roles' => ['Manager Officer CRBD', 'Divisional Head CRBD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Manager Officer CRBD' => [
+                                                'roles' => ['Senior Manager CRBD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Divisional Head CMD' => [
+                                                'roles' => ['Senior Manager CMD','Regional Head'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Senior Manager CMD' => [
+                                                'roles' => ['Manager Officer CMD', 'Divisional Head CMD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Manager Officer CMD' => [
+                                                'roles' => ['Senior Manager CMD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Regional Manager CAD' => [
+                                                'roles' => ['Divisional Head CMD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                        ];
 
-                                    $users = collect();
+                                        $users = collect();
 
-                                    if (isset($roleMappings[$currentUserRole])) {
-                                        $mapping = $roleMappings[$currentUserRole];
+                                        if (isset($roleMappings[$currentUserRole])) {
+                                            $mapping = $roleMappings[$currentUserRole];
 
-                                        $users = \App\Models\User::role($mapping['roles'])->get();
+                                            $users = \App\Models\User::role($mapping['roles'])->get();
 
-                                        if ($mapping['includeRegionalChiefs'] && $borrower) {
-                                            $regionalChiefs = \App\Models\User::role('Regional Head')
-                                                ->whereIn('branch_id', \App\Models\User::get_branches_by_region($borrower->branch->region_id))
-                                                ->get();
-                                            $users = $users->merge($regionalChiefs);
-                                        }
+                                            if ($mapping['includeRegionalChiefs'] && $borrower) {
+                                                $regionalChiefs = \App\Models\User::role('Regional Head')
+                                                    ->whereIn('branch_id', \App\Models\User::get_branches_by_region($borrower->branch->region_id))
+                                                    ->get();
+                                                $users = $users->merge($regionalChiefs);
+                                            }
 
-                                        if ($mapping['includeBranchManager'] && $borrower) {
-                                            $branchManager = \App\Models\User::role('Branch Manager')
-                                                ->where('branch_id', $borrower->branch_id)
-                                                ->first();
-                                            if ($branchManager) {
-                                                $users->push($branchManager);
+                                            if ($mapping['includeBranchManager'] && $borrower) {
+                                                $branchManager = \App\Models\User::role('Branch Manager')
+                                                    ->where('branch_id', $borrower->branch_id)
+                                                    ->first();
+                                                if ($branchManager) {
+                                                    $users->push($branchManager);
+                                                }
                                             }
                                         }
-                                    }
 
-                                    $users = $users->unique('id')->sortBy('name');
-                                @endphp
+                                        $users = $users->unique('id')->sortBy('name');
+                                    @endphp
 
-                                <select name="submit_to" id="submit_to" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
-                                    <option value="">Select a user to submit to</option>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->getRoleNames()->first() }})</option>
-                                    @endforeach
-                                </select>
+                                    <select name="submit_to" id="submit_to" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
+                                        <option value="">Select a user to submit to</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->getRoleNames()->first() }})</option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+
+
+                                <div>
+                                    <x-label for="loan_status_id" value="{{ __('Loan Status') }}"/>
+                                    <select name="loan_status_id" id="loan_status_id" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
+                                        <option value="">Select an option</option>
+                                        @foreach(\App\Models\LoanStatus::whereNotIn('name',['Submitted','Draft','Approved'])->orderBy('name','ASC')->get() as $lsh)
+                                            <option value="{{ $lsh->id }}" {{ $lsh->name == "In Process" ?'selected':'' }}>{{ $lsh->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <x-label for="attachment_one" value="{{ __('Attachment') }}"/>
+                                    <x-input id="attachment_one" class="block mt-1 w-full" type="file" name="attachment_one"/>
+                                </div>
+
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 mb-4 mt-4" style="font-size: 15px!important;">
+                                <div>
+                                    <x-label for="description" value="{{ __('Notes / Remarks') }}"/>
+                                    <textarea id="description" name="description" required rows="10" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"></textarea>
+                                </div>
 
                             </div>
 
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 mt-4" style="font-size: 15px!important;">
 
-                            <div>
-                                <x-label for="loan_status_id" value="{{ __('Loan Status') }}"/>
-                                <select name="loan_status_id" id="loan_status_id" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
-                                    <option value="">Select an option</option>
-                                    @foreach(\App\Models\LoanStatus::whereNotIn('name',['Submitted','Draft','Approved'])->orderBy('name','ASC')->get() as $lsh)
-                                        <option value="{{ $lsh->id }}" {{ $lsh->name == "In Process" ?'selected':'' }}>{{ $lsh->name }}</option>
-                                    @endforeach
-                                </select>
+                                <div>
+                                    <x-label for="password_confirmation" value="{{ __('Confirm With Your ID Password') }}"/>
+                                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required/>
+                                </div>
+
+                                <div></div>
+                                <div></div>
+                                <div></div>
                             </div>
 
-                            <div>
-                                <x-label for="attachment_one" value="{{ __('Attachment') }}"/>
-                                <x-input id="attachment_one" class="block mt-1 w-full" type="file" name="attachment_one"/>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div>
+                                    <input type="submit" id="submit-btn" class="inline-flex items-center float-right px-4 py-2 bg-blue-800 dark:bg-blue-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-blue-800 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-white focus:bg-blue-700 dark:focus:bg-white active:bg-blue-900 dark:active:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-blue-800 disabled:opacity-50 transition ease-in-out duration-150">
+                                </div>
                             </div>
 
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 mb-4 mt-4" style="font-size: 15px!important;">
-                            <div>
-                                <x-label for="description" value="{{ __('Notes / Remarks') }}"/>
-                                <textarea id="description" name="description" required rows="10" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"></textarea>
-                            </div>
 
-                        </div>
+                        </form>
+                    </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 mt-4" style="font-size: 15px!important;">
+                @else
 
-                            <div>
-                                <x-label for="password_confirmation" value="{{ __('Confirm With Your ID Password') }}"/>
-                                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required/>
-                            </div>
+                    <div class="mx-auto p-12" style="font-size: 15px;">
+                        <p class="font-bold">Non-Editable Document</p>
+                        <p>You do not have permission to edit this document. It was not sent to you or no status history exists.</p>
+                    </div>
 
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
+                @endif
 
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div>
-                                <input type="submit" id="submit-btn" class="inline-flex items-center float-right px-4 py-2 bg-blue-800 dark:bg-blue-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-blue-800 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-white focus:bg-blue-700 dark:focus:bg-white active:bg-blue-900 dark:active:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-blue-800 disabled:opacity-50 transition ease-in-out duration-150">
-                            </div>
-                        </div>
 
 
-                    </form>
-                </div>
+
             @endcan
         </div>
 

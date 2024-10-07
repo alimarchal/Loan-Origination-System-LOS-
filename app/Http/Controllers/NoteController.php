@@ -33,7 +33,7 @@ class NoteController extends Controller
         }
 
 
-        if ($user->hasPermissionTo('Remarks')) {
+        if ($user->hasPermissionTo('remarks')) {
 
             $path_attachment_document = null;
             if ($request->hasFile('attachment_one')) {
@@ -54,9 +54,17 @@ class NoteController extends Controller
 
             DB::beginTransaction();
             try {
-                LoanStatusHistory::create($request->all());
+                $lsh = LoanStatusHistory::create($request->all());
 
-//                $borrower->status = 'In Process';
+                $borrower->status = $lsh->loan_status->name;
+
+                if ($lsh->loan_status_id == 2){
+                    $borrower->is_lock = "No";
+                    $borrower->pending_at_region = "No";
+                    $borrower->pending_at_head_office = "No";
+                    $borrower->authorizer_id = NULL;
+                    $borrower->is_authorize = "No";
+                }
 //                $borrower->pending_at_region = 'Yes';
 //                $borrower->pending_at_branch = 'No';
 //                $borrower->pending_at_head_office = 'No';
@@ -73,12 +81,10 @@ class NoteController extends Controller
             }
 
 
-            dd(request()->all());
         } else {
 
             session()->flash('error', 'Unauthorized access detected. You do not have any related permission.');
             return redirect()->back();
         }
-        dd($request->all());
     }
 }
