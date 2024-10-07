@@ -33,7 +33,7 @@ class NoteController extends Controller
         }
 
 
-        if ($user->hasPermissionTo('Remarks')) {
+        if ($user->hasPermissionTo('remarks')) {
 
             $path_attachment_document = null;
             if ($request->hasFile('attachment_one')) {

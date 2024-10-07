@@ -21,21 +21,21 @@
                         Applicants
                     </x-nav-link>
 
-                    @can('Credit Report Access')
+                    @can('credit report access')
                         <x-nav-link href="{{ route('credit-reporting.index') }}" :active="request()->routeIs('credit-reporting.*')">
                             Data Check Report
                         </x-nav-link>
                     @endcan
 
 
-                    @can('Sanctions Advised Issued')
+                    @can('sanctions advised issued')
                         <x-nav-link href="{{ route('sanction-advice.index') }}" :active="request()->routeIs('sanction-advice.*')">
                             Sanction Advices
                         </x-nav-link>
                     @endcan
 
 
-                    @can('Users Access')
+                    @can('users access')
                         <x-nav-link href="{{ route('administration.index') }}" :active="request()->routeIs('administration.*')">
                             {{ __('Administration') }}
                         </x-nav-link>
