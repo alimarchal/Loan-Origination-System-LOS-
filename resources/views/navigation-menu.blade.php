@@ -28,14 +28,14 @@
                     @endcan
 
 
-                    @can('Sanctions Advised Issued')
+                    @can('sanctions advised issued')
                         <x-nav-link href="{{ route('sanction-advice.index') }}" :active="request()->routeIs('sanction-advice.*')">
                             Sanction Advices
                         </x-nav-link>
                     @endcan
 
 
-                    @can('Users Access')
+                    @can('users access')
                         <x-nav-link href="{{ route('administration.index') }}" :active="request()->routeIs('administration.*')">
                             {{ __('Administration') }}
                         </x-nav-link>
