@@ -119,13 +119,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <x-status-message class="mb-4" />
+            <x-status-message class="mb-4"/>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl print:shadow-none sm:rounded-lg">
-                   <x-validation-errors class="mb-4 mt-2 p-8" />
+                <x-validation-errors class="mb-4 mt-2 p-8"/>
                 <div style="font-family: 'Calibri', sans-serif;font-size: 12px;line-height: 1.3" class="p-8">
 
                     <p class="text-center my-2 uppercase  font-bold text-black" style="font-size: 16px;">
-                       {{ $borrower->branch?->name }},  {{ $borrower->branch?->code }}, {{ $borrower->branch?->region?->name }} Region <br>
+                        {{ $borrower->branch?->name }}, {{ $borrower->branch?->code }}, {{ $borrower->branch?->region?->name }} Region <br>
                         Loan ID: {{ $borrower->id }}<br>
                         Application For {{ $borrower->loan_sub_category?->name }} <br>
                         Requested Amount: {{ $borrower->applicant_requested_loan_information->requested_amount }}<br>
@@ -1285,207 +1285,317 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-8 print:hidden">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
 
-            <div style="font-family: 'Calibri', sans-serif;font-size: 12px;line-height: 1.3" class="p-4 pb-0">
-                    @if($borrower->is_lock == "Yes")
-                        <h1 class="text-center mb-4 text-2xl font-bold">Official Use Only</h1>
-                        <table id="loanApplicationTableOfficialUserOnly" class="min-w-full bg-white border border-gray-300">
-                            <thead>
+                <div style="font-family: 'Calibri', sans-serif;font-size: 12px;line-height: 1.3" class="p-4 pb-0">
+                    {{--                    @if($borrower->is_lock == "Yes")--}}
+                    <h1 class="text-center mb-4 text-2xl font-bold">Official Use Only</h1>
+                    <table id="loanApplicationTableOfficialUserOnly" class="min-w-full bg-white border border-gray-300">
+                        <thead>
+                        <tr>
+                            <th colspan="7" class="py-2 px-4 bg-gray-100 text-center font-bold">Loan Application Tracking Status</th>
+                        </tr>
+                        <tr>
+                            <th class="py-2 px-4 text-center border-b">ID</th>
+                            <th class="py-2 px-4 text-center border-b">From</th>
+                            <th class="py-2 px-4 text-center border-b">To</th>
+
+                            {{--                                    <th class="py-2 px-4 text-center border-b">Name</th>--}}
+                            <th class="py-2 px-4 text-center border-b">Remarks</th>
+                            <th class="py-2 px-4 text-center border-b">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mx-auto">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"/>
+                                </svg>
+                            </th>
+                            <th class="py-2 px-4 border-b">Status</th>
+                            <th class="py-2 px-4 text-center border-b">Created At</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($borrower->statusHistories as $index => $item)
                             <tr>
-                                <th colspan="7" class="py-2 px-4 bg-gray-100 text-center font-bold">Loan Application Tracking Status</th>
-                            </tr>
-                            <tr>
-                                <th class="py-2 px-4 text-center border-b">ID</th>
-                                <th class="py-2 px-4 text-center border-b">From</th>
-                                <th class="py-2 px-4 text-center border-b">To</th>
-                                <th class="py-2 px-4 text-center border-b">Created At</th>
-                                {{--                                    <th class="py-2 px-4 text-center border-b">Name</th>--}}
-                                <th class="py-2 px-4 text-center border-b">Remarks</th>
-                                <th class="py-2 px-4 text-center border-b">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mx-auto">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"/>
-                                    </svg>
-                                </th>
-                                <th class="py-2 px-4 border-b">Status</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($borrower->statusHistories as $index => $item)
-                                <tr>
-                                    <td class="py-2 px-4 border-b text-center font-bold w-5">{{ $loop->iteration }}</td>
-                                    <td class="py-2 px-4 border-b text-center w-16">{{ $item->from->name ?? 'N/A' }}</td>
-                                    <td class="py-2 px-4 border-b text-center w-16">{{ $item->to->name ?? 'N/A' }}</td>
-                                    <td class="py-2 px-4 border-b text-center w-16">{{ $item->created_at ?? 'N/A' }}</td>
-                                    {{--                                        <td class="py-2 px-4 border-b text-center w-16">{{ $item->name ?? 'N/A' }}</td>--}}
-                                    <td class="py-2 px-4 border-b w-50">
-                                        <div class="remarks-container">
+                                <td class="py-2 px-4 border-b text-center font-bold w-5">{{ $loop->iteration }}</td>
+                                <td class="py-2 px-4 border-b text-center w-16">{{ $item->from->name ?? 'N/A' }}</td>
+                                <td class="py-2 px-4 border-b text-center w-16">{{ $item->to->name ?? 'N/A' }}</td>
+
+                                {{--                                        <td class="py-2 px-4 border-b text-center w-16">{{ $item->name ?? 'N/A' }}</td>--}}
+                                <td class="py-2 px-4 border-b w-50">
+                                    <div class="remarks-container">
                                                 <span class="remarks-text" data-full-text="{{ $item->description }}">
                                                     {{ $item->description }}
                                                 </span>
-                                        </div>
-                                    </td>
-                                    <td class="py-2 px-4 border-b text-center w-5">
-                                        @if(!empty($item->attachment))
-                                            <a href="{{ \Illuminate\Support\Facades\Storage::url($item->attachment) }}" download>
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"/>
-                                                </svg>
-                                            </a>
-                                        @else
-                                            N/A
-                                        @endif
-                                    </td>
-                                    <td class="py-2 px-4 border-b text-center w-5">{{ $item->loan_status->name ?? 'N/A' }}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    @endif
+                                    </div>
+                                </td>
+                                <td class="py-2 px-4 border-b text-center w-5">
+                                    @if(!empty($item->attachment))
+                                        <a href="{{ \Illuminate\Support\Facades\Storage::url($item->attachment) }}" download>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-auto">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"/>
+                                            </svg>
+                                        </a>
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td class="py-2 px-4 border-b text-center w-5">{{ $item->loan_status->name ?? 'N/A' }}</td>
+                                <td class="py-2 px-4 border-b text-center w-16">{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-y H:i:s') }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    {{--                    @endif--}}
                 </div>
 
             </div>
         </div>
 
 
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-8 print:hidden">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-8 print:hidden">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
 
-
-
-                    @can('Remarks')
+                @if($user->hasRole('Branch Manager') && $borrower->is_lock == "No")
                     <div class="mx-auto p-12" style="font-size: 15px;">
 
-                        <h1 class="text-center text-3xl font-extrabold mb-4 text-red-700">Remarks / Notes </h1>
-                        <hr class="pb-8 border-1 border-black">
-                        <form method="POST" action="{{ route('notes.store', [$borrower->id, auth()->user()->id]) }}" class=" mb-8 " enctype="multipart/form-data">
+                        <x-validation-errors class="mb-4 mt-2"/>
+                        <form method="POST" action="{{ route('borrower.submit_for_approval', $borrower->id) }}" onsubmit="return confirm('Do you really want to submit this application for approval as per bank policy?');">
                             @csrf
-                            @method('post')
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style="font-size: 15px!important;">
-                                <div>
-                                    <x-label for="submit_to" value="{{ __('Forward To (Submit To)') }}"/>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
+
+                                <div class="mt-2">
+                                    <x-label for="name" value="{{ __('Forward To (Submit To)') }}"/>
+
+
                                     <select name="submit_to" id="submit_to" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
-                                        <option value="">Select an option</option>
+                                        <option value="">Select a user to submit</option>
 
-                                        @php
-                                            $userRole = Auth::user()->getRoleNames()->first();
-
-                                            $roleMappings = [
-                                                'Regional Credit Manager' => [
-                                                    'roles' => ['DH CRBD'],
-                                                    'includeRegionalChiefs' => true,
-                                                    'includeBranchManager' => true,
-                                                ],
-                                                'Regional Chief' => [
-                                                    'roles' => ['DH CRBD', 'DH CMD'],
-                                                    'includeRegionalChiefs' => true,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'DH CRBD' => [
-                                                    'roles' => ['SM CRBD', 'DH CMD'],
-                                                    'includeRegionalChiefs' => true,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'DH CMD' => [
-                                                    'roles' => ['SM CMD', 'DH CRBD'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'SM CMD' => [
-                                                    'roles' => ['CMD Manager Officer', 'DH CMD'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'SM CRBD' => [
-                                                    'roles' => ['SM Manager Officer', 'DH CRBD'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                            ];
-
-                                            $users = collect();
-
-                                            if (isset($roleMappings[$userRole])) {
-                                                $mapping = $roleMappings[$userRole];
-
-                                                $users = \App\Models\User::role($mapping['roles'])->get();
-
-                                                if ($mapping['includeRegionalChiefs']) {
-                                                    $regionalChiefs = \App\Models\User::role('Regional Chief')
-                                                        ->whereIn('branch_id', \App\Models\User::get_branches_by_region($borrower->branch->region_id))
-                                                        ->get();
-                                                    $users = $users->merge($regionalChiefs);
-                                                }
-
-                                                if ($mapping['includeBranchManager']) {
-                                                    $branchManager = \App\Models\User::role('Branch Manager')
-                                                        ->where('branch_id', $borrower->branch_id)
-                                                        ->first();
-                                                    if ($branchManager) {
-                                                        $users->push($branchManager);
-                                                    }
-                                                }
-                                            }
-                                        @endphp
-
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @foreach(\App\Models\User::where('branch_id', $user->branch_id)->role(['Branch Credit Manager','Branch Credit Officer'])->get() as $usr)
+                                            <option value="{{ $usr->id }}">{{ $usr->getRoleNames()->first() }} (For Correction)</option>
                                         @endforeach
-                                    </select>
-
-                                </div>
-
-
-                                <div>
-                                    <x-label for="loan_status_id" value="{{ __('Loan Status') }}"/>
-                                    <select name="loan_status_id" id="loan_status_id" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
-                                        <option value="">Select an option</option>
-                                        @foreach(\App\Models\LoanStatus::whereNotIn('name',['Submitted','Draft','Approved'])->orderBy('name','ASC')->get() as $lsh)
-                                            <option value="{{ $lsh->id }}" {{ $lsh->name == "In Process" ?'selected':'' }}>{{ $lsh->name }}</option>
+                                        @foreach(\App\Models\User::where('branch_id', $user->branch_id)->role(['Regional Credit Manager'])->get() as $usr)
+                                            <option value="{{ $usr->id }}">{{ $usr->name }} ({{ $usr->getRoleNames()->first() }})</option>
                                         @endforeach
                                     </select>
                                 </div>
 
-                                <div>
-                                    <x-label for="attachment_one" value="{{ __('Attachment') }}"/>
-                                    <x-input id="attachment_one" class="block mt-1 w-full" type="file" name="attachment_one"/>
+
+                                <div class="mt-2">
+                                    <x-label for="designation" value="{{ __('Designation') }}"/>
+                                    <x-input id="designation" class="block mt-1 w-full" type="text" name="designation" :value="auth()->user()->designation" required readonly/>
                                 </div>
 
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 mb-4 mt-4" style="font-size: 15px!important;">
-                                <div>
-                                    <x-label for="description" value="{{ __('Notes / Remarks') }}"/>
-                                    <textarea id="description" name="description" required rows="10" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"></textarea>
+
+                                <div class="mt-2">
+                                    <x-label for="placement" value="{{ __('Placement') }}"/>
+                                    <x-input id="placement" class="block mt-1 w-full" type="text" name="placement" :value="auth()->user()->placement" required/>
                                 </div>
 
-                            </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 mt-4" style="font-size: 15px!important;">
-
-                                <div >
-                                    <x-label for="password_confirmation" value="{{ __('Confirm With Your ID Password') }}" />
-                                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+                                <div class="mt-2">
+                                    <x-label for="employee_no" value="{{ __('Employee No') }}"/>
+                                    <x-input id="employee_no" class="block mt-1 w-full" type="text" name="employee_no" :value="auth()->user()->employee_no" required/>
                                 </div>
 
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
 
-
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div>
-                                <input type="submit" id="submit-btn" class="inline-flex items-center float-right px-4 py-2 bg-blue-800 dark:bg-blue-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-blue-800 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-white focus:bg-blue-700 dark:focus:bg-white active:bg-blue-900 dark:active:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-blue-800 disabled:opacity-50 transition ease-in-out duration-150">
+                                <div class="mt-2">
+                                    <x-label for="description" value="{{ __('Remarks') }}"/>
+                                    <x-input id="description" class="block mt-1 w-full" type="text" name="description" value="This application has been reviewed and meets all necessary criteria outlined in our banks current policies, guidelines before submitting, and confirming my password for verification. It is recommended to proceed for approval, as per bank policy." required/>
                                 </div>
+
+
+                                <div class="mt-2">
+                                    <x-label for="password_confirmation" value="{{ __('Confirm Password') }}"/>
+                                    <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password"/>
+                                </div>
+
+
                             </div>
 
-
+                            <p class="py-4">
+                                This application has been reviewed and meets all necessary criteria outlined in our bank's current policies, guidelines before submitting, and confirming my password for verification. It is recommended to proceed for approval, as per bank policy.
+                            </p>
+                            <div class="flex items-center justify-end mt-2">
+                                @if($borrower->is_lock == "No")
+                                    @can('authorizer')
+                                        <x-button class="ml-2" id="submit-btn">Submit</x-button>
+                                    @endcan
+                                @endif
+                            </div>
                         </form>
                     </div>
-                @endcan
             </div>
+            @endif
+
+
+            @can('remarks')
+
+                <div class="mx-auto p-12" style="font-size: 15px;">
+
+                    <h1 class="text-center text-3xl font-extrabold mb-4 text-red-700">Remarks / Notes </h1>
+                    <hr class="pb-8 border-1 border-black">
+                    <form method="POST" action="{{ route('notes.store', [$borrower->id, auth()->user()->id]) }}" class=" mb-8 " enctype="multipart/form-data">
+                        @csrf
+                        @method('post')
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style="font-size: 15px!important;">
+                            <div>
+                                <x-label for="submit_to" value="{{ __('Forward To (Submit To)') }}"/>
+                                @php
+                                    $currentUserRole = Auth::user()->getRoleNames()->first();
+
+                                    $roleMappings = [
+                                        'Branch Manager' => [
+                                            'roles' => ['Regional Credit Manager'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Branch Credit Manager' => [
+                                            'roles' => ['Branch Manager', 'Regional Credit Manager'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Branch Credit Officer' => [
+                                            'roles' => ['Branch Credit Manager', 'Branch Manager'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Regional Credit Manager' => [
+                                            'roles' => ['Regional Credit Officer'],
+                                            'includeRegionalChiefs' => true,
+                                            'includeBranchManager' => true,
+                                        ],
+                                        'Regional Credit Officer' => [
+                                            'roles' => ['Regional Credit Manager'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Regional Head' => [
+                                            'roles' => ['Divisional Head CRBD', 'Divisional Head CMD','Regional Credit Manager'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Divisional Head CRBD' => [
+                                            'roles' => ['Senior Manager CRBD', 'Divisional Head CMD','Regional Head'],
+                                            'includeRegionalChiefs' => true,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Senior Manager CRBD' => [
+                                            'roles' => ['Manager Officer CRBD', 'Divisional Head CRBD'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Manager Officer CRBD' => [
+                                            'roles' => ['Senior Manager CRBD'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Divisional Head CMD' => [
+                                            'roles' => ['Senior Manager CMD','Regional Head'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Senior Manager CMD' => [
+                                            'roles' => ['Manager Officer CMD', 'Divisional Head CMD'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Manager Officer CMD' => [
+                                            'roles' => ['Senior Manager CMD'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                        'Regional Manager CAD' => [
+                                            'roles' => ['Divisional Head CMD'],
+                                            'includeRegionalChiefs' => false,
+                                            'includeBranchManager' => false,
+                                        ],
+                                    ];
+
+                                    $users = collect();
+
+                                    if (isset($roleMappings[$currentUserRole])) {
+                                        $mapping = $roleMappings[$currentUserRole];
+
+                                        $users = \App\Models\User::role($mapping['roles'])->get();
+
+                                        if ($mapping['includeRegionalChiefs'] && $borrower) {
+                                            $regionalChiefs = \App\Models\User::role('Regional Head')
+                                                ->whereIn('branch_id', \App\Models\User::get_branches_by_region($borrower->branch->region_id))
+                                                ->get();
+                                            $users = $users->merge($regionalChiefs);
+                                        }
+
+                                        if ($mapping['includeBranchManager'] && $borrower) {
+                                            $branchManager = \App\Models\User::role('Branch Manager')
+                                                ->where('branch_id', $borrower->branch_id)
+                                                ->first();
+                                            if ($branchManager) {
+                                                $users->push($branchManager);
+                                            }
+                                        }
+                                    }
+
+                                    $users = $users->unique('id')->sortBy('name');
+                                @endphp
+
+                                <select name="submit_to" id="submit_to" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
+                                    <option value="">Select a user to submit to</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->getRoleNames()->first() }})</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+
+
+                            <div>
+                                <x-label for="loan_status_id" value="{{ __('Loan Status') }}"/>
+                                <select name="loan_status_id" id="loan_status_id" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
+                                    <option value="">Select an option</option>
+                                    @foreach(\App\Models\LoanStatus::whereNotIn('name',['Submitted','Draft','Approved'])->orderBy('name','ASC')->get() as $lsh)
+                                        <option value="{{ $lsh->id }}" {{ $lsh->name == "In Process" ?'selected':'' }}>{{ $lsh->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div>
+                                <x-label for="attachment_one" value="{{ __('Attachment') }}"/>
+                                <x-input id="attachment_one" class="block mt-1 w-full" type="file" name="attachment_one"/>
+                            </div>
+
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4 mb-4 mt-4" style="font-size: 15px!important;">
+                            <div>
+                                <x-label for="description" value="{{ __('Notes / Remarks') }}"/>
+                                <textarea id="description" name="description" required rows="10" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 mt-4" style="font-size: 15px!important;">
+
+                            <div>
+                                <x-label for="password_confirmation" value="{{ __('Confirm With Your ID Password') }}"/>
+                                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required/>
+                            </div>
+
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div>
+                                <input type="submit" id="submit-btn" class="inline-flex items-center float-right px-4 py-2 bg-blue-800 dark:bg-blue-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-blue-800 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-white focus:bg-blue-700 dark:focus:bg-white active:bg-blue-900 dark:active:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-blue-800 disabled:opacity-50 transition ease-in-out duration-150">
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            @endcan
         </div>
+
+    </div>
     </div>
 </x-app-layout>

@@ -64,7 +64,7 @@
                             </p>
                                 <div class="flex items-center justify-end mt-2">
                                     @if($borrower->is_authorize == "No" && $borrower->is_lock == "No")
-                                        @can('Inputter')
+                                        @can('inputter')
                                             <x-button class="ml-2" id="submit-btn">Submit and recommended to proceed for approval</x-button>
                                         @endcan
                                     @endif
@@ -73,17 +73,17 @@
 
 
 
-                        @can('Authorizer')
-                            <form method="POST" action="{{ route('applicant.authorized', $borrower->id) }}" onsubmit="return confirm('Do you really want to authorized this record?');" enctype="multipart/form-data">
-                                @csrf @method('PUT')
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
-                                    <div class="flex mt-2">
-                                        <input type="hidden" name="is_authorize" value="Yes">
-                                        <button class="inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-red-800 uppercase tracking-widest hover:bg-red-700 dark:hover:bg-white focus:bg-red-700 dark:focus:bg-white active:bg-red-900 dark:active:bg-red-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-red-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2" id="submit-btn">Authorized</button>
-                                    </div>
-                                </div>
-                            </form>
-                        @endcan
+{{--                        @can('authorizer')--}}
+{{--                            <form method="POST" action="{{ route('applicant.authorized', $borrower->id) }}" onsubmit="return confirm('Do you really want to authorized this record?');" enctype="multipart/form-data">--}}
+{{--                                @csrf @method('PUT')--}}
+{{--                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">--}}
+{{--                                    <div class="flex mt-2">--}}
+{{--                                        <input type="hidden" name="is_authorize" value="Yes">--}}
+{{--                                        <button class="inline-flex items-center px-4 py-2 bg-red-800 dark:bg-red-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-red-800 uppercase tracking-widest hover:bg-red-700 dark:hover:bg-white focus:bg-red-700 dark:focus:bg-white active:bg-red-900 dark:active:bg-red-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-red-800 disabled:opacity-50 transition ease-in-out duration-150 ml-2" id="submit-btn">Authorized</button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </form>--}}
+{{--                        @endcan--}}
 
                     </div>
                 </div>
