@@ -127,11 +127,11 @@
                             <tr class="bg-gray-200 text-white bg-bank-green uppercase print:border-b print:border-black  text-sm print:text-black">
                                 <th class="py-2 px-2 text-center">#</th>
                                 <th class="py-2 px-2 text-left">Name</th>
-                                <th class="py-2 px-2 text-center">Age/Sex</th>
+                                <th class="py-2 px-2 text-center">Br Code</th>
                                 <th class="py-2 px-2 text-center">CNIC/NTN</th>
                                 <th class="py-2 px-2 text-center">REG.DATE</th>
                                 <th class="py-2 px-2 text-center">Loan Category</th>
-                                <th class="py-2 px-2 text-center">Mobile</th>
+                                <th class="py-2 px-2 text-center">Req Amount</th>
                                 <th class="py-2 px-2 text-center">Pending At</th>
                                 <th class="py-2 px-2 text-center">Status</th>
                                 <th class="py-2 px-2 text-center print:hidden">Action</th>
@@ -167,7 +167,7 @@
 
 
                                     <td class="py-1 px-2 text-center">
-                                        {{ \Carbon\Carbon::parse($borrower->date_of_birth)->diff(\Carbon\Carbon::now())->format('%yy') }}/{{ $borrower->gender == 'Male' ? 'M' : ($borrower->gender == 'Female' ? 'F' : 'C') }}
+                                        {{ $borrower->branch?->code }}
                                     </td>
 
                                     <td class="py-1 px-2 text-center">
@@ -184,7 +184,7 @@
 
 
                                     <td class="py-1 px-2 text-center">
-                                        {{ $borrower->mobile_number }}
+                                    {{ $borrower->applicant_requested_loan_information->requested_amount }}
                                     </td>
 
 
