@@ -18,8 +18,19 @@ class DashboardController extends Controller
     public function index()
     {
 
+
+//        $loan_sub_cat_group = Borrower::where('is_lock','Yes')->groupBy('loan_sub_category_id')->count();
+        $loan_sub_cat_group = [];
+        foreach (LoanSubCategory::all() as $lsc) {
+            $loan_sub_cat_group[$lsc->name] =  Borrower::where('is_lock','Yes')->where('loan_sub_category_id',$lsc->id)->count();;
+        }
+
+        $gender_wise = ["Male" => Borrower::where('gender','Male')->where('is_lock','Yes')->count(), "Female" => Borrower::where('gender','Female')->where('is_lock','Yes')->count()];
         $primary_cards = [];
         $secondary_cards = [];
+
+
+
         foreach (LoanStatus::all() as $ls) {
             $secondary_cards[$ls->name] = 0;
         }
@@ -64,9 +75,8 @@ class DashboardController extends Controller
 
         }
 
-//        dd($secondary_cards);
 
         // Return view with borrowers data
-        return view('dashboard.dashboard',compact('primary_cards','secondary_cards', 'branches'));
+        return view('dashboard.dashboard',compact('primary_cards','secondary_cards', 'branches', 'loan_sub_cat_group','gender_wise'));
     }
 }

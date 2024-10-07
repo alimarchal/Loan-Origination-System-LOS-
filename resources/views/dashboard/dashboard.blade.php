@@ -229,15 +229,15 @@
             document.addEventListener('DOMContentLoaded', function () {
                 // Chart 1: Pie Chart - "Loan Category"
                 var options1 = {
-                    series: [44, 55, 13, 43, 22],
+                    series: [@foreach($gender_wise as $key => $value) {{ $value }}, @endforeach],
                     chart: {
                         width: 500,
                         height: 300, // Height set to 400
                         type: 'pie',
                     },
-                    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+                    labels: [@foreach($gender_wise as $key => $value) "{{ $key }}", @endforeach],
                     title: {
-                        text: 'Loan Category',
+                        text: 'Gender Wise',
                         align: 'center',
                         style: {
                             fontSize: '20px',
