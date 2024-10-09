@@ -126,118 +126,284 @@
     </style>
 </head>
 <body>
-{{--<div class="text-center mb-4">--}}
 
-{{--    @if($base64Image)--}}
-{{--        <img src="{{ $base64Image }}" alt="Logo" style="width: 200px">--}}
-{{--    @else--}}
-{{--        <p>Logo could not be loaded</p>--}}
-{{--    @endif--}}
+<div class="text-center mb-4">
 
-{{--</div>--}}
+   @if($base64Image)
+       <img src="{{ $base64Image }}" alt="Logo" style="width: 200px">
+ @else
+        <p>Logo could not be loaded</p>
+  @endif
 
-
-
-<h1 style="text-align: center; margin-bottom: 0px; padding-bottom: 0px;">THE BANK OF AZAD JAMMU & KASHMIR</h1>
-<h1 style="text-align: center; margin-top: 0px; padding-top: 0px;">
-    REGIONAL OFFICE Muzaffarabad
-</h1>
-
-
-
-<div class="mb-4">
-    <p class="font-semibold">No: BAJK/HO/CMD/2024/228</p>
-    <p class="font-semibold">Dated: Month Date, 2024</p>
 </div>
 
-<h3 class="text-xl font-bold text-center underline">OFFICE NOTE</h3>
-<h4 class="text-lg font-bold text-center underline uppercase">
-    APPROVAL CUM SANCTION ADVICE - {{ $borrower->loan_sub_category->name }} ({{ $borrower->applicant_requested_loan_information->status }})
-</h4>
 
+<div class="pb-4 lg:pb-4 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
+    <div class="px-6 mb-4 lg:px-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent dark:border-gray-700">
 
-<div>
-    {!! $sanctionAdvice->recovery_mode_of_installment !!}
+        <h4 class="text-xl font-bold text-center mt-4 uppercase">THE BANK OF AZAD JAMMU & KASHMIR</h4>
+        <h5 class="text-lg font-bold text-center uppercase">REGIONAL OFFICE {{ $borrower->region->name }}</h5>
+
+        <div class="mb-4">
+            <p class="font-semibold">No: BAJK/HO/CMD/2024/228</p>
+            <p class="font-semibold">Dated: Month Date, 2024</p>
+        </div>
+
+        <h3 class="text-xl font-bold text-center underline">OFFICE NOTE</h3>
+        <h4 class="text-lg font-bold text-center underline uppercase">
+            APPROVAL CUM SANCTION ADVICE - {{ $borrower->loan_sub_category->name }} ({{ $borrower->applicant_requested_loan_information->status }})
+        </h4>
+        <h5 class="text-base font-bold text-center underline uppercase">
+            {{ $borrower->branch->name }}
+        </h5>
+
+        <p class="mb-4 mt-2">
+            As recommended by CRBD, vide letter No. BAJK/BR/001/2024/SALARY dated 12-07-2024, following Credit limit of salary finance favoring
+            {{ $borrower->gender == 'Male' ? 'Mr.' : ($borrower->gender == 'Female' ? 'Ms.' : 'M/s.') }}{{ $borrower->name }}
+            {{ $borrower->relationship_status }} {{ $borrower->parent_spouse_name }}
+            is submitted for sanction on terms and conditions mentioned below:
+        </p>
+    </div>
 </div>
+
 
 
 <table>
     <thead>
     <tr>
-        <th colspan="4" class="text-center">Personal Information</th>
+        <th colspan="4" class="text-left">A: APPLICANT'S DETAILS</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td class="font-bold w-25">Full Name:</td>
-        <td class="w-25">{{ $borrower->name ?? 'N/A' }}</td>
-        <td class="font-bold w-25">Relationship Status:</td>
-        <td class="w-25">{{ $borrower->relationship_status ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Parent/Spouse Name:</td>
-        <td>{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
-        <td class="font-bold">Gender:</td>
-        <td>{{ $borrower->gender ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">National ID (CNIC):</td>
-        <td>{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
-        <td class="font-bold">NTN:</td>
-        <td>{{ $borrower->ntn ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Parent/Spouse National ID (CNIC):</td>
-        <td>{{ $borrower->parent_spouse_national_id_cnic ?? 'N/A' }}</td>
-        <td class="font-bold">Number of Dependents:</td>
-        <td>{{ $borrower->number_of_dependents ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Educational Qualification:</td>
-        <td>{{ $borrower->education_qualification ?? 'N/A' }}</td>
-        <td class="font-bold">Email:</td>
-        <td>{{ $borrower->email ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Phone Number:</td>
-        <td>{{ $borrower->phone_number ?? 'N/A' }}</td>
-        <td class="font-bold">Mobile Number:</td>
+        <td class="font-bold" style="width: 20%!important;">Name:</td>
+        <td>{{ $borrower->name ?? 'N/A' }}</td>
+        <td class="font-bold">Contact:</td>
         <td>{{ $borrower->mobile_number ?? 'N/A' }}</td>
     </tr>
     <tr>
-        <td class="font-bold">Present Address:</td>
+        <td class="font-bold">Father/Husband's Name:</td>
+        <td>{{ $borrower->parent_spouse_name ?? 'N/A' }}</td>
+        <td class="font-bold">PP NO:</td>
+        <td>{{ $borrower->employment_information->personal_number ?? 'N/A' }}</td>
+    </tr>
+    <tr>
+        <td class="font-bold">Resident Address:</td>
         <td>{{ $borrower->present_address ?? 'N/A' }}</td>
-        <td class="font-bold">Permanent Address:</td>
-        <td>{{ $borrower->permanent_address ?? 'N/A' }}</td>
+        <td class="font-bold">CNIC:</td>
+        <td>{{ $borrower->national_id_cnic ?? 'N/A' }}</td>
     </tr>
     <tr>
-        <td class="font-bold">Occupation Title:</td>
-        <td>{{ $borrower->occupation_title ?? 'N/A' }}</td>
-        <td class="font-bold">Date of Birth:</td>
-        <td>{{ isset($borrower->date_of_birth) ? \Carbon\Carbon::parse($borrower->date_of_birth)->format('d-m-Y') : 'N/A' }}</td>
+        <td class="font-bold">Occupation:</td>
+        <td>{{ $borrower->occupation_title ?? 'N/A' }},
+            {{ $borrower->employment_information->job_title_designation ?? 'N/A' }},
+            BPS-{{ $borrower->employment_information->grade ?? 'N/A' }}
+        </td>
+        <td class="font-bold">DOB:</td>
+        <td>{{ \Carbon\Carbon::parse($borrower->date_of_birth)->format('d-m-Y') ?? 'N/A' }}</td>
     </tr>
     <tr>
-        <td class="font-bold">Age:</td>
-        <td>{{ $borrower->age ?? 'N/A' }}</td>
-        <td class="font-bold">Marital Status:</td>
-        <td>{{ $borrower->marital_status ?? 'N/A' }}</td>
+        <td class="font-bold">Office Address:</td>
+        <td>{{ $borrower->employment_information->official_address ?? 'N/A' }}</td>
+        <td class="font-bold">DOR:</td>
+        <td>{{ $borrower->date_of_birth ? \Carbon\Carbon::parse($borrower->date_of_birth)->addYears(60)->format('d-m-Y') : 'N/A' }}</td>
     </tr>
-    <tr>
-        <td class="font-bold">Home Qwnership Status:</td>
-        <td>{{ $borrower->home_ownership_status ?? 'N/A' }}</td>
-        <td class="font-bold">Nationality:</td>
-        <td>{{ $borrower->nationality ?? 'N/A' }}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">Next of Kin Name:</td>
-        <td>{{ $borrower->next_of_kin_name ?? 'N/A' }}</td>
-        <td class="font-bold">Next of Kin Mobile Number:</td>
-        <td>{{ $borrower->next_of_kin_mobile_number ?? 'N/A' }}</td>
-    </tr>
-
     </tbody>
 </table>
-<div class="page-break"></div>
+<table>
+    <thead>
+    <tr>
+        <th colspan="4" class="text-left">B: LIMIT DETAILS</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="font-bold">Type Of Finance:</td>
+        <td>
+            {!! $sanctionAdvice->type_of_finance !!}
+        </td>
+        <td class="font-bold">SGL Code:</td>
+        <td>
+           {!! $sanctionAdvice->sgl_code !!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Nature Of Finance:</td>
+        <td>
+            {!! $sanctionAdvice->nature_of_finance !!}
+        </td>
+        <td class="font-bold">Purpose Of Finance:</td>
+        <td>
+            {!! $sanctionAdvice->purpose_of_finance !!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Tenure:</td>
+        <td>
+            {!! $sanctionAdvice->tenure !!}
+        </td>
+        <td class="font-bold">Take Home Salary:</td>
+        <td>
+            {!! $sanctionAdvice->take_home_salary !!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">DSR (Required):</td>
+        <td>
+            {!! $sanctionAdvice->dsr_required!!}
+        </td>
+        <td class="font-bold">DSR (Actual):</td>
+        <td>
+            {!! $sanctionAdvice->dsr_actual !!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Status:</td>
+        <td>
+            {!! $sanctionAdvice->requested_amount_status!!}
+        </td>
+        <td class="font-bold">Amount of Finance / Limit:</td>
+        <td>
+            {!! $sanctionAdvice->amount_of_finance_limit!!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Previous Outstanding:</td>
+        <td>
+            {!! $sanctionAdvice->previous_outstanding!!}
+        </td>
+        <td class="font-bold">Enhancement Amount:</td>
+        <td>
+            {!! $sanctionAdvice->enhancement_amount!!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Total Enhancement:</td>
+        <td>
+            {!! $sanctionAdvice->total_amount !!}
+        </td>
+        <td class="font-bold">Repayment History:</td>
+        <td>
+            {!! $sanctionAdvice->repayment_history!!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Rate of Markup:</td>
+        <td colspan="3">
+            {!! $sanctionAdvice->rate_of_markup!!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Repayment Schedule (Monthly Installment):</td>
+        <td colspan="3">
+
+            {!! $sanctionAdvice->repayment_schedule_monthly_installment!!}
+        </td>
+
+
+    </tr>
+    <tr>
+        <td class="font-bold">Insurance Treatment:</td>
+        <td colspan="3">
+
+            {!! $sanctionAdvice->insurance_treatment!!}
+
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Life Insurance-SGL:</td>
+        <td colspan="3">
+            {!! $sanctionAdvice->life_insurance_sgl!!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Recovery Mode of Installment:</td>
+        <td colspan="3">
+            {!! $sanctionAdvice->recovery_mode_of_installment!!}
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th colspan="4" class="text-left">C: SECURITY DETAILS</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="font-bold">Primary:</td>
+        <td colspan="3">
+            {!! $sanctionAdvice->security_primary!!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Secondary:</td>
+        <td colspan="3">
+            {!! $sanctionAdvice->security_primary_amount !!}
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th colspan="4" class="text-left">D: Personal Guarantee(s) extended by Borrower/Guarantor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td class="font-bold">Borrower</td>
+        <td>
+            {!! $sanctionAdvice->borrower_pgs_no_issued!!}
+        </td>
+        <td class="font-bold">Repayment Status</td>
+        <td>
+            {!! $sanctionAdvice->borrower_rp_status!!}
+        </td>
+    </tr>
+    <tr>
+        <td class="font-bold">Guarantor</td>
+        <td>
+            {!! $sanctionAdvice->guarantor_pgs_no_issued!!}
+        </td>
+        <td class="font-bold">Repayment Status</td>
+        <td>
+            {{ $sanctionAdvice->guarantor_rp_status }}
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+     <div>
+       {!! $sanctionAdvice->documents_required_before_disbursement !!}
+
+<div>
+
+        {!! $sanctionAdvice->general_terms_of_service !!}
+    </div>
+            <div class="flex justify-between mt-8">
+    <div style="text-align: left;">
+        <br><br>  __________________<br>
+        <strong>Credit Officer</strong>
+    </div>
+
+    <div style="text-align: right;">
+        __________________<br>
+        <strong>Credit Manager</strong>
+    </div>
+</div>
+
+<p class="font-bold text-center mt-10">APPROVED</p>
+
+<div style="text-align: center;">
+    <br>  __________________
+    <p class="font-bold text-center mt-10">Regional Head</p>
+</div>
+
 
 </body>
 </html>

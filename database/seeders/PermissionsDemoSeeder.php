@@ -60,18 +60,18 @@ class PermissionsDemoSeeder extends Seeder
         // Create roles and assign permissions
         $roles = [
             'Branch Manager' => [
-                'authorizer', 
-                'credit report access', 
-                'credit report show', 
+                'authorizer',
+                'credit report access',
+                'credit report show',
                 'borrower access',
                 'borrower show',
                 'download pdf'
             ],
             'Branch Credit Manager' => [
-                'inputter', 
+                'inputter',
                 'credit report access',
                 'credit report create',
-                'credit report show', 
+                'credit report show',
                 'borrower access',
                 'borrower create',
                 'borrower edit',
@@ -79,16 +79,16 @@ class PermissionsDemoSeeder extends Seeder
                 'download pdf'
             ],
             'Branch Credit Officer' => [
-                'inputter', 
+                'inputter',
                 'credit report access',
                 'credit report create',
-                'credit report show', 
+                'credit report show',
                 'borrower access',
                 'borrower create',
                 'borrower edit',
                 'borrower show',
                 'download pdf'
-                 
+
             ],
             'Regional Credit Manager' => [
                 'credit report access',
@@ -118,7 +118,7 @@ class PermissionsDemoSeeder extends Seeder
             'Regional Head' => [
                   'credit report access',
                   'credit report show',
-                  'remarks', 
+                  'remarks',
                   'borrower access',
                   'borrower show',
                   'sanctions advice access',
@@ -140,7 +140,7 @@ class PermissionsDemoSeeder extends Seeder
             'Manager Officer CRBD' => [
                 'credit report access',
                 'credit report show',
-                'remarks', 
+                'remarks',
                 'borrower access',
                 'borrower show',
                 'download pdf'
@@ -150,30 +150,30 @@ class PermissionsDemoSeeder extends Seeder
                 'credit report show',
                 'credit report update',
                 'remarks',
-                'sanctions advice access', 
+                'sanctions advice access',
                 'sanctions advice issue',
                 'sanctions advice create',
                 'sanctions advice show',
                 'sanctions advice edit',
                 'sanctions advice update',
                 'borrower access',
-                'borrower show', 
+                'borrower show',
                 'download pdf'
             ],
             'Senior Manager CMD' => [
                   'credit report access',
-                  'credit report show', 
+                  'credit report show',
                   'credit report edit',
                   'credit report update',
                   'remarks',
-                  'sanctions advice access', 
+                  'sanctions advice access',
                   'sanctions advice issue',
                   'sanctions advice create',
                   'sanctions advice show',
                   'sanctions advice edit',
                   'sanctions advice update',
                   'borrower access',
-                  'borrower show', 
+                  'borrower show',
                   'download pdf'
             ],
             'Manager Officer CMD' => [
@@ -182,9 +182,9 @@ class PermissionsDemoSeeder extends Seeder
                  'credit report update',
                  'remarks',
                  'borrower access',
-                 'borrower show', 
+                 'borrower show',
                  'download pdf'
-                 
+
             ],
             'Regional Manager CAD' => [
                 'dac access',
