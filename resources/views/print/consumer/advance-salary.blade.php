@@ -1436,8 +1436,8 @@
                 @if($canEdit)
                     <div class="mx-auto p-12" style="font-size: 15px;">
                         <h1 class="text-center text-3xl font-extrabold mb-4 text-red-700">Remarks / Notes </h1>
-                        <hr class="pb-8 border-1 border-black">
-                        <form method="POST" action="{{ route('notes.store', [$borrower->id, auth()->user()->id]) }}" class=" mb-8 " enctype="multipart/form-data">
+                        <hr class="pb-4 border-1 border-black">
+                        <form method="POST" action="{{ route('notes.store', [$borrower->id, auth()->user()->id]) }}" class=" mb-4 " enctype="multipart/form-data">
                             @csrf
                             @method('post')
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style="font-size: 15px!important;">
@@ -1586,6 +1586,34 @@
                                 <div></div>
                                 <div></div>
                             </div>
+
+
+                            @can('sanctions advice create')
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div>
+
+                                    <a href="{{ route('sanction-advice.create', $borrower->id) }}" class="inline-flex items-center float-right px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 disabled:opacity-50 transition ease-in-out duration-150">
+                                        Create Sanction Advice
+                                    </a>
+
+{{--                                    --}}
+{{--                                    @if(!empty($borrower->sanction_advice))--}}
+{{--                                        <a href="{{ route('sanction-advice.create', $borrower->id) }}" class="inline-flex items-center float-right px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 disabled:opacity-50 transition ease-in-out duration-150">--}}
+{{--                                            Create Sanction Advice--}}
+{{--                                        </a>--}}
+{{--                                    @else--}}
+{{--                                        <a href="{{ route('sanction-advice.edit', [$borrower->sanction_advice->id, $borrower->id]) }}" class="inline-flex items-center float-right px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 disabled:opacity-50 transition ease-in-out duration-150">--}}
+{{--                                            Edit Sanction Advice--}}
+{{--                                        </a>--}}
+{{--                                    @endif--}}
+
+                                </div>
+                            </div>
+                            <br>
+                            @endcan
 
 
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -55,7 +55,8 @@ return new class extends Migration
             $table->text('general_terms_of_service')->nullable();
             $table->text('other_special_terms_of_service')->nullable();
             $table->text('note')->nullable();
-
+            $table->enum('is_lock',['Yes','No'])->default('No');
+            $table->enum('status',['Draft','Finalized'])->default('Draft');
             $table->timestamps();
         });
     }

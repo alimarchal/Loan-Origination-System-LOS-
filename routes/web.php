@@ -76,6 +76,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/sanction-advice/{borrower}', 'store')->name('sanction-advice.store');
         Route::get('/sanction-advice/{sanctionAdvice}/{borrower}/edit', 'edit')->name('sanction-advice.edit');
         Route::put('/sanction-advice/{borrower}/{sanctionAdvice}', 'update')->name('sanction-advice.update');
+        Route::get('/sanction-advice/{borrower}/{sanctionAdvice}/download', 'download')->name('sanction-advice.download');
 
     });
 
