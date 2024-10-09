@@ -1270,7 +1270,7 @@
                                 </table>
                             @else
                                 <h1 style="color: red; text-align: center; font-size: 20px; font-weight: bold;">
-                                    Form D is missing
+                                    Form D (Details of Assignd Guarantees/Sureties) is missing
                                 </h1>
                             @endif
 
