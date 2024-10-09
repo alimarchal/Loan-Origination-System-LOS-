@@ -200,6 +200,40 @@
                                     <x-label for="no_of_dependents" value="No. of Dependents" />
                                     <x-input id="no_of_dependents" class="block mt-1 w-full" type="number" min="0" name="no_of_dependents" :value="old('no_of_dependents')" />
                                 </div>
+
+
+                                <div>
+                                    <x-label for="statement_of_account_attachment_one" value="Statement of Account Attachment" />
+                                    <x-input id="statement_of_account_attachment_one" class="block mt-1 w-full" type="file" name="statement_of_account_attachment_one" :value="old('statement_of_account_attachment_one',)" />
+                                </div>
+
+
+
+                                <div>
+                                    <x-label for="net_worth" value="Net Worth" />
+                                    <x-input id="net_worth" class="block mt-1 w-full" type="number" step="0.01" min="0" name="net_worth" :value="old('net_worth')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="business_registration_number" value="Business Registration Number" />
+                                    <x-input id="business_registration_number" class="block mt-1 w-full" type="text" name="business_registration_number" :value="old('business_registration_number')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="annual_revenue" value="Annual Revenue" />
+                                    <x-input id="annual_revenue" class="block mt-1 w-full" type="number" step="0.01" min="0" name="annual_revenue" :value="old('annual_revenue')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="annual_expenses" value="Annual Expenses" />
+                                    <x-input id="annual_expenses" class="block mt-1 w-full" type="number" step="0.01" min="0" name="annual_expenses" :value="old('annual_expenses')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="net_annual_income" value="Net Annual Income" />
+                                    <x-input id="net_annual_income" class="block mt-1 w-full" type="number" step="0.01" min="0" name="net_annual_income" :value="old('net_annual_income')" />
+                                </div>
+                            </div>
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
