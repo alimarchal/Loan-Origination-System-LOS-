@@ -9,79 +9,79 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{--            <h1 class="text-2xl text-center font-extrabold pb-4">Financing</h1>--}}
 
-            <div class="grid grid-cols-12 gap-6 mb-4 ">
-                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
-                    <div class="p-5">
-                        <div class="grid grid-cols-3 gap-1">
-                            <div class="col-span-2">
-                                <div class="text-3xl font-bold leading-8">
-                                    {{ $primary_cards[1] }}
-                                </div>
-                                <div class="mt-1 text-base font-extrabold text-black">
-                                    Consumer Financing
-                                </div>
-                            </div>
-                            <div class="col-span-1 flex items-center justify-end">
-                                <img src="{{ url('icons-images/consumer.png') }}" alt="employees on leave" class="h-12 w-12">
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
-                    <div class="p-5">
-                        <div class="grid grid-cols-3 gap-1">
-                            <div class="col-span-2">
-                                <div class="text-3xl font-bold leading-8">
-                                    {{ $primary_cards[2] }}
-                                </div>
-                                <div class="mt-1 text-base font-extrabold text-black">
-                                    Commercial / SME
+{{--            <div class="grid grid-cols-12 gap-6 mb-4 ">--}}
+{{--                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">--}}
+{{--                    <div class="p-5">--}}
+{{--                        <div class="grid grid-cols-3 gap-1">--}}
+{{--                            <div class="col-span-2">--}}
+{{--                                <div class="text-3xl font-bold leading-8">--}}
+{{--                                    {{ $primaryCards[1] }}--}}
+{{--                                </div>--}}
+{{--                                <div class="mt-1 text-base font-extrabold text-black">--}}
+{{--                                    Consumer Financing--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-span-1 flex items-center justify-end">--}}
+{{--                                <img src="{{ url('icons-images/consumer.png') }}" alt="employees on leave" class="h-12 w-12">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </a>--}}
+{{--                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">--}}
+{{--                    <div class="p-5">--}}
+{{--                        <div class="grid grid-cols-3 gap-1">--}}
+{{--                            <div class="col-span-2">--}}
+{{--                                <div class="text-3xl font-bold leading-8">--}}
+{{--                                    {{ $primaryCards[2] }}--}}
+{{--                                </div>--}}
+{{--                                <div class="mt-1 text-base font-extrabold text-black">--}}
+{{--                                    Commercial / SME--}}
 
-                                </div>
-                            </div>
-                            <div class="col-span-1 flex items-center justify-end">
-                                <img src="{{ url('icons-images/commercial.png') }}" alt="employees on leave" class="h-12 w-12">
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
-                    <div class="p-5">
-                        <div class="grid grid-cols-3 gap-1">
-                            <div class="col-span-2">
-                                <div class="text-3xl font-bold leading-8">
-                                    {{ $primary_cards[3] }}
-                                </div>
-                                <div class="mt-1 text-base font-extrabold text-black">
-                                    Micro Financing
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-span-1 flex items-center justify-end">--}}
+{{--                                <img src="{{ url('icons-images/commercial.png') }}" alt="employees on leave" class="h-12 w-12">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </a>--}}
+{{--                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">--}}
+{{--                    <div class="p-5">--}}
+{{--                        <div class="grid grid-cols-3 gap-1">--}}
+{{--                            <div class="col-span-2">--}}
+{{--                                <div class="text-3xl font-bold leading-8">--}}
+{{--                                    {{ $primaryCards[3] }}--}}
+{{--                                </div>--}}
+{{--                                <div class="mt-1 text-base font-extrabold text-black">--}}
+{{--                                    Micro Financing--}}
 
-                                </div>
-                            </div>
-                            <div class="col-span-1 flex items-center justify-end">
-                                <img src="{{ url('icons-images/micro.png') }}" alt="employees on leave" class="h-12 w-12">
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">
-                    <div class="p-5">
-                        <div class="grid grid-cols-3 gap-1">
-                            <div class="col-span-2">
-                                <div class="text-3xl font-bold leading-8">
-                                    {{ $primary_cards[4] }}
-                                </div>
-                                <div class="mt-1 text-base font-extrabold text-black">
-                                    Agriculture Financing
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-span-1 flex items-center justify-end">--}}
+{{--                                <img src="{{ url('icons-images/micro.png') }}" alt="employees on leave" class="h-12 w-12">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </a>--}}
+{{--                <a href="javascript:;" class="transform  hover:scale-110 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white">--}}
+{{--                    <div class="p-5">--}}
+{{--                        <div class="grid grid-cols-3 gap-1">--}}
+{{--                            <div class="col-span-2">--}}
+{{--                                <div class="text-3xl font-bold leading-8">--}}
+{{--                                    {{ $primaryCards[4] }}--}}
+{{--                                </div>--}}
+{{--                                <div class="mt-1 text-base font-extrabold text-black">--}}
+{{--                                    Agriculture Financing--}}
 
-                                </div>
-                            </div>
-                            <div class="col-span-1 flex items-center justify-end">
-                                <img src= "{{ url('icons-images/agriculture.png') }}" alt="employees on leave" class="h-12 w-12">
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="col-span-1 flex items-center justify-end">--}}
+{{--                                <img src= "{{ url('icons-images/agriculture.png') }}" alt="employees on leave" class="h-12 w-12">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </a>--}}
+{{--            </div>--}}
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-2">
                 <!-- Card 1 -->
@@ -90,7 +90,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ $secondary_cards["Draft"] }}
+                                    {{ $secondaryCards["Draft"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Draft
@@ -109,7 +109,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ $secondary_cards["Submitted"] }}
+                                    {{ $secondaryCards["Submitted"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Submitted
@@ -128,7 +128,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ $secondary_cards["In Process"] }}
+                                    {{ $secondaryCards["In Process"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     In Process
@@ -147,7 +147,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ $secondary_cards["Approved"] }}
+                                    {{ $secondaryCards["Approved"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Approved
@@ -166,7 +166,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ $secondary_cards["Declined"] }}
+                                    {{ $secondaryCards["Declined"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Declined
@@ -185,7 +185,7 @@
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
                                 <div class="text-3xl font-bold leading-8">
-                                    {{ $secondary_cards["Returned With Observation"] }}
+                                    {{ $secondaryCards["Returned With Observation"] }}
                                 </div>
                                 <div class="mt-1 text-base font-extrabold text-black">
                                     Returned With Observation
@@ -229,13 +229,13 @@
             document.addEventListener('DOMContentLoaded', function () {
                 // Chart 1: Pie Chart - "Loan Category"
                 var options1 = {
-                    series: [@foreach($gender_wise as $key => $value) {{ $value }}, @endforeach],
+                    series: [@foreach($genderWise as $key => $value) {{ $value }}, @endforeach],
                     chart: {
                         width: 500,
                         height: 300, // Height set to 400
                         type: 'pie',
                     },
-                    labels: [@foreach($gender_wise as $key => $value) "{{ $key }}", @endforeach],
+                    labels: [@foreach($genderWise as $key => $value) "{{ $key }}", @endforeach],
                     title: {
                         text: 'Gender Wise',
                         align: 'center',
@@ -265,13 +265,13 @@
 
                 // Chart 2: Donut Chart - "Gender Wise"
                 var options2 = {
-                    series: [44, 55, 13, 43, 22],
+                    series: [@foreach($primaryCards as $key => $value) {{ $value }}, @endforeach],
                     chart: {
                         width: 500,
                         height: 300, // Height set to 400
                         type: 'pie',
                     },
-                    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+                    labels: ['Consumer Financing', 'Commercial / SME', 'Micro Financing', 'Agriculture Financing'],
                     title: {
                         text: 'Loan Category',
                         align: 'center',

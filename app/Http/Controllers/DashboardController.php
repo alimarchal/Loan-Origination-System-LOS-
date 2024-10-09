@@ -2,81 +2,135 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Borrower;
-use App\Models\Branch;
-use App\Models\LoanCategory;
-use App\Models\LoanStatus;
 use App\Models\LoanSubCategory;
-use App\Models\Region;
-use Illuminate\Http\Request;
+use App\Models\Borrower;
+use App\Models\LoanStatus;
+use App\Models\LoanCategory;
+use App\Models\Branch;
 use Illuminate\Support\Facades\Auth;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-
-
-//        $loan_sub_cat_group = Borrower::where('is_lock','Yes')->groupBy('loan_sub_category_id')->count();
-        $loan_sub_cat_group = [];
-        foreach (LoanSubCategory::all() as $lsc) {
-            $loan_sub_cat_group[$lsc->name] =  Borrower::where('is_lock','Yes')->where('loan_sub_category_id',$lsc->id)->count();;
-        }
-
-        $gender_wise = ["Male" => Borrower::where('gender','Male')->where('is_lock','Yes')->count(), "Female" => Borrower::where('gender','Female')->where('is_lock','Yes')->count()];
-        $primary_cards = [];
-        $secondary_cards = [];
-
-
-
-        foreach (LoanStatus::all() as $ls) {
-            $secondary_cards[$ls->name] = 0;
-        }
-
-        foreach (LoanCategory::all() as $ls) {
-            $primary_cards[$ls->id] = 0;
-        }
-
+        // Get the authenticated user
         $user = Auth::user();
-        $region_branches = Branch::with('region')->where('region_id', $user->branch->region_id)->pluck('id')->toArray();
+
+        // Fetch data for dashboard components
+        $loanSubCatGroup = $this->getLoanSubCategoryGroup();
+        $genderWise = $this->getGenderWiseData();
+        $primaryCards = $this->getPrimaryCards($user);
+        $secondaryCards = $this->getSecondaryCards($user);
+
+        // Get branches (if needed in the future)
         $branches = [];
 
-        // Apply role-based filtering to the query
-        if ($user->hasRole(['Branch Manager','Branch Credit Manager', 'Branch Credit Officer'])) {
-            foreach ($primary_cards as $key => $value) {
-                $primary_cards[$key] = Borrower::where('branch_id',$user->branch_id)->where('is_lock','Yes')->where('loan_category_id', $key)->count();
-            }
 
-            foreach ($secondary_cards as $key => $value) {
-                $secondary_cards[$key] = Borrower::where('branch_id',$user->branch_id)->where('status',$key)->count();
-            }
+        // Return view with compact data
+        return view('dashboard.dashboard', compact('primaryCards', 'secondaryCards', 'branches', 'loanSubCatGroup', 'genderWise'));
+    }
 
+    /**
+     * Get loan sub-category group data
+     */
+    private function getLoanSubCategoryGroup(): array
+    {
+        return LoanSubCategory::all()->mapWithKeys(function ($lsc) {
+            return [$lsc->name => Borrower::where('is_lock', 'Yes')
+                ->where('loan_sub_category_id', $lsc->id)
+                ->count()];
+        })->toArray();
+    }
 
-        } elseif ($user->hasRole(['Regional Credit Manager','Regional Credit Officer', 'Regional Head'])) {
-            foreach ($primary_cards as $key => $value) {
-                $primary_cards[$key] = Borrower::whereIn('branch_id', $region_branches)->where('is_lock','Yes')->where('loan_category_id', $key)->count();
-            }
+    /**
+     * Get gender-wise data
+     */
+    private function getGenderWiseData(): array
+    {
+        return ['Male' => Borrower::where('gender', 'Male')->where('is_lock', 'Yes')->count(),
+            'Female' => Borrower::where('gender', 'Female')->where('is_lock', 'Yes')->count()];
+    }
 
-            foreach ($secondary_cards as $key => $value) {
-                $secondary_cards[$key] = Borrower::whereIn('branch_id', $region_branches)->where('status',$key)->count();
-            }
+    /**
+     * Get primary cards data based on user role
+     */
+    private function getPrimaryCards($user): array
+    {
+        $primaryCards = LoanCategory::pluck('id')->flip()->map(function () {
+            return 0;
+        })->toArray();
 
-        } elseif ($user->hasRole(['Divisional Head CRBD', 'Senior Manager CRBD', 'Manager Officer CRBD', 'Divisional Head CMD', 'Senior Manager CMD', 'Manager Officer CMD', 'Super-Admin',])) {
-            // Regional Chief can see borrowers from their region
-            foreach ($primary_cards as $key => $value) {
-                $primary_cards[$key] = Borrower::where('is_lock','Yes')->where('loan_category_id', $key)->count();
-            }
+        $query = $this->getBorrowerQueryBasedOnRole($user);
 
-            foreach ($secondary_cards as $key => $value) {
-                $secondary_cards[$key] = Borrower::where('status',$key)->count();
-            }
-
+        foreach ($primaryCards as $key => $value) {
+            $primaryCards[$key] = $query->where('loan_category_id', $key)->count();
         }
 
+        return $primaryCards;
+    }
 
-        // Return view with borrowers data
-        return view('dashboard.dashboard',compact('primary_cards','secondary_cards', 'branches', 'loan_sub_cat_group','gender_wise'));
+    /**
+     * Get secondary cards data based on user role
+     */
+    private function getSecondaryCards($user): array
+    {
+        $secondaryCards = LoanStatus::pluck('name')->flip()->map(function () {
+            return 0;
+        })->toArray();
+
+        $query = $this->getBorrowerQueryBasedOnRole($user);
+
+        foreach ($secondaryCards as $key => $value) {
+            $secondaryCards[$key] = $query->where('status', $key)->count();
+        }
+
+        return $secondaryCards;
+    }
+
+    /**
+     * Get Borrower query based on user role
+     */
+    private function getBorrowerQueryBasedOnRole($user)
+    {
+        $query = Borrower::where('is_lock', 'Yes');
+
+        if ($user->hasRole(['Branch Manager', 'Branch Credit Manager', 'Branch Credit Officer'])) {
+            $query->where('branch_id', $user->branch_id);
+        } elseif ($user->hasRole(['Regional Credit Manager', 'Regional Credit Officer', 'Regional Head'])) {
+            $regionBranches = Branch::where('region_id', $user->branch->region_id)->pluck('id');
+            $query->whereIn('branch_id', $regionBranches);
+        } elseif ($user->hasRole(['Divisional Head CRBD', 'Senior Manager CRBD', 'Manager Officer CRBD', 'Divisional Head CMD', 'Senior Manager CMD', 'Manager Officer CMD', 'Super-Admin'])) {
+            // No additional filters for these roles, they can see all borrowers
+        } else {
+            // For any unspecified role, return an empty query to ensure no data is shown
+            $query->whereRaw('1 = 0');
+        }
+
+        return $query;
+    }
+
+    /**
+     * Define the roles and their corresponding permissions
+     */
+    public static function defineRoles()
+    {
+        // Branch level roles
+        $branchRoles = ['Branch Manager', 'Branch Credit Manager', 'Branch Credit Officer'];
+        foreach ($branchRoles as $role) {
+            Role::firstOrCreate(['name' => $role])->givePermissionTo('view branch data');
+        }
+
+        // Regional level roles
+        $regionalRoles = ['Regional Credit Manager', 'Regional Credit Officer', 'Regional Head'];
+        foreach ($regionalRoles as $role) {
+            Role::firstOrCreate(['name' => $role])->givePermissionTo('view regional data');
+        }
+
+        // Division and higher level roles
+        $divisionRoles = ['Divisional Head CRBD', 'Senior Manager CRBD', 'Manager Officer CRBD', 'Divisional Head CMD', 'Senior Manager CMD', 'Manager Officer CMD', 'Super-Admin'];
+        foreach ($divisionRoles as $role) {
+            Role::firstOrCreate(['name' => $role])->givePermissionTo('view all data');
+        }
     }
 }
