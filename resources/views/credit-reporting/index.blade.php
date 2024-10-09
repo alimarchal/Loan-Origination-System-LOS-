@@ -11,11 +11,14 @@
         <div class="flex justify-center items-center float-right">
             <div class="flex justify-center items-center float-right print:hidden">
 
+                @can('credit report create')
                 <a href="{{ route('credit-reporting.create') }}" class="flex items-center px-4 py-2 text-gray-600 bg-white border rounded-lg focus:outline-none hover:bg-gray-100 transition-colors duration-200 transform dark:text-gray-200 dark:border-gray-200  dark:hover:bg-gray-700 ml-2">
                     <svg data-slot="icon" fill="none" class="h-5 w-5" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
                     </svg>
                 </a>
+
+                @endcan
                 <button id="toggle" class="text-center px-4 py-2 text-gray-600 bg-white border rounded-lg focus:outline-none hover:bg-gray-100 transition-colors duration-200 transform dark:text-black dark:border-gray-200 dark:hover:bg-white dark:bg-gray-700 ml-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
@@ -110,8 +113,8 @@
                                     <th class="py-2 px-2 text-center">Attachment</th>
                                     <th class="py-2 px-2 text-center">Status</th>
                                     <th class="py-2 px-2 text-center">Updated At</th>
-                                    @canany(['edit credit report', 'update credit report'])
-                                        <th class="py-2 px-2 text-center print:hidden">Action</th>
+                                    @canany(['credit report edit', 'credit report update'])
+                                            <th class="py-2 px-2 text-center print:hidden">Action</th>
                                     @endcanany
                                 </tr>
                                 </thead>
@@ -160,12 +163,15 @@
                                             {{ \Carbon\Carbon::parse($cr->updated_at)->format('d M, y H:i:s') }}
                                         </td>
 
-                                        @canany(['edit credit report', 'update credit report'])
+                                        @canany(['credit report edit', 'credit report update'])
                                         <td class="py-1 px-2 text-center print:hidden">
 
-                                           <a href="{{ route('credit-reporting.edit', $cr->id) }}" class="inline-flex items-center px-4 py-2 bg-blue-800 dark:bg-blue-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-blue-800 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-white focus:bg-blue-700 dark:focus:bg-white active:bg-blue-900 dark:active:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-blue-800 transition ease-in-out duration-150">
-                                                View
-                                            </a>
+                                            @if($cr->status != "Completed")
+                                                <a href="{{ route('credit-reporting.edit', $cr->id) }}" class="inline-flex items-center px-4 py-2 bg-blue-800 dark:bg-blue-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-blue-800 uppercase tracking-widest hover:bg-blue-700 dark:hover:bg-white focus:bg-blue-700 dark:focus:bg-white active:bg-blue-900 dark:active:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-blue-800 transition ease-in-out duration-150">
+                                                    View
+                                                </a>
+                                            @endif
+
                                         @endcanany
                                         </td>
                                     </tr>

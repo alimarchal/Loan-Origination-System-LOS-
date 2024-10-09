@@ -249,6 +249,8 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'), 'verified',]
         Route::post('/data-check-report/data-check-reporting-request', 'store')->name('credit-reporting.store');
         Route::get('/data-check-report/data-check-reporting-request/{creditReporting}/edit', 'edit')->name('credit-reporting.edit');
         Route::put('/data-check-report/data-check-reporting-request/{creditReporting}', 'update')->name('credit-reporting.update');
+        Route::get('/get-credit-reporting-name/{id}', [CreditReportingController::class, 'getCreditReportingName']);
+
     });
 
 

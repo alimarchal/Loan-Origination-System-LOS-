@@ -85,7 +85,18 @@
                                         Credit Reporting ID (Data Check)
                                         <span class="text-red-700">*</span>
                                     </label>
-                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="credit_reporting_id" type="number" name="credit_reporting_id" value="{{ old('credit_reporting_id') }}" required="required">
+
+                                    <select name="credit_reporting_id" id="credit_reporting_id" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
+                                        <option value="">Select an option</option>
+
+                                        @foreach(\App\Models\CreditReporting::where('branch_id', \Illuminate\Support\Facades\Auth::user()->branch_id)->where('status','Completed')->get() as $item)
+                                            <option value="{{ $item->id }}">{{ $item->national_id_cnic }} - {{ $item->name }}</option>
+                                        @endforeach
+
+                                        <!-- Options will be dynamically populated -->
+                                    </select>
+
+{{--                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="credit_reporting_id" type="number" name="credit_reporting_id" value="{{ old('credit_reporting_id') }}" required="required">--}}
                                 </div>
 
 
@@ -434,6 +445,35 @@
 
                 mobileInput.addEventListener('input', function(e) {
                     e.target.value = formatPhoneNumber(e.target.value);
+                });
+
+
+
+                // Listen for changes on the credit_reporting_id dropdown
+                $('#credit_reporting_id').on('change', function() {
+                    var creditReportingId = $(this).val();
+
+                    if (creditReportingId) {
+                        // Use AJAX to get the name based on credit_reporting_id
+                        $.ajax({
+                            url: '/get-credit-reporting-name/' + creditReportingId, // Define this route in your Laravel app
+                            type: 'GET',
+                            success: function(response) {
+                                if (response.name) {
+                                    // Set the name input value to the returned name
+                                    $('#name').val(response.name);
+                                    $('#national_id_cnic').val(response.national_id_cnic);
+                                }
+                            },
+                            error: function() {
+                                // Handle the error here
+                                alert('An error occurred while fetching the name. Please try again.');
+                            }
+                        });
+                    } else {
+                        // Clear the name field if no credit_reporting_id is selected
+                        $('#name').val('');
+                    }
                 });
 
             });

@@ -92,7 +92,7 @@ class PermissionsDemoSeeder extends Seeder
             ],
             'Regional Credit Manager' => [
                 'credit report access',
-                'credit report create',
+                'credit report edit',
                 'credit report show',
                 'remarks',
                 'sanctions advice access',
@@ -147,8 +147,7 @@ class PermissionsDemoSeeder extends Seeder
             ],
              'Divisional Head CMD' => [
                 'credit report access',
-                'credit report show', 
-                'credit report edit',
+                'credit report show',
                 'credit report update',
                 'remarks',
                 'sanctions advice access', 
@@ -179,8 +178,7 @@ class PermissionsDemoSeeder extends Seeder
             ],
             'Manager Officer CMD' => [
                  'credit report access',
-                 'credit report show', 
-                 'credit report edit',
+                 'credit report show',
                  'credit report update',
                  'remarks',
                  'borrower access',

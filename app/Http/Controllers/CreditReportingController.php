@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCreditReportingRequest;
 use App\Http\Requests\UpdateCreditReportingRequest;
+use App\Models\Branch;
 use App\Models\CreditReporting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -43,11 +44,20 @@ class CreditReportingController extends Controller implements HasMiddleware
         $user = Auth::user();
         $query = CreditReporting::query();
 
-        if ($user->hasRole('Branch Manager')) {
+        if ($user->hasRole(['Branch Manager','Branch Credit Manager','Branch Credit Officer'])) {
             // If the user is a Branch Manager, only show entries related to their branch
             $query->where('branch_id', $user->branch_id);
-        } else {
+        } elseif($user->hasRole(['Regional Credit Manager','Regional Credit Officer','Regional Head']))  {
             // For other roles, we'll show all entries
+            $region_branches = $user->branch?->region?->branches?->pluck('id')->toArray();
+//            dd($region_branches);
+            $query->whereIn('branch_id', $region_branches);
+            // You can add more specific filters here for other roles if needed
+        }
+        elseif($user->hasRole(['Manager Officer CRBD','Divisional Head CMD','Senior Manager CMD', 'Manager Officer CMD']))  {
+            // For other roles, we'll show all entries
+            $allBranches = Branch::all()->pluck('id')->toArray();
+            $query->whereIn('branch_id', $allBranches);
             // You can add more specific filters here for other roles if needed
         }
 
@@ -154,11 +164,17 @@ class CreditReportingController extends Controller implements HasMiddleware
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(CreditReporting $creditReporting)
+    public function getCreditReportingName($id)
     {
-        //
+        $creditReporting = CreditReporting::find($id);
+
+        if ($creditReporting) {
+            return response()->json([
+                'name' => $creditReporting->name,
+                'national_id_cnic' => $creditReporting->national_id_cnic,
+            ]);
+        } else {
+            return response()->json(['error' => 'Not found'], 404);
+        }
     }
 }

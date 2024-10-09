@@ -17,6 +17,8 @@ use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -29,11 +31,22 @@ use Mpdf\Mpdf;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class BorrowerController extends Controller
+class BorrowerController extends Controller implements HasMiddleware
 {
     /**
      * Display a listing of the resource.
      */
+
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('role_or_permission:inputter', only: ['create']),
+            new Middleware('role_or_permission:borrower edit', only: ['edit']),
+            new Middleware('role_or_permission:borrower edit', only: ['update']),
+        ];
+    }
+
     public function index()
     {
         $user = Auth::user();
