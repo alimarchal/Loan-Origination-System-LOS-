@@ -112,7 +112,7 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
                         <div class="flex items-center justify-left mt-1 mx-2">
-                            @can('Inputter')
+                            @can('inputter')
 
                                 @php
                                     $checklist = \App\Models\Checklist::where('loan_sub_category_id', $borrower->loan_sub_category->id)->orderBy('sequence_no')->get();
