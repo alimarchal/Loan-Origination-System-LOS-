@@ -101,7 +101,8 @@ class DashboardController extends Controller
             $regionBranches = Branch::where('region_id', $user->branch->region_id)->pluck('id');
             $query->whereIn('branch_id', $regionBranches);
         } elseif ($user->hasRole(['Divisional Head CRBD', 'Senior Manager CRBD', 'Manager Officer CRBD', 'Divisional Head CMD', 'Senior Manager CMD', 'Manager Officer CMD', 'Super-Admin'])) {
-            // No additional filters for these roles, they can see all borrowers
+            $allBranches = Branch::all()->pluck('id')->toArray();
+            $query->whereIn('branch_id', $allBranches);
         } else {
             // For any unspecified role, return an empty query to ensure no data is shown
             $query->whereRaw('1 = 0');
