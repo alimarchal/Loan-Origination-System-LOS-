@@ -72,7 +72,7 @@
                                                         </button>
                                                     </form>
                                                 @endcan
-                                                @can('Inputter')
+                                                @can('inputter')
                                                         <form action="{{ route('document.destroy', [$document->borrower_id, $document->id]) }}" method="post" class="inline-block" onsubmit="return confirm('Do you really want to delete the record?');">
                                                             @csrf
                                                             @method('DELETE')

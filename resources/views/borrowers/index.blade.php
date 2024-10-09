@@ -126,8 +126,8 @@
                             <thead>
                             <tr class="bg-gray-200 text-white bg-bank-green uppercase print:border-b print:border-black  text-sm print:text-black">
                                 <th class="py-2 px-2 text-center">#</th>
-                                <th class="py-2 px-2 text-left">Name</th>
                                 <th class="py-2 px-2 text-center">Br Code</th>
+                                <th class="py-2 px-2 text-left">Name</th>
                                 <th class="py-2 px-2 text-center">CNIC/NTN</th>
                                 <th class="py-2 px-2 text-center">REG.DATE</th>
                                 <th class="py-2 px-2 text-center">Loan Category</th>
@@ -159,15 +159,16 @@
 {{--                                    </td>--}}
 
 
-                                    <td class="py-1 px-2 text-left">
-                                        {{ $borrower->gender == 'Male' ? 'Mr.' : ($borrower->gender == 'Female' ? 'Ms.' : 'M/s.') }}{{ $borrower->name }}
-                                        {{--                                        {{  $borrower->relationship_status }} {{ $borrower->parent_spouse_name }}--}}
-                                    </td>
+
 
 
 
                                     <td class="py-1 px-2 text-center">
                                         {{ $borrower->branch?->code }}
+                                    </td>
+                                    <td class="py-1 px-2 text-left">
+                                        {{ $borrower->gender == 'Male' ? 'Mr.' : ($borrower->gender == 'Female' ? 'Ms.' : 'M/s.') }}{{ $borrower->name }}
+                                        {{--                                        {{  $borrower->relationship_status }} {{ $borrower->parent_spouse_name }}--}}
                                     </td>
 
                                     <td class="py-1 px-2 text-center">
