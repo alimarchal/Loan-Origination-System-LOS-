@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('branch_id')->nullable()->constrained();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->string('name')->nullable();
             $table->string('national_id_cnic')->nullable();
             $table->string('comments')->nullable();
