@@ -145,7 +145,7 @@
         <h4 class="text-lg font-bold text-center uppercase">REGIONAL OFFICE {{ $borrower->region->name }}</h4>
 
         <div class="mb-4">
-         <p class="font-bold">No: BAJK/HO/CMD/2024/228</p>
+         <p class="font-bold">No: BAJK/-/-/-/-</p>
          <p class="font-bold">Dated: {{ $sanctionAdvice->created_at }}</p>
 
 
@@ -162,7 +162,9 @@
         </h4>
 
         <p class="mb-4 mt-2">
-            As recommended by CRBD, vide letter No. BAJK/BR/001/2024/SALARY dated 12-07-2024, following Credit limit of {{ $borrower->loan_sub_category->name }} finance favoring
+            As recommended by CRBD, vide letter No. BAJK/BR/{{ $borrower->branch->id }}/-/{{ $borrower->loan_sub_category->name }}
+
+            , following Credit limit of {{ $borrower->loan_sub_category->name }} finance favoring
          <strong>   {{ $borrower->gender == 'Male' ? 'Mr.' : ($borrower->gender == 'Female' ? 'Ms.' : 'M/s.') }}{{ $borrower->name }}
             {{ $borrower->relationship_status }} {{ $borrower->parent_spouse_name }}</strong>
             is submitted for sanction on terms and conditions mentioned below:
@@ -300,6 +302,7 @@
     <tr>
         <td class="font-bold">Repayment Schedule (Monthly Installment):</td>
         <td colspan="3">
+        <strong>    {!! $sanctionAdvice->monthly_installment!!} </strong>
 
             {!! $sanctionAdvice->repayment_schedule_monthly_installment!!}
         </td>
@@ -383,6 +386,8 @@
     </tbody>
 </table>
 
+<div class="page-break"></div>
+
      <div>
        {!! $sanctionAdvice->documents_required_before_disbursement !!}
 
@@ -431,7 +436,7 @@
 
          <div class="container">
 
-            <p style="text-align: right; font-weight: bold;">No: BAJK/HO/CMD/2024/228</p>
+            <p style="text-align: right; font-weight: bold;">No: BAJK/-/-/-/-</p>
             <p style="text-align: right; font-weight: bold;">Dated:  {!! $sanctionAdvice->created_at!!}</p>
 
             <h4 style="text-align: left; font-weight: bold;">The Manager,</h4>
@@ -445,10 +450,11 @@
            </u> </h3>
 
          <p class="mb-4 mt-2">Dear Sir,<br>
-            with reference to your letter,  BAJK/BR/001/2024/SALARY dated 12-07-2024, wherein you recommended sanctioning of  {{ $borrower->loan_sub_category->name }} favoring
+            with reference to your letter, No. BAJK/BR/{{ $borrower->branch->id }}/-/{{ $borrower->loan_sub_category->name }}
+            , wherein you recommended sanctioning of  {{ $borrower->loan_sub_category->name }} favoring
            <strong>  {{ $borrower->gender == 'Male' ? 'Mr.' : ($borrower->gender == 'Female' ? 'Ms.' : 'M/s.') }}{{ $borrower->name }}
              {{ $borrower->relationship_status }} {{ $borrower->parent_spouse_name }} </strong>. We are pleased to inform that the Competent Authority has approved the limit vide
-             sanction advice <strong>No: BAJK/HO/CMD/2024/228</strong> dated
+             sanction advice <strong>No: BAJK/HO/CMD/2024/228</strong> dated {!! $sanctionAdvice->created_at!!}
              is submitted for sanction on terms and conditions mentioned below:
          </p>
      </div>
@@ -584,7 +590,7 @@
      <tr>
          <td class="font-bold">Repayment Schedule (Monthly Installment):</td>
          <td colspan="3">
-
+            <strong>    {!! $sanctionAdvice->monthly_installment!!} </strong>
              {!! $sanctionAdvice->repayment_schedule_monthly_installment!!}
          </td>
 
@@ -665,6 +671,7 @@
      </tr>
      </tbody>
  </table>
+ <div class="page-break"></div>
 
       <div>
         {!! $sanctionAdvice->documents_required_before_disbursement !!}
