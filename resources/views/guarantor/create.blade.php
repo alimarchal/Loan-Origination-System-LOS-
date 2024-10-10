@@ -203,13 +203,6 @@
 
 
                                 <div>
-                                    <x-label for="statement_of_account_attachment_one" value="Statement of Account Attachment" />
-                                    <x-input id="statement_of_account_attachment_one" class="block mt-1 w-full" type="file" name="statement_of_account_attachment_one" :value="old('statement_of_account_attachment_one',)" />
-                                </div>
-
-
-
-                                <div>
                                     <x-label for="net_worth" value="Net Worth" />
                                     <x-input id="net_worth" class="block mt-1 w-full" type="number" step="0.01" min="0" name="net_worth" :value="old('net_worth')" />
                                 </div>
