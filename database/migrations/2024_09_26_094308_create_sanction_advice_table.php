@@ -32,7 +32,7 @@ return new class extends Migration
             $table->decimal('enhancement_amount', 14, 2)->nullable();
             $table->string('enhancement')->nullable();
             $table->decimal('total_amount', 14, 2)->nullable();
-            $table->string('tenure')->nullable();
+            $table->text('tenure')->nullable();
             $table->text('repayment_history')->nullable();
             $table->text('rate_of_markup')->nullable();
             $table->decimal('monthly_installment',14,2)->nullable();

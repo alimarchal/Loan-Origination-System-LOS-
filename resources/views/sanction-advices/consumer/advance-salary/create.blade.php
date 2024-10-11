@@ -225,7 +225,8 @@
                                     </td>
                                     <td class="font-bold">Repayment History:</td>
                                     <td>
-                                        <x-input id="repayment_history" class="block w-full h-8 rounded-none" type="text" name="repayment_history" :value="$facility->repayment_status ?? 'N/A'" readonly />
+                                        <x-input id="repayment_history" class="block w-full h-8 rounded-none" type="text" name="repayment_history" :value="$facility->repayment_status  ?? 'N/A'" />
+
                                     </td>
                                 </tr>
                                 <tr>
