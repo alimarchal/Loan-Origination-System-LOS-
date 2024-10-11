@@ -128,7 +128,7 @@
                         {{ $borrower->branch?->name }}, {{ $borrower->branch?->code }}, {{ $borrower->branch?->region?->name }} Region <br>
                         Loan ID: {{ $borrower->id }}<br>
                         Application For {{ $borrower->loan_sub_category?->name }} <br>
-                        Requested Amount: {{ $borrower->applicant_requested_loan_information->requested_amount }}<br>
+                        Requested Amount: {{ $borrower->applicant_requested_loan_information?->requested_amount }}<br>
                         Date: {{ \Carbon\Carbon::parse($borrower->created_at)->format('d-M-Y') }}
                     </p>
 
