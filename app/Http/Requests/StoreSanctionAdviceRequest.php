@@ -26,7 +26,7 @@ class StoreSanctionAdviceRequest extends FormRequest
             'sgl_code' => 'required|string|max:255',
             'nature_of_finance' => 'required|string|max:255',
             'purpose_of_finance' => 'required|string|max:255',
-            'tenure' => 'required|numeric',
+            'tenure' => 'required|text',
             'take_home_salary' => 'required|numeric',
             'dsr_required' => 'required|string|max:255',
             'dsr_actual' => 'required|string|max:255',
