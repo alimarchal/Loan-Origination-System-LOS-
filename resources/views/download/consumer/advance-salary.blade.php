@@ -213,7 +213,7 @@
                             $isCompleted = !empty($borrower->obligor_score_card);
                             break;
                         case 11:
-                            $isCompleted = !empty($borrower->fact_sheet);
+                        $isCompleted = $borrower->reference->isNotEmpty() && $borrower->reference->count() == 2;
                             break;
                         case 12:
                             if (!empty($borrower->personalNetWorthStat)) {
@@ -222,7 +222,7 @@
                             }
                             break;
                         case 13:
-                            $isCompleted = !empty($borrower->net_worth);
+                            $isCompleted = ($borrower->employment_information);
                             break;
                         case 14:
                             $isCompleted = !empty($borrower->employment_information);

@@ -94,7 +94,7 @@ class GuarantorController extends Controller
                 $path = $request->document_type;
                 $path_attachment_document = $request->file('statement_of_account_attachment_one')->store('soa', 'public');
             }
-            $request->merge(['statement_of_account_attachment' => $path_attachment_document]);
+           // $request->merge(['statement_of_account_attachment' => $path_attachment_document]);
 
             $guarantor->update($request->all());
             DB::commit();

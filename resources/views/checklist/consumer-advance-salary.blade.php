@@ -177,7 +177,8 @@
                                             @endif
 
                                         @elseif($item->sequence_no == 4)
-                                            @if(!empty($borrower->guarantor) && $borrower->guarantor->count() == 2)
+                                        @if(!empty($borrower->guarantor) && $borrower->guarantor->count() >= 2)
+
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
                                                 </svg>
@@ -284,7 +285,7 @@
                                             @endif
 
                                         @elseif($item->sequence_no == 13)
-                                            @if(!empty($borrower->net_worth))
+                                            @if(!empty($borrower->employment_information))
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 mx-auto">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
                                                 </svg>
@@ -394,7 +395,7 @@
 
 
                                                                 @elseif($item->sequence_no == 13)
-                                                                    @if(empty($borrower->net_worth))
+                                                                    @if(empty($borrower->employment_information))
                                                                         <strong> Guarantor Undertaking Missing</strong>
                                                                     @endif
                                                                 @elseif($item->sequence_no == 14)
