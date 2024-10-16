@@ -332,7 +332,7 @@
                                         @elseif($item->sequence_no == 5)
 
                                             @if($borrower->finance_facility_many->isEmpty())
-                                            <strong>  Finance Facility Skipped / Not Filled </strong>
+                                            <strong> Not Applicable</strong>
                                             @endif
 
                                         @elseif($item->sequence_no == 6)
