@@ -558,7 +558,7 @@
                         @endforeach
                     @else
                         <h1 style="color: red; text-align: center; font-size: 20px; font-weight: bold;">
-                            Finance Facility Skipped / Not Filled
+                              Finance Facility is Not Applicable
                         </h1>
                     @endif
 

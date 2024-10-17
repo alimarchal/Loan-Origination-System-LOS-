@@ -10,7 +10,7 @@
                 width: 100%;
                 border-collapse: collapse;
                 margin-bottom: 5px;
-                page-break-inside: avoid; 
+                page-break-inside: avoid;
             }
 
             th, td {
@@ -118,7 +118,7 @@
                         <div class="mb-8">
                             <p>Manager,</p>
                             <p>Bank of Azad Jammu & Kashmir,</p>
-                            <p>{{ $borrower->branch?->name }} - {{ $borrower->branch?->code }} ,  {{ $borrower->branch?->address,  }}</p>
+                            <p>{{ $borrower->branch?->name }} - {{ $borrower->branch?->code }} ,  {{ $borrower->branch?->address}}</p>
                         </div>
 
                         <h2 class="text-lg font-bold text-center mb-6 underline uppercase">EMPLOYER UNDERTAKING</h2>
