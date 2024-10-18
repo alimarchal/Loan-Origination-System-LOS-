@@ -324,7 +324,7 @@
                                                 </div>
                                             @endif
                                         @elseif($item->sequence_no == 4)
-                                            @if(empty($borrower->guarantor) || $borrower->guarantor->count() < 2)
+                                            @if(empty($borrower->guarantor) )
                                                 <div >
                                                     <strong> Guarantor Information Missing</strong>
                                                 </div>
