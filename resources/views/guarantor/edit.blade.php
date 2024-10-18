@@ -130,6 +130,8 @@
                                     <x-input id="ntn" class="block mt-1 w-full" type="text" name="ntn" :value="old('ntn', $guarantor->ntn)" />
                                 </div>
 
+                                @if ($borrower->loan_sub_category->name != 'Advance Salary')
+
 
                                 <div>
                                     <x-label for="nature_of_business" value="Nature of Business" />
@@ -185,6 +187,10 @@
                                     <x-input id="net_annual_income" class="block mt-1 w-full" type="number" step="0.01" min="0" name="net_annual_income" :value="old('net_annual_income', $guarantor->net_annual_income)" />
                                 </div>
                             </div>
+                            @endif
+                            <div></div>
+                            <div></div>
+
 
                             <div class="flex items-center justify-end mt-4">
                                 <x-button class="ml-4" id="submit-btn">Update Guarantor Information</x-button>

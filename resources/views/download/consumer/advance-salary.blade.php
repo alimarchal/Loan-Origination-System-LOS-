@@ -315,7 +315,11 @@
         <td class="font-bold">Next of Kin Mobile Number:</td>
         <td>{{ $borrower->next_of_kin_mobile_number ?? 'N/A' }}</td>
     </tr>
+    <tr>
+        <td class="font-bold">Relation With Next Of Kin:</td>
+        <td colspan="3">{{ $borrower->relation_with_next_of_kin ?? 'N/A' }}</td>
 
+    </tr>
     </tbody>
 </table>
 
@@ -438,11 +442,11 @@
         <tr>
             <td class="font-bold">Repayment Frequency:</td>
             <td>{{ $borrower->applicant_requested_loan_information->repayment_frequency ?? 'N/A' }}</td>
-            <td class="font-bold">Salary Account No:</td>
+            <td class="font-bold">Other Bank Account:</td>
             <td>{{ $borrower->applicant_requested_loan_information->salary_account_no ?? 'N/A' }}</td>
         </tr>
         <tr>
-            <td class="font-bold">Salary Account Branch Name:</td>
+            <td class="font-bold">Other Bank Branch Name:</td>
             <td>{{ $borrower->applicant_requested_loan_information->salary_account_branch_name ?? 'N/A' }}</td>
             <td class="font-bold">Salary Account Bank Name:</td>
             <td>{{ $borrower->applicant_requested_loan_information->salary_account_bank_name ?? 'N/A' }}</td>
@@ -479,36 +483,40 @@
             </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td class="font-bold w-25">Name:</td>
+                    <td class="w-25">{{ $reference->name ?? 'N/A' }}</td>
+                    <td class="font-bold">Relation:</td>
+                    <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
+                </tr>
             <tr>
                 <td class="font-bold w-25">Father/Husband:</td>
-                <td class="w-25">{{ $reference->father_husband ?? 'N/A'}}</td>
+                <td class="w-25">{{ $reference->father_husband ?? 'N/A' }}</td>
                 <td class="font-bold w-25">National ID:</td>
-                <td class="w-25">{{ $reference->national_id ?? 'N/A'}}</td>
+                <td class="w-25">{{ $reference->national_id ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <td class="font-bold">NTN:</td>
-                <td>{{ $reference->ntn }}</td>
+                <td>{{ $reference->ntn ?? 'N/A' }}</td>
                 <td class="font-bold">Date of Birth:</td>
                 <td>{{ isset($reference->date_of_birth) ? \Carbon\Carbon::parse($reference->date_of_birth)->format('d-m-Y') : 'N/A' }}</td>
-
             </tr>
             <tr>
                 <td class="font-bold">Present Address:</td>
-                <td>{{ $reference->present_address ?? 'N/A'}}</td>
+                <td>{{ $reference->present_address ?? 'N/A' }}</td>
                 <td class="font-bold">Permanent Address:</td>
-                <td>{{ $reference->permanent_address ?? 'N/A'}}</td>
+                <td>{{ $reference->permanent_address ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <td class="font-bold">Phone Number:</td>
-                <td>{{ $reference->phone_number?? 'N/A' }}</td>
+                <td>{{ $reference->phone_number ?? 'N/A' }}</td>
                 <td class="font-bold">Mobile Number:</td>
-                <td>{{ $reference->mobile_number?? 'N/A' }}</td>
+                <td>{{ $reference->mobile_number ?? 'N/A' }}</td>
             </tr>
             <tr>
                 <td class="font-bold">Email:</td>
-                <td>{{ $reference->email?? 'N/A' }}</td>
-                <td class="font-bold">Relationship to Borrower:</td>
-                <td>{{ $reference->relationship_to_borrower?? 'N/A' }}</td>
+                <td colspan="3">{{ $reference->email ?? 'N/A' }}</td>
+
             </tr>
 
             </tbody>
@@ -682,7 +690,7 @@
         </tr>
         <tr>
             <th>Description of Items</th>
-            <th>Quantity</th>
+            <th>No Of Item</th>
             <th>Market Value</th>
             <th>Amount</th>
         </tr>
@@ -796,42 +804,7 @@
                 <td class="font-bold">NTN</td>
                 <td>{{ $guarantor->ntn ?? 'N/A' }}</td>
             </tr>
-            <tr>
-                <td class="font-bold">Nature of Business</td>
-                <td>{{ $guarantor->nature_of_business ?? 'N/A' }}</td>
-                <td class="font-bold">Title of Business</td>
-                <td>{{ $guarantor->title_of_business ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Major Business Activities</td>
-                <td>{{ $guarantor->major_business_activities ?? 'N/A' }}</td>
-                <td class="font-bold">Exact Location of Business Place</td>
-                <td>{{ $guarantor->exact_location_of_business_place ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Business Bank Account Maintained</td>
-                <td>{{ $guarantor->business_bank_account_maintained ?? 'N/A' }}</td>
-                <td class="font-bold">Statement of Account Attachment</td>
-                <td>{{ $guarantor->statement_of_account_attachment ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Net Worth</td>
-                <td>{{ $guarantor->net_worth ?? 'N/A' }}</td>
-                <td class="font-bold">Business Registration Number</td>
-                <td>{{ $guarantor->business_registration_number ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Annual Revenue</td>
-                <td>{{ $guarantor->annual_revenue ?? 'N/A' }}</td>
-                <td class="font-bold">Annual Expenses</td>
-                <td>{{ $guarantor->annual_expenses ?? 'N/A' }}</td>
-            </tr>
-            <tr>
-                <td class="font-bold">Net Annual Income</td>
-                <td>{{ $guarantor->net_annual_income ?? 'N/A' }}</td>
-                <td class="font-bold">BPS/SPS No</td>
-                <td>{{ $guarantor->bps_sps_no ?? 'N/A' }}</td>
-            </tr>
+
             <tr>
                 <td class="font-bold">Date of Joining</td>
                 <td>{{ isset($guarantor->date_of_joining) ? \Carbon\Carbon::parse($guarantor->date_of_joining)->format('d-m-Y') : 'N/A' }}</td>
@@ -1081,6 +1054,12 @@
                             </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td class="font-bold w-25">Name:</td>
+                                    <td class="w-25">{{ $reference->name ?? 'N/A' }}</td>
+                                    <td class="font-bold">Relation:</td>
+                                    <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
+                                </tr>
                             <tr>
                                 <td class="font-bold w-25">Father/Husband:</td>
                                 <td class="w-25">{{ $reference->father_husband ?? 'N/A' }}</td>
@@ -1107,13 +1086,8 @@
                             </tr>
                             <tr>
                                 <td class="font-bold">Email:</td>
-                                <td>{{ $reference->email ?? 'N/A' }}</td>
-                                <td class="font-bold">Designation:</td>
-                                <td>{{ $reference->designation ?? 'N/A' }}</td>
-                            </tr>
-                            <tr>
-                                <td class="font-bold">Relationship to Borrower:</td>
-                                <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
+                                <td colspan="3">{{ $reference->email ?? 'N/A' }}</td>
+
                             </tr>
 
                             </tbody>

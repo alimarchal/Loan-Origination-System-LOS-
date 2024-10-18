@@ -137,19 +137,26 @@
                             <span>{{ $borrower->gender == "Male" ? "His" : "Her" }} date of appointment is</span>
                             <span class="inline-block w-32 border-b border-black mx-1"></span>
                             <span>and date of retirement is</span>
-                            <span class="inline-block w-32 border-b border-black mx-1"></span>
-                            <span>and remaining period for</span>
-                            <span class="inline-block w-32 border-b border-black mx-1"></span>
-                            <span>retirement from service is</span>
-                            <span class="inline-block w-32 border-b border-black mx-1"></span>
+                            <strong>
+                            <span>
+                                {{ $borrower->date_of_birth ? \Carbon\Carbon::parse($borrower->date_of_birth)->addYears(60)->format('d-m-Y') : 'N/A' }}
+                            </span>
+                            </strong>
+
+                            <span>and remaining period for retirement from service is</span>
+                            <span>{{ isset($borrower->employment_information->remaining_service_years) ? number_format($borrower->employment_information->remaining_service_years, 0) : 'N/A' }}</span>
+                            <span>years and </span>
+                            <span>{{ $borrower->employment_information->remaining_service_months !== null ? number_format($borrower->employment_information->remaining_service_months, 0) : 'N/A' }}</span>
+                            <span>months. </span>
                         </div>
                         <p class="mb-4 text-justify">
                             The Department hereby irrevocably undertake that <strong> {{ $borrower->gender == "Male"? "his ": "her" }} salary will be routed through account #</strong>
-                            <span class="inline-block w-32 border-b border-black"></span>
+                          <strong> <span>{{ $borrower->applicant_requested_loan_information->salary_account_no ?? 'N/A' }}</span></strong>
                             <strong>maintained at your</strong>
-                            <span class="inline-block w-32 border-b border-black"></span>
-                            <strong>branch</strong> and no direct payment of salary will be made to him/her or through any other Bank till the loan facility sanctioned by you to him along with markup thereon is fully adjusted/ repaid to you and <strong>lien is marked on {{ $borrower->gender == "Male"? "his ": "her" }}  terminal benefits (exiting & future)</strong> till full adjustment of the Bank's entire dues.
+                           <strong><span> {{ $borrower->applicant_requested_loan_information->salary_account_bank_name ?? 'N/A' }}</span></strong>
+                            <strong>{{ $borrower->applicant_requested_loan_information->salary_account_branch_name ?? 'N/A' }} branch</strong> and no direct payment of salary will be made to him/her or through any other Bank till the loan facility sanctioned by you to him along with markup thereon is fully adjusted/ repaid to you and <strong>lien is marked on {{ $borrower->gender == "Male"? "his ": "her" }}  terminal benefits (exiting & future)</strong> till full adjustment of the Bank's entire dues.
                         </p>
+
 
                         <p class="mb-4 text-justify">
                             We also undertake that {{ $borrower->gender == "Male"? "his ": "her" }}  salary will not be transferred to any other Banks / Branch and these will only be paid through above-mentioned salary account and no other mode of payment/method will be allowed by us unless prior N.O.C is obtained from BAJK branch manager/authorized signatory.

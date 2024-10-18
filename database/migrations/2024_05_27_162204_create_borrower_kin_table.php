@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('authorizer_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('next_of_kin')->nullable(); // Name of the borrower's next of kin
             $table->string('mobile_next_of_kin')->nullable(); // Mobile number of the borrower's next of kin
+            $table->string('relation_with_next_of_kin')->nullable(); // relation of borrower's with next of kin
+
             $table->timestamps();
         });
     }

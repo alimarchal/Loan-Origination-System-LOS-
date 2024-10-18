@@ -145,9 +145,9 @@
                         </div>
                         <p class="mb-4 text-justify">
                             The Department hereby irrevocably undertake that <strong> {{ $borrower->gender == "Male"? "his ": "her" }} salary will be routed through account #</strong>
-                            <span class="inline-block w-32 border-b border-black"></span>
+                            <span>{{ $borrower->applicant_requested_loan_information->salary_account_no ?? 'N/A' }}</span>
                             <strong>maintained at your</strong>
-                            <span class="inline-block w-32 border-b border-black"></span>
+                            <span>{{ $borrower->applicant_requested_loan_information->salary_account_branch_name ?? 'N/A' }}</span>
                             <strong>branch</strong> and no direct payment of salary will be made to him/her or through any other Bank till the loan facility sanctioned by you to him along with markup thereon is fully adjusted/ repaid to you and <strong>lien is marked on {{ $borrower->gender == "Male"? "his ": "her" }}  terminal benefits (exiting & future)</strong> till full adjustment of the Bank's entire dues.
                         </p>
 

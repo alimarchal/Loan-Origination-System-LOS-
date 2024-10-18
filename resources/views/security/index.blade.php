@@ -51,42 +51,43 @@
                                         </td>
 
                                         <td class="py-1 px-2 text-center">
-                                            {{ $security->amount }}
+                                            {{ $security->amount ?? 'N/A' }}
+                                        </td>
+
+
+                                        <td class="py-1 px-2 text-center">
+                                            {{ $security->name_of_guarantor ??'N/A' }}
                                         </td>
 
                                         <td class="py-1 px-2 text-center">
-                                            {{ $security->name_of_guarantor }}
+                                            {{ $security->post_dated_cheques ?? 'N/A' }}
                                         </td>
 
                                         <td class="py-1 px-2 text-center">
-                                            {{ $security->post_dated_cheques }}
-                                        </td>
-
-                                        <td class="py-1 px-2 text-center">
-                                            {{ $security->cheques_obtained }}
+                                            {{ $security->cheques_obtained ?? 'N/A' }}
                                         </td>
 
                                         @else
                                         <td class="py-1 px-2 text-center">
-                                            {{ $security->value_of_gold_ornaments_value }}
+                                            {{ $security->value_of_gold_ornaments_value?? 'N/A'  }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
-                                            {{ $security->gross_weight_of_gold }}
+                                            {{ $security->gross_weight_of_gold ?? 'N/A' }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
-                                            {{ $security->market_value }}
+                                            {{ $security->market_value?? 'N/A'  }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
-                                            {{ $security->ownership }}
+                                            {{ $security->ownership ?? 'N/A' }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
-                                            {{ $security->lien_amount }}
+                                            {{ $security->lien_amount?? 'N/A'  }}
                                         </td>
                                         @endif
 
 
                                         <td class="py-1 px-2 text-center">
-                                            {{ $security->remarks }}
+                                            {{ $security->remarks ?? 'N/A' }}
                                         </td>
                                         <td class="py-1 px-2 text-center">
                                             {{ $security->is_authorize }}

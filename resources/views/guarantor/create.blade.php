@@ -128,31 +128,6 @@
                                 </div>
 
                                 <div>
-                                    <x-label for="nature_of_business" value="Nature of Business" />
-                                    <x-input id="nature_of_business" class="block mt-1 w-full" type="text" name="nature_of_business" :value="old('nature_of_business')" />
-                                </div>
-
-                                <div>
-                                    <x-label for="title_of_business" value="Title of Business" />
-                                    <x-input id="title_of_business" class="block mt-1 w-full" type="text" name="title_of_business" :value="old('title_of_business')" />
-                                </div>
-
-                                <div>
-                                    <x-label for="major_business_activities" value="Major Business Activities" />
-                                    <x-input id="major_business_activities" class="block mt-1 w-full" type="text" name="major_business_activities" :value="old('major_business_activities')" />
-                                </div>
-
-                                <div>
-                                    <x-label for="exact_location_of_business_place" value="Exact Location of Business Place" />
-                                    <x-input id="exact_location_of_business_place" class="block mt-1 w-full" type="text" name="exact_location_of_business_place" :value="old('exact_location_of_business_place')" />
-                                </div>
-
-                                <div>
-                                    <x-label for="business_bank_account_maintained" value="Business Bank Account Maintained" />
-                                    <x-input id="business_bank_account_maintained" class="block mt-1 w-full" type="text" name="business_bank_account_maintained" :value="old('business_bank_account_maintained')" />
-                                </div>
-
-                                <div>
                                     <x-label for="annual_turnover" value="Annual Turnover" />
                                     <x-input id="annual_turnover" class="block mt-1 w-full" type="number" step="0.01" min="0" name="annual_turnover" :value="old('annual_turnover')" />
                                 </div>
@@ -201,6 +176,33 @@
                                     <x-input id="no_of_dependents" class="block mt-1 w-full" type="number" min="0" name="no_of_dependents" :value="old('no_of_dependents')" />
                                 </div>
 
+                                @if ($borrower->loan_sub_category->name != 'Advance Salary')
+
+                                <div>
+                                    <x-label for="nature_of_business" value="Nature of Business" />
+                                    <x-input id="nature_of_business" class="block mt-1 w-full" type="text" name="nature_of_business" :value="old('nature_of_business')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="title_of_business" value="Title of Business" />
+                                    <x-input id="title_of_business" class="block mt-1 w-full" type="text" name="title_of_business" :value="old('title_of_business')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="major_business_activities" value="Major Business Activities" />
+                                    <x-input id="major_business_activities" class="block mt-1 w-full" type="text" name="major_business_activities" :value="old('major_business_activities')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="exact_location_of_business_place" value="Exact Location of Business Place" />
+                                    <x-input id="exact_location_of_business_place" class="block mt-1 w-full" type="text" name="exact_location_of_business_place" :value="old('exact_location_of_business_place')" />
+                                </div>
+
+                                <div>
+                                    <x-label for="business_bank_account_maintained" value="Business Bank Account Maintained" />
+                                    <x-input id="business_bank_account_maintained" class="block mt-1 w-full" type="text" name="business_bank_account_maintained" :value="old('business_bank_account_maintained')" />
+                                </div>
+
 
                                 <div>
                                     <x-label for="net_worth" value="Net Worth" />
@@ -226,6 +228,7 @@
                                     <x-label for="net_annual_income" value="Net Annual Income" />
                                     <x-input id="net_annual_income" class="block mt-1 w-full" type="number" step="0.01" min="0" name="net_annual_income" :value="old('net_annual_income')" />
                                 </div>
+                                @endif
                             </div>
                             </div>
 

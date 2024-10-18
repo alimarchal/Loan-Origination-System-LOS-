@@ -52,6 +52,7 @@ return new class extends Migration {
             $table->string('nationality')->nullable(); // Nationality (optional)
             $table->string('next_of_kin_name')->nullable(); // Next of kin name (optional)
             $table->string('next_of_kin_mobile_number')->nullable(); // Next of kin mobile number (optional)
+            $table->string('relation_with_next_of_kin')->nullable(); // relation of borrower's with next of kin
 
             $table->string('nadra_verification_for_signature')->nullable();
             $table->date('signature_date')->nullable();

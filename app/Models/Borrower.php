@@ -55,6 +55,7 @@ class Borrower extends Model
         'nationality',
         'next_of_kin_name',
         'next_of_kin_mobile_number',
+         'relation_with_next_of_kin',
         'business_name',
         'business_address',
         'business_contact_number',

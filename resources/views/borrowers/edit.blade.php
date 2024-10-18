@@ -276,6 +276,14 @@
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="next_of_kin_mobile_number" type="text" name="next_of_kin_mobile_number"  value="{{ $borrower->next_of_kin_mobile_number }}" required="required">
                                 </div>
 
+                                <div>
+                                    <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="relation_with_next_of_kin">
+                                        Relation With Next Of Kin
+                                        <span class="text-red-700">*</span>
+                                    </label>
+                                    <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="relation_with_next_of_kin" type="text" name="relation_with_next_of_kin"  value="{{ $borrower->relation_with_next_of_kin }}" required="required">
+                                </div>
+
 
                             </div>
 

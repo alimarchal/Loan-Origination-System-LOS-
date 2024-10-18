@@ -103,12 +103,12 @@
                                             </div>
 
                                             <div>
-                                                <x-label for="salary_account_no" value="Salary Account No"/>
+                                                <x-label for="salary_account_no" value="Other Bank Account"/>
                                                 <x-input id="salary_account_no" class="block mt-1 w-full" type="text" name="salary_account_no" :value="old('salary_account_no', $borrower->applicant_requested_loan_information?->salary_account_no)"/>
                                             </div>
 
                                             <div>
-                                                <x-label for="salary_account_branch_name" value="Salary Account Branch Name"/>
+                                                <x-label for="salary_account_branch_name" value="Other Bank Branch Name"/>
                                                 <x-input id="salary_account_branch_name" class="block mt-1 w-full" type="text" name="salary_account_branch_name" :value="old('salary_account_branch_name', $borrower->applicant_requested_loan_information?->salary_account_branch_name)"/>
                                             </div>
 
@@ -120,12 +120,8 @@
                                             <div>
                                                 <x-label for="account_with_bajk" value="BAJK Account #"/>
                                                 <x-input id="account_with_bajk" class="block mt-1 w-full" type="text" name="account_with_bajk" :value="old('account_with_bajk', $borrower->applicant_requested_loan_information?->account_with_bajk)"/>
-                                            </div>
+                                                </div>
 
-                                            <div>
-                                                <x-label for="account_with_other_banks" value="Other Bank Account #"/>
-                                                <x-input id="account_with_other_banks" class="block mt-1 w-full" type="text" name="account_with_other_banks" :value="old('account_with_other_banks', $borrower->applicant_requested_loan_information?->account_with_other_banks)"/>
-                                            </div>
 
                                             <div>
                                                 <x-label for="markup_rate_type" value="Markup Rate Type"/>
@@ -175,6 +171,7 @@
                                             </div>
 
 
+                                            <div></div>
                                             <div></div>
                                             <div></div>
                                             <div></div>

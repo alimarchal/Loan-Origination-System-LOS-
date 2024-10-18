@@ -28,15 +28,9 @@
                                     <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" />
                                 </div>
 
-
                                 <div>
-                                    <x-label for="relationship_to_borrower" value="Relationship to Borrower" />
-                                    <select name="relationship_to_borrower" id="relationship_to_borrower" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full">
-                                        <option value="">Select an option</option>
-                                        @foreach(\App\Models\Status::orderBy('status')->where('status','relationship_to_borrower')->where('loan_sub_category_id',$borrower->loan_sub_category_id)->get() as $item)
-                                            <option value="{{ $item->id }}" {{ $borrower->loan_category_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <x-label for="relationship_to_borrower" value="Relation" />
+                                    <x-input id="relationship_to_borrower" class="block mt-1 w-full" type="text" name="relationship_to_borrower" :value="old('relationship_to_borrower')" />
                                 </div>
 
 

@@ -21,7 +21,7 @@
                                 <tr class="bg-bank-green text-white uppercase text-sm">
                                     <th class="py-2 px-2 text-center">ID</th>
                                     <th class="py-2 px-2 text-center">Description</th>
-                                    <th class="py-2 px-2 text-center">Quantity</th>
+                                    <th class="py-2 px-2 text-center">No Of Item</th>
                                     <th class="py-2 px-2 text-center">Market Value</th>
                                     <th class="py-2 px-2 text-center">Amount</th>
                                     <th class="py-2 px-2 text-center">Authorized</th>

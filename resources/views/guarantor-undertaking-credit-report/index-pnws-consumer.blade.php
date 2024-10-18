@@ -261,6 +261,9 @@
                             </div>
                         @endforeach
                     </div>
+                    <strong>
+                     I solemnly declare that the above particulars / declaration in respect of the Liabilities / Assets are correct and there is no concealment. I further declare that I have not been defaulter / availed write-off or waiver from any bank in the past.
+                </strong>
                 </div>
             </div>
         </div>

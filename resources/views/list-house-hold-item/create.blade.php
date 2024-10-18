@@ -29,7 +29,7 @@
                                 </div>
 
                                 <div>
-                                    <x-label for="quantity" value="Quantity" />
+                                    <x-label for="quantity" value="No Of Item" />
                                     <x-input id="quantity" class="block mt-1 w-full" type="number" name="quantity" :value="old('quantity')" step="0.01" required />
                                 </div>
 
