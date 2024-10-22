@@ -123,19 +123,17 @@
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="ntn">
                                         NTN
-                                        <span class="text-red-700">*</span>
                                     </label>
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="ntn"
-                                           type="text" name="ntn" value="{{ $borrower->ntn }}" required>
+                                           type="text" name="ntn" value="{{ $borrower->ntn }}">
                                 </div>
 
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="parent_spouse_national_id_cnic">
                                         Parent/Spouse/CEO/Director/CNIC
-                                        <span class="text-red-700">*</span>
                                     </label>
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="parent_spouse_national_id_cnic"
-                                           type="text" name="parent_spouse_national_id_cnic" value="{{ $borrower->parent_spouse_national_id_cnic }}" required>
+                                           type="text" name="parent_spouse_national_id_cnic" value="{{ $borrower->parent_spouse_national_id_cnic }}" >
                                 </div>
 
 
@@ -143,10 +141,9 @@
                                 <div>
                                     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="email">
                                         Email
-                                        <span class="text-red-700">*</span>
                                     </label>
                                     <input class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" id="email" type="email"
-                                           name="email" value="{{ $borrower->email }}" required>
+                                           name="email" value="{{ $borrower->email }}" >
                                 </div>
 
 
