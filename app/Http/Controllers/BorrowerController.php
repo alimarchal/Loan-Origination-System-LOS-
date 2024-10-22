@@ -435,7 +435,7 @@ class BorrowerController extends Controller implements HasMiddleware
         $filename = 'borrower_' . $borrower->id . '_' . time() . '.pdf';
 
         // Save the PDF to storage
-        Storage::put('borrower_pdfs/' . $filename, $mpdf->Output('', 'S'));
+//        Storage::put('borrower_pdfs/' . $filename, $mpdf->Output('', 'S'));
 
         // Output the PDF for download
         return response($mpdf->Output($filename, 'S'))
