@@ -1541,10 +1541,14 @@
 
                                         @if(!empty($borrower->sanction_advice))
                                             {{--
-                                            || $borrower->sanction_advice->is_lock == "Yes" && $currentUserRole == "Regional Credit Manager"
+                                            || $borrower->sanction_advice->is_lock == "Yes" && $currentUserRole == "Divisional Head CMD"Senior Manager CMD
                                             --}}
-                                            @if($borrower->sanction_advice->is_lock == "Yes" && $currentUserRole == "Regional Credit Manager")
-                                                @foreach(\App\Models\LoanStatus::whereIn('name',['Approved'])->orderBy('name','ASC')->get() as $lsh)
+                                        @if(
+                                           ($borrower->sanction_advice->is_lock == "Yes" && $currentUserRole == "Regional Credit Manager") ||
+                                           ($borrower->sanction_advice->is_lock == "Yes" && $currentUserRole == "Divisional Head CMD") ||
+                                           ($borrower->sanction_advice->is_lock == "Yes" && $currentUserRole == "Senior Manager CMD")
+                                          )
+                                        @foreach(\App\Models\LoanStatus::whereIn('name',['Approved'])->orderBy('name','ASC')->get() as $lsh)
                                                     <option value="{{ $lsh->id }}" {{ $lsh->name == "In Process" ?'selected':'' }}>{{ $lsh->name }}</option>
                                                 @endforeach
                                             @endif
