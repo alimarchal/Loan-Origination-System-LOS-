@@ -59,7 +59,7 @@ class OscfOptSeeder extends Seeder
             ['obligor_score_card_factor_id' => '10', 'options' => 'More than 04 time arrears', 'score_available' => '0'],
             ['obligor_score_card_factor_id' => '11', 'options' => 'Multiple source of Income', 'score_available' => '6'],
             ['obligor_score_card_factor_id' => '11', 'options' => 'Salary / Rentals /any other verifiable', 'score_available' => '5'],
-            ['obligor_score_card_factor_id' => '11', 'options' => 'Salary / Rentals Salary', 'score_available' => '4'],
+            ['obligor_score_card_factor_id' => '11', 'options' => 'Salary', 'score_available' => '4'],
             ['obligor_score_card_factor_id' => '12', 'options' => 'No overdue', 'score_available' => '6'],
             ['obligor_score_card_factor_id' => '12', 'options' => '10 Days (Days Past Due)', 'score_available' => '0'],
             ['obligor_score_card_factor_id' => '12', 'options' => '60 Days (Days Past Due)', 'score_available' => '-6'],

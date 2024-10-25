@@ -8,6 +8,7 @@ use App\Models\LoanStatus;
 use App\Models\LoanCategory;
 use App\Models\Branch;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
@@ -18,17 +19,15 @@ class DashboardController extends Controller
         $user = Auth::user();
 
         // Fetch data for dashboard components
-        $loanSubCatGroup = $this->getLoanSubCategoryGroup();
+        //  $loanSubCatGroup = $this->getLoanSubCategoryGroup();
         $genderWise = $this->getGenderWiseData();
         $primaryCards = $this->getPrimaryCards($user);
         $secondaryCards = $this->getSecondaryCards($user);
 
         // Get branches (if needed in the future)
         $branches = [];
-
-
         // Return view with compact data
-        return view('dashboard.dashboard', compact('primaryCards', 'secondaryCards', 'branches', 'loanSubCatGroup', 'genderWise'));
+        return view('dashboard.dashboard', compact('primaryCards', 'secondaryCards', 'branches', 'genderWise'));
     }
 
     /**
@@ -61,7 +60,10 @@ class DashboardController extends Controller
             return 0;
         })->toArray();
 
+
         $query = $this->getBorrowerQueryBasedOnRole($user);
+
+
 
         foreach ($primaryCards as $key => $value) {
             $primaryCards[$key] = $query->where('loan_category_id', $key)->count();
@@ -80,12 +82,12 @@ class DashboardController extends Controller
         })->toArray();
 
         $query = $this->getBorrowerQueryBasedOnRole($user);
+        $counts = $query->groupBy('status')
+            ->selectRaw('status, count(*) as count')
+            ->pluck('count', 'status')
+            ->toArray();
 
-        foreach ($secondaryCards as $key => $value) {
-            $secondaryCards[$key] = $query->where('status', $key)->count();
-        }
-
-        return $secondaryCards;
+        return array_merge($secondaryCards, $counts);
     }
 
     /**
@@ -100,7 +102,7 @@ class DashboardController extends Controller
         } elseif ($user->hasRole(['Regional Credit Manager', 'Regional Credit Officer', 'Regional Head'])) {
             $regionBranches = Branch::where('region_id', $user->branch->region_id)->pluck('id');
             $query->whereIn('branch_id', $regionBranches);
-        } elseif ($user->hasRole(['Divisional Head CRBD', 'Senior Manager CRBD', 'Manager Officer CRBD', 'Divisional Head CMD', 'Senior Manager CMD', 'Manager Officer CMD', 'Super-Admin'])) {
+        } elseif ($user->hasRole(['Divisional Head CRBD', 'Senior Manager CRBD', 'Manager Officer CRBD', 'Divisional Head CMD', 'Senior Manager CMD', 'Manager Officer CMD', 'Super Admin'])) {
             $allBranches = Branch::all()->pluck('id')->toArray();
             $query->whereIn('branch_id', $allBranches);
         } else {
@@ -111,27 +113,4 @@ class DashboardController extends Controller
         return $query;
     }
 
-    /**
-     * Define the roles and their corresponding permissions
-     */
-    public static function defineRoles()
-    {
-        // Branch level roles
-        $branchRoles = ['Branch Manager', 'Branch Credit Manager', 'Branch Credit Officer'];
-        foreach ($branchRoles as $role) {
-            Role::firstOrCreate(['name' => $role])->givePermissionTo('view branch data');
-        }
-
-        // Regional level roles
-        $regionalRoles = ['Regional Credit Manager', 'Regional Credit Officer', 'Regional Head'];
-        foreach ($regionalRoles as $role) {
-            Role::firstOrCreate(['name' => $role])->givePermissionTo('view regional data');
-        }
-
-        // Division and higher level roles
-        $divisionRoles = ['Divisional Head CRBD', 'Senior Manager CRBD', 'Manager Officer CRBD', 'Divisional Head CMD', 'Senior Manager CMD', 'Manager Officer CMD', 'Super-Admin'];
-        foreach ($divisionRoles as $role) {
-            Role::firstOrCreate(['name' => $role])->givePermissionTo('view all data');
-        }
-    }
 }

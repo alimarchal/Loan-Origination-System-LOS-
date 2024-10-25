@@ -212,6 +212,17 @@ class StatusSeeder extends Seeder
 
 
 
+            // Gold
+            ['name' => 'Male', 'status' => 'gender', 'loan_sub_category_id' => 2],
+            ['name' => 'Female', 'status' => 'gender', 'loan_sub_category_id' => 2],
+            ['name' => 'Single', 'status' => 'marital_status', 'loan_sub_category_id' => 2],
+            ['name' => 'Married', 'status' => 'marital_status', 'loan_sub_category_id' => 2],
+            ['name' => 'Widow', 'status' => 'marital_status', 'loan_sub_category_id' => 2],
+            ['name' => 'Divorced', 'status' => 'marital_status', 'loan_sub_category_id' => 2],
+            ['name' => 'S/O', 'status' => 'relationship_status', 'loan_sub_category_id' => 2],
+            ['name' => 'W/O', 'status' => 'relationship_status', 'loan_sub_category_id' => 2],
+            ['name' => 'D/O', 'status' => 'relationship_status', 'loan_sub_category_id' => 2],
+
 
 
         ];
