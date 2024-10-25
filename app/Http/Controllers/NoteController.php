@@ -58,6 +58,7 @@ class NoteController extends Controller
 
                 $borrower->status = $lsh->loan_status->name;
 
+                // salary
                 if ($lsh->loan_status_id == 2){
                     $borrower->is_lock = "No";
                     $borrower->pending_at_region = "No";

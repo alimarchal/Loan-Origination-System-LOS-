@@ -528,7 +528,7 @@
                         @endforeach
                     @else
                         <h1 style="color: red; text-align: center; font-size: 20px; font-weight: bold;">
-                              Finance Facility is Not Applicable
+                            Finance Facility is Not Applicable
                         </h1>
                     @endif
 
@@ -615,12 +615,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="font-bold w-25">Name:</td>
-                                        <td class="w-25">{{ $reference->name ?? 'N/A' }}</td>
-                                        <td class="font-bold">Relation:</td>
-                                        <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
-                                    </tr>
+                                <tr>
+                                    <td class="font-bold w-25">Name:</td>
+                                    <td class="w-25">{{ $reference->name ?? 'N/A' }}</td>
+                                    <td class="font-bold">Relation:</td>
+                                    <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
+                                </tr>
                                 <tr>
                                     <td class="font-bold w-25">Father/Husband:</td>
                                     <td class="w-25">{{ $reference->father_husband ?? 'N/A' }}</td>
@@ -884,12 +884,12 @@
                                                     <th colspan="4" class="text-center">References # {{ $index + 1 }}</th>
                                                 </tr>
                                                 <tbody>
-                                                    <tr>
-                                                        <td class="font-bold w-25">Name:</td>
-                                                        <td class="w-25">{{ $reference->name ?? 'N/A' }}</td>
-                                                        <td class="font-bold">Relation:</td>
-                                                        <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
-                                                    </tr>
+                                                <tr>
+                                                    <td class="font-bold w-25">Name:</td>
+                                                    <td class="w-25">{{ $reference->name ?? 'N/A' }}</td>
+                                                    <td class="font-bold">Relation:</td>
+                                                    <td colspan="3">{{ $reference->relationship_to_borrower ?? 'N/A' }}</td>
+                                                </tr>
                                                 <tr>
                                                     <td class="font-bold w-25">Father/Husband:</td>
                                                     <td class="w-25">{{ $reference->father_husband ?? 'N/A' }}</td>
@@ -1532,11 +1532,23 @@
 
                                 <div>
                                     <x-label for="loan_status_id" value="{{ __('Loan Status') }}"/>
+
                                     <select name="loan_status_id" id="loan_status_id" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
                                         <option value="">Select an option</option>
                                         @foreach(\App\Models\LoanStatus::whereNotIn('name',['Submitted','Draft','Approved'])->orderBy('name','ASC')->get() as $lsh)
                                             <option value="{{ $lsh->id }}" {{ $lsh->name == "In Process" ?'selected':'' }}>{{ $lsh->name }}</option>
                                         @endforeach
+
+                                        @if(!empty($borrower->sanction_advice))
+                                            {{--
+                                            || $borrower->sanction_advice->is_lock == "Yes" && $currentUserRole == "Regional Credit Manager"
+                                            --}}
+                                            @if($borrower->sanction_advice->is_lock == "Yes" && $currentUserRole == "Regional Credit Manager")
+                                                @foreach(\App\Models\LoanStatus::whereIn('name',['Approved'])->orderBy('name','ASC')->get() as $lsh)
+                                                    <option value="{{ $lsh->id }}" {{ $lsh->name == "In Process" ?'selected':'' }}>{{ $lsh->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        @endif
                                     </select>
                                 </div>
 
@@ -1568,30 +1580,30 @@
 
 
                             @can('sanctions advice create')
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div>
 
-                                    <a href="{{ route('sanction-advice.create', $borrower->id) }}" class="inline-flex items-center float-right px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 disabled:opacity-50 transition ease-in-out duration-150">
-                                        Create Sanction Advice
-                                    </a>
+                                        <a href="{{ route('sanction-advice.create', $borrower->id) }}" class="inline-flex items-center float-right px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 disabled:opacity-50 transition ease-in-out duration-150">
+                                            Create Sanction Advice
+                                        </a>
 
-{{--                                    --}}
-{{--                                    @if(!empty($borrower->sanction_advice))--}}
-{{--                                        <a href="{{ route('sanction-advice.create', $borrower->id) }}" class="inline-flex items-center float-right px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 disabled:opacity-50 transition ease-in-out duration-150">--}}
-{{--                                            Create Sanction Advice--}}
-{{--                                        </a>--}}
-{{--                                    @else--}}
-{{--                                        <a href="{{ route('sanction-advice.edit', [$borrower->sanction_advice->id, $borrower->id]) }}" class="inline-flex items-center float-right px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 disabled:opacity-50 transition ease-in-out duration-150">--}}
-{{--                                            Edit Sanction Advice--}}
-{{--                                        </a>--}}
-{{--                                    @endif--}}
+                                        {{--                                    --}}
+                                        {{--                                    @if(!empty($borrower->sanction_advice))--}}
+                                        {{--                                        <a href="{{ route('sanction-advice.create', $borrower->id) }}" class="inline-flex items-center float-right px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 disabled:opacity-50 transition ease-in-out duration-150">--}}
+                                        {{--                                            Create Sanction Advice--}}
+                                        {{--                                        </a>--}}
+                                        {{--                                    @else--}}
+                                        {{--                                        <a href="{{ route('sanction-advice.edit', [$borrower->sanction_advice->id, $borrower->id]) }}" class="inline-flex items-center float-right px-4 py-2 bg-green-800 dark:bg-green-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-green-800 uppercase tracking-widest hover:bg-green-700 dark:hover:bg-white focus:bg-green-700 dark:focus:bg-white active:bg-green-900 dark:active:bg-green-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-green-800 disabled:opacity-50 transition ease-in-out duration-150">--}}
+                                        {{--                                            Edit Sanction Advice--}}
+                                        {{--                                        </a>--}}
+                                        {{--                                    @endif--}}
 
+                                    </div>
                                 </div>
-                            </div>
-                            <br>
+                                <br>
                             @endcan
 
 
@@ -1616,10 +1628,6 @@
                     </div>
 
                 @endif
-
-
-
-
 
             @endcan
         </div>
