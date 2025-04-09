@@ -139,7 +139,8 @@ class BorrowerController extends Controller implements HasMiddleware
         try {
             $borrower = Borrower::create([
                 'user_id' => $request->user_id,
-                'credit_reporting_id' => $request->credit_reporting_id,
+                // 'credit_reporting_id' => $request->credit_reporting_id,
+                'credit_reporting_id' => 'nullable|string', // Allow empty or text input
                 'authorizer_id' => NULL,
                 'region_id' => $request->region_id,
                 'branch_id' => $request->branch_id,
