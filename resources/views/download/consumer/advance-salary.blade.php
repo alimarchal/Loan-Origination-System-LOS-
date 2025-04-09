@@ -150,7 +150,7 @@
         <br>
         LOAN ID: {{ $borrower->id }}
         <br>
-        REQUESTED LOAN AMOUNT: {{ $borrower->applicant_requested_loan_information->requested_amount }}
+        REQUESTED LOAN AMOUNT: {{ $borrower->applicant_requested_loan_information?->requested_amount }}
     </h4>
 </div>
 

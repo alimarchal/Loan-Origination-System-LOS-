@@ -26,7 +26,7 @@ class StoreBorrowerRequest extends FormRequest
 //            'authorizer_id' => 'required|integer',
 //            'region_id' => 'required|integer',
 //            'branch_id' => 'required|integer',
-           'credit_reporting_id' => 'nullable|string',
+            'credit_reporting_id' => 'nullable|integer',
             'borrower_type' => 'required|string|max:255',
 //            'date_registered' => 'required|date',
             'loan_category_id' => 'required|integer',
