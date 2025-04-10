@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -217,18 +218,133 @@ class PermissionsDemoSeeder extends Seeder
             $user->syncPermissions($rolePermissions);
         }
 
+
+        // Get the permission arrays from your roles definition
+        $branchManagerPermissions = $roles['Branch Manager'];
+        $branchCreditManagerPermissions = $roles['Branch Credit Manager'];
+        foreach (Branch::where('id', '>', 1)->get() as $branch) {
+
+            $role_bm = Role::findByName('Branch Manager');
+            $role_cm = Role::findByName('Branch Credit Manager');
+            $branch_manager = User::create([
+                'name' => 'Branch Manager ' . $branch->code,
+                'branch_id' => $branch->id,
+                'email' => 'manager' . $branch->code . '@bankajk.com',
+                'password' => Hash::make('password123'),
+            ]);
+            $branch_manager->assignRole($role_bm);
+            $branch_manager->syncPermissions($branchManagerPermissions);
+
+
+
+            $branch_credit_manager = User::create([
+                'name' => 'Credit Manager ' . $branch->code,
+                'branch_id' => $branch->id,
+                'email' => 'cm' . $branch->code . '@bankajk.com',
+                'password' => Hash::make('password123'),
+            ]);
+            $branch_credit_manager->assignRole($role_cm);
+            $branch_credit_manager->syncPermissions($branchCreditManagerPermissions);
+
+
+        }
+
+
+        // Get the permission arrays from your roles definition
+        $regionalCreditManagerPermissions = $roles['Regional Credit Manager'];
+        $regionalCreditOfficerPermissions = $roles['Regional Credit Officer'];
+        $regionalHeadPermissions = $roles['Regional Head'];
+
+// Find roles
+        $regional_credit_manager = Role::findByName('Regional Credit Manager');
+        $regional_credit_officer = Role::findByName('Regional Credit Officer');
+        $regional_head = Role::findByName('Regional Head');
+
+// Create and assign for Muzaffarabad
+        $regional_credit_manager_muzaffarabad = User::create([
+            'name' => 'Regional Credit Manager',
+            'branch_id' => 1,
+            'email' => 'rcm.mzd' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_credit_manager_muzaffarabad->assignRole($regional_credit_manager);
+        $regional_credit_manager_muzaffarabad->syncPermissions($regionalCreditManagerPermissions);
+
+        $regional_credit_officer_muzaffarabad = User::create([
+            'name' => 'Regional Credit Officer MZD',
+            'branch_id' => 1,
+            'email' => 'rcm.mzd.officer' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_credit_officer_muzaffarabad->assignRole($regional_credit_officer);
+        $regional_credit_officer_muzaffarabad->syncPermissions($regionalCreditOfficerPermissions);
+
+// Create and assign for Rawalakot/Mirpur
+        $regional_credit_manager_rawalakot = User::create([
+            'name' => 'Regional Credit Manager Mirpur',
+            'branch_id' => 6,
+            'email' =>'rcm.mpr' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_credit_manager_rawalakot->assignRole($regional_credit_manager);
+        $regional_credit_manager_rawalakot->syncPermissions($regionalCreditManagerPermissions);
+
+        $regional_credit_officer_rawalakot = User::create([
+            'name' => 'Regional Credit Officer Rawalakot',
+            'branch_id' => 6,
+            'email' => 'rcm.mpr.officer' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_credit_officer_rawalakot->assignRole($regional_credit_officer);
+        $regional_credit_officer_rawalakot->syncPermissions($regionalCreditOfficerPermissions);
+
+// Create and assign for Kotli
+        $regional_credit_manager_kotli = User::create([
+            'name' => 'Regional Credit Manager',
+            'branch_id' => 5,
+            'email' => 'rcm.kti' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_credit_manager_kotli->assignRole($regional_credit_manager);
+        $regional_credit_manager_kotli->syncPermissions($regionalCreditManagerPermissions);
+
+        $regional_credit_officer_kotli = User::create([
+            'name' => 'Regional Credit Officer Kotli',
+            'branch_id' => 5,
+            'email' => 'rcm.kti.officer' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_credit_officer_kotli->assignRole($regional_credit_officer);
+        $regional_credit_officer_kotli->syncPermissions($regionalCreditOfficerPermissions);
+
+// Create and assign for Regional Heads
+        $regional_head_rawalakot = User::create([
+            'name' => 'Regional Head Rawalakot',
+            'branch_id' => 6,
+            'email' => 'rc.rwk' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_head_rawalakot->assignRole($regional_head);
+        $regional_head_rawalakot->syncPermissions($regionalHeadPermissions);
+
+        $regional_head_kotli = User::create([
+            'name' => 'Regional Head Kotli',
+            'branch_id' => 5,
+            'email' => 'rc.kti' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_head_kotli->assignRole($regional_head);
+        $regional_head_kotli->syncPermissions($regionalHeadPermissions);
+
+        $regional_head_mirpur = User::create([
+            'name' => 'Regional Head Mirpur',
+            'branch_id' => 5,
+            'email' => 'rc.mpr' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_head_mirpur->assignRole($regional_head);
+        $regional_head_mirpur->syncPermissions($regionalHeadPermissions);
+
     }
     // php artisan migrate:fresh --seed --seeder=PermissionsDemoSeeder
-
-    /*
-
-TRUNCATE `model_has_permissions`;
-TRUNCATE `model_has_roles`;
-TRUNCATE `permissions`;
-TRUNCATE `roles`;
-TRUNCATE `role_has_permissions`;
-TRUNCATE `users`;
-    // php artisan db:seed --class=PermissionsDemoSeeder
-     */
-    // php artisan migrate --path=./database/migrations/2024_05_27_110713_create_loan_statuses_table.php
 }
