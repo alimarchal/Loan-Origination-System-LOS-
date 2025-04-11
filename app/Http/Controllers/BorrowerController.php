@@ -198,6 +198,7 @@ class BorrowerController extends Controller implements HasMiddleware
     public function show(Borrower $borrower)
     {
         $user = Auth::user();
+
         return view('borrowers.print', compact('borrower','user'));
     }
 

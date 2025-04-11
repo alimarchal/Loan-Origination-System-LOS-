@@ -82,6 +82,7 @@ class DashboardController extends Controller
         })->toArray();
 
         $query = $this->getBorrowerQueryBasedOnRole($user);
+
         $counts = $query->groupBy('status')
             ->selectRaw('status, count(*) as count')
             ->pluck('count', 'status')
