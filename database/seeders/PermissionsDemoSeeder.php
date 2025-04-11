@@ -255,34 +255,34 @@ class PermissionsDemoSeeder extends Seeder
         $regionalCreditOfficerPermissions = $roles['Regional Credit Officer'];
         $regionalHeadPermissions = $roles['Regional Head'];
 
-// Find roles
+        // Find roles
         $regional_credit_manager = Role::findByName('Regional Credit Manager');
         $regional_credit_officer = Role::findByName('Regional Credit Officer');
         $regional_head = Role::findByName('Regional Head');
 
-// Create and assign for Muzaffarabad
-        $regional_credit_manager_muzaffarabad = User::create([
-            'name' => 'Regional Credit Manager',
-            'branch_id' => 1,
-            'email' => 'rcm.mzd' . '@bankajk.com',
-            'password' => Hash::make('password123'),
-        ]);
-        $regional_credit_manager_muzaffarabad->assignRole($regional_credit_manager);
-        $regional_credit_manager_muzaffarabad->syncPermissions($regionalCreditManagerPermissions);
+//        // Create and assign for Muzaffarabad
+//        $regional_credit_manager_muzaffarabad = User::create([
+//            'name' => 'Regional Credit Manager',
+//            'branch_id' => 1,
+//            'email' => 'rcm.mzd' . '@bankajk.com',
+//            'password' => Hash::make('password123'),
+//        ]);
+//        $regional_credit_manager_muzaffarabad->assignRole($regional_credit_manager);
+//        $regional_credit_manager_muzaffarabad->syncPermissions($regionalCreditManagerPermissions);
+//
+//        $regional_credit_officer_muzaffarabad = User::create([
+//            'name' => 'Regional Credit Officer MZD',
+//            'branch_id' => 1,
+//            'email' => 'rcm.mzd.officer' . '@bankajk.com',
+//            'password' => Hash::make('password123'),
+//        ]);
+//        $regional_credit_officer_muzaffarabad->assignRole($regional_credit_officer);
+//        $regional_credit_officer_muzaffarabad->syncPermissions($regionalCreditOfficerPermissions);
 
-        $regional_credit_officer_muzaffarabad = User::create([
-            'name' => 'Regional Credit Officer MZD',
-            'branch_id' => 1,
-            'email' => 'rcm.mzd.officer' . '@bankajk.com',
-            'password' => Hash::make('password123'),
-        ]);
-        $regional_credit_officer_muzaffarabad->assignRole($regional_credit_officer);
-        $regional_credit_officer_muzaffarabad->syncPermissions($regionalCreditOfficerPermissions);
-
-// Create and assign for Rawalakot/Mirpur
+        // Create and assign for Rawalakot/Mirpur
         $regional_credit_manager_rawalakot = User::create([
-            'name' => 'Regional Credit Manager Mirpur',
-            'branch_id' => 6,
+            'name' => 'RCM Mirpur',
+            'branch_id' => 2,
             'email' =>'rcm.mpr' . '@bankajk.com',
             'password' => Hash::make('password123'),
         ]);
@@ -290,7 +290,7 @@ class PermissionsDemoSeeder extends Seeder
         $regional_credit_manager_rawalakot->syncPermissions($regionalCreditManagerPermissions);
 
         $regional_credit_officer_rawalakot = User::create([
-            'name' => 'Regional Credit Officer Rawalakot',
+            'name' => 'RCO Rawalakot',
             'branch_id' => 6,
             'email' => 'rcm.mpr.officer' . '@bankajk.com',
             'password' => Hash::make('password123'),
@@ -338,12 +338,22 @@ class PermissionsDemoSeeder extends Seeder
 
         $regional_head_mirpur = User::create([
             'name' => 'Regional Head Mirpur',
-            'branch_id' => 5,
+            'branch_id' => 2,
             'email' => 'rc.mpr' . '@bankajk.com',
             'password' => Hash::make('password123'),
         ]);
         $regional_head_mirpur->assignRole($regional_head);
         $regional_head_mirpur->syncPermissions($regionalHeadPermissions);
+
+
+        $regional_credit_officer_mirpur = User::create([
+            'name' => 'Regional Credit Officer Mirpur',
+            'branch_id' => 5,
+            'email' => 'rcm.kti.officer' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_credit_officer_mirpur->assignRole($regional_credit_officer);
+        $regional_credit_officer_mirpur->syncPermissions($regionalCreditOfficerPermissions);
 
     }
     // php artisan migrate:fresh --seed --seeder=PermissionsDemoSeeder
