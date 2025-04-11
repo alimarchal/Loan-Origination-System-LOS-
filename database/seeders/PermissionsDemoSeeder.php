@@ -280,10 +280,20 @@ class PermissionsDemoSeeder extends Seeder
 //        $regional_credit_officer_muzaffarabad->syncPermissions($regionalCreditOfficerPermissions);
 
         // Create and assign for Rawalakot/Mirpur
-        $regional_credit_manager_rawalakot = User::create([
+        $regional_credit_manager_mirpur = User::create([
             'name' => 'RCM Mirpur',
             'branch_id' => 2,
             'email' =>'rcm.mpr' . '@bankajk.com',
+            'password' => Hash::make('password123'),
+        ]);
+        $regional_credit_manager_mirpur->assignRole($regional_credit_manager);
+        $regional_credit_manager_mirpur->syncPermissions($regionalCreditManagerPermissions);
+
+
+        $regional_credit_manager_rawalakot = User::create([
+            'name' => 'RCM Rawalakot',
+            'branch_id' => 6,
+            'email' =>'rcm.rwk' . '@bankajk.com',
             'password' => Hash::make('password123'),
         ]);
         $regional_credit_manager_rawalakot->assignRole($regional_credit_manager);
@@ -292,11 +302,13 @@ class PermissionsDemoSeeder extends Seeder
         $regional_credit_officer_rawalakot = User::create([
             'name' => 'RCO Rawalakot',
             'branch_id' => 6,
-            'email' => 'rcm.mpr.officer' . '@bankajk.com',
+            'email' => 'rcm.rwk.officer' . '@bankajk.com',
             'password' => Hash::make('password123'),
         ]);
         $regional_credit_officer_rawalakot->assignRole($regional_credit_officer);
         $regional_credit_officer_rawalakot->syncPermissions($regionalCreditOfficerPermissions);
+
+        
 
 // Create and assign for Kotli
         $regional_credit_manager_kotli = User::create([
@@ -348,8 +360,8 @@ class PermissionsDemoSeeder extends Seeder
 
         $regional_credit_officer_mirpur = User::create([
             'name' => 'Regional Credit Officer Mirpur',
-            'branch_id' => 5,
-            'email' => 'rcm.kti.officer' . '@bankajk.com',
+            'branch_id' => 2,
+            'email' => 'rcm.mpr.officer' . '@bankajk.com',
             'password' => Hash::make('password123'),
         ]);
         $regional_credit_officer_mirpur->assignRole($regional_credit_officer);
