@@ -85,7 +85,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-2">
                 <!-- Card 1 -->
-                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                <a href="{{ route('applicant.index', ['filter[latestStatus.loanStatus.name]' => 'Draft']) }}" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
                     <div class="p-5">
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
@@ -104,7 +104,7 @@
                 </a>
 
                 <!-- Card 2 -->
-                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                <a href="{{ route('applicant.index', ['filter[latestStatus.loanStatus.name]' => 'Submitted']) }}" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
                     <div class="p-5">
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
@@ -123,7 +123,7 @@
                 </a>
 
                 <!-- Card 3 -->
-                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                <a href="{{ route('applicant.index', ['filter[latestStatus.loanStatus.name]' => 'In Process']) }}" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
                     <div class="p-5">
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
@@ -142,7 +142,7 @@
                 </a>
 
                 <!-- Card 4 -->
-                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                <a href="{{ route('applicant.index', ['filter[latestStatus.loanStatus.name]' => 'Approved']) }}" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
                     <div class="p-5">
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
@@ -161,7 +161,7 @@
                 </a>
 
                 <!-- Card 5 -->
-                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                <a href="{{ route('applicant.index', ['filter[latestStatus.loanStatus.name]' => 'Declined']) }}" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
                     <div class="p-5">
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">
@@ -180,7 +180,7 @@
                 </a>
 
                 <!-- Card 6 -->
-                <a href="javascript:;" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
+                <a href="{{ route('applicant.index', ['filter[latestStatus.loanStatus.name]' => 'Returned With Observation']) }}" class="transform hover:scale-110 transition duration-300 shadow-xl rounded-lg intro-y bg-white">
                     <div class="p-5">
                         <div class="grid grid-cols-3 gap-1">
                             <div class="col-span-2">

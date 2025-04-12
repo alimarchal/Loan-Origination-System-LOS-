@@ -211,6 +211,21 @@ class Borrower extends Model
         return $this->statusHistories()->latest()->first();
     }
 
+    public function latestStatus(): HasOne
+    {
+        return $this->hasOne(LoanStatusHistory::class)->latestOfMany();
+    }
+
+    public function latestStatusHistory(): HasOne
+    {
+        return $this->hasOne(LoanStatusHistory::class)->latestOfMany();
+    }
+
+    public function loanStatus(): BelongsTo
+    {
+        return $this->belongsTo(LoanStatus::class, 'loan_status_id');
+    }
+
 
     public function sanction_advice(): HasOne
     {

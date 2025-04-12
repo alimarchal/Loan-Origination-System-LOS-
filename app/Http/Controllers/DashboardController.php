@@ -15,11 +15,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Get the authenticated user
         $user = Auth::user();
 
-        // Fetch data for dashboard components
-        //  $loanSubCatGroup = $this->getLoanSubCategoryGroup();
+
         $genderWise = $this->getGenderWiseData();
         $primaryCards = $this->getPrimaryCards($user);
         $secondaryCards = $this->getSecondaryCards($user);
@@ -47,8 +45,8 @@ class DashboardController extends Controller
      */
     private function getGenderWiseData(): array
     {
-        return ['Male' => Borrower::where('gender', 'Male')->where('is_lock', 'Yes')->count(),
-            'Female' => Borrower::where('gender', 'Female')->where('is_lock', 'Yes')->count()];
+        return ['Male' => Borrower::where('gender', 'Male')->count(),
+            'Female' => Borrower::where('gender', 'Female')->count()];
     }
 
     /**
@@ -77,12 +75,15 @@ class DashboardController extends Controller
      */
     private function getSecondaryCards($user): array
     {
+        // Creates an array with all loan status names as keys and 0 as values
         $secondaryCards = LoanStatus::pluck('name')->flip()->map(function () {
             return 0;
         })->toArray();
 
+        // Gets a query builder instance filtered according to user's role
         $query = $this->getBorrowerQueryBasedOnRole($user);
 
+        // Counts loans grouped by status
         $counts = $query->groupBy('status')
             ->selectRaw('status, count(*) as count')
             ->pluck('count', 'status')
@@ -96,7 +97,8 @@ class DashboardController extends Controller
      */
     private function getBorrowerQueryBasedOnRole($user)
     {
-        $query = Borrower::where('is_lock', 'Yes');
+        // $query = Borrower::where('is_lock', 'Yes');
+        $query = Borrower::query(); // Use this instead
 
         if ($user->hasRole(['Branch Manager', 'Branch Credit Manager', 'Branch Credit Officer'])) {
             $query->where('branch_id', $user->branch_id);

@@ -41,4 +41,11 @@ class LoanStatusHistory extends Model
     {
         return $this->belongsTo(LoanStatus::class);
     }
+
+
+
+    public function loanStatus(): BelongsTo
+    {
+        return $this->belongsTo(LoanStatus::class, 'loan_status_id');
+    }
 }

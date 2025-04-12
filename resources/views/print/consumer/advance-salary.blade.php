@@ -1426,112 +1426,214 @@
                             @csrf
                             @method('post')
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style="font-size: 15px!important;">
+
                                 <div>
                                     <x-label for="submit_to" value="{{ __('Forward To (Submit To)') }}"/>
-                                        @php
-                                            $currentUserRole = Auth::user()->getRoleNames()->first();
-                                            $roleMappings = [
-                                                'Branch Manager' => [
-                                                    'roles' => ['Regional Credit Manager'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Branch Credit Manager' => [
-                                                    'roles' => ['Branch Manager', 'Regional Credit Manager'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Branch Credit Officer' => [
-                                                    'roles' => ['Branch Credit Manager', 'Branch Manager'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Regional Credit Manager' => [
-                                                    'roles' => ['Regional Credit Officer'],
-                                                    'includeRegionalChiefs' => true,
-                                                    'includeBranchManager' => true,
-                                                ],
-                                                'Regional Credit Officer' => [
-                                                    'roles' => ['Regional Credit Manager'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Regional Head' => [
-                                                    'roles' => ['Divisional Head CRBD', 'Divisional Head CMD','Regional Credit Manager'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Divisional Head CRBD' => [
-                                                    'roles' => ['Senior Manager CRBD', 'Divisional Head CMD','Regional Head'],
-                                                    'includeRegionalChiefs' => true,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Senior Manager CRBD' => [
-                                                    'roles' => ['Manager Officer CRBD', 'Divisional Head CRBD'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Manager Officer CRBD' => [
-                                                    'roles' => ['Senior Manager CRBD'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Divisional Head CMD' => [
-                                                    'roles' => ['Senior Manager CMD','Regional Head'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Senior Manager CMD' => [
-                                                    'roles' => ['Manager Officer CMD', 'Divisional Head CMD'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Manager Officer CMD' => [
-                                                    'roles' => ['Senior Manager CMD'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                                'Regional Manager CAD' => [
-                                                    'roles' => ['Divisional Head CMD'],
-                                                    'includeRegionalChiefs' => false,
-                                                    'includeBranchManager' => false,
-                                                ],
-                                            ];
+                                    @php
+                                        $currentUserRole = Auth::user()->getRoleNames()->first();
+                                        $currentUserId = Auth::user()->id;
+                                        $currentUserBranch = Auth::user()->branch;
+                                        $currentUserRegionId = $currentUserBranch ? $currentUserBranch->region_id : null;
+                                        $currentBorrowerRegionId = $borrower->region_id ? $borrower->region_id : null;
 
-                                            $users = collect();
+                                        $roleMappings = [
+                                            'Branch Manager' => [
+                                                'roles' => ['Regional Credit Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Branch Credit Manager' => [
+                                                'roles' => ['Branch Manager', 'Regional Credit Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Branch Credit Officer' => [
+                                                'roles' => ['Branch Credit Manager', 'Branch Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Regional Credit Manager' => [
+                                                'roles' => ['Regional Credit Officer'],
+                                                'includeRegionalChiefs' => true,
+                                                'includeBranchManager' => true,
+                                            ],
+                                            'Regional Credit Officer' => [
+                                                'roles' => ['Regional Credit Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Regional Head' => [
+                                                'roles' => ['Divisional Head CRBD', 'Divisional Head CMD','Regional Credit Manager'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Divisional Head CRBD' => [
+                                                'roles' => ['Senior Manager CRBD', 'Divisional Head CMD','Regional Head'],
+                                                'includeRegionalChiefs' => true,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Senior Manager CRBD' => [
+                                                'roles' => ['Manager Officer CRBD', 'Divisional Head CRBD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Manager Officer CRBD' => [
+                                                'roles' => ['Senior Manager CRBD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Divisional Head CMD' => [
+                                                'roles' => ['Manager Officer CMD', 'Divisional Head CMD', 'Divisional Head CRBD', 'Regional Head', 'Senior Manager CMD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Senior Manager CMD' => [
+                                                'roles' => ['Manager Officer CMD', 'Divisional Head CMD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Manager Officer CMD' => [
+                                                'roles' => ['Senior Manager CMD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                            'Regional Manager CAD' => [
+                                                'roles' => ['Divisional Head CMD'],
+                                                'includeRegionalChiefs' => false,
+                                                'includeBranchManager' => false,
+                                            ],
+                                        ];
 
-                                            if (isset($roleMappings[$currentUserRole])) {
-                                                $mapping = $roleMappings[$currentUserRole];
+                                        $users = collect();
 
-                                                $users = \App\Models\User::role($mapping['roles'])->get();
 
-                                                if ($mapping['includeRegionalChiefs'] && $borrower) {
-                                                    $regionalChiefs = \App\Models\User::role('Regional Head')
-                                                        ->whereIn('branch_id', \App\Models\User::get_branches_by_region($borrower->branch->region_id))
-                                                        ->get();
-                                                    $users = $users->merge($regionalChiefs);
+
+                                        if (isset($roleMappings[$currentUserRole])) {
+                                            $mapping = $roleMappings[$currentUserRole];
+
+                                            if ($currentUserRole === 'Regional Credit Manager') {
+                                                    // Get Regional Credit Managers from the same region only
+                                                    $filterRCOs = \App\Models\User::role('Regional Credit Officer')
+                                                        ->whereHas('branch', function($query) use ($currentBorrowerRegionId) {
+                                                            $query->where('region_id', $currentBorrowerRegionId);
+                                                       })->where('id', '!=', $currentUserId)->get();
+
+                                                    $users = $filterRCOs;
+                                                    $regionalHeads = \App\Models\User::role('Regional Head')
+                                                            ->whereHas('branch', function($query) use ($currentBorrowerRegionId) {
+                                                                $query->where('region_id', $currentBorrowerRegionId);
+                                                            })
+                                                            ->where('id', '!=', $currentUserId)
+                                                            ->get();
+                                                     $users = $users->merge($regionalHeads);
+
+                                                     $borrowerBranchManager = \App\Models\User::role('Branch Manager')
+                                                            ->where('branch_id',$borrower->branch_id)
+                                                            ->where('id', '!=', $currentUserId)
+                                                            ->get();
+
+                                                     $users = $users->merge($borrowerBranchManager);
+
+                                                }
+                                                elseif ($currentUserRole === 'Regional Credit Officer') {
+                                                    // Get Regional Credit Managers from the same region only
+                                                    $filterRCM = \App\Models\User::role('Regional Credit Manager')
+                                                        ->whereHas('branch', function($query) use ($currentBorrowerRegionId) {
+                                                            $query->where('region_id', $currentBorrowerRegionId);
+                                                       })->where('id', '!=', $currentUserId)->get();
+
+                                                    $users = $filterRCM;
+                                                    $regionalHeads = \App\Models\User::role('Regional Head')
+                                                            ->whereHas('branch', function($query) use ($currentBorrowerRegionId) {
+                                                                $query->where('region_id', $currentBorrowerRegionId);
+                                                            })
+                                                            ->where('id', '!=', $currentUserId)
+                                                            ->get();
+                                                     $users = $users->merge($regionalHeads);
+
+                                                }
+                                                elseif ($currentUserRole === 'Divisional Head CRBD') {
+
+
+                                                    // Get Regional Credit Managers from the same region only
+                                                    $filterDHsRCMs = \App\Models\User::role(['Manager Officer CMD', 'Divisional Head CMD', 'Divisional Head CRBD', 'Senior Manager CMD'])->where('id', '!=', $currentUserId)->get();
+
+                                                    $users = $filterDHsRCMs;
+                                                    $regionalHeads = \App\Models\User::role('Regional Head')
+                                                            ->whereHas('branch', function($query) use ($currentBorrowerRegionId) {
+                                                                $query->where('region_id', $currentBorrowerRegionId);
+                                                            })
+                                                            ->where('id', '!=', $currentUserId)
+                                                            ->get();
+                                                     $users = $users->merge($regionalHeads);
+
                                                 }
 
-                                                if ($mapping['includeBranchManager'] && $borrower) {
-                                                    $branchManager = \App\Models\User::role('Branch Manager')
-                                                        ->where('branch_id', $borrower->branch_id)
-                                                        ->first();
-                                                    if ($branchManager) {
-                                                        $users->push($branchManager);
-                                                    }
+                                             elseif ($currentUserRole === 'Regional Head') {
+
+
+                                                    // Get Regional Credit Managers from the same region only
+                                                    $filterSMCRBDaDHCMDs = \App\Models\User::role(['Senior Manager CRBD', 'Divisional Head CMD'])->where('id', '!=', $currentUserId)->get();
+                                                    $users = $filterSMCRBDaDHCMDs;
+                                                    $regionalHeads = \App\Models\User::role('Regional Credit Manager')
+                                                            ->whereHas('branch', function($query) use ($currentBorrowerRegionId) {
+                                                                $query->where('region_id', $currentBorrowerRegionId);
+                                                            })
+                                                            ->where('id', '!=', $currentUserId)
+                                                            ->get();
+
+                                                     $users = $users->merge($regionalHeads);
+
                                                 }
+
+                                             elseif ($currentUserRole === 'Senior Manager CRBD') {
+
+                                                    // Get Regional Credit Managers from the same region only
+                                                    $filterMOCDHC = \App\Models\User::role(['Manager Officer CRBD', 'Divisional Head CRBD'])->where('id', '!=', $currentUserId)->get();
+
+                                                    $users = $filterMOCDHC;
+                                                    $regionalHeads = \App\Models\User::role('Regional Head')
+                                                            ->whereHas('branch', function($query) use ($currentBorrowerRegionId) {
+                                                                $query->where('region_id', $currentBorrowerRegionId);
+                                                            })
+                                                            ->where('id', '!=', $currentUserId)
+                                                            ->get();
+
+                                                     $users = $users->merge($regionalHeads);
+
+                                                }
+
+
+                                             elseif ($currentUserRole === 'Senior Manager CMD') {
+                                                    // Get Regional Credit Managers from the same region only
+                                                    $filterMOCDHC = \App\Models\User::role(['Manager Officer CMD', 'Divisional Head CMD'])->where('id', '!=', $currentUserId)->get();
+                                                    $users = $users->merge($filterMOCDHC);
+                                            }
+
+                                            elseif ($currentUserRole === 'Manager Officer CMD') {
+                                                    // Get Regional Credit Managers from the same region only
+                                                    $filterMOCDHC = \App\Models\User::role(['Senior Manager CMD'])->where('id', '!=', $currentUserId)->get();
+                                                    $users = $users->merge($filterMOCDHC);
+                                            }
+                                             elseif ($currentUserRole === 'Regional Manager CAD') {
+                                                    // Get Regional Credit Managers from the same region only
+                                                    $filterMOCDHC = \App\Models\User::role(['Divisional Head CMD'])->where('id', '!=', $currentUserId)->get();
+                                                    $users = $users->merge($filterMOCDHC);
                                             }
 
                                             $users = $users->unique('id')->sortBy('name');
-                                        @endphp
+                                        }
+                                    @endphp
 
-                                        <select name="submit_to" id="submit_to" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
-                                            <option value="">Select a user to submit to</option>
-                                            @foreach($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->getRoleNames()->first() }})</option>
-                                            @endforeach
-                                        </select>
 
+
+
+                                    <select name="submit_to" id="submit_to" class="select2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-black focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required>
+                                        <option value="">Select a user to submit to</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->getRoleNames()->first() }})</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
 
@@ -1628,7 +1730,6 @@
 
                         </form>
                     </div>
-
                 @else
 
                     <div class="mx-auto p-12" style="font-size: 15px;">

@@ -115,7 +115,7 @@
                                     </td>
 
 
-                                    <td class="py-1 px-2 text-center">
+                                    <td class="py-1 px-2 text-left">
                                         @foreach ($user->roles as $role)
                                             {{ $role->name }}
                                             @if (!$loop->last)

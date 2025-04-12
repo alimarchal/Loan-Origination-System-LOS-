@@ -64,7 +64,7 @@ class BorrowerController extends Controller implements HasMiddleware
             });
         } else {
             // Other roles can only see borrowers from their branch
-            $query->where('branch_id', $user->branch_id);
+//            $query->where('branch_id', $user->branch_id);
         }
 
         $borrowers = QueryBuilder::for($query)
@@ -78,6 +78,14 @@ class BorrowerController extends Controller implements HasMiddleware
                 AllowedFilter::scope('date_of_birth_between'),
                 AllowedFilter::exact('loan_category_id'),
                 AllowedFilter::exact('loan_sub_category_id'),
+                AllowedFilter::exact('pending_at_region'),
+                AllowedFilter::exact('pending_at_branch'),
+                AllowedFilter::exact('pending_at_head_office'),
+                AllowedFilter::exact('latestStatus.loan_status_id'),
+                AllowedFilter::exact('latestStatus.loanStatus.name'),
+
+//                'latestStatus',
+//                'latestStatus.loanStatus',
                 'borrower_type',
                 'name',
                 'relationship_status',
@@ -92,7 +100,14 @@ class BorrowerController extends Controller implements HasMiddleware
                 'home_ownership_status',
                 'nationality',
             ])
-            ->with(['region', 'branch', 'loan_category', 'loan_sub_category'])
+            ->with([
+                'region',
+                'branch',
+                'loan_category',
+                'loan_sub_category',
+                'latestStatus',
+                'latestStatus.loanStatus'
+                ])
             ->paginate(15)
             ->withQueryString();
 
